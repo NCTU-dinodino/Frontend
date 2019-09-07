@@ -37,7 +37,8 @@ const getCourseDetail = (payload) => dispatch => {
       dispatch(actions.graduation.detail.store(res.data))
     })
     .catch(err => {
-      dispatch(actions.graduation.detail.store(FakeData.GraduationItems_Revised))
+      // dispatch(actions.graduation.detail.store(FakeData.GraduationDetails_empty)) // for error display
+      dispatch(actions.graduation.detail.store(FakeData.GraduationDetails)) // for dev test
       console.log(err)
   })
 }

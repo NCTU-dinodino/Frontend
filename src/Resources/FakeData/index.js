@@ -1,5 +1,6 @@
-import GraduationItems from './GraduationItems.json'
-import GraduationItems_Revised from './GraduationItems_Revised.json'
+
+import GraduationDetails from './GraduationDetails.json'
+import GraduationDetails_empty from './GraduationDetails_empty.json'
 import Course from './Course.json'
 import CoursePass from './CoursePass.json'
 import PrintData from './PrintData.json'
@@ -18,8 +19,8 @@ import Credit from './Credit.json'
 import ProfessorProject from './ProfessorProject.json'
 
 export default {
-  GraduationItems,
-  GraduationItems_Revised,
+  GraduationDetails,
+  GraduationDetails_empty,
   Course,
   CoursePass,
   PrintData,

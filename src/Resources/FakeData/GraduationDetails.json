@@ -1,8 +1,8 @@
 [
   {
     "title": "共同必修",
-    "credit": 58,
-    "require": 61,
+    "credit": 54,
+    "require": 58,
     "course": [
       {
         "cn": "基礎程式設計",
@@ -407,23 +407,9 @@
     ]
   },
   {
-    "title": "核心課程",
-    "credit": 0,
-    "require": 0,
-    "selection": true,
-    "course": []
-  },
-  {
-    "title": "副核心與他組核心",
-    "credit": 0,
-    "require": 0,
-    "selection": true,
-    "course": []
-  },
-  {
     "title": "專業選修",
     "credit": 17,
-    "require": 27,
+    "require": 30,
     "course": [
       {
         "cn": "微分方程(英文班)",
@@ -1090,16 +1076,16 @@
     "course": []
   },
   {
-    "total": 101,
+    "total": 97,
     "total_require": 128,
-    "compulsory": 58,
+    "compulsory": 54,
     "compulse_require": 58,
     "core": 0,
     "core_require": 0,
     "vice": 0,
     "vice_require": 0,
     "pro": 17,
-    "pro_require": 27,
+    "pro_require": 30,
     "english": 3,
     "english_require": 1,
     "other": 2,
