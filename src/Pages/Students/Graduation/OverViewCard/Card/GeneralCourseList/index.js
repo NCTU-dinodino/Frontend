@@ -70,7 +70,7 @@ const Index = (props) => {
           <GeneralCoursePopover
             key={index}
             type={type}
-            title={props.title}
+            title={`${props.title}-${type.dimension}`}
             assis={props.assis}
             rwd={props.rwd}
           />
