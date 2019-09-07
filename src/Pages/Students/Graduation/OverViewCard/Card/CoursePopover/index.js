@@ -5,29 +5,23 @@ import MoveGroupButton from '../MoveGroupButton'
 
 // 決定普通課程的按鈕顏色
 const courseBtnColor = (completed, reason) => {
-  let color = completed
-    ? (reason === 'notCS')
-      ? '#a29951'
-      : (reason === 'free1' || reason === 'free2' || reason === 'english')
-        ? '#6A94A2'
-        : (reason === 'now')
-          ? '#ab6bd9'
-          : '#3db586'
-    : (reason === 'now')
-      ? '#ab6bd9'
-      : '#d95467'
-  return color
+  if (completed) {
+    if (reason === 'notCS') return '#a29951'
+    if (reason === 'free1' || reason === 'free2' || reason === 'english') return '#6A94A2'
+    if (reason === 'now') return '#ab6bd9'
+    return '#3db586'
+  }
+  else {
+    if (reason === 'now') return '#ab6bd9'
+    return '#d95467'
+  }
 }
 
 // 決定通識課程的按鈕顏色
 const generalCourseBtnColor = (courses) => {
-  if (courses.length === 0) {
-    return '#d95467'
-  } else if (courses.length === 1 && courses[0].reason === 'now') {
-    return '#ab6bd9'
-  } else {
-    return '#3cab7d'
-  }
+  if (courses.length === 0) return '#d95467'
+  if (courses.length === 1 && courses[0].reason === 'now') return '#ab6bd9'
+  return '#3cab7d'
 }
 
 const CoursePopover = props => {
@@ -81,7 +75,7 @@ const GeneralCoursePopover = props => {
           type.courses.map((course, index) => (
             <li key={index}>
               { course.cn }
-              <div style={{ float: 'right', color: course.color }}>{course.score}</div>
+              <div style={{ float: 'right', color: course.color }}>{ course.score }</div>
               <div style={{ margin: '0 0 15px 8px' }}>
                 {/* An option for student to move a course to other group */}
                 {

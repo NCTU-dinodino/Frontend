@@ -106,7 +106,7 @@ const GeneralNewCourseList = (props) => {
               <GeneralCoursePopover
                 key={index}
                 type={type}
-                title={props.title}
+                title={`${props.title}-${type.dimension}`}
                 assis={props.assis}
                 rwd={props.rwd}
               />
@@ -135,7 +135,7 @@ const GeneralNewCourseList = (props) => {
                 key={index}
                 label={course.cn}
                 course={course}
-                title={props.title}
+                title={`${props.title}-校基本`}
                 assis={props.assis}
                 rwd={props.rwd}
               />
@@ -164,7 +164,7 @@ const GeneralNewCourseList = (props) => {
                 key={index}
                 label={course.cn}
                 course={course}
-                title={props.title}
+                title={`${props.title}-跨院`}
                 assis={props.assis}
                 rwd={props.rwd}
               />
