@@ -55,37 +55,41 @@ const initialState = {
     other_number: 0,
     current_accept: 0,
     groups: [
-      {
-        research_title: '此為測試資料',
-        participants: [
-          {
-            student_id: '0123334',
-            sname: '孔甲己',
-            detail: '...',
-            score: '100',
-            comment: 'yo'
-          },
-          {
-            student_id: '0123335',
-            sname: '孔乙己',
-            detail: '...',
-            score: '20'
-          },
-          {
-            student_id: '0123336',
-            sname: '孔丙己',
-            detail: '...',
-            score: '30'
-          },
-          {
-            student_id: '0123333',
-            sname: '孔丁己',
-            detail: '...',
-            score: '40'
-          }
-        ],
-        year: '188-1'
-      },
+      // {
+      //   research_title: '此為測試資料',
+      //   participants: [
+      //     {
+      //       student_id: '0123334',
+      //       sname: '孔甲己',
+      //       detail: '...',
+      //       score: '100',
+      //       comment: 'yo',
+      //       student_status: '1'
+      //     },
+      //     {
+      //       student_id: '0123335',
+      //       sname: '孔乙己',
+      //       detail: '...',
+      //       score: '20',
+      //         student_status: 1
+      //     },
+      //     {
+      //       student_id: '0123336',
+      //       sname: '孔丙己',
+      //       detail: '...',
+      //       score: '30',
+      //         student_status: 2
+      //     },
+      //     {
+      //       student_id: '0123333',
+      //       sname: '孔丁己',
+      //       detail: '...',
+      //       score: '40',
+      //         student_status: 3
+      //     }
+      //   ],
+      //   year: '188-1'
+      // },
       {
         research_title: '...',
         participants: [
