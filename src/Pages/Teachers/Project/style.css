@@ -35,6 +35,9 @@
 .subTitle-item {
     float: left;
 }
+.subTitle-item-hint {
+    margin: -27px 0 0 22px;
+}
 
 .subTitle-item-mui {
     position: relative;
