@@ -28,7 +28,7 @@ class GroupList extends React.Component {
     constructor (props) {
         super(props)
         this.state = {
-            // loading: true,
+            loading: true,
             message: '系統正在讀取資料中，請耐心等候。',
             chipOpen: new Map(),
             semVal: getSemester(),
@@ -38,7 +38,7 @@ class GroupList extends React.Component {
     }
 
     fetchData (year) {
-        // this.setState({loading: true})
+        this.setState({loading: true})
         let tid = this.props.idCard.teacher_id
         if( tid === '001' ){
             // NOT A VALID TID
@@ -261,7 +261,7 @@ const GroupButton = (props) => (
                       <Chip className='group-chip'
                             key={i}
                             onClick={() => props.handleChip(props.key + p.student_id, p.replace_pro)}
-                            backgroundColor={p.replace_pro===1 ? 'red': p.student_status===1 ? '#BDD8CC' : '#FFCD80'}>
+                            backgroundColor={p.replace_pro===1 ? 'red': (p.student_status===1 || p.student_status==='1') ? '#BDD8CC' : '#FFCD80'}>
                         <Avatar src={defaultPic}/> {p.student_id} {p.sname}
                         <span style={{color: 'red'}}>  {p.score}</span>
                       </Chip>

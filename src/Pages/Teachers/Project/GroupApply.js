@@ -250,7 +250,7 @@ const ApplyButton = (props) => {
             {props.item.participants.map((p, i) => (
               <div key={i}>
                 <Chip className='group-chip'
-                      backgroundColor={ p.student_status === 1 ? '#BDD8CC' : '#FFCD80' }
+                      backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
                       key={i}
                       onClick={() => props.handleChip(props.key + p.student_id)}>
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
