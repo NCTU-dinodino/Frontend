@@ -39,7 +39,7 @@ export const getCreditList = () => dispatch => {
     .get('/students/offsetApply/list')
     .then(res => dispatch(actions.credit.list.store(res.data)))
     .catch(err => {
-      dispatch(actions.credit.list.store(FakeData.Credit))
+      // dispatch(actions.credit.list.store(FakeData.Credit))
       console.log(err)
     })
 }

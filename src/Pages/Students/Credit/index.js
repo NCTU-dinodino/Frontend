@@ -102,7 +102,7 @@ class Index extends React.Component {
       this.setState({ doPrinting: false })
       // 設定橫向列印
       let fileStyle = document.createElement('style')
-      fileStyle.innerHTML = "@page{size: landscape;}"
+      fileStyle.innerHTML = '@page{size: landscape;}'
       window.document.head.appendChild(fileStyle)
       window.print()
       // 取消橫向列印
@@ -142,11 +142,14 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes } = this.props
-    const waiveCourse = this.props.creditList.waive_course.filter((data) => this.checkFilter(0, data.status))
-    const exemptCourse = this.props.creditList.exempt_course.filter((data) => this.checkFilter(1, data.status))
-    const compulsoryCourse = this.props.creditList.compulsory_course.filter((data) => this.checkFilter(2, data.status))
-    const englishCourse = this.props.creditList.english_course.filter((data) => this.checkFilter(3, data.status))
+    const { classes, creditList } = this.props
+    const waiveCourse = creditList.waive_course.filter((data) => this.checkFilter(0, data.status))
+    const exemptCourse = creditList.exempt_course.filter((data) => this.checkFilter(1, data.status))
+    const compulsoryCourse = creditList.compulsory_course.filter((data) => this.checkFilter(2, data.status))
+    const englishCourse = creditList.english_course.filter((data) => this.checkFilter(3, data.status))
+    const waiveCourseForPrint = creditList.waive_course.filter((data) => (data.status !== 3))
+    const exemptCourseForPrint = creditList.exempt_course.filter((data) => (data.status !== 3))
+    const emptyCredit = !waiveCourse.length && !exemptCourse.length && !compulsoryCourse.length && !englishCourse.length
     const anchorElement = this.state.showPrintMenu
     const printFormNumber = this.state.printFormNumber
 
@@ -298,34 +301,27 @@ class Index extends React.Component {
           {/* For PC screen */}
           <div className='col-md-12 hidden-xs' style={{ marginTop: '20px' }}>
             {
-              waiveCourse &&
               waiveCourse.map((data, index) => (
                 <WaiveCoursePanel key={index} data={data} />
               ))
             }
             {
-              exemptCourse &&
               exemptCourse.map((data, index) => (
                 <ExemptCoursePanel key={index} data={data} />
               ))
             }
             {
-              compulsoryCourse &&
               compulsoryCourse.map((data, index) => (
                 <CompulsoryCoursePanel key={index} data={data} />
               ))
             }
             {
-              englishCourse &&
               englishCourse.map((data, index) => (
                 <EnglishCoursePanel key={index} data={data} />
               ))
             }
             {
-              waiveCourse && !waiveCourse.length &&
-              exemptCourse && !exemptCourse.length &&
-              compulsoryCourse && !compulsoryCourse.length &&
-              englishCourse && !englishCourse.length &&
+              emptyCredit &&
               <div
                 className='col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2'
                 style={{ marginTop: '50px' }}
@@ -344,34 +340,27 @@ class Index extends React.Component {
               width: '100vw'
             }}>
             {
-              waiveCourse &&
               waiveCourse.map((data, index) => (
                 <WaiveCoursePanel key={index} data={data} mobile />
               ))
             }
             {
-              exemptCourse &&
               exemptCourse.map((data, index) => (
                 <ExemptCoursePanel key={index} data={data} mobile />
               ))
             }
             {
-              compulsoryCourse &&
               compulsoryCourse.map((data, index) => (
                 <CompulsoryCoursePanel key={index} data={data} mobile />
               ))
             }
             {
-              englishCourse &&
               englishCourse.map((data, index) => (
                 <EnglishCoursePanel key={index} data={data} mobile />
               ))
             }
             {
-              waiveCourse && !waiveCourse.length &&
-              exemptCourse && !exemptCourse.length &&
-              compulsoryCourse && !compulsoryCourse.length &&
-              englishCourse && !englishCourse.length &&
+              emptyCredit &&
               <div
                 className='col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2'
                 style={{ marginTop: '50px' }}
@@ -386,20 +375,18 @@ class Index extends React.Component {
         <div id='printArea'>
           {
             printFormNumber === 0 &&
-            this.props.creditList.waive_course &&
-            this.props.creditList.waive_course.length &&
+            waiveCourseForPrint.length &&
             <WaiveCourse
               studentIdcard={this.props.studentIdcard}
-              courses={this.props.creditList.waive_course}
+              courses={waiveCourseForPrint}
             />
           }
           {
             printFormNumber === 1 &&
-            this.props.creditList.exempt_course &&
-            this.props.creditList.exempt_course.length &&
+            exemptCourseForPrint.length &&
             <ExemptCourse
               studentIdcard={this.props.studentIdcard}
-              courses={this.props.creditList.exempt_course}
+              courses={exemptCourseForPrint}
             />
           }
         </div>
