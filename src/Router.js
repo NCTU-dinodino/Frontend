@@ -1,12 +1,10 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import injectTapEventPlugin from 'react-tap-event-plugin'
 import Frame from './Components/Frame'
 import Login from './Pages/Login/Login'
 
 import TeacherHead from './Pages/Teachers/Head'
 import TeacherHome from './Pages/Teachers/Home'
-import TeacherGroup from './Pages/Teachers/Group/Group'
 import TeacherProject from './Pages/Teachers/Project'
 import TeacherCourse from './Pages/Teachers/Course'
 import TeacherFamily from './Pages/Teachers/Family'
@@ -16,10 +14,9 @@ import AssistantHead from './Pages/Assistants/Head'
 import AssistantHome from './Pages/Assistants/Home'
 import AssistantGrad from './Pages/Assistants/Graduation'
 import AssistantProject from './Pages/Assistants/Project'
-import AssistantVerify from './Pages/Assistants/Verify'
 import AssistantMail from './Pages/Assistants/Mail'
 import AssistantSetting from './Pages/Assistants/Setting'
-import AssistantVerify_2 from './Pages/Assistants/Verify_2'
+import AssistantVerify2 from './Pages/Assistants/Verify_2'
 
 import StudentDetail from './Components/StudentDetail'
 import StudentVerify from './Components/StudentVerify'
@@ -42,7 +39,6 @@ import Footer from './Components/Footer'
 
 import AutoLogout from './Components/AutoLogout'
 
-// injectTapEventPlugin()
 // let config = {
 //   apiKey: 'AIzaSyC64Eitf77FqUAMjjPaG1_rk3Sr6pyttoo',
 //   authDomain: 'code-86ba4.firebaseapp.com',
@@ -88,8 +84,8 @@ const Router = () => (
         <Route exact path='/assistants/project' render={() => <Frame><AssistantProject /></Frame>} />
         <Route exact path='/assistants/family' render={() => <Frame><TeacherList /></Frame>} />
         <Route exact path='/assistants/family/:tid' component={StudentList} />
-        <Route exact path='/assistants/verify' component={AssistantVerify_2} />
-        <Route exact path='/assistants/marmot0814/verify' render={ () => <Frame><AssistantVerify_2 /></Frame> } />
+        <Route exact path='/assistants/verify' component={AssistantVerify2} />
+        <Route exact path='/assistants/marmot0814/verify' render={ () => <Frame><AssistantVerify2 /></Frame> } />
         <Route exact path='/assistants/mail' render={() => <Frame><AssistantMail /></Frame>} />
         <Route exact path='/assistants/setting' render={() => <Frame><AssistantSetting /></Frame>} />
         <Route path='/assistants/head/s/:sid/:sname/:program' component={StudentDetail} />

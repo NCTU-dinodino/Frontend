@@ -52,8 +52,7 @@ class CheckControl extends React.Component {
   }
 
   render () {
-    const { classes, Check } = this.props;
-    const {  } = this.state;
+    const { classes, Check } = this.props
 
     return (
       <div className={classes.container}>

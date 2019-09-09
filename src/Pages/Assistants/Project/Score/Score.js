@@ -17,8 +17,6 @@ class Score extends React.Component {
   }
 
   render () {
-    const { classes } = this.props;
-    const {  } = this.state;
 
     return (
       <div>Score Hello</div>

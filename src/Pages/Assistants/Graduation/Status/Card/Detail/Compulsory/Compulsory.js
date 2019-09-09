@@ -18,7 +18,7 @@ class Compulsory extends React.Component {
   }
 
   render() {
-    const { classes, student } = this.props
+    const { student } = this.props
     return (
       student.program === '網多' ? <WebNet student={student} /> : <OtherProgram student={student} />
     )

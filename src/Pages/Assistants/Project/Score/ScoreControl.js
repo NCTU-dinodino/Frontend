@@ -46,8 +46,7 @@ class ScoreControl extends React.Component {
   }
 
   render () {
-    const { classes, Score } = this.props;
-    const {  } = this.state;
+    const { classes, Score } = this.props
 
     return (
       <div className={classes.container}>

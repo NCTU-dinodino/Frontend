@@ -13,9 +13,6 @@ import {
 } from '../../../../Redux/Assistants/Actions/Verify'
 
 class ToolButton extends React.Component {
-  constructor (props) {
-    super(props);
-  }
   render() {
     const { classes, Verify } = this.props;
     return (

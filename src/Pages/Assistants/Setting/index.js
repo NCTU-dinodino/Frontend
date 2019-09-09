@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 
-import { FormControl, Grid, Row, Col } from "react-bootstrap";
+import { FormControl } from "react-bootstrap";
 import moment from "moment";
 import DateTimeRangeContainer from "react-advanced-datetimerange-picker";
 
@@ -72,9 +72,9 @@ class index extends React.Component {
     let start = moment(
       new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0)
     );
-    let end = moment(start)
-      .add(1, "days")
-      .subtract(1, "seconds");
+    // let end = moment(start)
+    //   .add(1, "days")
+    //   .subtract(1, "seconds");
     let ranges = {
       // "Today Only": [moment(start), moment(end)],
       // "Yesterday Only": [
