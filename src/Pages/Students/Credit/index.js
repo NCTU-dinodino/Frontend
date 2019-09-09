@@ -84,7 +84,8 @@ class Index extends React.Component {
     this.checkFilter = this.checkFilter.bind(this)
     this.handlePrintBtnClick = this.handlePrintBtnClick.bind(this)
     this.handlePrintMenuClose = this.handlePrintMenuClose.bind(this)
-    this.printApplicationTable = this.printApplicationTable.bind(this)
+    this.handlePrintSelect = this.handlePrintSelect.bind(this)
+    this.handlePrintDisplay = this.handlePrintDisplay.bind(this)
   }
 
   componentDidMount () {
@@ -100,13 +101,7 @@ class Index extends React.Component {
     }
     if (this.state.doPrinting) {
       this.setState({ doPrinting: false })
-      // 設定橫向列印
-      let fileStyle = document.createElement('style')
-      fileStyle.innerHTML = '@page{size: landscape;}'
-      window.document.head.appendChild(fileStyle)
-      window.print()
-      // 取消橫向列印
-      window.document.head.removeChild(fileStyle)
+      this.handlePrintDisplay()
     }
   }
 
@@ -134,11 +129,24 @@ class Index extends React.Component {
     this.setState({ showPrintMenu: null })
   }
 
-  printApplicationTable (formNumber, fileName) {
+  handlePrintSelect (formNumber, fileName) {
     if (fileName !== null) { document.title = fileName }
     this.setState({ printFormNumber: formNumber, doPrinting: true })
     this.handlePrintMenuClose()
     return true
+  }
+
+  handlePrintDisplay () {
+    // 因為有時候第一次開啟會有顯示異常，所以提醒同學
+    window.alert('如果列印畫面顯示異常，請按列印取消後再重新開啟列印單')
+
+    // 設定橫向列印
+    let fileStyle = document.createElement('style')
+    fileStyle.innerHTML = '@page{size: landscape;}'
+    window.document.head.appendChild(fileStyle)
+    window.print()
+    // // 取消橫向列印
+    window.document.head.removeChild(fileStyle)
   }
 
   render () {
@@ -221,10 +229,16 @@ class Index extends React.Component {
                   open={Boolean(anchorElement)}
                   onClose={this.handlePrintMenuClose}
                 >
-                  <MenuItem onClick={() => this.printApplicationTable(0, '抵免學分申請表')}>
+                  <MenuItem
+                    onClick={() => this.handlePrintSelect(0, '抵免學分申請表')}
+                    disabled={waiveCourseForPrint.length === 0}
+                  >
                     抵免學分申請表
                   </MenuItem>
-                  <MenuItem onClick={() => this.printApplicationTable(1, '課程免修申請表')}>
+                  <MenuItem
+                    onClick={() => this.handlePrintSelect(1, '課程免修申請表')}
+                    disabled={exemptCourseForPrint.length === 0}
+                  >
                     課程免修申請表
                   </MenuItem>
                 </Menu>
@@ -263,10 +277,16 @@ class Index extends React.Component {
                 open={Boolean(anchorElement)}
                 onClose={this.handlePrintMenuClose}
               >
-                <MenuItem onClick={() => this.printApplicationTable(0, '抵免學分申請表')}>
+                <MenuItem
+                  onClick={() => this.handlePrintSelect(0, '抵免學分申請表')}
+                  disabled={waiveCourseForPrint.length === 0}
+                >
                   抵免學分申請表
                 </MenuItem>
-                <MenuItem onClick={() => this.printApplicationTable(1, '課程免修申請表')}>
+                <MenuItem
+                  onClick={() => this.handlePrintSelect(1, '課程免修申請表')}
+                  disabled={exemptCourseForPrint.length === 0}
+                >
                   課程免修申請表
                 </MenuItem>
               </Menu>
@@ -372,7 +392,7 @@ class Index extends React.Component {
           </div>
         </div>
 
-        <div id='printArea'>
+        <div className='printArea'>
           {
             printFormNumber === 0 &&
             waiveCourseForPrint.length &&

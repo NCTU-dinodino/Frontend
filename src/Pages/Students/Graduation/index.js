@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import OverViewSummary from './OverViewSummary'
 import OverViewCard from './OverViewCard'
 import PrintForm from './OverViewSummary/RwdIconButton/Print/PrintForm'
-import './style.css'
 
 class Index extends React.Component {
   render () {
@@ -26,7 +25,7 @@ class Index extends React.Component {
             <OverViewCard rwd studentIdcard={this.props.studentIdcard} />
           </div>
         </div>
-        <div id='printArea'>
+        <div className='printArea'>
           <PrintForm
             profile={this.props.studentIdcard}
             idCard={this.props.idCard}
