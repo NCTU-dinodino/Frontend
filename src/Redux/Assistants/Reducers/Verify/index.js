@@ -1,5 +1,5 @@
 import {handleActions } from 'redux-actions'
-import FakeData from '../../../../Resources/FakeData'
+// import FakeData from '../../../../Resources/FakeData'
 
 const initalState = {
 	/******start for test*****

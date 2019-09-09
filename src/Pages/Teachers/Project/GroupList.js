@@ -1,8 +1,6 @@
 import React from 'react'
 
-import { Grid, Row, Col, Image, Button } from 'react-bootstrap'
 // resource
-import pic from '../../../Resources/BeautifalGalaxy.jpg'
 import defaultPic from '../../../Resources/defalt.jpg'
 
 // component
@@ -105,7 +103,7 @@ class GroupList extends React.Component {
         let y = getYear()
         yearList.push(y)
         while(y !== '106'){
-            let ty = parseInt(y) - 1
+            let ty = parseInt(y, 10) - 1
             y = ty.toString()
             yearList.push(y)
         }
@@ -175,6 +173,7 @@ class GroupList extends React.Component {
                                       handleRequestClose={this.handleRequestClose}
                                   />
                               )
+                          else return null
                       })
                       : ''
                   }
@@ -206,6 +205,7 @@ class GroupList extends React.Component {
                                       handleRequestClose={this.handleRequestClose}
                                   />
                               )
+                          else return null
                       })
                       : ''
                   }

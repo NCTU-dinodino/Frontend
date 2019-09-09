@@ -1,5 +1,4 @@
 import React from 'react'
-import { Grid, Row, Col } from 'react-bootstrap'
 
 import defaultPic from '../../../Resources/defalt.jpg'
 import ReplyDialog from '../Group/ReplyDialog'

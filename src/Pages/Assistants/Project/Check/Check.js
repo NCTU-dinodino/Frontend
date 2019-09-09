@@ -75,8 +75,7 @@ class Check extends React.Component {
   }
 
   render () {
-    const { classes } = this.props;
-    const {  } = this.state;
+    const { classes } = this.props
 
     return (
       <div className={classes.container}>
@@ -142,7 +141,7 @@ class Check extends React.Component {
                 <TableCell style={{fontSize: '18px', flex: 0.175, paddingTop: '11px', paddingLeft: '20px'}}>{this.hightlight(check.id, this.props.Check.input)}</TableCell>
                 <TableCell style={{fontSize: '18px', flex: 0.175, paddingTop: '11px', paddingLeft: '0px'}}>{this.hightlight(check.name, this.props.Check.input)}</TableCell>
                 <TableCell style={{fontSize: '18px', flex: 0.175, paddingTop: '11px', paddingLeft: '0px'}}>{this.hightlight(check.professor_name, this.props.Check.input)}</TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.6, paddingTop: '11px', color: parseInt(check.first_second)=== 3 ? 'red' : '', paddingLeft: '0px'}}>{this.hightlight(FIRST_SECOND_CN[check.first_second], this.props.Check.input)}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.6, paddingTop: '11px', color: parseInt(check.first_second, 10)=== 3 ? 'red' : '', paddingLeft: '0px'}}>{this.hightlight(FIRST_SECOND_CN[check.first_second], this.props.Check.input)}</TableCell>
               </TableRow>
             ))
           }

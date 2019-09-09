@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import './index.css'
-import img0 from '../../../Resources/courseMap_cscs.png'
 import img1 from '../../../Resources/courseMap_cscs108.png'
 import img2 from '../../../Resources/courseMap_cscs108_s.png'
 import { connect } from 'react-redux'
@@ -49,10 +48,10 @@ class index extends React.Component {
     return (
       <div style={{ marginTop: 'calc( -7vh )' }}>
         <div className='map-box'>
-          <img src={img1} className='image-map' />
+          <img src={img1} className='image-map' alt='' />
         </div>
         <div className='map-box'>
-          <img src={img2} className='image-map-2' />
+          <img src={img2} className='image-map-2' alt='' />
         </div>
       </div>
     )

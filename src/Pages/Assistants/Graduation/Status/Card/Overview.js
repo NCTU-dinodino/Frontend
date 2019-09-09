@@ -42,7 +42,7 @@ class Overview extends React.Component {
   }
 
   render() {
-    const { classes, student, Status } = this.props
+    const { student, Status } = this.props
 
     return (
       <div style={{ width: '15%', display: 'block', textAlign: 'center' }}>

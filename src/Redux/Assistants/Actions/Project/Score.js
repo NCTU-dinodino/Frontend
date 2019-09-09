@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions'
-import axios from 'axios'
+// import axios from 'axios'
 
 // export const store_teachers = createAction('STORE_TEACHERS')
 // export const update_add_status = createAction('UPDATE_ADD_STATUS')

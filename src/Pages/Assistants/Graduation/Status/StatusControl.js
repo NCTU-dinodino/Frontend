@@ -134,7 +134,7 @@ class StatusControl extends React.Component {
                 this.props.statusHandleChange({ 
                   grade: event.target.value,
                   page: 0
-                }),
+                })
                 this.props.fetch_status({grade: event.target.value})
               }
 

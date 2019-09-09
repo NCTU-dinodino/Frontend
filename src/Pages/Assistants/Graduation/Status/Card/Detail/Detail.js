@@ -18,7 +18,7 @@ class Detail extends React.Component {
   }
 
   render() {
-    const { classes, student } = this.props
+    const { student } = this.props
 
     return (
       <div style={{ width: '85%', paddingLeft: '20px' }}>

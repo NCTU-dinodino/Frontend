@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter, NavLink, Link } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -17,7 +17,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
-import { MenuItem as _MenuItem } from '@material-ui/core'
+import { MenuItem as MUIMenuItem } from '@material-ui/core'
 
 const style = {
   BrandBox: {
@@ -229,27 +229,27 @@ class _Navbar extends React.Component {
                 value={this.props.type}
                 style={{ fontSize: '15px' }}
               >
-                <_MenuItem 
+                <MUIMenuItem 
                   value={"assistant"} 
                   style={{ fontSize: '20px' }} 
                   component={Link} to='/assistants/head'
                 >
                   助理端
-                </_MenuItem>
-                <_MenuItem 
+                </MUIMenuItem>
+                <MUIMenuItem 
                   value={"teacher"} 
                   style={{ fontSize: '20px' }} 
                   component={Link} to='/teachers/head'
                 >
                   教授端
-                </_MenuItem>
-                <_MenuItem
+                </MUIMenuItem>
+                <MUIMenuItem
                   value={"student"} 
                   style={{ fontSize: '20px' }}
                   component={Link} to='/students/head'
                 >
                   學生端
-                </_MenuItem>
+                </MUIMenuItem>
               </Select>
             </FormControl> : ''
           }

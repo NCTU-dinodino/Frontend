@@ -62,8 +62,7 @@ class StatusControl extends React.Component {
   }
 
   render () {
-    const { classes, Status } = this.props;
-    const {  } = this.state;
+    const { classes, Status } = this.props
 
     return (
       <div className={classes.container}>
