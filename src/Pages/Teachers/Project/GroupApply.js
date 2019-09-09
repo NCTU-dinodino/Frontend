@@ -111,7 +111,7 @@ class GroupApply extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: true,
+      // loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: new Map(),
       sem: getSemester()
@@ -119,7 +119,7 @@ class GroupApply extends React.Component {
   }
 
   fetchData () {
-    this.setState({loading: true})
+    // this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
     if( tid === '001' ){
