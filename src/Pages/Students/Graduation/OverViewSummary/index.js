@@ -5,6 +5,7 @@ import CircularProgressbar from 'react-circular-progressbar'
 import Divider from '@material-ui/core/Divider'
 import RwdIconButton from './RwdIconButton'
 import DetailProgressBar from './DetailProgressBar'
+import ProfessionalGroupBtn from './ProfessionalGroupBtn'
 
 const reviewStatus = {
   '0': '未送審',
@@ -29,34 +30,45 @@ class Index extends React.Component {
         <div style={{ marginTop: '10px' }}>
           {/* for PC screen */}
           <div className='hidden-xs'>
-            <div className='col-md-12'>
-              <div className='green' /><div className='text'>已通過</div>
-              <div className='red' /><div className='text'>未通過</div>
-              <div className='gray' /><div className='text'>未修課</div>
-              <div className='yellow' /><div className='text'>未抵免課程</div>
-              <div className='purple' /><div className='text'>免修或抵免課程</div>
-              <div className='blue' /><div className='text'>當期課程</div>
-            </div>
-            <div className='col-sm-12 col-md-12 well' style={{ marginTop: '5px', clear: 'both', color: 'gray' }}>
-              <div className='col-sm-11 col-md-11'>
-                {
-                  this.props.assis &&
-                  <div style={{ color: '#6e0000' }}>
-                    {this.props.idCard.sname}&nbsp;&nbsp;&nbsp;&nbsp;
-                    {this.props.idCard.program}&nbsp;&nbsp;&nbsp;&nbsp;
-                    {this.props.idCard.id}
-                  </div>
-                }
-                <div>
-                  是否已考過英檢：{ englishStatus[englishCheck] }
-                </div>
-                <div>
-                  畢業預審是否已送交助理審核：
-                  <span style={{ color: '#FF0000' }}>{ reviewStatus[check] }</span>
-                </div>
+            <div className='row'>
+              <div className='col-md-12'>
+                <div className='green' /><div className='text'>已通過</div>
+                <div className='red' /><div className='text'>未通過</div>
+                <div className='gray' /><div className='text'>未修課</div>
+                <div className='yellow' /><div className='text'>未抵免</div>
+                <div className='purple' /><div className='text'>免修或抵免</div>
+                <div className='blue' /><div className='text'>當期</div>
               </div>
-              <div className='pull-right col-sm-1 col-md-1'>
-                <RwdIconButton />
+            </div>
+            <div className='row'>
+              <div className='col-sm-12 col-md-12 well' style={{ marginTop: '5px', clear: 'both', color: 'gray' }}>
+                <div className='col-sm-8 col-md-9'>
+                  {
+                    this.props.assis &&
+                    <div style={{ color: '#6e0000' }}>
+                      {this.props.idCard.sname}&nbsp;&nbsp;&nbsp;&nbsp;
+                      {this.props.idCard.program}&nbsp;&nbsp;&nbsp;&nbsp;
+                      {this.props.idCard.id}
+                    </div>
+                  }
+                  <div>
+                    是否已考過英檢：{ englishStatus[englishCheck] }
+                  </div>
+                  <div>
+                    畢業預審是否已送交助理審核：
+                    <span style={{ color: '#FF0000' }}>{ reviewStatus[check] }</span>
+                  </div>
+                </div>
+                <div className='col-sm-4 col-md-3'>
+                  <div className='pull-right' style={{ height: '45px', lineHeight: '45px' }}>
+                    <div className='col-sm-8'>
+                      <ProfessionalGroupBtn />
+                    </div>
+                    <div className='col-sm-4'>
+                      <RwdIconButton />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -85,15 +97,22 @@ class Index extends React.Component {
 
         {/* for mobile screen */}
         <div className='visible-xs'>
-          <div className='col-xs-12' style={{ marginTop: '3px' }}>
-            <div className='green' /><div className='text'>已通過</div>
-            <div className='red' /><div className='text'>未通過</div>
-            <div className='gray' /><div className='text'>未修課</div>
-            <div className='yellow' /><div className='text'>未抵免課程</div>
+          <div className='col-xs-8'>
+            <div className='col-xs-12' style={{ marginTop: '3px' }}>
+              <div className='green' /><div className='text'>已通過</div>
+              <div className='red' /><div className='text'>未通過</div>
+            </div>
+            <div className='col-xs-12'>
+              <div className='gray' /><div className='text'>未修課</div>
+              <div className='yellow' /><div className='text'>未抵免</div>
+            </div>
+            <div className='col-xs-12'>
+              <div className='purple' /><div className='text'>免修或抵免</div>
+              <div className='blue' /><div className='text'>當期</div>
+            </div>
           </div>
-          <div className='col-xs-12'>
-            <div className='purple' /><div className='text'>免修或抵免課程</div>
-            <div className='blue' /><div className='text'>當期課程</div>
+          <div className='col-xs-4' style={{ fontSize: '10px', padding: '0px' }}>
+            <ProfessionalGroupBtn />
           </div>
           <Divider style={{ marginBottom: '20px', marginTop: '20px', clear: 'both' }} />
         </div>
