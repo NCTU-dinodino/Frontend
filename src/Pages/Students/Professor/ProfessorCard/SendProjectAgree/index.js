@@ -360,13 +360,10 @@ class SendProjectAgree extends React.Component {
                           onChange={(e) => this.handleInputChange(e.target.value, 'department', t - 1)}
                         >
                           {
-                            departmentList.map((department) => (
-                              <MenuItem value={department} style={{width: '100%'}}>{department}</MenuItem>
+                            departmentList.map((department, index) => (
+                              <MenuItem key={index} value={department} style={{width: '100%'}}>{department}</MenuItem>
                             ))
                           }
-                          {/*<MenuItem value={0} style={{width: '100%'}}>請選擇系所</MenuItem>*/}
-                          {/*<MenuItem value={1} style={{width: '100%'}}>資工系</MenuItem>*/}
-                          {/*<MenuItem value={2} style={{width: '100%'}}>非資工系</MenuItem>*/}
                         </TextField>
                       </div>
 
@@ -457,17 +454,32 @@ class SendProjectAgree extends React.Component {
                                 </InputAdornment>
                               }}
                               select
+                              value={members[t - 1].first_second}
+                              onChange={(e) => this.handleInputChange(e.target.value, 'first_second', t - 1)}
+                            >
+                              <MenuItem value={0} style={{width: '100%'}}>請選擇專題(ㄧ)或(二)</MenuItem>
+                              <MenuItem value={1} style={{width: '100%'}}>專題（ㄧ）</MenuItem>
+                              <MenuItem value={2} style={{width: '100%'}}>專題（二）</MenuItem>
+                            </TextField>
+                          </div>
+                          <div className='row'>
+                            <TextField
+                              // className='project-member-input'
+                              style={{margin: '20px 10px 0 1px', width: '100%'}}
+                              InputProps={{
+                                startAdornment: <InputAdornment position='start'>
+                                  <PermIcon />
+                                </InputAdornment>
+                              }}
+                              select
                               value={members[t - 1].department}
                               onChange={(e) => this.handleInputChange(e.target.value, 'department', t - 1)}
                             >
                               {
-                                departmentList.map((department) => (
-                                  <MenuItem value={department} style={{width: '100%'}}>{department}</MenuItem>
+                                departmentList.map((department, index) => (
+                                  <MenuItem key={index} value={department} style={{width: '100%'}}>{department}</MenuItem>
                                 ))
                               }
-                              {/* <MenuItem value={0} style={{width: '100%'}}>請選擇專題(ㄧ)或(二)</MenuItem> */}
-                              {/* <MenuItem value={1} style={{width: '100%'}}>專題（ㄧ）</MenuItem> */}
-                              {/* <MenuItem value={2} style={{width: '100%'}}>專題（二）</MenuItem> */}
                             </TextField>
                           </div>
                           {/*<div className='row' >*/}
