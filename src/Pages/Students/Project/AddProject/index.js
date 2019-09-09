@@ -144,7 +144,7 @@ class Tile extends React.Component {
           <Icon />
         </GridTile>
         <Dialog
-          fullScreen={1}
+          fullScreen
           open={this.state.open}
           onClose={this.handleDialogClose}
           TransitionComponent={Transition}
