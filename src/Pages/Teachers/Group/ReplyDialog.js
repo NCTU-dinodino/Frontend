@@ -150,10 +150,13 @@ export default class ReplyDialog extends React.Component {
       year: this.props.year
     }).then(res => {
       console.log(res)
+      if(res.data.signal === '1') window.alert('送出成功!')
+      window.location.reload()
     }).catch(err => {
       console.log(err)
+      window.alert('出現不明錯誤!!!')
+      window.location.reload()
     })
-
 
     // trigger update
     this.props.parentFunction()
