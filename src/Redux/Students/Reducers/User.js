@@ -6,7 +6,7 @@ const initialState = {
     sname: '王小明',
     student_id: '0416000',
     program: '資工A',
-    grade: '大三',
+    grade: '大一',
     email: 'hihi@gmail.com',
     status: 'w'
   },

@@ -6,6 +6,8 @@ import './index.css'
 import Course from './Course'
 import { connect } from 'react-redux'
 
+import MapV3 from '../Map_v3/'
+
 function TabContainer ({ children, dir }) {
   return (
     <Typography component='div' dir={dir} style={{ padding: 8 * 3 }}>
@@ -44,29 +46,33 @@ class index extends React.Component {
   }
 
   render () {
-    return (
-      <div>
-        <div className='hidden-xs hidden-sm' style={{ padding: '4% 5% 0 5%' }}>
-          <div className='red' style={{ backgroundColor: '#616161' }} />
-          <div className='text'>已通過</div>
-          <div className='red' style={{ backgroundColor: '#a42926' }} />
-          <div className='text'>未通過</div>
+    const idcard = this.props.studentIdcard
+    if (idcard.grade === '大一' || idcard.grade === '一' )
+      return <MapV3/>
+    else
+      return (
+        <div>
+          <div className='hidden-xs hidden-sm' style={{ padding: '4% 5% 0 5%' }}>
+            <div className='red' style={{ backgroundColor: '#616161' }} />
+            <div className='text'>已通過</div>
+            <div className='red' style={{ backgroundColor: '#a42926' }} />
+            <div className='text'>未通過</div>
+          </div>
+          <div className='Map-Row'>
+            {/* <div className='visible-xs visible-sm' style={{width: '100%'}}> */}
+            {/* <div className="green" style={{backgroundColor: '#616161'}}/> */}
+            {/* <div className="text">已通過</div> */}
+            {/* <div className="red" style={{backgroundColor: '#a42926'}}/> */}
+            {/* <div className="text">未通過</div> */}
+            {/* </div> */}
+            <Course
+              studentPasdata={this.props.CoursePass}
+              data={this.props.CourseMap}
+              studentsGrad={idcard.grade}
+            />
+          </div>
         </div>
-        <div className='Map-Row'>
-          {/* <div className='visible-xs visible-sm' style={{width: '100%'}}> */}
-          {/* <div className="green" style={{backgroundColor: '#616161'}}/> */}
-          {/* <div className="text">已通過</div> */}
-          {/* <div className="red" style={{backgroundColor: '#a42926'}}/> */}
-          {/* <div className="text">未通過</div> */}
-          {/* </div> */}
-          <Course
-            studentPasdata={this.props.CoursePass}
-            data={this.props.CourseMap}
-            studentsGrad={this.props.studentIdcard.grade}
-          />
-        </div>
-      </div>
-    )
+      )
   }
 }
 
