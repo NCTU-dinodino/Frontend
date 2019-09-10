@@ -72,15 +72,6 @@ class Index extends React.Component {
     }
   }
 
-  componentDidMount () {
-    this.props.getMoveTargets({
-      cn: this.props.course.cn, // 中文課名
-      code: this.props.course.code, // 課號
-      type: this.props.course.type,
-      studentId: this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id
-    })
-  }
-
   componentDidUpdate () {
     // 移動成功後，重新拿課程資料並重置移動狀態
     if (this.props.success) {
@@ -90,6 +81,15 @@ class Index extends React.Component {
   }
 
   handleClick (event) {
+    // 拿取可移動的目標
+    this.props.getMoveTargets({
+      cn: this.props.course.cn, // 中文課名
+      code: this.props.course.code, // 課號
+      type: this.props.course.type,
+      studentId: this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id
+    })
+
+    // 展開可移動的目標
     this.setState({
       anchorEl: event.currentTarget
     })
