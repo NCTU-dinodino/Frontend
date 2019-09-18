@@ -49,7 +49,7 @@ const GeneralNewCourseList = (props) => {
     },
     {
       name: '跨院',
-      dimension: '跨院基本素', // api return five words
+      dimension: '跨院基本素養',
       courses: []
     }
   ]
@@ -158,7 +158,7 @@ const GeneralNewCourseList = (props) => {
       <div className='col-sm-12' style={{ marginTop: '20px', paddingLeft: '0px' }}>
         {
           generalCourseTypes
-            .find(type => type.dimension === '跨院基本素').courses
+            .find(type => type.dimension === '跨院基本素養').courses
             .map((course, index) => (
               <CoursePopover
                 key={index}
