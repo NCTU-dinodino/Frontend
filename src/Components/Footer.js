@@ -1,12 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-class Footer extends React.Component {
-  render () {
-    return (
-      <footer style={{backgroundColor: this.props.color, zIndex: 10}}>Copyright @2018 NCTUCS 交通大學資訊工程學系</footer>
-    )
-  }
+const Footer = (props) => {
+  const today = new Date()
+  const year = today.getFullYear()
+
+  return (
+    <footer style={{ backgroundColor: props.color, zIndex: 10 }}>
+      <div>Copyright @{year} NCTUCS 交通大學資訊工程學系</div>
+      <div>連絡信箱：nctudinodino@gmail.com</div>
+    </footer>
+  )
 }
 
 const mapState = (state) => ({
