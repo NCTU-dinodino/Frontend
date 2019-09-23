@@ -202,6 +202,7 @@ class Index extends React.Component {
                   <MenuItem value={3} style={{ height: '10px' }}>退件</MenuItem>
                 </Select>
               </FormControl>
+              {/*
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}
@@ -212,6 +213,7 @@ class Index extends React.Component {
                   抵免申請
                 </Button>
               </Link>
+              */}
               <div style={{ display: 'inline', marginLeft: '5px' }}>
                 <Button
                   className={classes.btn}
@@ -249,6 +251,7 @@ class Index extends React.Component {
           {/* For mobile & xs */}
           <div className='hidden-sm hidden-md hidden-lg' style={{ margin: '20px 20px 5px 20px' }}>
             <div style={{ width: '300px' }}>
+              {/*
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}
@@ -260,6 +263,7 @@ class Index extends React.Component {
                   抵免申請
                 </Button>
               </Link>
+              */}
               <Button
                 className={classes.btn}
                 variant='contained'
