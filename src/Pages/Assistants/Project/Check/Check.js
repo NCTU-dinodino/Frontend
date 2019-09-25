@@ -27,7 +27,8 @@ import {
 const styles = theme => ({
   container: {
     width: '80%',
-    margin: '0 auto'
+    margin: '0 auto',
+    marginBottom: '50px'
   },
   dialog: {
     minWidth: '500px'

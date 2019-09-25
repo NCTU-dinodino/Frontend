@@ -17,12 +17,8 @@ export const fetchCheck = (payload) => dispatch => {
     axios.post('/assistants/research/professorList', {
       ...payload,
       first_second: "2"
-    }),
-    axios.post('/assistants/research/professorList', {
-      ...payload,
-      first_second: "3"
     })
-  ]).then(axios.spread((first_res, second_res, third_res) => {
+  ]).then(axios.spread((first_res, second_res) => {
     dispatch(check_handle_change({
       checks: [
         ...first_res.data.map( teacher => 
@@ -38,18 +34,6 @@ export const fetchCheck = (payload) => dispatch => {
           ))
         ).flat(2),
         ...second_res.data.map( teacher => 
-          teacher.accepted.projects.map( project => (
-            project.students.filter( student => 
-              student.add_status === "0" 
-            ).map( student => ({
-              ...student,
-              professor_name: teacher.professor_name,
-              research_title: project.title,
-              semester: payload.year + '-' + payload.semester
-            }))
-          ))
-        ).flat(2),
-        ...third_res.data.map( teacher => 
           teacher.accepted.projects.map( project => (
             project.students.filter( student => 
               student.add_status === "0" 
