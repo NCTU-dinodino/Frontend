@@ -1,30 +1,34 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import { Grid, Hidden } from '@material-ui/core'
 import OverViewSummary from './OverViewSummary'
 import OverViewCard from './OverViewCard'
 import PrintForm from './OverViewSummary/RwdIconButton/Print/PrintForm'
+import { ResponsiveContainer } from '../../../Components/Responsive'
 
 class Index extends React.Component {
   render () {
     return (
-      <div className='container'>
-        <div className='row showArea' style={{ marginBottom: '50px' }}>
-          <div className='col-md-12 col-lg-12 hidden-xs' style={{ marginTop: '30px' }}>
-            <OverViewSummary />
-          </div>
-          <div className='col-md-3 col-lg-3 hidden-xs' style={{ height: '100%' }} />
-          <div className='col-xs-12 col-sm-12 visible-xs' >
-            <OverViewSummary rwd />
-          </div>
-          <div className='col-md-1 col-lg-1' />
+      <ResponsiveContainer>
+        <Grid item xs={12} container className='showArea'>
+          <Hidden smDown>
+            <Grid item md={12} style={{ marginTop: '30px' }}>
+              <OverViewSummary />
+            </Grid>
+          </Hidden>
+          <Hidden mdUp>
+            <Grid item xs={12} style={{ marginTop: '30px' }}>
+              <OverViewSummary rwd />
+            </Grid>
+          </Hidden>
           <div className=' col-md-12 col-lg-12 pull-left hidden-xs' style={{ marginTop: '20px' }}>
             <OverViewCard studentIdcard={this.props.studentIdcard} />
           </div>
           <div className=' col-xs-12 visible-xs' style={{ marginTop: '20px' }}>
             <OverViewCard rwd studentIdcard={this.props.studentIdcard} />
           </div>
-        </div>
+        </Grid>
         <div className='printArea'>
           <PrintForm
             profile={this.props.studentIdcard}
@@ -36,7 +40,7 @@ class Index extends React.Component {
             generalCourseSelect={this.props.generalCourseSelect}
           />
         </div>
-      </div>
+      </ResponsiveContainer>
     )
   }
 }
