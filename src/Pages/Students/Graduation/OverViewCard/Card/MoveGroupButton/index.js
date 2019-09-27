@@ -83,10 +83,10 @@ class Index extends React.Component {
   handleClick (event) {
     // 拿取可移動的目標
     this.props.getMoveTargets({
+      student_id: this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id,
       cn: this.props.course.cn, // 中文課名
       code: this.props.course.code, // 課號
-      type: this.props.course.type,
-      studentId: this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id
+      type: this.props.course.type
     })
 
     // 展開可移動的目標
@@ -105,8 +105,8 @@ class Index extends React.Component {
     let studentIdcard = this.props.studentIdcard
 
     this.props.moveCourse({
-      cn: this.props.course.cn, // 中文課名
       student_id: this.props.assis ? this.props.idCard.id : studentIdcard.student_id,
+      cn: this.props.course.cn, // 中文課名
       origin_group: this.props.title,
       target_group: target
     })
@@ -150,10 +150,10 @@ class Index extends React.Component {
             targets.map((target, index) => (
               <MenuItem
                 key={index}
-                onClick={() => this.handleItemSelect(target.title)}
+                onClick={() => this.handleItemSelect(target)}
                 className={classes.root}
               >
-                { target.title }
+                { target }
               </MenuItem>
             ))
           }

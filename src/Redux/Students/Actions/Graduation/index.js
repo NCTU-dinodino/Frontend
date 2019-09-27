@@ -133,7 +133,7 @@ export const getMoveTargets = (payload) => dispatch => {
   axios
     .post('/students/graduate/legalMoveTarget', payload)
     .then(res => {
-      dispatch(actions.graduation.moveCourse.store(res.data))
+      dispatch(actions.graduation.moveCourse.store(res.data.targets))
     })
     .catch(err => {
       console.log(err)
