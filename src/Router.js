@@ -32,7 +32,7 @@ import StudentRecommend from './Pages/Students/Recommend'
 import StudentProfessor from './Pages/Students/Professor'
 import StudentProject from './Pages/Students/Project'
 import StudentCredit from './Pages/Students/Credit'
-import StudentCreditApply from './Pages/Students/Credit/Stepper'
+// import StudentCreditApply from './Pages/Students/Credit/Stepper'
 
 import Footer from './Components/Footer'
 // import Snow from 'react-snow-effect'
