@@ -1,13 +1,10 @@
 
 import React from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import Menu from '@material-ui/core/Menu'
+import { IconButton, Menu } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import SendReview from './SendReview'
 import Print from './Print'
 import ResetCourse from './ResetCourse'
-
-const ITEM_HEIGHT = 48
 
 class Index extends React.Component {
   constructor (props) {
@@ -47,13 +44,13 @@ class Index extends React.Component {
           onClose={this.handleClose}
           PaperProps={{
             style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: 200
+              maxHeight: 200,
+              width: 180
             }
           }}
         >
           <SendReview />
-          <Print rwd />
+          <Print />
           <ResetCourse />
         </Menu>
       </div>

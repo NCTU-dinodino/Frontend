@@ -3,11 +3,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import MenuItem from '@material-ui/core/MenuItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
+import {
+  MenuItem,
+  ListItemIcon,
+  ListItemText
+} from '@material-ui/core'
 import AutoRenewIcon from '@material-ui/icons/Autorenew'
-import withMobileDialog from '@material-ui/core/withMobileDialog/index'
 import {
   actions,
   getGraduationInfo,
@@ -16,7 +17,7 @@ import {
 
 const styles = theme => ({
   icon: {
-    marginRight: theme.spacing.unit
+    marginRight: 5
   }
 })
 
@@ -42,7 +43,7 @@ class Index extends React.Component {
         <ListItemIcon className={classes.icon}>
           <AutoRenewIcon />
         </ListItemIcon>
-        <ListItemText classes={{ primary: classes.primary }} inset primary='重置課程排列' />
+        <ListItemText inset primary='重置課程排列' />
       </MenuItem>
     )
   }
@@ -63,4 +64,4 @@ const mapDispatchToProps = (dispatch) => ({
   resetCourseDone: () => dispatch(actions.graduation.resetCourse.setSuccess(false))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withMobileDialog()(withStyles(styles)(Index)))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))

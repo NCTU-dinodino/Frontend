@@ -2,9 +2,7 @@
 import React, { Fragment } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
+import { Button, MenuItem, Menu } from '@material-ui/core'
 import {
   getGraduationInfo,
   getGraduationInfoAssistantVersion
@@ -56,13 +54,14 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, size } = this.props
     const professionalGroup = ['網多組(網)', '網多組(多)', '資工組', '資電組']
 
     return (
       <Fragment>
         <Button
           variant='outlined'
+          size={size || 'medium'}
           aria-owns={this.state.anchorEl ? 'simple-menu' : undefined}
           aria-haspopup='true'
           onClick={this.professionalMenuOpen}

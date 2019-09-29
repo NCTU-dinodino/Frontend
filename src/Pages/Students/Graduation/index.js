@@ -19,7 +19,7 @@ class Index extends React.Component {
           </Hidden>
           <Hidden mdUp>
             <Grid item xs={12} style={{ marginTop: '30px' }}>
-              <OverViewSummary rwd />
+              <OverViewSummary mobile />
             </Grid>
           </Hidden>
           <div className=' col-md-12 col-lg-12 pull-left hidden-xs' style={{ marginTop: '20px' }}>

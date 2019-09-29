@@ -6,15 +6,9 @@ import { Grid, Hidden } from '@material-ui/core'
 import AnimatedProgress from '../../../../../Components/AnimatedProgress'
 
 const styles = theme => ({
-  overview: {
-    clear: 'both'
-  },
-  overviewCourse: {
-    fontSize: '0.8em',
-    color: '#7c7c7c'
-  },
-  showCourseOverview: {
+  courseGroup: {
     margin: '3px 0',
+    fontSize: '0.8em',
     fontWeight: 300,
     color: '#7c7c7c'
   },
@@ -28,9 +22,10 @@ const styles = theme => ({
   }
 })
 
+// 一般類別
 const ProgressBar = withStyles(styles)(({ classes, title, complete, require, unit}) => (
-  <Grid item sm={3} className={classes.overviewCourse}>
-    <div className={classes.showCourseOverview}>
+  <Grid item sm={3}>
+    <div className={classes.courseGroup}>
       <div className={classes.progressBar}>{ title }</div>
       <font size={5} color='#338d68'>{ complete }</font>/
       <div className={classes.progressBar}>{ require }</div>
@@ -40,9 +35,10 @@ const ProgressBar = withStyles(styles)(({ classes, title, complete, require, uni
   </Grid>
 ))
 
+// 抵免研究所、雙主修...
 const NoProgressBar = withStyles(styles)(({ classes, title, complete, unit}) => (
-  <Grid item sm={3} className={classes.overviewCourse}>
-    <div className={classes.showCourseOverview}>
+  <Grid item sm={3}>
+    <div className={classes.courseGroup}>
       <div className={classes.progressBar}>{ title }</div>
       <font size={5} color='#338d68'>{ complete }</font>
       <div className={classes.progressBar} />

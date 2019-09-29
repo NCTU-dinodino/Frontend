@@ -3,40 +3,53 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import MenuItem from '@material-ui/core/MenuItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
+import {
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Button,
+  Dialog,
+  DialogContent,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Select,
+  withMobileDialog
+} from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/CheckBox'
-import Button from '@material-ui/core/Button'
-import Dialog from '@material-ui/core/Dialog'
-import DialogContent from '@material-ui/core/DialogContent'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
-import Select from '@material-ui/core/Select'
-import withMobileDialog from '@material-ui/core/withMobileDialog/index'
 import PrintForm from '../Print/PrintForm'
 import { reviewSubmit } from '../../../../../../Redux/Students/Actions/Graduation/'
 
 const styles = theme => ({
+  icon: {
+    marginRight: 5
+  },
   appBar: {
     position: 'relative',
-    background: '#3db586'
+    background: '#3db586',
+    marginBottom: 15
   },
-  flex: {
-    flex: 1
+  header: {
+    flex: 1,
+    fontSize: 15
+  },
+  form: {
+    marginTop: '30px',
+    textAlign: 'center',
+    fontSize: 20
+  },
+  label: {
+    marginBottom: 0
   },
   select: {
+    marginLeft: 10,
     fontSize: 20
   },
   button: {
-    margin: '20px 0 20px 0',
-    color: '#ffffff'
-  },
-  icon: {
-    marginRight: theme.spacing.unit
+    marginTop: 25,
+    marginBottom: 10
   }
 })
 
@@ -89,14 +102,16 @@ class Index extends React.Component {
 
   render () {
     const { classes } = this.props
+
     return (
       <div>
         <MenuItem onClick={this.handleOpen}>
           <ListItemIcon className={classes.icon}>
-            <CheckIcon className={classes.icon} />
+            <CheckIcon />
           </ListItemIcon>
           <ListItemText inset primary='送出預審' />
         </MenuItem>
+
         <Dialog
           fullScreen={this.props.fullScreen}
           open={this.state.open}
@@ -107,7 +122,7 @@ class Index extends React.Component {
         >
           <AppBar className={classes.appBar}>
             <Toolbar >
-              <Typography variant='title' color='inherit' className={classes.flex} style={{ fontSize: '15px' }} >
+              <Typography variant='title' color='inherit' className={classes.header}>
                 確認審查資料
               </Typography>
               <IconButton color='inherit' onClick={this.handleClose} aria-label='Close'>
@@ -115,7 +130,6 @@ class Index extends React.Component {
               </IconButton>
             </Toolbar>
           </AppBar>
-          <br />
           <DialogContent>
             <PrintForm
               profile={this.props.studentIdcard}
@@ -126,25 +140,26 @@ class Index extends React.Component {
               reviewCheck={this.props.reviewCheck}
               generalCourseSelect={this.props.generalCourseSelect}
             />
-            <form className='text-center' style={{ marginTop: '30px', fontSize: '20px' }}>
-              <label style={{ marginRight: '10px' }}>請選擇採用的通識制度</label>
-              <Select
-                native
-                disabled={this.props.reviewCheck !== 0}
-                className={classes.select}
-                value={this.props.reviewCheck === 0 ? this.state.generalCourse.type : this.props.generalCourseSelect}
-                onChange={this.handleChange}
-              >
-                <option value={0}>舊制</option>
-                <option value={1}>新制</option>
-              </Select>
-              <br />
+            <form className={classes.form}>
+              <div>
+                <label className={classes.label}>請選擇採用的通識制度</label>
+                <Select
+                  native
+                  className={classes.select}
+                  value={this.props.reviewCheck === 0 ? this.state.generalCourse.type : this.props.generalCourseSelect}
+                  onChange={this.handleChange}
+                  disabled={this.props.reviewCheck !== 0}
+                >
+                  <option value={0}>舊制</option>
+                  <option value={1}>新制</option>
+                </Select>
+              </div>
               <Button
-                disabled={this.props.reviewCheck !== 0}
+                className={classes.button}
                 variant='contained'
                 color='primary'
-                className={classes.button}
                 onClick={this.handleSubmit}
+                disabled={this.props.reviewCheck !== 0}
               >
                 確認送出
               </Button>
