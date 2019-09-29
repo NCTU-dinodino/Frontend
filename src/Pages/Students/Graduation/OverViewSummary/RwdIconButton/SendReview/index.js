@@ -19,7 +19,7 @@ import {
 } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/CheckBox'
 import CloseIcon from '@material-ui/icons/Close'
-import PrintForm from '../Print/PrintForm'
+import PrintForm from '../../PrintForm'
 import { reviewSubmit } from '../../../../../../Redux/Students/Actions/Graduation/'
 
 const styles = theme => ({
@@ -135,8 +135,7 @@ class Index extends React.Component {
               profile={this.props.studentIdcard}
               assis={this.props.assis}
               idCard={this.props.idCard}
-              graduationCheckEnglishTest={this.props.englishCheck}
-              courseCategoryArray={this.props.reviewData}
+              reviewData={this.props.reviewData}
               reviewCheck={this.props.reviewCheck}
               generalCourseSelect={this.props.generalCourseSelect}
             />

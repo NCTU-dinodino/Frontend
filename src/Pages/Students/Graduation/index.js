@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Grid, Hidden } from '@material-ui/core'
 import OverViewSummary from './OverViewSummary'
 import OverViewCard from './OverViewCard'
-import PrintForm from './OverViewSummary/RwdIconButton/Print/PrintForm'
+import PrintForm from './OverViewSummary/PrintForm'
 import { ResponsiveContainer } from '../../../Components/Responsive'
 
 class Index extends React.Component {
@@ -34,8 +34,7 @@ class Index extends React.Component {
             profile={this.props.studentIdcard}
             idCard={this.props.idCard}
             assis={this.props.assis}
-            graduationCheckEnglishTest={this.props.englishCheck}
-            courseCategoryArray={this.props.printData}
+            reviewData={this.props.reviewData}
             reviewCheck={this.props.reviewCheck}
             generalCourseSelect={this.props.generalCourseSelect}
           />
@@ -46,7 +45,7 @@ class Index extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  printData: state.Student.Graduation.detail.data,
+  reviewData: state.Student.Graduation.detail.data,
   studentIdcard: state.Student.User.studentIdcard,
   englishCheck: state.Student.Graduation.english.check,
   idCard: state.Student.Graduation.assistant.idCard,

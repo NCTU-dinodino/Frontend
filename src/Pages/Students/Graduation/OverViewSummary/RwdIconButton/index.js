@@ -3,7 +3,7 @@ import React from 'react'
 import { IconButton, Menu } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import SendReview from './SendReview'
-import Print from './Print'
+import PrintReview from './PrintReview'
 import ResetCourse from './ResetCourse'
 
 class Index extends React.Component {
@@ -50,7 +50,7 @@ class Index extends React.Component {
           }}
         >
           <SendReview />
-          <Print />
+          <PrintReview />
           <ResetCourse />
         </Menu>
       </div>

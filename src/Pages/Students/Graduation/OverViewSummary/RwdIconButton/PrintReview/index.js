@@ -25,7 +25,7 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, rwd } = this.props
+    const { classes } = this.props
     const sid = this.props.studentIdcard.student_id
 
     return (
