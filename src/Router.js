@@ -92,7 +92,6 @@ const Router = () => (
         <Route path='/assistants/head/c/:sid/:type/:time/:sname/:grade/:program' component={StudentVerify} />
       </Switch>
       <Route path='/' component={Footer} />
-      <div id='printArea' />
     </div>
   </BrowserRouter>
 )

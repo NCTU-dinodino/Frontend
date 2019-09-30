@@ -45,6 +45,7 @@
     "react-snow-effect": "^1.2.0",
     "react-swipeable-views": "^0.13.0",
     "react-tap-event-plugin": "^3.0.3",
+    "react-to-print": "^2.4.0",
     "react-toastify": "^3.4.3",
     "react-toasts": "^1.2.3",
     "react-transition-group": "^2.4.0",
