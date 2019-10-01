@@ -24,6 +24,18 @@ const styles = theme => ({
 })
 
 class Index extends React.Component {
+  onBeforePrint () {
+    // 設定title(存檔預設檔名)
+    const sid = this.props.studentIdcard.student_id
+    this.originalTitle = window.document.title
+    window.document.title = `${sid}_畢業預審表`
+  }
+
+  onAfterPrint () {
+    // 恢復title
+    window.document.title = this.originalTitle
+  }
+
   render () {
     const { classes } = this.props
 
@@ -39,6 +51,8 @@ class Index extends React.Component {
             </MenuItem>
           )}
           content={() => this.printRef}
+          onBeforeGetContent={() => this.onBeforePrint()}
+          onAfterPrint={() => this.onAfterPrint()}
           bodyClass={classes.printForm}
         />
         <div style={{ display: 'none' }}>
