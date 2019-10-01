@@ -2,8 +2,8 @@
 import React from 'react'
 import { GeneralCoursePopover } from '../CoursePopover'
 
-const Index = (props) => {
-  let generalCourseTypes = [
+const Index = ({ courses, title, assis, mobile }) => {
+  const generalCourseTypes = [
     {
       name: '當代',
       dimension: '通識',
@@ -37,8 +37,8 @@ const Index = (props) => {
   ]
 
   // 把每個通識丟到正確的分類，然後加上會在 GeneralCoursePopover 用到的欄位
-  props.courses.forEach(course => {
-    let type = generalCourseTypes.find(type => course.dimension === type.dimension)
+  courses.forEach(course => {
+    const type = generalCourseTypes.find(type => course.dimension === type.dimension)
     if (type) {
       if (course.reason === 'now') {
         type.courses.push({
@@ -46,15 +46,13 @@ const Index = (props) => {
           color: '#9e48d9',
           score: '(當期課程)'
         })
-      }
-      else if (course.reason === 'free1' || course.reason === 'free2') {
+      } else if (course.reason === 'free1' || course.reason === 'free2') {
         type.courses.push({
           ...course,
           color: '#6A94A2',
           cn: `${course.cn} (抵免課程)`
         })
-      }
-      else {
+      } else {
         type.courses.push({
           ...course,
           color: 'green'
@@ -64,19 +62,19 @@ const Index = (props) => {
   })
 
   return (
-    <div>
+    <React.Fragment>
       {
         generalCourseTypes.map((type, index) => (
           <GeneralCoursePopover
             key={index}
             type={type}
-            title={`${props.title}-${type.dimension}`}
-            assis={props.assis}
-            rwd={props.rwd}
+            title={`${title}-${type.dimension}`}
+            assis={assis}
+            mobile={mobile}
           />
         ))
       }
-    </div>
+    </React.Fragment>
   )
 }
 

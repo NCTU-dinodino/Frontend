@@ -3,34 +3,43 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel'
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-import Typography from '@material-ui/core/Typography'
+import {
+  Grid,
+  LinearProgress,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Typography,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Dialog,
+  DialogContent,
+} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
-import Grow from '@material-ui/core/Grow'
 import AnimatedProgress from '../../../../../Components/AnimatedProgress'
-import Dialog from '@material-ui/core/Dialog'
 import CourseList from './CourseList'
 import GeneralCourseList from './GeneralCourseList'
 import GeneralNewCourseList from './GeneralNewCourseList'
-import './style.css'
 
 const styles = theme => ({
   container: {
     margin: '1%',
     fontFamily: 'Noto Sans CJK TC'
   },
-  text: {
-    fontSize: '20px'
+  title: {
+    fontSize: 20,
+    marginLeft: 25
   },
-  textRwd: {
-    fontSize: '8px'
+  titleMobile: {
+    padding: '20px 10px',
+    margin: '10px 0',
+    border: '1px solid #e3e3e3',
+    fontSize: 14
+  },
+  dialogMobile: {
+      minWidth: '65%'
   },
   appBar: {
     position: 'relative',
@@ -41,35 +50,35 @@ const styles = theme => ({
   },
   progress: {
     backgroundColor: '#00a152'
+  },
+  cardTitle: {
+    display: 'inline-block',
+    marginRight: 5
   }
 })
 
-function Transition (props) {
-  return <Grow {...props} />
-}
-
-const Title = (props) => {
+const Title = withStyles(styles)(({ title, complete, require, unit, optional, classes }) => {
   // 抵免研究所、雙主修...
-  if (props.optional) {
+  if (optional) {
     return (
       <div>
-        <div className='cardTitle'>{ props.title }</div>
-        <font size={5} color='#338d68'>{ props.complete }</font>
-        <div className='cardTitle' />
-        { props.unit }
+        <div className={classes.cardTitle}>{ title }</div>
+        <font size={5} color='#338d68'>{ complete }</font>
+        <div className={classes.cardTitle} />
+        { unit }
       </div>
     )
   }
   // 一般類別
   return (
     <div>
-      <div className='cardTitle'>{ props.title }</div>
-      <font size={5} color='#338d68'>{ props.complete }</font>/
-      <div className='cardTitle'>{ props.require }</div>
-      { props.unit }
+      <div className={classes.cardTitle}>{ title }</div>
+      <font size={5} color='#338d68'>{ complete }</font>/
+      <div className={classes.cardTitle}>{ require }</div>
+      { unit }
     </div>
   )
-}
+})
 
 class Index extends React.Component {
   constructor (props) {
@@ -98,96 +107,103 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, rwd } = this.props
+    const { classes, mobile } = this.props
 
-    if (this.props.data === undefined) return ''
+    if (this.props.data === undefined) return null
 
     // for mobile
-    if (rwd) {
+    if (mobile) {
       return (
-        <div>
-          <div className='col-xs-6 col-sm-6 well'>
-            <div className={classes.textRwd} onClick={this.handleOpen}>
-              <Title
-                title={this.props.title}
-                complete={this.props.complete}
-                require={this.props.require}
-                optional={this.props.optional}
-                unit={this.props.unit}
-              />
-              <AnimatedProgress value={this.props.value} />
-            </div>
-          </div>
+        <React.Fragment>
+          <Grid item xs={6} className={classes.titleMobile} onClick={this.handleOpen}>
+            <Title
+              title={this.props.title}
+              complete={this.props.complete}
+              require={this.props.require}
+              optional={this.props.optional}
+              unit={this.props.unit}
+            />
+            <AnimatedProgress value={this.props.value} />
+          </Grid>
+
           <Dialog
-            anchor='right'
             open={this.state.open}
             onClose={this.handleClose}
-            TransitionComponent={Transition}
+            PaperProps={{
+              classes: {
+               root: classes.dialogMobile
+              }
+            }}
           >
             <AppBar className={classes.appBar}>
               <Toolbar>
-                <IconButton color='inherit' onClick={this.handleClose} aria-label='Close'>
-                  <CloseIcon />
-                </IconButton>
                 <Typography variant='title' color='inherit' className={classes.flex}>
                   { this.props.title }
                 </Typography>
+                <IconButton color='inherit' aria-label='Close' onClick={this.handleClose}>
+                  <CloseIcon />
+                </IconButton>
               </Toolbar>
             </AppBar>
-            <div style={{ padding: '15px' }}>
-              {
-                this.props.title === '通識(舊制)'
-                  ? <GeneralCourseList
-                    courses={this.props.data.course}
-                    title={this.props.title}
-                    rwd
-                  />
-                  : this.props.title === '通識(新制)'
-                    ? <GeneralNewCourseList
-                      courses={this.props.data.course}
-                      overview={this.props.data}
-                      title={this.props.title}
-                      rwd
-                    />
-                    : <CourseList
+            <DialogContent>
+              <Grid container style={{ marginTop: '24px' }}>
+                {
+                  this.props.title === '通識(舊制)'
+                    ? <GeneralCourseList
                       courses={this.props.data.course}
                       title={this.props.title}
-                      rwd
+                      mobile
                     />
-              }
-            </div>
+                    : this.props.title === '通識(新制)'
+                      ? <GeneralNewCourseList
+                        courses={this.props.data.course}
+                        overview={this.props.data}
+                        title={this.props.title}
+                        mobile
+                      />
+                      : <CourseList
+                        courses={this.props.data.course}
+                        title={this.props.title}
+                        mobile
+                      />
+                }
+              </Grid>
+            </DialogContent>
           </Dialog>
-        </div>
+        </React.Fragment>
       )
     }
 
     // for PC
     return (
-      <div className={classes.container}>
-        <div className='row'>
-          <ExpansionPanel expanded={this.state.expanded} onChange={this.handleChange}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <div className='hidden-xs hidden-sm col-md-3' style={{ marginTop: '20px' }}>
+      <React.Fragment>
+        <ExpansionPanel
+          expanded={this.state.expanded}
+          onChange={this.handleChange}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+            <Grid container alignItems='center'>
+              <Grid item md={3}>
                 <LinearProgress
                   classes={{ barColorPrimary: classes.progress }}
                   variant='determinate'
                   value={this.props.value > 100 ? 100 : this.props.value}
                   color={this.props.value >= 100 ? 'primary' : 'secondary'}
                 />
-              </div>
-              <div className='col-md-4' style={{ marginLeft: '10px' }}>
-                <div className={classes.text}>
-                  <Title
-                    title={this.props.title}
-                    complete={this.props.complete}
-                    require={this.props.require}
-                    optional={this.props.optional}
-                    unit={this.props.unit}
-                  />
-                </div>
-              </div>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+              </Grid>
+              <Grid item md={4} className={classes.title}>
+                <Title
+                  title={this.props.title}
+                  complete={this.props.complete}
+                  require={this.props.require}
+                  optional={this.props.optional}
+                  unit={this.props.unit}
+                />
+              </Grid>
+            </Grid>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Grid container alignItems='center'>
               {
                 this.props.title === '通識(舊制)'
                   ? <GeneralCourseList
@@ -208,10 +224,10 @@ class Index extends React.Component {
                       title={this.props.title}
                     />
               }
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-        </div>
-      </div>
+            </Grid>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      </React.Fragment>
     )
   }
 }

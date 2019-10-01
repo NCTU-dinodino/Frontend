@@ -3,120 +3,114 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Card from './Card'
 
-class Index extends React.Component {
-  render () {
-    const { rwd } = this.props
-
-    return (
-      <div className={rwd && 'overview'}>
-        <Card
-          title='共同必修'
-          rwd={rwd}
-          complete={this.props.overview.compulsory}
-          require={this.props.overview.compulse_require}
-          value={this.props.overview.compulsory / this.props.overview.compulse_require * 100}
-          unit='學分'
-        />
-        <Card
-          title='專業選修'
-          rwd={rwd}
-          complete={this.props.overview.pro}
-          require={this.props.overview.pro_require}
-          value={this.props.overview.pro / this.props.overview.pro_require * 100}
-          unit='學分'
-        />
-        <Card
-          title='其他選修'
-          rwd={rwd}
-          complete={this.props.overview.other}
-          require={this.props.overview.other_require}
-          value={this.props.overview.other / this.props.overview.other_require * 100}
-          unit='學分'
-        />
-        <Card
-          title='外語'
-          rwd={rwd}
-          complete={this.props.overview.language}
-          require={this.props.overview.language_require}
-          value={this.props.overview.language / this.props.overview.language_require * 100}
-          unit='學分'
-        />
-        <Card
-          title='體育'
-          rwd={rwd}
-          complete={this.props.overview.pe}
-          require={this.props.overview.pe_require}
-          value={this.props.overview.pe / this.props.overview.pe_require * 100}
-          unit='門'
-        />
-        <Card
-          title='藝文賞析'
-          rwd={rwd}
-          complete={this.props.overview.art}
-          require={this.props.overview.art_require}
-          value={this.props.overview.art / this.props.overview.art_require * 100}
-          unit='門'
-        />
-        <Card
-          title='服務學習'
-          rwd={rwd}
-          complete={this.props.overview.service}
-          require={this.props.overview.service_require}
-          value={this.props.overview.service / this.props.overview.service_require * 100}
-          unit='門'
-        />
-        <Card
-          title='英文授課'
-          rwd={rwd}
-          complete={this.props.overview.english}
-          require={this.props.overview.english_require}
-          value={this.props.overview.english / this.props.overview.english_require * 100}
-          unit='門'
-        />
-        {
-          // 還沒送審或送審時選舊制
-          (this.props.reviewCheck === 0 || this.props.generalCourseSelect === 0) &&
-          <Card
-            title='通識(舊制)'
-            rwd={rwd}
-            complete={this.props.overview.general}
-            require={this.props.overview.general_require}
-            value={this.props.overview.general / this.props.overview.general_require * 100}
-            unit='學分'
-          />
-        }
-        {
-          // 還沒送審或送審時選新制
-          (this.props.reviewCheck === 0 || this.props.generalCourseSelect === 1) &&
-          <Card
-            title='通識(新制)'
-            rwd={rwd}
-            complete={this.props.overview.general_new}
-            require={this.props.overview.general_new_require}
-            value={this.props.overview.general_new / this.props.overview.general_new_require * 100}
-            unit='學分'
-          />
-        }
-        <Card
-          title='抵免研究所課程'
-          rwd={rwd}
-          complete={this.props.overview.graduate}
-          optional={true}
-          value={100}
-          unit='學分'
-        />
-        <Card
-          title='雙主修、輔系、學分學程'
-          rwd={rwd}
-          complete={this.props.overview.dmajor_minor_program}
-          optional={true}
-          value={100}
-          unit='學分'
-        />
-      </div>
-    )
-  }
-}
+const Index = ({ overview, reviewCheck, generalCourseSelect, mobile }) => (
+  <React.Fragment>
+    <Card
+      title='共同必修'
+      complete={overview.compulsory}
+      require={overview.compulse_require}
+      value={overview.compulsory / overview.compulse_require * 100}
+      unit='學分'
+      mobile={mobile}
+    />
+    <Card
+      title='專業選修'
+      complete={overview.pro}
+      require={overview.pro_require}
+      value={overview.pro / overview.pro_require * 100}
+      unit='學分'
+      mobile={mobile}
+    />
+    <Card
+      title='其他選修'
+      complete={overview.other}
+      require={overview.other_require}
+      value={overview.other / overview.other_require * 100}
+      unit='學分'
+      mobile={mobile}
+    />
+    <Card
+      title='外語'
+      complete={overview.language}
+      require={overview.language_require}
+      value={overview.language / overview.language_require * 100}
+      unit='學分'
+      mobile={mobile}
+    />
+    <Card
+      title='體育'
+      complete={overview.pe}
+      require={overview.pe_require}
+      value={overview.pe / overview.pe_require * 100}
+      unit='門'
+      mobile={mobile}
+    />
+    <Card
+      title='藝文賞析'
+      complete={overview.art}
+      require={overview.art_require}
+      value={overview.art / overview.art_require * 100}
+      unit='門'
+      mobile={mobile}
+    />
+    <Card
+      title='服務學習'
+      complete={overview.service}
+      require={overview.service_require}
+      value={overview.service / overview.service_require * 100}
+      unit='門'
+      mobile={mobile}
+    />
+    <Card
+      title='英文授課'
+      complete={overview.english}
+      require={overview.english_require}
+      value={overview.english / overview.english_require * 100}
+      unit='門'
+      mobile={mobile}
+    />
+    {
+      // 還沒送審或送審時選舊制
+      (reviewCheck === 0 || generalCourseSelect === 0) &&
+      <Card
+        title='通識(舊制)'
+        complete={overview.general}
+        require={overview.general_require}
+        value={overview.general / overview.general_require * 100}
+        unit='學分'
+        mobile={mobile}
+      />
+    }
+    {
+      // 還沒送審或送審時選新制
+      (reviewCheck === 0 || generalCourseSelect === 1) &&
+      <Card
+        title='通識(新制)'
+        complete={overview.general_new}
+        require={overview.general_new_require}
+        value={overview.general_new / overview.general_new_require * 100}
+        unit='學分'
+        mobile={mobile}
+      />
+    }
+    <Card
+      title='抵免研究所課程'
+      complete={overview.graduate}
+      optional={true}
+      value={100}
+      unit='學分'
+      mobile={mobile}
+    />
+    <Card
+      title='雙主修、輔系、學分學程'
+      complete={overview.dmajor_minor_program}
+      optional={true}
+      value={100}
+      unit='學分'
+      mobile={mobile}
+    />
+  </React.Fragment>
+)
 
 const mapStateToProps = (state) => ({
   overview: state.Student.Graduation.detail.overview,

@@ -3,56 +3,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
+import { Button, Menu, MenuItem } from '@material-ui/core'
 import {
   actions,
   getGraduationInfo,
   getMoveTargets,
   moveCourse
 } from '../../../../../../Redux/Students/Actions/Graduation'
-import '../../../../../../../node_modules/animate.css/animate.css'
-
-const style = {
-  Button: {
-    transition: 'background .2s linear',
-    width: '200px',
-    paddingRight: 0,
-    overflow: 'visible',
-    borderRadius: 2
-  },
-  ButtonLabel: {
-    padding: '5px',
-    height: '45px',
-    verticalAlign: 'default',
-    color: '#fcfcfc',
-    fontSize: '1em',
-    fontWeight: '300',
-    letterSpacing: '1px',
-    fontFamily: 'Noto Sans CJK TC'
-  },
-  ButtonBox: {
-    margin: '0 1px 6px 1px',
-    float: 'left',
-    height: 32
-  },
-  Popover: {
-    zIndex: 1000
-  }
-}
 
 const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit
-  },
-  input: {
-    display: 'none'
-  },
-  typography: {
-    margin: theme.spacing.unit * 2,
-    width: '300px'
-  },
   root: {
     fontFamily: 'Noto Sans CJK TC',
     letterSpacing: 1
@@ -66,9 +25,7 @@ class Index extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleItemSelect = this.handleItemSelect.bind(this)
     this.state = {
-      isOpened: false,
-      anchorEl: null,
-      targets: []
+      anchorEl: null
     }
   }
 
@@ -81,15 +38,15 @@ class Index extends React.Component {
   }
 
   handleClick (event) {
+    const sid = this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id
+
     // 拿取可移動的目標
     this.props.getMoveTargets({
-      student_id: this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id,
+      student_id: sid,
       cn: this.props.course.cn, // 中文課名
       code: this.props.course.code, // 課號
       type: this.props.course.type
     })
-
-    // 展開可移動的目標
     this.setState({
       anchorEl: event.currentTarget
     })
@@ -102,15 +59,14 @@ class Index extends React.Component {
   }
 
   handleItemSelect (target) {
-    let studentIdcard = this.props.studentIdcard
+    const sid = this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id
 
     this.props.moveCourse({
-      student_id: this.props.assis ? this.props.idCard.id : studentIdcard.student_id,
+      student_id: sid,
       cn: this.props.course.cn, // 中文課名
       origin_group: this.props.title,
       target_group: target
     })
-
     this.setState({
       anchorEl: null
     })
@@ -118,7 +74,7 @@ class Index extends React.Component {
 
   render () {
     const { classes, englishCheck, course, targets } = this.props
-    const shouldBeDisabled = (
+    const moveDisabled = (
       (
         (englishCheck === '0' || englishCheck === null) &&
         course.cn.search('進階英文') !== -1
@@ -127,15 +83,14 @@ class Index extends React.Component {
     )
 
     return (
-      <div style={style.Popover}>
+      <div>
         <Button
           variant='outlined'
           onClick={this.handleClick}
           className={classes.root}
-          // 由前端所擋掉的移動
-          disabled={shouldBeDisabled}
+          disabled={moveDisabled}
         >
-          { shouldBeDisabled ? '不能移動此課程' : '移動課程' }
+          { moveDisabled ? '不能移動此課程' : '移動課程' }
         </Button>
 
         <Menu
@@ -150,8 +105,8 @@ class Index extends React.Component {
             targets.map((target, index) => (
               <MenuItem
                 key={index}
-                onClick={() => this.handleItemSelect(target)}
                 className={classes.root}
+                onClick={() => this.handleItemSelect(target)}
               >
                 { target }
               </MenuItem>
@@ -169,7 +124,6 @@ Index.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  overview: state.Student.Graduation.detail.overview,
   studentIdcard: state.Student.User.studentIdcard,
   idCard: state.Student.Graduation.assistant.idCard,
   assis: state.Student.Graduation.assistant.using,

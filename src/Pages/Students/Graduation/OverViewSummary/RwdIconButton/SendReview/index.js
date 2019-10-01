@@ -69,15 +69,11 @@ class Index extends React.Component {
   }
 
   handleOpen () {
-    this.setState({
-      open: true
-    })
+    this.setState({ open: true })
   }
 
   handleClose () {
-    this.setState({
-      open: false
-    })
+    this.setState({ open: false })
   }
 
   handleChange (e) {
@@ -114,18 +110,16 @@ class Index extends React.Component {
 
         <Dialog
           fullScreen={this.props.fullScreen}
+          maxWidth='md'
           open={this.state.open}
           onClose={this.handleClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
-          maxWidth='md'
         >
           <AppBar className={classes.appBar}>
             <Toolbar >
               <Typography variant='title' color='inherit' className={classes.header}>
                 確認審查資料
               </Typography>
-              <IconButton color='inherit' onClick={this.handleClose} aria-label='Close'>
+              <IconButton color='inherit' aria-label='Close' onClick={this.handleClose}>
                 <CloseIcon />
               </IconButton>
             </Toolbar>

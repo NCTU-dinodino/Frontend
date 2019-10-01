@@ -1,97 +1,55 @@
 
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import FlatButton from 'material-ui/FlatButton'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import Popover from '@material-ui/core/Popover'
-import '../../../../../../../node_modules/animate.css/animate.css'
 import { withStyles } from '@material-ui/core/styles'
-
-const style = {
-  Button: {
-    transition: 'background .2s linear',
-    width: '200px',
-    paddingRight: 0,
-    overflow: 'visible',
-    borderRadius: 2
-  },
-  ButtonLabel: {
-    padding: '5px',
-    height: '45px',
-    verticalAlign: 'default',
-    color: '#fcfcfc',
-    fontSize: '1em',
-    fontWeight: '300',
-    letterSpacing: '1px',
-    fontFamily: 'Noto Sans CJK TC'
-  },
-  ButtonBox: {
-    margin: '0 1px 6px 1px',
-    float: 'left',
-    height: 32
-  },
-  Popover: {
-    zIndex: 1000
-  }
-}
+import { Popover } from '@material-ui/core'
+import { FlatButton } from 'material-ui'
+import { MuiThemeProvider } from 'material-ui/styles'
+import '../../../../../../../node_modules/animate.css/animate.css'
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: '0 1px 6px 1px',
+    height: 32
   },
-  input: {
-    display: 'none'
-  },
-  typography: {
+  popoverContent: {
     margin: theme.spacing.unit * 2,
-    width: '300px'
+    width: 250
   }
 })
 
 class Index extends React.Component {
   constructor (props) {
     super(props)
-    this.handleClick = this.handleClick.bind(this)
-    this.handleClose = this.handleClose.bind(this)
-    this.state = {
-      isOpened: false,
-      anchorEl: null
-    }
-  }
-
-  handleClick (event) {
-    this.setState({
-      anchorEl: event.currentTarget
-    })
-  }
-
-  handleClose () {
-    this.setState({
-      anchorEl: null
-    })
+    this.state = { anchorEl: null }
   }
 
   render () {
-    const { label, flash, backgroundColor, children, classes, rwd } = this.props
+    const { label, flash, backgroundColor, mobile, children, classes } = this.props
     const { anchorEl } = this.state
 
     return (
-      <div style={style.Popover}>
-        <div className={flash ? 'animated flash' : ''}
-          // onClick={this.handleClick}
-          style={style.ButtonBox}
-          ref='target'
-        >
+      <div>
+        <div className={`${classes.button} ${flash && 'animated flash'}`}>
           <MuiThemeProvider>
             <FlatButton
-              className='grad-btn'
-              labelStyle={style.ButtonLabel}
-              hoverColor={'#80b0d9'}
-              backgroundColor={backgroundColor || '#616161'}
-              style={{ ...style.Button, width: rwd ? '100px' : '150px' }}
+              hoverColor='#80b0d9'
+              backgroundColor={backgroundColor}
+              labelStyle={{
+                padding: 5,
+                color: '#fcfcfc',
+                fontSize: '1em',
+                fontWeight: 300,
+                letterSpacing: 1
+              }}
+              style={{
+                transition: 'background .2s linear',
+                overflow: 'hidden',
+                borderRadius: 2,
+                width: mobile ? '100px' : '140px'
+              }}
               label={label}
-              onClick={this.handleClick}
+              onClick={(e) => this.setState({ anchorEl: e.currentTarget })}
             />
           </MuiThemeProvider>
         </div>
@@ -99,17 +57,13 @@ class Index extends React.Component {
         <Popover
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
-          onClose={this.handleClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left'
-          }}
           transformOrigin={{
             vertical: 'bottom',
             horizontal: 'left'
           }}
+          onClose={(e) => this.setState({ anchorEl: null })}
         >
-          <div className={classes.typography}>
+          <div className={classes.popoverContent}>
             {children}
           </div>
         </Popover>
@@ -122,12 +76,4 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state) => ({
-  overview: state.Student.Graduation.detail.overview,
-  assis: state.Student.Graduation.assistant.using
-})
-
-const mapDispatchToProps = (dispatch) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
+export default withStyles(styles)(Index)
