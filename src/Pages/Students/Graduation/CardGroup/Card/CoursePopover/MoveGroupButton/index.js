@@ -9,7 +9,7 @@ import {
   getGraduationInfo,
   getMoveTargets,
   moveCourse
-} from '../../../../../../Redux/Students/Actions/Graduation'
+} from '../../../../../../../Redux/Students/Actions/Graduation'
 
 const styles = theme => ({
   root: {

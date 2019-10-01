@@ -1,8 +1,8 @@
 
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import PopoverButton from '../PopoverButton'
-import MoveGroupButton from '../MoveGroupButton'
+import PopoverButton from './PopoverButton'
+import MoveGroupButton from './MoveGroupButton'
 
 // 決定普通課程的按鈕顏色
 const courseBtnColor = (completed, reason) => {

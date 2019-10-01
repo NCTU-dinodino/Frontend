@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import CircularProgressbar from 'react-circular-progressbar'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid } from '@material-ui/core'
-import RwdIconButton from './RwdIconButton'
+import MenuButtonGroup from './MenuButtonGroup'
 import DetailProgress from './DetailProgress'
-import ProfessionalGroupBtn from './ProfessionalGroupBtn'
+import ProfessionalGroupMenu from './ProfessionalGroupMenu'
 
 const styles = theme => ({
   reviewRow: {
@@ -112,7 +112,7 @@ const Index = ({ check, englishCheck, overview, assis, idCard, classes, mobile }
           </Grid>
         </Grid>
         <Grid item xs={4} container justify='flex-end' alignItems='center'>
-          <ProfessionalGroupBtn size='small' />
+          <ProfessionalGroupMenu size='small' />
         </Grid>
       </Grid>
       <Grid item xs={12} container className={classes.reviewRowMobile}>
@@ -124,7 +124,7 @@ const Index = ({ check, englishCheck, overview, assis, idCard, classes, mobile }
           </div>
         </Grid>
         <Grid item xs={2} container justify='flex-end'>
-          <RwdIconButton />
+          <MenuButtonGroup />
         </Grid>
       </Grid>
     </React.Fragment>
@@ -157,8 +157,8 @@ const Index = ({ check, englishCheck, overview, assis, idCard, classes, mobile }
           </div>
         </Grid>
         <Grid item md={3} container justify='flex-end' alignItems='center'>
-          <ProfessionalGroupBtn />
-          <RwdIconButton />
+          <ProfessionalGroupMenu />
+          <MenuButtonGroup />
         </Grid>
       </Grid>
       <Grid item md={12} spacing={24} container alignItems='center'>

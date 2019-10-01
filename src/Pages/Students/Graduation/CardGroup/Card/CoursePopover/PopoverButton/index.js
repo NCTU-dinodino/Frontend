@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Popover } from '@material-ui/core'
 import { FlatButton } from 'material-ui'
 import { MuiThemeProvider } from 'material-ui/styles'
-import '../../../../../../../node_modules/animate.css/animate.css'
+import '../../../../../../../../node_modules/animate.css/animate.css'
 
 const styles = theme => ({
   button: {
