@@ -35,8 +35,8 @@ const getCourseDetail = (payload) => dispatch => {
     .post('/students/graduate/detail', payload)
     .then(res =>  dispatch(actions.graduation.detail.store(res.data)))
     .catch(err => {
-      // dispatch(actions.graduation.detail.store(FakeData.GraduationDetails_empty)) // for error display
-      dispatch(actions.graduation.detail.store(FakeData.GraduationDetails)) // for dev test
+      dispatch(actions.graduation.detail.store(FakeData.GraduationDetails_empty)) // for error display
+      // dispatch(actions.graduation.detail.store(FakeData.GraduationDetails)) // for dev test
       console.log(err)
   })
 }
@@ -86,7 +86,7 @@ export const getGraduationInfoAssistantVersion = (id, sname, program, field) => 
         student_id: id
       }
     })
-    .then(res => dispatch(actions.graduation.getReview.store(res.data)))
+    .then(res => dispatch(actions.graduation.getReview.store({ ...res.data, professional_field: field })))
     .catch(err => console.log(err))
 
   axios
@@ -95,7 +95,7 @@ export const getGraduationInfoAssistantVersion = (id, sname, program, field) => 
         student_id: id
       }
     })
-    .then(res => dispatch(actions.graduation.english.store(res.data.check.state)))
+    .then(res => dispatch(actions.graduation.english.store(res.data.status)))
     .catch(err => console.log(err))
 
   dispatch(actions.graduation.assistant.store({ id, sname, program }))

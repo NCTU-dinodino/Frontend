@@ -1,6 +1,5 @@
 
 import React from 'react'
-import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Hidden } from '@material-ui/core'
 import AnimatedProgress from '../../../../../Components/AnimatedProgress'
@@ -54,7 +53,7 @@ const Index = withStyles(styles)(({ classes, overview }) => (
         title='共同必修'
         unit='學分'
         complete={overview.compulsory}
-        require={overview.compulse_require}
+        require={overview.compulsory_require}
       />
       <ProgressBar
         title='專業選修'
@@ -132,10 +131,4 @@ const Index = withStyles(styles)(({ classes, overview }) => (
   </Hidden>
 ))
 
-const mapStateToProps = (state) => ({
-  overview: state.Student.Graduation.detail.overview
-})
-const mapDispatchToProps = (dispatch) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Index)
+export default Index

@@ -167,7 +167,7 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
           <CreditProgress overview={overview} />
         </Grid>
         <Grid item md={9} lg={10}>
-          <DetailProgress />
+          <DetailProgress overview={overview} />
         </Grid>
       </Grid>
     </React.Fragment>

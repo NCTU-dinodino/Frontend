@@ -8,8 +8,8 @@ const Index = ({ overview, reviewStatus, generalCourseType, mobile }) => (
     <Card
       title='共同必修'
       complete={overview.compulsory}
-      require={overview.compulse_require}
-      value={overview.compulsory / overview.compulse_require * 100}
+      require={overview.compulsory_require}
+      value={overview.compulsory / overview.compulsory_require * 100}
       unit='學分'
       mobile={mobile}
     />
