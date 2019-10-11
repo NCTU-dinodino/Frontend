@@ -27,23 +27,6 @@ import { fetchResearchList } from '../../../Redux/Teachers/Actions/Research/inde
 import './GroupList.css'
 import { connect } from 'react-redux'
 
-// FIRE BASE
-// let config = {
-//   apiKey: 'AIzaSyAFVgUFaZk23prpVeXTkFvXdUhSXy5xzNU',
-//   authDomain: 'nctu-csca.firebaseapp.com',
-//   databaseURL: 'https://nctu-csca.firebaseio.com',
-//   projectId: 'nctu-csca',
-//   storageBucket: 'nctu-csca.appspot.com',
-//   serviceAccount: '../../../../Resources/nctu-csca-firebase-admins.json',
-//   messagingSenderId: '612862784976'
-// }
-// if (!firebase.apps.length) {
-//   firebase.initializeApp(config)
-//   let auth = firebase.auth()
-//   auth.signInWithEmailAndPassword('nctucsca@gmail.com', 'axc3262757')
-// }
-// let storageRef = firebase.storage().ref()
-
 
 class GroupList extends React.Component {
   constructor (props) {
