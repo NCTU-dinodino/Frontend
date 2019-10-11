@@ -121,7 +121,7 @@ const GeneralNewCourseList = (props) => {
                 key={index}
                 type={type}
                 title={`${props.title}-${type.dimension}`}
-                assis={props.assis}
+                forAssistant={props.forAssistant}
                 mobile={props.mobile}
               />
             ))
@@ -149,7 +149,7 @@ const GeneralNewCourseList = (props) => {
                 label={course.cn}
                 course={course}
                 title={`${props.title}-校基本`}
-                assis={props.assis}
+                forAssistant={props.forAssistant}
                 mobile={props.mobile}
               />
             ))
@@ -177,7 +177,7 @@ const GeneralNewCourseList = (props) => {
                 label={course.cn}
                 course={course}
                 title={`${props.title}-跨院`}
-                assis={props.assis}
+                forAssistant={props.forAssistant}
                 mobile={props.mobile}
               />
             ))

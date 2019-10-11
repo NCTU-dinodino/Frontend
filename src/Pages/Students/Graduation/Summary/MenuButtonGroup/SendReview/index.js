@@ -62,9 +62,7 @@ class Index extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.state = {
       open: false,
-      generalCourse: {
-        type: 0
-      }
+      generalCourseType: 0
     }
   }
 
@@ -77,19 +75,13 @@ class Index extends React.Component {
   }
 
   handleChange (e) {
-    this.setState({
-      generalCourse: {
-        type: e.target.value
-      }
-    })
+    this.setState({ generalCourseType: e.target.value })
   }
 
   handleSubmit () {
     if (window.confirm('確定送出預審嗎?')) {
       this.props.reviewSubmit({
-        general_course: {
-          type: this.state.generalCourse.type
-        },
+        general_course_type: this.state.generalCourseType,
         professional_field: this.props.professionalField
       })
       this.handleClose()
@@ -127,11 +119,11 @@ class Index extends React.Component {
           <DialogContent>
             <PrintForm
               profile={this.props.studentIdcard}
-              assis={this.props.assis}
-              idCard={this.props.idCard}
               reviewData={this.props.reviewData}
-              reviewCheck={this.props.reviewCheck}
-              generalCourseSelect={this.props.generalCourseSelect}
+              reviewStatus={this.props.reviewStatus}
+              generalCourseType={this.props.generalCourseType}
+              idCard={this.props.idCard}
+              forAssistant={this.props.forAssistant}
             />
             <form className={classes.form}>
               <div>
@@ -139,9 +131,9 @@ class Index extends React.Component {
                 <Select
                   native
                   className={classes.select}
-                  value={this.props.reviewCheck === 0 ? this.state.generalCourse.type : this.props.generalCourseSelect}
+                  value={this.props.reviewStatus === 0 ? this.state.generalCourseType : this.props.generalCourseType}
                   onChange={this.handleChange}
-                  disabled={this.props.reviewCheck !== 0}
+                  disabled={this.props.reviewStatus !== 0}
                 >
                   <option value={0}>舊制</option>
                   <option value={1}>新制</option>
@@ -152,7 +144,7 @@ class Index extends React.Component {
                 variant='contained'
                 color='primary'
                 onClick={this.handleSubmit}
-                disabled={this.props.reviewCheck !== 0}
+                disabled={this.props.reviewStatus !== 0}
               >
                 確認送出
               </Button>
@@ -170,14 +162,13 @@ Index.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-  reviewData: state.Student.Graduation.detail.data,
   studentIdcard: state.Student.User.studentIdcard,
-  englishCheck: state.Student.Graduation.english.check,
+  reviewData: state.Student.Graduation.detail.data,
+  reviewStatus: state.Student.Graduation.getReview.status,
+  generalCourseType: state.Student.Graduation.getReview.generalCourseType,
+  professionalField: state.Student.Graduation.getReview.professionalField,
   idCard: state.Student.Graduation.assistant.idCard,
-  assis: state.Student.Graduation.assistant.using,
-  reviewCheck: state.Student.Graduation.getReview.check,
-  generalCourseSelect: state.Student.Graduation.getReview.generalCourseSelect,
-  professionalField: state.Student.Graduation.getReview.professionalField
+  forAssistant: state.Student.Graduation.assistant.using,
 })
 
 const mapDispatchToProps = (dispatch) => ({

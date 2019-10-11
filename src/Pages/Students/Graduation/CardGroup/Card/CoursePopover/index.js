@@ -25,7 +25,7 @@ const generalCourseBtnColor = (courses) => {
   return '#3cab7d'
 }
 
-const CoursePopover = ({ course, title, label, assis, mobile }) => (
+const CoursePopover = ({ course, title, label, forAssistant, mobile }) => (
   <Grid item xs={6} sm={3} lg={2} container justify='center'>
     <PopoverButton
       label={label}
@@ -46,7 +46,7 @@ const CoursePopover = ({ course, title, label, assis, mobile }) => (
       { (course.reason === 'now') && <div>當期課程。</div> }
       { (course.reason === 'now' && course.complete) && <div>已修過這堂課，目前正重複修課中。</div> }
       {
-        !assis &&
+        !forAssistant &&
         <MoveGroupButton
           title={title}
           course={course}
@@ -57,7 +57,7 @@ const CoursePopover = ({ course, title, label, assis, mobile }) => (
   </Grid>
 )
 
-const GeneralCoursePopover = ({ type, title, assis, mobile }) => (
+const GeneralCoursePopover = ({ type, title, forAssistant, mobile }) => (
   <Grid item xs={6} sm={3} lg={2} container justify='center'>
     <PopoverButton
       label={type.name}
@@ -72,7 +72,7 @@ const GeneralCoursePopover = ({ type, title, assis, mobile }) => (
             <div style={{ float: 'right', color: course.color }}>{ course.score }</div>
             <div style={{ margin: '0 0 15px 8px' }}>
               {
-                !assis &&
+                !forAssistant &&
                 <MoveGroupButton
                   title={title}
                   course={course}

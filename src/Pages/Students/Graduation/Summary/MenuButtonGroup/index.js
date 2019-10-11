@@ -28,7 +28,7 @@ class Index extends React.Component {
     const { anchorEl } = this.state
 
     return (
-      <div>
+      <React.Fragment>
         <IconButton
           aria-label='More'
           aria-owns={anchorEl ? 'long-menu' : null}
@@ -53,7 +53,7 @@ class Index extends React.Component {
           <PrintReview />
           <ResetCourse />
         </Menu>
-      </div>
+      </React.Fragment>
     )
   }
 }

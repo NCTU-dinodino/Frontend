@@ -38,6 +38,7 @@ class Index extends React.Component {
 
   render () {
     const { classes } = this.props
+
     return (
       <MenuItem onClick={() => this.handleClick()}>
         <ListItemIcon className={classes.icon}>

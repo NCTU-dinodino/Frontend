@@ -59,11 +59,11 @@ class Index extends React.Component {
           <PrintForm
             ref={el => (this.printRef = el)}
             profile={this.props.studentIdcard}
-            idCard={this.props.idCard}
-            assis={this.props.assis}
             reviewData={this.props.reviewData}
-            reviewCheck={this.props.reviewCheck}
-            generalCourseSelect={this.props.generalCourseSelect}
+            reviewStatus={this.props.reviewStatus}
+            generalCourseType={this.props.generalCourseType}
+            idCard={this.props.idCard}
+            forAssistant={this.props.forAssistant}
           />
         </div>
       </React.Fragment>
@@ -78,10 +78,10 @@ Index.propTypes = {
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
   reviewData: state.Student.Graduation.detail.data,
+  reviewStatus: state.Student.Graduation.getReview.status,
+  generalCourseType: state.Student.Graduation.getReview.generalCourseType,
   idCard: state.Student.Graduation.assistant.idCard,
-  assis: state.Student.Graduation.assistant.using,
-  reviewCheck: state.Student.Graduation.getReview.check,
-  generalCourseSelect: state.Student.Graduation.getReview.generalCourseSelect
+  forAssistant: state.Student.Graduation.assistant.using
 })
 
 const mapDispatchToProps = (dispatch) => ({

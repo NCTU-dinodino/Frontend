@@ -30,25 +30,20 @@ class Index extends React.Component {
 
   professionalMenuOpen (event) {
     event.stopPropagation()
-    this.setState({
-      anchorEl: event.currentTarget
-    })
+    this.setState({ anchorEl: event.currentTarget })
   }
 
   professionalMenuClose (event) {
     event.stopPropagation()
-    this.setState({
-      anchorEl: null
-    })
+    this.setState({ anchorEl: null })
   }
 
   professionalMenuSelect (field, event) {
     event.stopPropagation()
     let idCard = this.props.idCard
-    if (this.props.assis) {
+    if (this.props.forAssistant) {
       this.props.getGraduationInfoAssistantVersion(idCard.id, idCard.sname, idCard.program, field)
-    }
-    else {
+    } else {
       this.props.getGraduationInfo({ professional_field: field })
     }
   }
@@ -65,7 +60,7 @@ class Index extends React.Component {
           aria-owns={this.state.anchorEl ? 'simple-menu' : undefined}
           aria-haspopup='true'
           onClick={this.professionalMenuOpen}
-          disabled={this.props.reviewCheck !== 0}
+          disabled={this.props.reviewStatus !== 0}
         >
           {
             !isNaN(this.props.professionalField)
@@ -100,9 +95,10 @@ class Index extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  idCard: state.Student.Graduation.assistant.idCard,
+  reviewStatus: state.Student.Graduation.getReview.status,
   professionalField: state.Student.Graduation.getReview.professionalField,
-  reviewCheck: state.Student.Graduation.getReview.check
+  idCard: state.Student.Graduation.assistant.idCard,
+  forAssistant: state.Student.Graduation.assistant.using
 })
 
 const mapDispatchToProps = (dispatch) => ({

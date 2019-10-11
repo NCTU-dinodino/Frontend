@@ -3,13 +3,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Card from './Card'
 
-const Index = ({ overview, reviewCheck, generalCourseSelect, mobile }) => (
+const Index = ({ overview, reviewStatus, generalCourseType, mobile }) => (
   <React.Fragment>
     <Card
       title='共同必修'
       complete={overview.compulsory}
-      require={overview.compulse_require}
-      value={overview.compulsory / overview.compulse_require * 100}
+      require={overview.compulsory_require}
+      value={overview.compulsory / overview.compulsory_require * 100}
       unit='學分'
       mobile={mobile}
     />
@@ -71,7 +71,7 @@ const Index = ({ overview, reviewCheck, generalCourseSelect, mobile }) => (
     />
     {
       // 還沒送審或送審時選舊制
-      (reviewCheck === 0 || generalCourseSelect === 0) &&
+      (reviewStatus === 0 || generalCourseType === 0) &&
       <Card
         title='通識(舊制)'
         complete={overview.general}
@@ -83,7 +83,7 @@ const Index = ({ overview, reviewCheck, generalCourseSelect, mobile }) => (
     }
     {
       // 還沒送審或送審時選新制
-      (reviewCheck === 0 || generalCourseSelect === 1) &&
+      (reviewStatus === 0 || generalCourseType === 1) &&
       <Card
         title='通識(新制)'
         complete={overview.general_new}
@@ -114,8 +114,8 @@ const Index = ({ overview, reviewCheck, generalCourseSelect, mobile }) => (
 
 const mapStateToProps = (state) => ({
   overview: state.Student.Graduation.detail.overview,
-  reviewCheck: state.Student.Graduation.getReview.check,
-  generalCourseSelect: state.Student.Graduation.getReview.generalCourseSelect
+  reviewStatus: state.Student.Graduation.getReview.status,
+  generalCourseType: state.Student.Graduation.getReview.generalCourseType
 })
 
 const mapDispatchToProps = (dispatch) => ({

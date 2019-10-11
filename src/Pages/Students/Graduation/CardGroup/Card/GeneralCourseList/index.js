@@ -2,7 +2,7 @@
 import React from 'react'
 import { GeneralCoursePopover } from '../CoursePopover'
 
-const Index = ({ courses, title, assis, mobile }) => {
+const Index = ({ courses, title, forAssistant, mobile }) => {
   const generalCourseTypes = [
     {
       name: '當代',
@@ -69,7 +69,7 @@ const Index = ({ courses, title, assis, mobile }) => {
             key={index}
             type={type}
             title={`${title}-${type.dimension}`}
-            assis={assis}
+            forAssistant={forAssistant}
             mobile={mobile}
           />
         ))

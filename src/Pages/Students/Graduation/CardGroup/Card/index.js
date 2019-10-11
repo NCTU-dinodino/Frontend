@@ -207,21 +207,21 @@ class Index extends React.Component {
               {
                 this.props.title === '通識(舊制)'
                   ? <GeneralCourseList
-                    assis={this.props.assis}
                     courses={this.props.data.course}
                     title={this.props.title}
+                    forAssistant={this.props.forAssistant}
                   />
                   : this.props.title === '通識(新制)'
                     ? <GeneralNewCourseList
-                      assis={this.props.assis}
                       courses={this.props.data.course}
                       overview={this.props.data}
                       title={this.props.title}
+                      forAssistant={this.props.forAssistant}
                     />
                     : <CourseList
-                      assis={this.props.assis}
                       courses={this.props.data.course}
                       title={this.props.title}
+                      forAssistant={this.props.forAssistant}
                     />
               }
             </Grid>
@@ -238,7 +238,7 @@ Index.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   data: state.Student.Graduation.detail.data.filter(t => t.title === ownProps.title)[0],
-  assis: state.Student.Graduation.assistant.using
+  forAssistant: state.Student.Graduation.assistant.using
 })
 
 const mapDispatchToProps = (dispatch) => ({
