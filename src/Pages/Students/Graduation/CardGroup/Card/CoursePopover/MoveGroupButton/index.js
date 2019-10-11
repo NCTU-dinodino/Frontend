@@ -38,7 +38,7 @@ class Index extends React.Component {
   }
 
   handleClick (event) {
-    const sid = this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id
+    const sid = this.props.forAssistant ? this.props.idCard.id : this.props.studentIdcard.student_id
 
     // 拿取可移動的目標
     this.props.getMoveTargets({
@@ -59,7 +59,7 @@ class Index extends React.Component {
   }
 
   handleItemSelect (target) {
-    const sid = this.props.assis ? this.props.idCard.id : this.props.studentIdcard.student_id
+    const sid = this.props.forAssistant ? this.props.idCard.id : this.props.studentIdcard.student_id
 
     this.props.moveCourse({
       student_id: sid,
@@ -73,10 +73,10 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, englishCheck, course, targets } = this.props
+    const { classes, englishStatus, course, targets } = this.props
     const moveDisabled = (
       (
-        (englishCheck === '0' || englishCheck === null) &&
+        (englishStatus === 0 || englishStatus === null) &&
         course.cn.search('進階英文') !== -1
       ) ||
       course.reason === 'english'
@@ -125,10 +125,11 @@ Index.propTypes = {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  idCard: state.Student.Graduation.assistant.idCard,
-  assis: state.Student.Graduation.assistant.using,
+  englishStatus: state.Student.Graduation.english.status,
   targets: state.Student.Graduation.moveCourse.targets,
-  success: state.Student.Graduation.moveCourse.success
+  success: state.Student.Graduation.moveCourse.success,
+  idCard: state.Student.Graduation.assistant.idCard,
+  forAssistant: state.Student.Graduation.assistant.using,
 })
 
 const mapDispatchToProps = (dispatch) => ({

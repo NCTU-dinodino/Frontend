@@ -6,10 +6,10 @@ import styles from './styles'
 
 const PrintForm = props => {
   const { classes } = props
-  const sid = props.assis ? props.idCard.id : props.profile.student_id
-  const sname = props.assis ? props.idCard.sname : props.profile.sname
+  const sid = props.forAssistant ? props.idCard.id : props.profile.student_id
+  const sname = props.forAssistant ? props.idCard.sname : props.profile.sname
 
-  const programsAssis = {
+  const programsForAssistant = {
     資工: '資訊工程組',
     網多: '網路與多媒體工程組',
     資電: '資電工程組'
@@ -20,8 +20,8 @@ const PrintForm = props => {
     網多: '網路與多媒體工程組',
     資電: '資電工程組'
   }
-  const program = props.assis
-    ? programsAssis[props.idCard.program]
+  const program = props.forAssistant
+    ? programsForAssistant[props.idCard.program]
     : programs[props.profile.program]
 
   const commonCategoryTitle = ['外語', '體育', '服務學習', '藝文賞析']
@@ -38,11 +38,11 @@ const PrintForm = props => {
       })
 
       // 如果未送審就新舊制都顯示，有送審就根據當初選擇
-      if (props.reviewCheck === 0) {
+      if (props.reviewStatus === 0) {
         commonCategory.push(item)
-      } else if (props.generalCourseSelect === 0 && item.title === '通識(舊制)') {
+      } else if (props.generalCourseType === 0 && item.title === '通識(舊制)') {
         commonCategory.push(item)
-      } else if (props.generalCourseSelect === 1 && item.title === '通識(新制)') {
+      } else if (props.generalCourseType === 1 && item.title === '通識(新制)') {
         commonCategory.push(item)
       }
     } else if (commonCategoryTitle.indexOf(item.title) !== -1) {

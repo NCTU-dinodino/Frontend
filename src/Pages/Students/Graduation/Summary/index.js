@@ -76,20 +76,21 @@ const ColorInstruction = withStyles(styles)(({ classes, color, text }) => (
   </React.Fragment>
 ))
 
-const Index = ({ check, englishCheck, overview, assis, idCard, classes, mobile }) => {
-  const reviewStatus = {
+const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, classes, mobile }) => {
+  const reviewStatusText = {
     '0': '未送審',
     '1': '審核中',
     '2': '審核通過',
     '3': '審核不通過'
-  }
-  const englishStatus = {
+  }[reviewStatus]
+
+  const englishStatusText = {
     '0': '未考過英檢',
     '1': '通過外語榮譽學分（可免修外語）',
     '2': '已通過英檢免試申請',
     '3': '已考過英檢',
     '4': '已考過英檢'
-  }
+  }[englishStatus]
 
   if (mobile) return (
     <React.Fragment>
@@ -117,10 +118,10 @@ const Index = ({ check, englishCheck, overview, assis, idCard, classes, mobile }
       </Grid>
       <Grid item xs={12} container className={classes.reviewRowMobile}>
         <Grid item xs={10}>
-          <div>是否已考過英檢：{ englishStatus[englishCheck] }</div>
+          <div>是否已考過英檢：{ englishStatusText }</div>
           <div>
             畢業預審是否已送交助理審核：
-            <span style={{ color: 'red' }}>{ reviewStatus[check] }</span>
+            <span style={{ color: 'red' }}>{ reviewStatusText }</span>
           </div>
         </Grid>
         <Grid item xs={2} container justify='flex-end'>
@@ -143,17 +144,17 @@ const Index = ({ check, englishCheck, overview, assis, idCard, classes, mobile }
         <Grid item md={9}>
           {
             // 給助理端看學生身份
-            assis &&
+            forAssistant &&
             <div style={{ color: '#6e0000' }}>
               {idCard.sname}&nbsp;&nbsp;&nbsp;&nbsp;
               {idCard.program}&nbsp;&nbsp;&nbsp;&nbsp;
               {idCard.id}
             </div>
           }
-          <div>是否已考過英檢：{ englishStatus[englishCheck] }</div>
+          <div>是否已考過英檢：{ englishStatusText }</div>
           <div>
             畢業預審是否已送交助理審核：
-            <span style={{ color: 'red' }}>{ reviewStatus[check] }</span>
+            <span style={{ color: 'red' }}>{ reviewStatusText }</span>
           </div>
         </Grid>
         <Grid item md={3} container justify='flex-end' alignItems='center'>
@@ -175,10 +176,10 @@ const Index = ({ check, englishCheck, overview, assis, idCard, classes, mobile }
 
 const mapStateToProps = (state) => ({
   overview: state.Student.Graduation.detail.overview,
-  englishCheck: state.Student.Graduation.english.check,
-  check: state.Student.Graduation.getReview.check,
+  reviewStatus: state.Student.Graduation.getReview.status,
+  englishStatus: state.Student.Graduation.english.status,
   idCard: state.Student.Graduation.assistant.idCard,
-  assis: state.Student.Graduation.assistant.using
+  forAssistant: state.Student.Graduation.assistant.using
 })
 
 const mapDispatchToProps = (dispatch) => ({
