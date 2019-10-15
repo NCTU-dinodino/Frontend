@@ -5,7 +5,8 @@ const initialState = {
   input: '',
   year: '',
   semester: '',
-  first_second: ''
+  first_second: '',
+  csvArr: []
 }
 
 export default handleActions({
