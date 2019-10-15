@@ -12,8 +12,6 @@ import red from '@material-ui/core/colors/red'
 import NoImage from './1.jpg'
 import ProjectDetail from './projectDetail'
 
-// let storageRef = firebase.storage().ref()
-
 const styles = theme => ({
   card: {
     maxWidth: 400
