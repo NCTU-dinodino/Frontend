@@ -39,6 +39,7 @@ export const fetchStatus = (payload) => dispatch => {
 }
 
 export const fetchCsv = (payload) => dispatch => {
+  dispatch(status_handle_change({csvDone: false}))
   axios.post('/assistants/research/professorListDownload', payload).then(res => {
     let data = res.data, csvArr = []
     csvArr.push(['學生學號', '學生姓名', '指導教授', '專題名稱', '專題級數'])
@@ -51,8 +52,7 @@ export const fetchCsv = (payload) => dispatch => {
         if (data[i].first_second === '2')
           csvArr.push([data[i].student_id, data[i].sname, data[i].tname, data[i].research_title, data[i].first_second])
       }
-
     }
-    dispatch(status_handle_change({csvArr}))
+    dispatch(status_handle_change({csvArr: csvArr, csvDone: true}))
   })
 }

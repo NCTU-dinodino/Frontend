@@ -78,6 +78,20 @@ class StatusControl extends React.Component {
     }
   }
 
+  csvDownload = () => {
+    const { classes, Status } = this.props
+    if (!Status.csvDone) {
+      return <Button variant="contained" className={classes.button} disabled={Status.first_second === ''}>
+        下載
+      </Button>
+    }
+    return <CSVLink data={Status.csvArr} onClick={() => console.log(Status.csvArr)}>
+      <Button variant="contained" className={classes.button} disabled={Status.first_second === ''}>
+        下載
+      </Button>
+    </CSVLink>
+  }
+
   render () {
     const { classes, Status } = this.props
 
@@ -241,11 +255,7 @@ class StatusControl extends React.Component {
             <MenuItem value={"2"} style={{ fontSize: '20px' }} >專題二</MenuItem>
           </Select>
         </FormControl>
-        <CSVLink data={Status.csvArr}>
-          <Button variant="contained" className={classes.button} disabled={Status.first_second === ''}>
-            下載
-          </Button>
-        </CSVLink>
+        { this.csvDownload() }
     	</div>
     )
   }
