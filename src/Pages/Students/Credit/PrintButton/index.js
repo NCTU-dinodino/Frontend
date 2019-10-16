@@ -51,6 +51,7 @@ class PrintMenu extends React.Component {
           content={() => this.printRef}
           onBeforeGetContent={() => this.onBeforePrint()}
           onAfterPrint={() => this.onAfterPrint()}
+          pageStyle=''
         />
         <div style={{ display: 'none' }}>
           {
