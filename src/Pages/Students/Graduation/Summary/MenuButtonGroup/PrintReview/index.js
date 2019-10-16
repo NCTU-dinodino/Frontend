@@ -62,6 +62,7 @@ class Index extends React.Component {
             reviewData={this.props.reviewData}
             reviewStatus={this.props.reviewStatus}
             generalCourseType={this.props.generalCourseType}
+            professionalField={this.props.professionalField}
             idCard={this.props.idCard}
             forAssistant={this.props.forAssistant}
           />
@@ -80,6 +81,7 @@ const mapStateToProps = (state) => ({
   reviewData: state.Student.Graduation.detail.data,
   reviewStatus: state.Student.Graduation.getReview.status,
   generalCourseType: state.Student.Graduation.getReview.generalCourseType,
+  professionalField: state.Student.Graduation.getReview.professionalField,
   idCard: state.Student.Graduation.assistant.idCard,
   forAssistant: state.Student.Graduation.assistant.using
 })
