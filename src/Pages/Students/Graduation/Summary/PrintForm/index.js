@@ -8,21 +8,7 @@ const PrintForm = props => {
   const { classes } = props
   const sid = props.forAssistant ? props.idCard.id : props.profile.student_id
   const sname = props.forAssistant ? props.idCard.sname : props.profile.sname
-
-  const programsForAssistant = {
-    資工: '資訊工程組',
-    網多: '網路與多媒體工程組',
-    資電: '資電工程組'
-  }
-  const programs = {
-    資工A: '資訊工程組',
-    資工B: '資訊工程組',
-    網多: '網路與多媒體工程組',
-    資電: '資電工程組'
-  }
-  const program = props.forAssistant
-    ? programsForAssistant[props.idCard.program]
-    : programs[props.profile.program]
+  const program = ['網多組(網)', '網多組(多)', '資工組', '資電組'][props.professionalField]
 
   const commonCategoryTitle = ['外語', '體育', '服務學習', '藝文賞析']
   const csCategory = []
@@ -76,7 +62,7 @@ const PrintForm = props => {
 
       <tbody>
         <tr>
-          <td colSpan='17' className={classes.program}>105學年度 - {program}</td>
+          <td colSpan='17' className={classes.program}>105學年度 {program}</td>
         </tr>
         <tr>
           <td colSpan='17' className={classes.infoRow}>

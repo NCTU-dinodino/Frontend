@@ -19,7 +19,6 @@ const styles = theme => ({
     }
   },
   program: {
-    height: '1.5em',
     fontSize: 22,
     fontWeight: 'bold',
     border: '0 !important'

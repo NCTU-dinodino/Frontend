@@ -187,7 +187,7 @@ class Index extends React.Component {
                 <LinearProgress
                   classes={{ barColorPrimary: classes.progress }}
                   variant='determinate'
-                  value={this.props.value > 100 ? 100 : this.props.value}
+                  value={isNaN(this.props.value) ? 0 : Math.min(100, this.props.value)}
                   color={this.props.value >= 100 ? 'primary' : 'secondary'}
                 />
               </Grid>
