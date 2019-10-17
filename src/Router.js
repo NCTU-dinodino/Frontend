@@ -32,24 +32,12 @@ import StudentRecommend from './Pages/Students/Recommend'
 import StudentProfessor from './Pages/Students/Professor'
 import StudentProject from './Pages/Students/Project'
 import StudentCredit from './Pages/Students/Credit'
-import StudentCreditApply from './Pages/Students/Credit/Stepper'
+// import StudentCreditApply from './Pages/Students/Credit/Stepper'
 
 import Footer from './Components/Footer'
 // import Snow from 'react-snow-effect'
 
 import AutoLogout from './Components/AutoLogout'
-
-// let config = {
-//   apiKey: 'AIzaSyC64Eitf77FqUAMjjPaG1_rk3Sr6pyttoo',
-//   authDomain: 'code-86ba4.firebaseapp.com',
-//   databaseURL: 'https://code-86ba4.firebaseio.com',
-//   projectId: 'code-86ba4',
-//   storageBucket: 'code-86ba4.appspot.com',
-//   messagingSenderId: '354539568437'
-// }
-// if (!firebase.apps.length) {
-//   firebase.initializeApp(config)
-// }
 
 const Router = () => (
   <BrowserRouter>
@@ -70,7 +58,7 @@ const Router = () => (
         <Route exact path='/students/professor' render={() => <StudentProfessor />} />
         <Route exact path='/students/project' render={() => <StudentProject />} />
         <Route exact path='/students/credit' render={() => <StudentCredit />} />
-        <Route exact path='/students/credit/apply' render={() => <StudentCreditApply />} />
+        {/*<Route exact path='/students/credit/apply' render={() => <StudentCreditApply />} />*/}
 
         <Route exact path='/teachers/head' component={TeacherHome} />
         <Route exact path='/teachers/group' component={TeacherProject} />
@@ -92,7 +80,6 @@ const Router = () => (
         <Route path='/assistants/head/c/:sid/:type/:time/:sname/:grade/:program' component={StudentVerify} />
       </Switch>
       <Route path='/' component={Footer} />
-      <div id='printArea' />
     </div>
   </BrowserRouter>
 )

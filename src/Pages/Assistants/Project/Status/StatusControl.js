@@ -8,11 +8,14 @@ import InputLabel from '@material-ui/core/InputLabel'
 
 import {
   fetchStatus,
-  statusHandleChange
+  statusHandleChange,
+  fetchCsv
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
+import Button from '@material-ui/core/Button';
+import { CSVLink } from "react-csv"
 
 
 const styles = theme => ({
@@ -40,6 +43,10 @@ const styles = theme => ({
       borderBottomColor: '#68BB66'
     },
   },
+  button: {
+    width: '100%',
+    marginTop: '30px'
+  }
 })
 
 class StatusControl extends React.Component {
@@ -61,6 +68,29 @@ class StatusControl extends React.Component {
     }
   }
 
+  fetchCsv = (payload) => {
+    if (
+      payload.year !== "" &&
+      payload.semester !== "" &&
+      payload.first_second !== ""
+    ) {
+      this.props.fetch_csv({semester: payload.year + '-' + payload.semester, first_second: payload.first_second})
+    }
+  }
+
+  csvDownload = () => {
+    const { classes, Status } = this.props
+    if (!Status.csvDone) {
+      return <Button variant="contained" className={classes.button} disabled={Status.first_second === ''}>
+        下載
+      </Button>
+    }
+    return <CSVLink data={Status.csvArr} onClick={() => console.log(Status.csvArr)}>
+      <Button variant="contained" className={classes.button} disabled={Status.first_second === ''}>
+        下載
+      </Button>
+    </CSVLink>
+  }
   render () {
     const { classes, Status } = this.props
 
@@ -121,6 +151,11 @@ class StatusControl extends React.Component {
                   semester: Status.semester,
                   first_second: Status.first_second
                 })
+                this.fetchCsv({
+                  year: event.target.value,
+                  semester: Status.semester,
+                  first_second: Status.first_second
+                })
               }
             }
           >
@@ -158,6 +193,11 @@ class StatusControl extends React.Component {
                   semester: event.target.value 
                 })
                 this.fetchStatus({
+                  year: Status.year,
+                  semester: event.target.value,
+                  first_second: Status.first_second
+                })
+                this.fetchCsv({
                   year: Status.year,
                   semester: event.target.value,
                   first_second: Status.first_second
@@ -202,6 +242,11 @@ class StatusControl extends React.Component {
                   semester: Status.semester,
                   first_second: event.target.value
                 })
+                this.fetchCsv({
+                  year: Status.year,
+                  semester: Status.semester,
+                  first_second: event.target.value
+                })
               }
             }
           >
@@ -209,6 +254,7 @@ class StatusControl extends React.Component {
             <MenuItem value={"2"} style={{ fontSize: '20px' }} >專題二</MenuItem>
           </Select>
         </FormControl>
+        { this.csvDownload() }
     	</div>
     )
   }
@@ -220,8 +266,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   statusHandleChange: (payload) => dispatch(statusHandleChange(payload)),
-  fetch_status: (payload) => dispatch(fetchStatus(payload))
-
+  fetch_status: (payload) => dispatch(fetchStatus(payload)),
+  fetch_csv: (payload) => dispatch(fetchCsv(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))

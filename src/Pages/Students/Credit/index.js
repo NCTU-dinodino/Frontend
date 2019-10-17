@@ -1,14 +1,13 @@
 
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Button } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import PrintButton from './PrintButton'
 import WaiveCoursePanel from './Panel/waiveCoursePanel'
 import ExemptCoursePanel from './Panel/exemptCoursePanel'
 import CompulsoryCoursePanel from './Panel/compulsoryCoursePanel'
@@ -16,8 +15,6 @@ import EnglishCoursePanel from './Panel/englishCoursePanel'
 import { actions, getCreditList } from '../../../Redux/Students/Actions/Credit'
 import { FETCHING_STATUS } from '../../../Utilities/constant'
 import creditImg from '../../../Resources/credit_no_upload.png'
-import WaiveCourse from './PrintForm/WaiveCourse'
-import ExemptCourse from './PrintForm/ExemptCourse'
 
 const styles = theme => ({
   img: {
@@ -75,17 +72,10 @@ class Index extends React.Component {
       filter: {
         type: -1, // 抵免種類
         status: -1 // 抵免狀態
-      },
-      showPrintMenu: null,
-      printFormNumber: 0,
-      doPrinting: false
+      }
     }
     this.handleFilterChange = this.handleFilterChange.bind(this)
     this.checkFilter = this.checkFilter.bind(this)
-    this.handlePrintBtnClick = this.handlePrintBtnClick.bind(this)
-    this.handlePrintMenuClose = this.handlePrintMenuClose.bind(this)
-    this.handlePrintSelect = this.handlePrintSelect.bind(this)
-    this.handlePrintDisplay = this.handlePrintDisplay.bind(this)
   }
 
   componentDidMount () {
@@ -98,10 +88,6 @@ class Index extends React.Component {
     if (this.props.deleteStatus !== prevProps.deleteStatus &&
         this.props.deleteStatus === FETCHING_STATUS.DONE) {
       this.props.getCreditList()
-    }
-    if (this.state.doPrinting) {
-      this.setState({ doPrinting: false })
-      this.handlePrintDisplay()
     }
   }
 
@@ -121,34 +107,6 @@ class Index extends React.Component {
     )
   }
 
-  handlePrintBtnClick (event) {
-    this.setState({ showPrintMenu: event.currentTarget })
-  }
-
-  handlePrintMenuClose () {
-    this.setState({ showPrintMenu: null })
-  }
-
-  handlePrintSelect (formNumber, fileName) {
-    if (fileName !== null) { document.title = fileName }
-    this.setState({ printFormNumber: formNumber, doPrinting: true })
-    this.handlePrintMenuClose()
-    return true
-  }
-
-  handlePrintDisplay () {
-    // 因為有時候第一次開啟會有顯示異常，所以提醒同學
-    window.alert('如果列印畫面顯示異常，請按列印取消後再重新開啟列印單')
-
-    // 設定橫向列印
-    let fileStyle = document.createElement('style')
-    fileStyle.innerHTML = '@page{size: landscape;}'
-    window.document.head.appendChild(fileStyle)
-    window.print()
-    // // 取消橫向列印
-    window.document.head.removeChild(fileStyle)
-  }
-
   render () {
     const { classes, creditList } = this.props
     const waiveCourse = creditList.waive_course.filter((data) => this.checkFilter(0, data.status))
@@ -158,12 +116,10 @@ class Index extends React.Component {
     const waiveCourseForPrint = creditList.waive_course.filter((data) => (data.status !== 3))
     const exemptCourseForPrint = creditList.exempt_course.filter((data) => (data.status !== 3))
     const emptyCredit = !waiveCourse.length && !exemptCourse.length && !compulsoryCourse.length && !englishCourse.length
-    const anchorElement = this.state.showPrintMenu
-    const printFormNumber = this.state.printFormNumber
 
     return (
       <div className='container' style={{ marginBottom: '50px' }}>
-        <div className='row showArea'>
+        <div className='row'>
           {/* For PC screen */}
           <div className='col-md-12 hidden-xs' style={{ marginTop: '20px' }}>
             <div>
@@ -202,6 +158,7 @@ class Index extends React.Component {
                   <MenuItem value={3} style={{ height: '10px' }}>退件</MenuItem>
                 </Select>
               </FormControl>
+              {/*
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}
@@ -212,43 +169,19 @@ class Index extends React.Component {
                   抵免申請
                 </Button>
               </Link>
-              <div style={{ display: 'inline', marginLeft: '5px' }}>
-                <Button
-                  className={classes.btn}
-                  variant='contained'
-                  color='primary'
-                  aria-owns={anchorElement ? 'print-menu' : undefined}
-                  aria-haspopup='true'
-                  onClick={this.handlePrintBtnClick}
-                >
-                  列印申請表
-                </Button>
-                <Menu
-                  id='print-menu'
-                  anchorEl={anchorElement}
-                  open={Boolean(anchorElement)}
-                  onClose={this.handlePrintMenuClose}
-                >
-                  <MenuItem
-                    onClick={() => this.handlePrintSelect(0, '抵免學分申請表')}
-                    disabled={waiveCourseForPrint.length === 0}
-                  >
-                    抵免學分申請表
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => this.handlePrintSelect(1, '課程免修申請表')}
-                    disabled={exemptCourseForPrint.length === 0}
-                  >
-                    課程免修申請表
-                  </MenuItem>
-                </Menu>
-              </div>
+              */}
+              <PrintButton
+                studentIdcard={this.props.studentIdcard}
+                waiveCourse={waiveCourseForPrint}
+                exemptCourse={exemptCourseForPrint}
+              />
             </div>
           </div>
 
           {/* For mobile & xs */}
           <div className='hidden-sm hidden-md hidden-lg' style={{ margin: '20px 20px 5px 20px' }}>
             <div style={{ width: '300px' }}>
+              {/*
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}
@@ -259,37 +192,12 @@ class Index extends React.Component {
                 >
                   抵免申請
                 </Button>
-              </Link>
-              <Button
-                className={classes.btn}
-                variant='contained'
-                color='primary'
-                aria-owns={anchorElement ? 'print-menu' : undefined}
-                aria-haspopup='true'
-                style={{ margin: 'auto', width: '40%', marginLeft: '5px' }}
-                onClick={this.handlePrintBtnClick}
-              >
-                列印申請表
-              </Button>
-              <Menu
-                id='print-menu'
-                anchorEl={anchorElement}
-                open={Boolean(anchorElement)}
-                onClose={this.handlePrintMenuClose}
-              >
-                <MenuItem
-                  onClick={() => this.handlePrintSelect(0, '抵免學分申請表')}
-                  disabled={waiveCourseForPrint.length === 0}
-                >
-                  抵免學分申請表
-                </MenuItem>
-                <MenuItem
-                  onClick={() => this.handlePrintSelect(1, '課程免修申請表')}
-                  disabled={exemptCourseForPrint.length === 0}
-                >
-                  課程免修申請表
-                </MenuItem>
-              </Menu>
+              </Link>*/}
+              <PrintButton
+                studentIdcard={this.props.studentIdcard}
+                waiveCourse={waiveCourseForPrint}
+                exemptCourse={exemptCourseForPrint}
+              />
             </div>
 
             <FormControl className={classes.formControl}>
@@ -390,25 +298,6 @@ class Index extends React.Component {
               </div>
             }
           </div>
-        </div>
-
-        <div className='printArea'>
-          {
-            printFormNumber === 0 &&
-            waiveCourseForPrint.length &&
-            <WaiveCourse
-              studentIdcard={this.props.studentIdcard}
-              courses={waiveCourseForPrint}
-            />
-          }
-          {
-            printFormNumber === 1 &&
-            exemptCourseForPrint.length &&
-            <ExemptCourse
-              studentIdcard={this.props.studentIdcard}
-              courses={exemptCourseForPrint}
-            />
-          }
         </div>
       </div>
     )

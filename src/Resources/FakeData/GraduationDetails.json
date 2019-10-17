@@ -1079,7 +1079,7 @@
     "total": 97,
     "total_require": 128,
     "compulsory": 54,
-    "compulse_require": 58,
+    "compulsory_require": 58,
     "core": 0,
     "core_require": 0,
     "vice": 0,

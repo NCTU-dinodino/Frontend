@@ -8,11 +8,11 @@ const initialState = {
     overview: {}
   },
   english: {
-    check: 0
+    status: 0
   },
   getReview: {
-    check: 0,
-    generalCourseSelect: 0,
+    status: 0,
+    generalCourseType: 0,
     professionalField: 0
   },
   sendReview: {
@@ -26,7 +26,7 @@ const initialState = {
   },
   assistant: {
     idCard: {},
-    using: false
+    using: false // 代表是否使用助理端查看
   }
 }
 
@@ -47,22 +47,22 @@ export default handleActions({
     ENGLISH: {
       STORE: (state, action) => ({ ...state, english: {
         ...state.english,
-        check: action.payload
+        status: action.payload
       }})
     },
     GET_REVIEW: {
       STORE: (state, action) => ({ ...state, getReview: {
         ...state.getReview,
-        check: action.payload.check.state,
-        generalCourseSelect: action.payload.general_course.type,
+        status: action.payload.status,
+        generalCourseType: action.payload.general_course_type,
         professionalField: action.payload.professional_field
       }})
     },
     SEND_REVIEW: {
       STORE: (state, action) => ({ ...state, getReview: {
         ...state.getReview,
-        check: action.payload.check.state,
-        generalCourseSelect: action.payload.general_course.type
+        status: action.payload.status,
+        generalCourseType: action.payload.general_course_type
       }})
     },
     MOVE_COURSE: {
