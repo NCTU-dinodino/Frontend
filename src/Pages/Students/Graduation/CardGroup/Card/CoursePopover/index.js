@@ -19,8 +19,10 @@ const courseColor = (course, title) => {
     if (reason === 'now') return purple
     if (reason === 'notCS') return '#a29951'
     if (reason === 'free1' || reason === 'free2' || reason === 'english') return greyGreen
-    if (title === '其他選修' && title !== type)  return grey
-    if (title.slice(0, 2) === '通識' && type !== '通識')  return grey
+    // 非通識課程放在通識區
+    if (title.slice(0, 2) === '通識' && type !== '通識') return grey
+    // 通識課程放在其他區
+    if (title.slice(0, 2) !== '通識' && type === '通識') return grey
     return green
   }
   else {
@@ -46,8 +48,10 @@ const supplementText = (course, title) => {
   if (course.reason === 'english') return '抵免英文檢定考試的課程。'
   if (course.reason === 'now') return '當期課程。'
   if (course.reason === 'now' && course.complete) return '已修過這堂課，重複修課中。'
-  if (title === '其他選修' && title !== course.type) return '待助理確認。'
+  // 非通識課程放在通識區
   if (title.slice(0, 2) === '通識' && course.type !== '通識') return '待助理確認。'
+  // 通識課程放在其他區
+  if (title.slice(0, 2) !== '通識' && course.type === '通識') return '待助理確認。'
 }
 
 const CoursePopover = ({ course, title, label, forAssistant, mobile }) => (
