@@ -68,14 +68,10 @@ const Index = withStyles(styles)(({ classes, overview }) => (
         require={overview.other_require}
       />
       <ProgressBar
-        title={
-          <div>
-            <div className={classes.progressBar2}>外</div>語
-          </div>
-        }
-        unit='學分'
-        complete={overview.language}
-        require={overview.language_require}
+        title='英文授課'
+        unit='門'
+        complete={overview.english}
+        require={overview.english_require}
       />
       <ProgressBar
         title='通識(舊制)'
@@ -92,6 +88,16 @@ const Index = withStyles(styles)(({ classes, overview }) => (
       <ProgressBar
         title={
           <div>
+            <div className={classes.progressBar2}>外</div>語
+          </div>
+        }
+        unit='學分'
+        complete={overview.language}
+        require={overview.language_require}
+      />
+      <ProgressBar
+        title={
+          <div>
             <div className={classes.progressBar2}>體</div>育
           </div>
         }
@@ -100,22 +106,25 @@ const Index = withStyles(styles)(({ classes, overview }) => (
         require={overview.pe_require}
       />
       <ProgressBar
-        title='藝文賞析'
-        unit='門'
-        complete={overview.art}
-        require={overview.art_require}
-      />
-      <ProgressBar
         title='服務學習'
         unit='門'
         complete={overview.service}
         require={overview.service_require}
       />
       <ProgressBar
-        title='英文授課'
+        title='藝文賞析'
         unit='門'
-        complete={overview.english}
-        require={overview.english_require}
+        complete={overview.art}
+        require={overview.art_require}
+      />
+      <NoProgressBar
+        title={
+          <div>
+            <div className={classes.progressBar2}>軍</div>訓
+          </div>
+        }
+        unit='學分'
+        complete={overview.military}
       />
       <NoProgressBar
         title='抵免研究所課程'
@@ -126,15 +135,6 @@ const Index = withStyles(styles)(({ classes, overview }) => (
         title='雙主修、輔系、學分學程'
         unit='學分'
         complete={overview.dmajor_minor_program}
-      />
-      <NoProgressBar
-        title={
-          <div>
-            <div className={classes.progressBar2}>軍</div>訓
-          </div>
-        }
-        unit='學分'
-        complete={overview.military}
       />
     </Grid>
   </Hidden>
