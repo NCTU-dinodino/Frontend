@@ -109,6 +109,14 @@ const Index = ({ overview, reviewStatus, generalCourseType, mobile }) => (
       unit='學分'
       mobile={mobile}
     />
+    <Card
+      title='軍訓'
+      complete={overview.military}
+      optional={true}
+      value={100}
+      unit='學分'
+      mobile={mobile}
+    />
   </React.Fragment>
 )
 

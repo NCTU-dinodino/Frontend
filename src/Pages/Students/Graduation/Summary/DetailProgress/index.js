@@ -23,7 +23,7 @@ const styles = theme => ({
 
 // 一般類別
 const ProgressBar = withStyles(styles)(({ classes, title, complete, require, unit}) => (
-  <Grid item sm={3}>
+  <Grid item md={4} lg={3}>
     <div className={classes.courseGroup}>
       <div className={classes.progressBar}>{ title }</div>
       <font size={5} color='#338d68'>{ complete }</font>/
@@ -36,7 +36,7 @@ const ProgressBar = withStyles(styles)(({ classes, title, complete, require, uni
 
 // 抵免研究所、雙主修...
 const NoProgressBar = withStyles(styles)(({ classes, title, complete, unit}) => (
-  <Grid item sm={3}>
+  <Grid item md={4} lg={3}>
     <div className={classes.courseGroup}>
       <div className={classes.progressBar}>{ title }</div>
       <font size={5} color='#338d68'>{ complete }</font>
@@ -126,6 +126,15 @@ const Index = withStyles(styles)(({ classes, overview }) => (
         title='雙主修、輔系、學分學程'
         unit='學分'
         complete={overview.dmajor_minor_program}
+      />
+      <NoProgressBar
+        title={
+          <div>
+            <div className={classes.progressBar2}>軍</div>訓
+          </div>
+        }
+        unit='學分'
+        complete={overview.military}
       />
     </Grid>
   </Hidden>

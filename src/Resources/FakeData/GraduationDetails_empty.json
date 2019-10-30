@@ -77,6 +77,12 @@
     "course": []
   },
   {
+    "title": "軍訓",
+    "credit": 0,
+    "require": 0,
+    "course": []
+  },
+  {
     "total": 0,
     "total_require": 0,
     "compulsory": 0,
@@ -104,6 +110,7 @@
     "art": 0,
     "art_require": 0,
     "graduate": 0,
-    "dmajor_minor_program": 0
+    "dmajor_minor_program": 0,
+    "military": 0
   }
 ]
