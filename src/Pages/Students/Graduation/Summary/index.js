@@ -33,23 +33,21 @@ const styles = theme => ({
     height: 10,
     margin: 7
   },
-  red: {
-    backgroundColor: '#d93a64'
-  },
+  // 顏色和 /Pages/Students/Graduation/CardGroup/Card/CoursePopover/index.js 對應
   green: {
-    backgroundColor: '#3aa276'
+    backgroundColor: '#3db586'
   },
-  grey: {
-    backgroundColor: 'grey'
-  },
-  yellow: {
-    backgroundColor: '#a29149'
+  red: {
+    backgroundColor: '#d95467'
   },
   purple: {
-    backgroundColor: '#6A94A2'
+    backgroundColor: '#8888ff'
   },
-  blue: {
-    backgroundColor: '#9e48d9'
+  greyGreen: {
+    backgroundColor: '#6a94a2'
+  },
+  grey: {
+    backgroundColor: '#bdbdbd'
   },
   text: {
     color: '#7B7B7B',
@@ -104,12 +102,11 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
           <Grid item xs={12} container alignItems='center'>
             <ColorInstruction color={classes.green} text='已通過' />
             <ColorInstruction color={classes.red} text='未通過' />
-            <ColorInstruction color={classes.grey} text='未修課' />
+            <ColorInstruction color={classes.purple} text='當期' />
           </Grid>
           <Grid item xs={12} container alignItems='center'>
-            <ColorInstruction color={classes.yellow} text='未抵免' />
-            <ColorInstruction color={classes.purple} text='免修或抵免' />
-            <ColorInstruction color={classes.blue} text='當期' />
+            <ColorInstruction color={classes.greyGreen} text='免修或抵免' />
+            <ColorInstruction color={classes.grey} text='待確認' />
           </Grid>
         </Grid>
         <Grid item xs={4} container justify='flex-end' alignItems='center'>
@@ -135,10 +132,9 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
       <Grid item md={12} container alignItems='center'>
         <ColorInstruction color={classes.green} text='已通過' />
         <ColorInstruction color={classes.red} text='未通過' />
-        <ColorInstruction color={classes.grey} text='未修課' />
-        <ColorInstruction color={classes.yellow} text='未抵免' />
-        <ColorInstruction color={classes.purple} text='免修或抵免' />
-        <ColorInstruction color={classes.blue} text='當期' />
+        <ColorInstruction color={classes.purple} text='當期' />
+        <ColorInstruction color={classes.greyGreen} text='免修或抵免' />
+        <ColorInstruction color={classes.grey} text='待確認' />
       </Grid>
       <Grid item md={12} container className={classes.reviewRow}>
         <Grid item md={9}>
