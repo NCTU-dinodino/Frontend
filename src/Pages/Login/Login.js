@@ -1,32 +1,47 @@
+
 import React from 'react'
 import FadeIn from 'react-fade-in'
-import { Grid, Col, Row } from 'react-bootstrap'
-import { ToastContainer, ToastStore } from 'react-toasts'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import RaisedButton from 'material-ui/RaisedButton'
-
-import './Login.css'
-import PopoverExampleAnimation from './popover'
-import { grey50 } from 'material-ui/styles/colors'
-
+import { withStyles } from '@material-ui/core/styles'
+import { Grid, Button } from '@material-ui/core'
+import { ResponsiveContainer } from '../../Components/Responsive'
 import dinoIcon from '../../Resources/dinodino_login_graduate.png'
 
+const styles = theme => ({
+  container: {
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: '#eee'
+  },
+  img: {
+    height: '220px',
+    marginTop: '30vh',
+    [theme.breakpoints.down('md')]: {
+      height: '175px'
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: '140px'
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: '90px'
+    },
+  },
+  button: {
+    marginTop: '15px',
+    boxShadow: 'none',
+    backgroundColor: '#68bb66',
+    color: '#fcfcfc',
+    fontSize: '16px',
+    '&:hover': {
+      backgroundColor: '#74c072',
+      color: '#fcfcfc'
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '14px'
+    },
+  }
+}) 
+
 class Login extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      LoginMessage_state: '0'
-    }
-  }
-
-  componentDidMount () {
-    if (this.state.LoginMessage_state === '1') {
-      ToastStore.error('Oops you are not cs student !')
-    } else if (this.state.LoginMessage_state === '2') {
-      ToastStore.error('Please login first')
-    }
-  }
-
   componentWillMount () {
     let keys = document.cookie.match(/[^ =;]+(?==)/g)
     if (keys) {
@@ -37,43 +52,31 @@ class Login extends React.Component {
   }
 
   render () {
+    const { classes } = this.props
+
     return (
-      <div className='full-page'>
-        <ToastContainer store={ToastStore} />
-        <Grid>
-          <FadeIn>
-            <Row>
-              <Col xs={12} xsOffset={0} sm={12} smOffset={0}>
-                <div className='Login-header' ref='tip'>
-                  {/* <div id="eng-title">NCTU Curriculum Assistant</div> */}
-                  {/* <div id="ch-title">交大資工線上助理</div> */}
-                  <img id='dino-img' src={dinoIcon} alt='' />
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <div className='Login-buttons'>
-                <Col xs={12} sm={7} smOffset={5}>
-                  <MuiThemeProvider>
-                    <PopoverExampleAnimation />
-                  </MuiThemeProvider>
-                  <MuiThemeProvider>
-                    <RaisedButton
-                      label='Login'
-                      backgroundColor='#68BB66'
-                      labelColor={grey50}
-                      href='/auth/Nctu'
-                      className='login-btn'
-                    />
-                  </MuiThemeProvider>
-                </Col>
-              </div>
-            </Row>
-          </FadeIn>
-        </Grid>
-      </div>
+      <FadeIn>
+        <div className={classes.container}>
+          <ResponsiveContainer>
+            <Grid item xs={12} container justify='center'>
+              <img className={classes.img} src={dinoIcon} alt='' />
+            </Grid>
+            <Grid item xs={12} container justify='center'>
+              <Grid item xs={4} sm={3} md={2} container justify='center'>
+                <Button
+                  variant='contained'
+                  className={classes.button}
+                  children='LOGIN'
+                  href='/auth/Nctu'
+                  fullWidth
+                />
+              </Grid>
+            </Grid>
+          </ResponsiveContainer>
+        </div>
+      </FadeIn>
     )
   }
 }
 
-export default Login
+export default withStyles(styles)(Login)
