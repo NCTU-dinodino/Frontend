@@ -24,7 +24,6 @@ import StudentList from './Pages/Assistants/Family/StudentList'
 import TeacherList from './Pages/Assistants/Family'
 
 import StudentHead from './Pages/Students/Head'
-import StudentHome from './Pages/Students/Home'
 import StudentGrad from './Pages/Students/Graduation'
 import StudentMap from './Pages/Students/Map_v2'
 import StudentMapV3 from './Pages/Students/Map_v3'
