@@ -146,7 +146,6 @@ class StatusControl extends React.Component {
 
             }
           >
-            <MenuItem value={"一"} style={{ fontSize: '20px' }} >一年級</MenuItem>
             <MenuItem value={"二"} style={{ fontSize: '20px' }} >二年級</MenuItem>
             <MenuItem value={"三"} style={{ fontSize: '20px' }} >三年級</MenuItem>
             <MenuItem value={"四"} style={{ fontSize: '20px' }} >四年級</MenuItem>
