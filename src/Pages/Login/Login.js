@@ -41,42 +41,27 @@ const styles = theme => ({
   }
 }) 
 
-class Login extends React.Component {
-  componentWillMount () {
-    let keys = document.cookie.match(/[^ =;]+(?==)/g)
-    if (keys) {
-      for (let i = keys.length; i--;) {
-        document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
-      }
-    }
-  }
-
-  render () {
-    const { classes } = this.props
-
-    return (
-      <FadeIn>
-        <div className={classes.container}>
-          <ResponsiveContainer>
-            <Grid item xs={12} container justify='center'>
-              <img className={classes.img} src={dinoIcon} alt='' />
-            </Grid>
-            <Grid item xs={12} container justify='center'>
-              <Grid item xs={4} sm={3} md={2} container justify='center'>
-                <Button
-                  variant='contained'
-                  className={classes.button}
-                  children='LOGIN'
-                  href='/auth/Nctu'
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-          </ResponsiveContainer>
-        </div>
-      </FadeIn>
-    )
-  }
-}
+const Login = ({ classes }) => (
+  <FadeIn>
+    <div className={classes.container}>
+      <ResponsiveContainer>
+        <Grid item xs={12} container justify='center'>
+          <img className={classes.img} src={dinoIcon} alt='' />
+        </Grid>
+        <Grid item xs={12} container justify='center'>
+          <Grid item xs={4} sm={3} md={2} container justify='center'>
+            <Button
+              variant='contained'
+              className={classes.button}
+              children='LOGIN'
+              href='/auth/Nctu'
+              fullWidth
+            />
+          </Grid>
+        </Grid>
+      </ResponsiveContainer>
+    </div>
+  </FadeIn>
+)
 
 export default withStyles(styles)(Login)
