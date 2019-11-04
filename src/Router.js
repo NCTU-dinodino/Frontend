@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Frame from './Components/Frame'
-import Login from './Pages/Login/Login'
+import Login from './Pages/Login'
 
 import TeacherHead from './Pages/Teachers/Head'
 import TeacherHome from './Pages/Teachers/Home'
@@ -34,6 +34,7 @@ import StudentProject from './Pages/Students/Project'
 import StudentCredit from './Pages/Students/Credit'
 // import StudentCreditApply from './Pages/Students/Credit/Stepper'
 
+import Bulletin from './Pages/Bulletin'
 import Footer from './Components/Footer'
 // import Snow from 'react-snow-effect'
 
@@ -50,7 +51,7 @@ const Router = () => (
         <Route exact path='/' component={Login} />
         {/* students route */}
 
-        <Route exact path='/students/head/' render={() => <StudentHome />} />
+        <Route exact path='/students/head/' render={() => <Bulletin />} />
         <Route exact path='/students/grad' render={() => <StudentGrad />} />
         <Route exact path='/students/map' render={() => <StudentMap />} />
         <Route exact path='/students/map_v3' render={() => <StudentMapV3 />} />
