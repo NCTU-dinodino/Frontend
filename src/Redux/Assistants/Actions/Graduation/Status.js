@@ -16,7 +16,7 @@ export const fetchStatus = (payload) => dispatch => {
 }
 
 export const triggerUpdateData = () => dispatch => {
-  ['一', '二', '三', '四'].forEach(title => {
+  ['二', '三', '四'].forEach(title => {
     axios.post('/assistants/graduate/gradeStudentId', { grade: title }).then(res => {
       res.data.forEach(student => {
         axios.get('/assistants/graduate/studentListUpdate', {
