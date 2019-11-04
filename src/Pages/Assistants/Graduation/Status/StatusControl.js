@@ -8,11 +8,13 @@ import InputLabel from '@material-ui/core/InputLabel'
 
 import {
   statusHandleChange,
-  fetchStatus
+  fetchStatus,
+  triggerUpdateData
 } from '../../../../Redux/Assistants/Actions/Graduation/Status'
 
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
+import Button from '@material-ui/core/Button'
 
 import FirstPage from '@material-ui/icons/FirstPage'
 import ChevronLeft from '@material-ui/icons/ChevronLeft'
@@ -60,6 +62,10 @@ const styles = theme => ({
     marginRight: '10px',
     marginLeft: '10px'
   },
+  button: {
+    width: '100%',
+    marginTop: '30px'
+  }
 })
 
 class StatusControl extends React.Component {
@@ -188,6 +194,9 @@ class StatusControl extends React.Component {
             } 
           />
         </div>
+        <Button variant="contained" className = { classes.button } onClick = { () => this.props.trigger_update_data() }>
+          更新db資料
+        </Button>
       </div>
     )
   }
@@ -199,7 +208,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   statusHandleChange: (payload) => dispatch(statusHandleChange(payload)),
-  fetch_status: (payload) => dispatch(fetchStatus(payload))
+  fetch_status: (payload) => dispatch(fetchStatus(payload)),
+  trigger_update_data: () => dispatch(triggerUpdateData())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))
