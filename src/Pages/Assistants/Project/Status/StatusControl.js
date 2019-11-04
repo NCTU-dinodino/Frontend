@@ -91,7 +91,6 @@ class StatusControl extends React.Component {
       </Button>
     </CSVLink>
   }
-
   render () {
     const { classes, Status } = this.props
 

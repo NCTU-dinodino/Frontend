@@ -74,6 +74,11 @@ class Status extends React.Component {
           project_prev |= project.students.reduce( (student_prev, student) =>
             student_prev |= student.id.search(target) !== -1 || student.name.search(target) !== -1
           ,0) || project.title.search(target) !== -1
+        ,false) ||
+        teacher.pending.projects.reduce( (project_prev, project) =>
+          project_prev |= project.students.reduce( (student_prev, student) =>
+            student_prev |= student.id.search(target) !== -1 || student.name.search(target) !== -1
+          ,0) || project.title.search(target) !== -1
         ,false)
       )
     })

@@ -1,33 +1,33 @@
 body {
-    font-family: 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', Verdana, Arial, 'Microsoft YaHei' !important;
-    font-size:14px;
-    font-weight:300;
-    /*text-shadow:#999 0.001em 0.001em 0.005em !important;*/
-
-    background: #F5F5F5;
-    margin: 0;
+  font-family: 'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', Verdana, Arial, 'Microsoft YaHei' !important;
+  font-size: 14px;
+  font-weight: 300;
+  background: #f5f5f5;
+  margin: 0;
+  padding-bottom: 50px;
+  min-width: 330px;
 }
 footer {
-  	padding: 8px 0px 8px 0px;
-	font-size: 8px;
-	color: #FCFCFC;
-    text-align:center;
-    font-family: 'Noto Sans CJK TC';
-    transition: background-color 0.5s ease;
-  	font-weight:  400;
-    margin-top: 20px;
-    position: fixed;
-    bottom: 0;
-    width: 100vw;
+  padding: 8px 0px 8px 0px;
+  font-size: 8px;
+  color: #FCFCFC;
+  text-align:center;
+  font-family: 'Noto Sans CJK TC';
+  transition: background-color 0.5s ease;
+  font-weight:  400;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }
 
-#id{
+#id {
   height: 100vh;
 }
 
 #Head {
-    min-height: 7vh;
-    padding-top: 20px;
+  min-height: 7vh;
+  padding-top: 20px;
 }
 
 /*
@@ -37,125 +37,44 @@ footer {
  */
 
 .CircularProgressbar {
-    /*
-     * This fixes an issue where the CircularProgressbar svg has
-     * 0 width inside a "display: flex" container, and thus not visible.
-     *
-     * If you're not using "display: flex", you can remove this style.
-     */
-    width: 100%;
+  /*
+   * This fixes an issue where the CircularProgressbar svg has
+   * 0 width inside a "display: flex" container, and thus not visible.
+   *
+   * If you're not using "display: flex", you can remove this style.
+   */
+  width: 100%;
 }
 
 .CircularProgressbar .CircularProgressbar-path {
-    stroke: #3e98c7;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 0.5s ease 0s;
+  stroke: #3e98c7;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
 }
 
 .CircularProgressbar .CircularProgressbar-trail {
-    stroke: #d6d6d6;
+  stroke: #d6d6d6;
 }
 
 .CircularProgressbar .CircularProgressbar-text {
-    fill: #3e98c7;
-    font-size: 20px;
-    dominant-baseline: middle;
-    text-anchor: middle;
+  fill: #3e98c7;
+  font-size: 20px;
+  dominant-baseline: middle;
+  text-anchor: middle;
 }
 
-
-.red{
-    width: 10px;
-    height: 10px;
-    margin: 7px;
-    background-color: #d93a64;
-    float: left;
-}
-
-.green{
-    width: 10px;
-    height: 10px;
-    margin: 7px;
-    background-color: #3aa276;
-    float: left;
-}
-
-.gray{
-    width: 10px;
-    height: 10px;
-    margin: 7px;
-    background-color: gray;
-    float: left;
-}
-
-.yellow{
-    width: 10px;
-    height: 10px;
-    margin: 7px;
-    background-color: #a29149;
-    float: left;
-}
-
-.purple{
-    width: 10px;
-    height: 10px;
-    margin: 7px;
-    background-color: #6A94A2;
-    float: left;
-}
-
-.blue{
-    width: 10px;
-    height: 10px;
-    margin: 7px;
-    background-color: #9e48d9;
-    float: left;
-}
-
-.text{
-    color: #7B7B7B;
-    float: left;
-    opacity: 0.8;
-    font-family: 'Noto Sans CJK TC';
+.text {
+  color: #7B7B7B;
+  float: left;
+  opacity: 0.8;
+  font-family: 'Noto Sans CJK TC';
 }
 
 .fixed {
-    position: fixed;
-    z-index: 100;
+  position: fixed;
+  z-index: 100;
 }
 
 input {
-    font-size: 16px!important;
-}
-
-/* for 列印單 */
-.printArea {
-    display: none;
-}
-
-/* for 列印單 */
-@media print {
-    /* Set body padding to header and footer */
-    body{
-        background: #fff !important;
-        padding: 40px 0;;
-    }
-    .showArea,
-    footer {
-        display: none;
-    }
-    .printArea {
-        background: #fff;
-        padding: 5px;
-        height: auto;
-        width: 100%;
-        display: block;
-        -webkit-print-color-adjust: exact;
-        color-adjust: exact;
-        position: absolute;
-        left: 0;
-        top: 0;
-        text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-    }
+  font-size: 16px !important;
 }
