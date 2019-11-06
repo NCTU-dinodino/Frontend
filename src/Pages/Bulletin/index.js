@@ -1,10 +1,21 @@
 
 import React from 'react'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Tabs, Tab, Button, Icon } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { ResponsiveContainer } from '../../Components/Responsive'
 import Form from './Form'
+import {
+  getBulletins,
+  newBulletin,
+  editBulletin,
+  deleteBulletin,
+  newBulletinReset,
+  editBulletinReset,
+  deleteBulletinReset
+} from '../../Redux/Bulletins/Actions'
+import { FETCHING_STATUS } from '../../Utilities/constant'
 
 const styles = theme => ({
   root: {
@@ -112,18 +123,37 @@ class Bulletin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  componentDidMount () {
+    this.props.getBulletins()
+  }
+
+  componentDidUpdate () {
+    const { newStatus, editStatus, deleteStatus } = this.props
+
+    // 新增編輯刪除後，重新抓公告，Reset status
+    if (newStatus === FETCHING_STATUS.DONE) {
+      this.props.getBulletins()
+      this.props.newBulletinReset()
+    }
+    if (editStatus === FETCHING_STATUS.DONE) {
+      this.props.getBulletins()
+      this.props.editBulletinReset()
+    }
+    if (deleteStatus === FETCHING_STATUS.DONE) {
+      this.props.getBulletins()
+      this.props.deleteBulletinReset()
+    }
+  }
+
   handleTabChange (event, type) {
     this.setState({ type: type })
   }
 
-  handleFormOpen (formType, originValue = { type: -1, content: '' }) {
+  handleFormOpen (formType, defaultValue = { type: -1, content: '' }) {
     this.setState({
       formOpen: true,
       formType: formType,
-      payload: {
-        type: originValue.type,
-        content: originValue.content
-      }
+      payload: defaultValue
     })
   }
 
@@ -147,34 +177,23 @@ class Bulletin extends React.Component {
   }
 
   handleSubmit () {
+    this.state.formType === 'new'
+      ? this.props.newBulletin(this.state.payload)
+      : this.props.editBulletin(this.state.payload)
+    this.handleFormClose()
+  }
 
+  handleDelete (id) {
+    if (window.confirm('確定刪除此公告？')) {
+      this.props.deleteBulletin({
+        id: id
+      })
+    }
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, bulletins } = this.props
     const { type, formOpen, formType, payload } = this.state
-    const data = [
-      {
-        type: 0,
-        content: '抵免申請於下學期開學第一週開放',
-        timestamp: '2019-11-04 12:16:51'
-      },
-      {
-        type: 0,
-        content: '專題修課必須於系統提出申請',
-        timestamp: '2019-11-04 12:16:51'
-      },
-      {
-        type: 1,
-        content: '增加放置抵免研究所課程功能增加放置抵免研究所課程功能增加放置抵免研究所課程功能',
-        timestamp: '2019-11-04 12:16:51'
-      },
-      {
-        type: 1,
-        content: '已匯入107下課程',
-        timestamp: '2019-11-04 12:16:51'
-      },
-    ]
 
     return (
       <ResponsiveContainer justify='center'>
@@ -210,25 +229,27 @@ class Bulletin extends React.Component {
               </Tabs>
               <ul className={classes.contentRoot}>
                 {
-                  data.filter(d => d.type === type).map((d, index) => (
-                    <li key={index}>
-                      <div className={classes.content}>{d.content}</div>
-                      <div className={classes.contentDate}>
-                        {d.timestamp.slice(0, 10)}
-                        <Icon
-                          color='primary'
-                          style={{ cursor: 'pointer' }}
-                          onClick={(e) => this.handleFormOpen('edit', d)}
-                        >
-                          edit_icon
-                        </Icon>
-                        <DeleteIcon
-                          color='secondary'
-                          style={{ cursor: 'pointer' }}
-                        />
-                      </div>
-                    </li>
-                  ))
+                  bulletins.filter(bulletin => bulletin.type === type)
+                    .map((bulletin) => (
+                      <li key={bulletin.id}>
+                        <div className={classes.content}>{bulletin.content}</div>
+                        <div className={classes.contentDate}>
+                          {bulletin.timestamp.slice(0, 10)}
+                          <Icon
+                            color='primary'
+                            style={{ cursor: 'pointer' }}
+                            onClick={(e) => this.handleFormOpen('edit', bulletin)}
+                          >
+                            edit_icon
+                          </Icon>
+                          <DeleteIcon
+                            color='secondary'
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => this.handleDelete(bulletin.id)}
+                          />
+                        </div>
+                      </li>
+                    ))
                 }
               </ul>
             </div>
@@ -249,4 +270,21 @@ class Bulletin extends React.Component {
   }
 }
 
-export default withStyles(styles)(Bulletin)
+const mapStateToProps = (state) => ({
+  bulletins: state.Bulletins.index.data,
+  newStatus: state.Bulletins.new.status,
+  editStatus: state.Bulletins.edit.status,
+  deleteStatus: state.Bulletins.delete.status
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getBulletins: () => dispatch(getBulletins()),
+  newBulletin: (payload) => dispatch(newBulletin(payload)),
+  editBulletin: (payload) => dispatch(editBulletin(payload)),
+  deleteBulletin: (payload) => dispatch(deleteBulletin(payload)),
+  newBulletinReset: () => dispatch(newBulletinReset()),
+  editBulletinReset: () => dispatch(editBulletinReset()),
+  deleteBulletinReset: () => dispatch(deleteBulletinReset())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Bulletin))
