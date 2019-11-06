@@ -2,7 +2,7 @@
 import { createActions } from 'redux-actions'
 import axios from 'axios'
 import { FETCHING_STATUS } from '../../Utilities/constant'
-import FakeData from '../../Resources/FakeData'
+// import FakeData from '../../Resources/FakeData'
 
 export const actions = createActions({
   BULLETINS: {
@@ -31,7 +31,7 @@ export const getBulletins = () => dispatch => {
       dispatch(actions.bulletins.index.setStatus(FETCHING_STATUS.DONE))
     })
     .catch(() => {
-      dispatch(actions.bulletins.index.store(FakeData.Bulletins))
+      // dispatch(actions.bulletins.index.store(FakeData.Bulletins))
       dispatch(actions.bulletins.index.setStatus(FETCHING_STATUS.FAIL))
     })
 }
