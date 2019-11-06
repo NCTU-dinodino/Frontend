@@ -11,7 +11,6 @@ import TeacherFamily from './Pages/Teachers/Family'
 import TeacherVerify from './Pages/Teachers/Verify'
 
 import AssistantHead from './Pages/Assistants/Head'
-import AssistantHome from './Pages/Assistants/Home'
 import AssistantGrad from './Pages/Assistants/Graduation'
 import AssistantProject from './Pages/Assistants/Project'
 import AssistantMail from './Pages/Assistants/Mail'
@@ -67,7 +66,7 @@ const Router = () => (
         <Route exact path='/teachers/family' component={TeacherFamily} />
         <Route exact path='/teachers/verify' component={TeacherVerify} />
 
-        <Route exact path='/assistants/head' render={() => <Frame><AssistantHome /></Frame>} />
+        <Route exact path='/assistants/head' render={() => <Frame><Bulletin admin /></Frame>} />
         <Route exact path='/assistants/grad' render={() => <Frame><AssistantGrad /></Frame>} />
         <Route exact path='/assistants/project' render={() => <Frame><AssistantProject /></Frame>} />
         <Route exact path='/assistants/family' render={() => <Frame><TeacherList /></Frame>} />

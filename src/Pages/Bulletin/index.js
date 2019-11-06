@@ -192,21 +192,24 @@ class Bulletin extends React.Component {
   }
 
   render () {
-    const { classes, bulletins } = this.props
+    const { classes, bulletins, admin } = this.props
     const { type, formOpen, formType, payload } = this.state
 
     return (
       <ResponsiveContainer justify='center'>
         <Grid item xs={10} container justify='center'>
           <div className={classes.root}>
-            <Button
-              variant='contained'
-              size='large'
-              color='primary'
-              onClick={(e) => this.handleFormOpen('new')}
-            >
-              新增公告
-            </Button>
+            { // 是助理才能新增
+              admin &&
+              <Button
+                variant='contained'
+                size='large'
+                color='primary'
+                onClick={(e) => this.handleFormOpen('new')}
+              >
+                新增公告
+              </Button>
+            }
 
             <div className={classes.shadowWrapper}>
               <Tabs
@@ -216,16 +219,8 @@ class Bulletin extends React.Component {
                 fullWidth
                 centered
               >
-                <Tab
-                  label='公告訊息'
-                  value={0}
-                  classes={{ label: classes.tabLabel }}
-                />
-                <Tab
-                  label='網站更新'
-                  value={1}
-                  classes={{ label: classes.tabLabel }}
-                />
+                <Tab label='公告訊息' value={0} classes={{ label: classes.tabLabel }} />
+                <Tab label='網站更新' value={1} classes={{ label: classes.tabLabel }} />
               </Tabs>
               <ul className={classes.contentRoot}>
                 {
@@ -234,19 +229,24 @@ class Bulletin extends React.Component {
                       <li key={bulletin.id}>
                         <div className={classes.content}>{bulletin.content}</div>
                         <div className={classes.contentDate}>
-                          {bulletin.timestamp.slice(0, 10)}
-                          <Icon
-                            color='primary'
-                            style={{ cursor: 'pointer' }}
-                            onClick={(e) => this.handleFormOpen('edit', bulletin)}
-                          >
-                            edit_icon
-                          </Icon>
-                          <DeleteIcon
-                            color='secondary'
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => this.handleDelete(bulletin.id)}
-                          />
+                          <div>{bulletin.timestamp.slice(0, 10)}</div>
+                          { // 是助理才能編輯刪除
+                            admin &&
+                            <React.Fragment>
+                              <Icon
+                                color='primary'
+                                style={{ cursor: 'pointer' }}
+                                onClick={(e) => this.handleFormOpen('edit', bulletin)}
+                              >
+                                edit_icon
+                              </Icon>
+                              <DeleteIcon
+                                color='secondary'
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => this.handleDelete(bulletin.id)}
+                              />
+                            </React.Fragment>
+                          }
                         </div>
                       </li>
                     ))
