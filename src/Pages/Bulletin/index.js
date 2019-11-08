@@ -119,6 +119,7 @@ class Bulletin extends React.Component {
       type: 0,
       formOpen: false,
       formType: '',
+      formError: false,
       payload: {
         type: -1,
         content: ''
@@ -168,6 +169,7 @@ class Bulletin extends React.Component {
   handleFormClose () {
     this.setState({
       formOpen: false,
+      formError: false,
       payload: {
         type: -1,
         content: ''
@@ -185,10 +187,19 @@ class Bulletin extends React.Component {
   }
 
   handleSubmit () {
-    this.state.formType === 'new'
-      ? this.props.newBulletin(this.state.payload)
-      : this.props.editBulletin(this.state.payload)
-    this.handleFormClose()
+    const { payload } = this.state
+    // 判斷有沒有欄位沒填
+    if (payload.type === -1 || payload.content === '') {
+      this.setState({
+        formError: true
+      })
+      window.alert('請確實填寫每個欄位')
+    } else {
+      this.state.formType === 'new'
+        ? this.props.newBulletin(this.state.payload)
+        : this.props.editBulletin(this.state.payload)
+      this.handleFormClose()
+    }
   }
 
   handleDelete (id) {
@@ -201,7 +212,7 @@ class Bulletin extends React.Component {
 
   render () {
     const { classes, bulletins, admin } = this.props
-    const { type, formOpen, formType, payload } = this.state
+    const { type, formOpen, formType, formError, payload } = this.state
 
     return (
       <ResponsiveContainer justify='center'>
@@ -269,6 +280,7 @@ class Bulletin extends React.Component {
           open={formOpen}
           title={formType === 'new' ? '新增公告' : '編輯公告'}
           payload={payload}
+          error={formError}
           updatePayload={this.updatePayload}
           onSubmit={this.handleSubmit}
           onClose={this.handleFormClose}

@@ -30,7 +30,7 @@ const styles = theme => ({
   }
 })
 
-const Form = ({ open, title, payload, updatePayload, onSubmit, onClose, classes }) => (
+const Form = ({ open, title, payload, error, updatePayload, onSubmit, onClose, classes }) => (
   <Dialog open={open} onClose={onClose}>
     <DialogTitle classes={{ root: classes.title }} disableTypography={true}>
       {title}
@@ -54,6 +54,7 @@ const Form = ({ open, title, payload, updatePayload, onSubmit, onClose, classes 
           }}
           value={payload.type}
           onChange={(e) => updatePayload({ type: e.target.value })}
+          error={error && payload.type === -1}
         >
           <MenuItem value={-1} classes={{ root: classes.menuItem }}>請選擇公告類別</MenuItem>
           <MenuItem value={0} classes={{ root: classes.menuItem }}>公告訊息</MenuItem>
@@ -79,6 +80,7 @@ const Form = ({ open, title, payload, updatePayload, onSubmit, onClose, classes 
           multiline
           value={payload.content}
           onChange={(e) => updatePayload({ content: e.target.value })}
+          error={error && payload.content === ''}
         />
       </div>
     </DialogContent>
