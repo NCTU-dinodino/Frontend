@@ -16,7 +16,6 @@ import {
   deleteBulletinReset
 } from '../../Redux/Bulletins/Actions'
 import { FETCHING_STATUS } from '../../Utilities/constant'
-import backgroundImage from '../../Resources/home.png'
 
 const styles = theme => ({
   background: {
@@ -44,7 +43,7 @@ const styles = theme => ({
   },
   tabsRoot: {
     backgroundColor: '#69bb68',
-    opacity: '0.8',
+    // opacity: '0.8',
     borderBottom: '1px solid #e8e8e8'
   },
   tabsIndicator: {
@@ -62,7 +61,7 @@ const styles = theme => ({
     fontSize: '18px',
     paddingTop: '15px',
     paddingLeft: '15px',
-    backgroundColor: '#777',
+    backgroundColor: '#fafafa',
     [theme.breakpoints.down('xs')]: {
       fontSize: '14px'
     },
@@ -72,7 +71,7 @@ const styles = theme => ({
       position: 'relative',
       listStyle: 'none',
       padding: '0 15px 10px 30px',
-      color: '#ccc',
+      color: '#555',
       transition: '.12s',
       '&::before': {
         content: '""', // empty content in jss syntax
@@ -81,12 +80,12 @@ const styles = theme => ({
         left: '5px',
         width: '10px',
         height: '10px',
-        backgroundColor: '#eee',
+        backgroundColor: '#666',
         fontSize: '2em',
         transition: '.5s'
       },
       '&:hover': {
-        color: '#eee',
+        color: '#888',
         '&::before': {
           opacity: 1,
           transition: '.1s',
@@ -205,8 +204,6 @@ class Bulletin extends React.Component {
     const { type, formOpen, formType, payload } = this.state
 
     return (
-      <React.Fragment>
-      <img className={classes.background} src={backgroundImage} alt='' />
       <ResponsiveContainer justify='center'>
         <Grid item xs={10} container justify='center'>
           <div className={classes.root}>
@@ -277,7 +274,6 @@ class Bulletin extends React.Component {
           onClose={this.handleFormClose}
         />
       </ResponsiveContainer>
-      </React.Fragment>
     )
   }
 }
