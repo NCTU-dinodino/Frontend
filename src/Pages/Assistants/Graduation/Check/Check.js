@@ -67,10 +67,11 @@ class Check extends React.Component {
               <TableCell style={{flex: 0.025, padding: '0px'}} >
                 <IconButton style={{fontSize: '18px'}} disabled/>
               </TableCell>
-              <TableCell style={{fontSize: '25px', flex: 0.2375, paddingTop: '11px', paddingLeft: '20px'}}>學號</TableCell>
-              <TableCell style={{fontSize: '25px', flex: 0.2375, paddingTop: '11px', paddingLeft: '0px'}}>姓名</TableCell>
-              <TableCell style={{fontSize: '25px', flex: 0.2375, paddingTop: '11px', paddingLeft: '0px'}}>總學分</TableCell>
-              <TableCell style={{fontSize: '25px', flex: 0.2375, paddingTop: '11px', paddingLeft: '0px'}}>狀態</TableCell>
+              <TableCell style={{fontSize: '25px', flex: 0.19, paddingTop: '11px', paddingLeft: '20px'}}>學號</TableCell>
+              <TableCell style={{fontSize: '25px', flex: 0.19, paddingTop: '11px', paddingLeft: '0px'}}>姓名</TableCell>
+              <TableCell style={{fontSize: '25px', flex: 0.19, paddingTop: '11px', paddingLeft: '0px'}}>年級</TableCell>
+              <TableCell style={{fontSize: '25px', flex: 0.19, paddingTop: '11px', paddingLeft: '0px'}}>總學分</TableCell>
+              <TableCell style={{fontSize: '25px', flex: 0.19, paddingTop: '11px', paddingLeft: '0px'}}>狀態</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -117,9 +118,10 @@ class Check extends React.Component {
                     </IconButton>
                   </Tooltip>
                 </TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '11px', paddingLeft: '20px'}}>{check.sname}</TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '11px', paddingLeft: '10px'}}>{check.student_id}</TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '3px', paddingLeft: '30px'}}>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '20px'}}>{check.sname}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{check.student_id}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{check.grade}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '3px', paddingLeft: '30px'}}>
                   <CircularProgressbar
                     percentage={100 * check.total_credit / 128}
                     text={check.total_credit ? check.total_credit.toString() : 'error'}
@@ -131,7 +133,7 @@ class Check extends React.Component {
                     }}
                   />
                 </TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '11px', paddingLeft: '0px'}}>{GRAD_STATUS_CN[check.graduate_status]}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '0px'}}>{GRAD_STATUS_CN[check.graduate_status]}</TableCell>
 
               </TableRow>
             ))
@@ -160,7 +162,7 @@ class Check extends React.Component {
                 {"畢業學分: " + this.state.check.total_credit}
               </div>
               <div style={{fontSize: '20px', margin: '10px', color: 'black'}}>
-                {"畢業狀態: " + this.state.check.graduate_status}
+                {"畢業狀態: " + GRAD_STATUS_CN[this.state.check.graduate_status]}
               </div>
             </DialogContentText>
           </DialogContent>
@@ -175,8 +177,8 @@ class Check extends React.Component {
             </Button>
             <Button 
               onClick={() => {
-                this.setState({ agreeOpen: false}),
-                this.props.updateGraduateStatus({ student_id: check.student_id, graduate_submit: 3 })
+                this.setState({ agreeOpen: false})
+                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 3 })
               }} 
               style={{ color: 'blue', fontSize: '20px'}} 
             >
@@ -207,7 +209,7 @@ class Check extends React.Component {
                 {"畢業學分: " + this.state.check.total_credit}
               </div>
               <div style={{fontSize: '20px', margin: '10px', color: 'black'}}>
-                {"畢業狀態: " + this.state.check.graduate_status}
+                {"畢業狀態: " + GRAD_STATUS_CN[this.state.check.graduate_status]}
               </div>
             </DialogContentText>
           </DialogContent>
@@ -222,8 +224,8 @@ class Check extends React.Component {
             </Button>
             <Button 
               onClick={() => {
-                this.setState({ rejectOpen: false}),
-                this.props.updateGraduateStatus({ student_id: check.student_id, graduate_submit: 3 })
+                this.setState({ rejectOpen: false})
+                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 3 })
               }}
               style={{ color: 'red', fontSize: '20px'}} 
             >

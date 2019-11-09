@@ -23,11 +23,14 @@ export const fetchCheck = (payload) => dispatch => {
 		dispatch(check_handle_change({
 			checks: [
 				...second_res.data
-					.filter( _ => _.submit_status === 1 ),
+					.filter( _ => _.submit_status === 1 )
+					.map( check => ({...check, grade: '二'})),
 				...third_res.data
-					.filter( check => check.submit_status === 1 ),
+					.filter( _ => _.submit_status === 1 )
+					.map( check => ({ ...check, grade: '三'})),
 				...fourth_res.data
-					.filter( check => check.submit_status === 1 )
+					.filter( _ => _.submit_status === 1 )
+					.map( check => ({ ...check, grade: '四'}))
 			]
 		}))
 	})).catch( err => console.log(err) )
