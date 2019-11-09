@@ -37,7 +37,7 @@ export const fetchCheck = (payload) => dispatch => {
 }
 
 export const updateGraduateStatus = payload => dispatch => {
-	axios.post('/assistants/graduate/check', payload).then( res => {
+	axios.post('/assistants/graduate/graduateCheck', payload).then( res => {
 		dispatch(update_graduate_status(payload))
 	}).catch( err => console.log(err) )
 }
