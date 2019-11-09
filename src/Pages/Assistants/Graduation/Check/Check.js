@@ -178,7 +178,7 @@ class Check extends React.Component {
             <Button 
               onClick={() => {
                 this.setState({ agreeOpen: false})
-                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 3 })
+                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 2 })
               }} 
               style={{ color: 'blue', fontSize: '20px'}} 
             >
