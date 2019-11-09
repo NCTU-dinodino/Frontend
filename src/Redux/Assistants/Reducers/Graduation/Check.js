@@ -12,11 +12,6 @@ export default handleActions({
     ...action.payload
   }),
   UPDATE_GRADUATE_STATUS: (state, action) => ({ ...state,
-    checks: state.checks.map( check => check.student_id !== action.payload.student_id
-      ? check
-      : { ...check,
-        graduate_status: action.payload.graduate_submit
-      }
-    )
+    checks: state.checks.filter( check => check.student_id !== action.payload.student_id )
   })
 }, initialState)
