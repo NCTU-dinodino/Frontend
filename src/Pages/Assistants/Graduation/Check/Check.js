@@ -27,8 +27,22 @@ import {
 import CircularProgressbar from 'react-circular-progressbar'
 
 const styles = theme => ({
+
+  container: {
+    width: '80%',
+    margin: '0 auto',
+    marginBottom: '50px'
+  },
+  dialog: {
+    minWidth: '500px'
+  },
+  tooltip: {
+    fontSize: '15px'
+  }
   
 })
+
+const GRAD_STATUS_CN = ['未符合', '將符合', '已符合']
 
 class Check extends React.Component {
   constructor(props) {
@@ -103,21 +117,21 @@ class Check extends React.Component {
                     </IconButton>
                   </Tooltip>
                 </TableCell>
-                <TableCell style={{flex: 0.025, padding: '0px'}}>{check.sname}</TableCell>
-                <TableCell style={{flex: 0.025, padding: '0px'}}>{check.student_id}</TableCell>
-                <TableCell style={{flex: 0.025, padding: '0px'}}>
+                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '11px', paddingLeft: '20px'}}>{check.sname}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '11px', paddingLeft: '10px'}}>{check.student_id}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '3px', paddingLeft: '30px'}}>
                   <CircularProgressbar
                     percentage={100 * check.total_credit / 128}
                     text={check.total_credit ? check.total_credit.toString() : 'error'}
                     initialAnimation
                     styles={{
-                      root: { maxWidth: '180px' },
+                      root: { maxWidth: '40px' },
                       path: { stroke: '#34855e' },
-                      text: { fill: '#34855e', fontSize: '25px', fontWeight: 'bold' }
+                      text: { fill: '#34855e', fontSize: '30px', fontWeight: 'bold' }
                     }}
                   />
                 </TableCell>
-                <TableCell style={{flex: 0.025, padding: '0px'}}>{check.graduate_status}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.2375, paddingTop: '11px', paddingLeft: '0px'}}>{GRAD_STATUS_CN[check.graduate_status]}</TableCell>
 
               </TableRow>
             ))
