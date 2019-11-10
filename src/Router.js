@@ -11,7 +11,8 @@ import TeacherFamily from './Pages/Teachers/Family'
 import TeacherVerify from './Pages/Teachers/Verify'
 
 import AssistantHead from './Pages/Assistants/Head'
-import AssistantGrad from './Pages/Assistants/Graduation'
+import AssistantGradStatus from './Pages/Assistants/Graduation/Status'
+import AssistantGradCheck from './Pages/Assistants/Graduation/Check'
 import AssistantProject from './Pages/Assistants/Project'
 import AssistantMail from './Pages/Assistants/Mail'
 import AssistantSetting from './Pages/Assistants/Setting'
@@ -67,12 +68,13 @@ const Router = () => (
         <Route exact path='/teachers/verify' component={TeacherVerify} />
 
         <Route exact path='/assistants/head' render={() => <Frame><Bulletin admin /></Frame>} />
-        <Route exact path='/assistants/grad' render={() => <Frame><AssistantGrad /></Frame>} />
+        <Route exact path='/assistants/grad' render={() => <Frame><AssistantGradCheck /></Frame>} />
         <Route exact path='/assistants/project' render={() => <Frame><AssistantProject /></Frame>} />
         <Route exact path='/assistants/family' render={() => <Frame><TeacherList /></Frame>} />
         <Route exact path='/assistants/family/:tid' component={StudentList} />
         <Route exact path='/assistants/verify' component={AssistantVerify2} />
         <Route exact path='/assistants/marmot0814/verify' render={ () => <Frame><AssistantVerify2 /></Frame> } />
+        <Route exact path='/assistants/course' render={() => <Frame><AssistantGradStatus /></Frame>} />
         <Route exact path='/assistants/mail' render={() => <Frame><AssistantMail /></Frame>} />
         <Route exact path='/assistants/setting' render={() => <Frame><AssistantSetting /></Frame>} />
         <Route path='/assistants/head/s/:sid/:sname/:program' component={StudentDetail} />

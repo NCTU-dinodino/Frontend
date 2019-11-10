@@ -28,6 +28,7 @@ class Head extends React.Component {
     const router = [
       '/assistants/head',
       '/assistants/grad',
+      '/assistants/course',
       '/assistants/project',
       '/assistants/family',
       '/assistants/verify',
@@ -39,7 +40,8 @@ class Head extends React.Component {
       () => this.props.history.push(router[2]),
       () => this.props.history.push(router[3]),
       () => this.props.history.push(router[4]),
-      () => this.props.history.push(router[5])
+      () => this.props.history.push(router[5]),
+      () => this.props.history.push(router[6]),
     ]
     return (
       <Grid fluid>

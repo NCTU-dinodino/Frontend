@@ -90,22 +90,19 @@ class index extends React.Component {
           this.setState({
             type
           })
-          type === 'CHECK' ? (
-            ''
-          ) : type === 'STATUS' ? (
-            (
+          if (type === 'STATUS') {
+            if (
               this.props.Status.year !== '' &&
               this.props.Status.semester !== '' &&
               this.props.Status.first_second !== ''
-            ) ? 
+            ) { 
               this.props.fetch_status({
                 year: this.props.Status.year,
                 semester: this.props.Status.semester,
                 first_second: this.props.Status.first_second
-              }) : ''
-          ) : type === 'SCORE' ? (
-            ''
-          ) : ''
+              })
+            }
+          }
         }}
       >
         {label}

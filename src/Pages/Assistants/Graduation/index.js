@@ -56,16 +56,7 @@ class index extends React.Component {
           color: (hightlight ? '#68BB66' : '#6f6f6f')
         }}
         onClick = { () => {
-          this.setState({
-            type
-          })
-          type === 'CHECK' ? (
-            ''
-          ) : type === 'STATUS' ? (
-            ''
-          ) : type === 'SCORE' ? (
-            ''
-          ) : ''
+          this.setState({ type })
         }}
       >
         {label}
