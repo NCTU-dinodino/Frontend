@@ -54,6 +54,30 @@ class Check extends React.Component {
     this.props.fetchCheck()
   }
 
+  hightlight = (label, raw_input) => {
+    if (raw_input === '')
+      return label
+    const target = new RegExp(raw_input,"gi");
+    var result, indices = [];
+    while ( (result = target.exec(label)) ) {
+        indices.push(result.index);
+    }
+    indices.push(label.length)
+    return indices.length ? (
+      <span>
+        <span>{label.substr(0, indices[0])}</span>
+        {
+          indices.map( (index, idx) =>
+            <span key={idx}>
+              <span style={{background: 'yellow'}}>{label.substr(index, raw_input.length)}</span>
+              <span>{idx === indices.length - 1 ? '' : label.substr(index + raw_input.length, indices[idx + 1] - index - raw_input.length)}</span>
+            </span>
+          )
+        }
+      </span>
+    ) : label
+  }
+
   render() {
     const { classes } = this.props
     return (
@@ -118,9 +142,9 @@ class Check extends React.Component {
                     </IconButton>
                   </Tooltip>
                 </TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '20px'}}>{check.sname}</TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{check.student_id}</TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{check.grade}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '20px'}}>{this.hightlight(check.sname, this.props.Check.input)}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{this.hightlight(check.student_id, this.props.Check.input)}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{this.hightlight(check.grade, this.props.Check.input)}</TableCell>
                 <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '3px', paddingLeft: '30px'}}>
                   <CircularProgressbar
                     percentage={100 * check.total_credit / 128}
@@ -133,7 +157,7 @@ class Check extends React.Component {
                     }}
                   />
                 </TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '0px'}}>{GRAD_STATUS_CN[check.graduate_status]}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '0px'}}>{this.hightlight(GRAD_STATUS_CN[check.graduate_status], this.props.Check.input)}</TableCell>
 
               </TableRow>
             ))
