@@ -20,7 +20,7 @@ class Compulsory extends React.Component {
   render() {
     const { student } = this.props
     return (
-      student.program === '網多' ? <WebNet student={student} /> : <OtherProgram student={student} />
+      (parseInt(student.net_media) === 0 || parseInt(student.net_media) === 1) ? <WebNet student={student} /> : <OtherProgram student={student} />
     )
   }
 }

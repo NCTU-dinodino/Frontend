@@ -15,7 +15,7 @@ const styles = theme => ({
     verticalAlign: 'middle'
   },
   tabRoot: {
-    background: '#34855e',
+    background: '#F40054',
     color: 'white',
     margin: '0 1px'
   },
