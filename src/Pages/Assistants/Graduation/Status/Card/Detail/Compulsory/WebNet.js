@@ -86,14 +86,19 @@ class WebNet extends React.Component {
         }
         </div>
         <div className='col-md-6 col-lg-6 col-xs-6' style={{ display: 'flex' }}>
-          <div style={{ fontSize: '23px', alignItems: 'center', justifyContent: 'center', marginTop: '10px' }}>網多專選</div>
-          <div style={{ display: 'block', marginLeft: '20px', marginTop: '5px' }}>
-            <div>{'網　路'}<span>{ student.net.length <= 0 ? <Clear className={classes.error_net_media} /> : <span className={classes.ok_net_media} >{
-              student.net.reduce((res, str) => res += str + ', ', '')
-            }</span> }</span></div>
+          <div style={{ fontSize: '23px', alignItems: 'center', justifyContent: 'center', marginTop: '10px' }}>
+          {
+            parseInt(student.net_media, 10) === 0 && 
+              <div>{'網　路'}<span>{ student.net.length <= 0 ? <Clear className={classes.error_net_media} /> : <span className={classes.ok_net_media} >{
+                student.net.reduce((res, str) => res += str + ', ', '')
+              }</span> }</span></div>
+          }
+          {
+            parseInt(student.net_media, 10) === 1 && 
             <div>多媒體<span>{ student.media.length <= 0 ? <Clear className={classes.error_net_media} /> : <span className={classes.ok_net_media} >{
               student.media.reduce((res, str) => res += str + ', ', '')
             }</span> }</span></div>
+          }
           </div>
         </div>
       </div>
