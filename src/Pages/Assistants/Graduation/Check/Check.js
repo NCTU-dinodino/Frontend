@@ -49,6 +49,7 @@ class Check extends React.Component {
     super(props)
     this.state = {
       agreeOpen: false,
+      rejectOpen: false,
       check: {}
     }
     this.props.fetchCheck()
