@@ -69,9 +69,10 @@ export const getGraduationInfo = (payload = null) => dispatch => {
 export const getGraduationInfoAssistantVersion = (id, sname, program, field) => dispatch => {
   axios
     .post('/assistants/graduate/detail', {
-      student_id: id,
       professional_field: field
-    })
+    }, { params:{
+      student_id: id
+    }})
     .then(res => dispatch(actions.graduation.detail.store(res.data)))
     .catch(err => {
       dispatch(actions.graduation.detail.store(FakeData.GraduationDetails_empty))
