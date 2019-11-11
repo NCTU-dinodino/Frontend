@@ -17,7 +17,7 @@ const styles = theme => ({
     fontWeight: 'bolder'
   },
   textField: {
-    width: '300px'
+    width: '100%'
   },
   label: {
     fontSize: '18px'
@@ -81,6 +81,24 @@ const Form = ({ open, title, payload, error, updatePayload, onSubmit, onClose, c
           value={payload.content}
           onChange={(e) => updatePayload({ content: e.target.value })}
           error={error && payload.content === ''}
+        />
+        <TextField
+          label='公告連結'
+          margin='normal'
+          fullWidth
+          className={classes.textField}
+          InputLabelProps={{
+            classes: {
+              root: classes.label
+            }
+          }}
+          InputProps={{
+            classes: {
+              root: classes.input
+            }
+          }}
+          value={payload.link}
+          onChange={(e) => updatePayload({ link: e.target.value })}
         />
       </div>
     </DialogContent>
