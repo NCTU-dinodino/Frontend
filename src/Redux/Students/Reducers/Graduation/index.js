@@ -12,6 +12,7 @@ const initialState = {
   },
   getReview: {
     status: 0,
+    rejectReason: '',
     generalCourseType: 0,
     professionalField: 0
   },
@@ -54,6 +55,7 @@ export default handleActions({
       STORE: (state, action) => ({ ...state, getReview: {
         ...state.getReview,
         status: action.payload.status,
+        rejectReason: action.payload.reject_reason,
         generalCourseType: action.payload.general_course_type,
         professionalField: action.payload.professional_field
       }})

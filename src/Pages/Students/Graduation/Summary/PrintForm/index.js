@@ -10,7 +10,7 @@ const PrintForm = props => {
   const sname = props.forAssistant ? props.idCard.sname : props.profile.sname
   const program = ['網多組(網)', '網多組(多)', '資工組', '資電組'][props.professionalField]
 
-  const commonCategoryTitle = ['外語', '體育', '服務學習', '藝文賞析']
+  const commonCategoryTitle = ['外語', '體育', '服務學習', '藝文賞析', '軍訓', '雙主修、輔系、學分學程']
   const csCategory = []
   const commonCategory = []
 
@@ -82,8 +82,9 @@ const PrintForm = props => {
           csCategory.map((category, index) => (
             <CourseTable
               key={index}
-              courses={category.course}
               title={category.title}
+              require={category.require}
+              courses={category.course}
             />
           ))
         }
@@ -97,8 +98,9 @@ const PrintForm = props => {
           commonCategory.map((category, index) => (
             <CourseTable
               key={index}
-              courses={category.course}
               title={category.title}
+              require={category.require}
+              courses={category.course}
             />
           ))
         }
