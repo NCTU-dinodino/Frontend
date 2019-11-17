@@ -74,6 +74,8 @@ class Check extends React.Component {
   }
 
   hightlight = (label, raw_input) => {
+    if (!label)
+      return ;
     if (raw_input === '')
       return label
     const target = new RegExp(raw_input,"gi");
@@ -95,6 +97,12 @@ class Check extends React.Component {
         }
       </span>
     ) : label
+  }
+
+  filter = (checks) => {
+    if (!this.props.Check.program_filter.reduce((prev, curr) => prev |= curr, false))
+      return checks
+    return checks.filter( check => this.props.Check.program_filter[check.program.charCodeAt() - 'A'.charCodeAt()]);
   }
 
   render() {
@@ -120,7 +128,7 @@ class Check extends React.Component {
           </TableHead>
           <TableBody>
           {
-            this.props.Check.checks.map( (check, idx) => (
+            this.filter(this.props.Check.checks).map( (check, idx) => (
               <TableRow hover style={{ display: 'flex', justifyContent: 'center'}} key={idx} > 
                 <TableCell style={{flex: 0.025, padding: '0px'}}>
                   <Tooltip

@@ -3,7 +3,8 @@ import { handleActions } from 'redux-actions'
 const initialState = {
   input: '',
   checks: [],
-  reason: ''
+  reason: '',
+  program_filter: [false, false, false, false]
 }
 
 export default handleActions({
