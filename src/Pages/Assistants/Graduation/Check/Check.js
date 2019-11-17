@@ -19,6 +19,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import OpenInNew from '@material-ui/icons/OpenInNew'
+
 import {
   fetchCheck,
   updateGraduateStatus
@@ -125,7 +127,7 @@ class Check extends React.Component {
                 </TableCell>
                 <TableCell style={{flex: 0.025, padding: '0px'}}>
                   <Tooltip
-                    title={'退回'} 
+                    title={'不同意'} 
                     placement='top'
                     classes={{
                       tooltip: classes.tooltip
@@ -143,7 +145,17 @@ class Check extends React.Component {
                     </IconButton>
                   </Tooltip>
                 </TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '20px'}}>{this.hightlight(check.sname, this.props.Check.input)}</TableCell>
+                <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '20px'}}>
+                  {this.hightlight(check.sname, this.props.Check.input)}
+                  <OpenInNew style={{
+                    fontSize: '20px',
+                    marginLeft: '5px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    verticalAlign: 'middle'}}
+                    onClick={() => window.open('/assistants/head/s/' + check.student_id + '/' + check.sname + '/' + check.program + '/' + check.net_media)}
+                  />
+                </TableCell>
                 <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{this.hightlight(check.student_id, this.props.Check.input)}</TableCell>
                 <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '11px', paddingLeft: '10px'}}>{this.hightlight(check.grade, this.props.Check.input)}</TableCell>
                 <TableCell style={{fontSize: '18px', flex: 0.19, paddingTop: '3px', paddingLeft: '30px'}}>
@@ -220,7 +232,7 @@ class Check extends React.Component {
           fullWidth
         >
           <DialogTitle>
-            <div style={{fontSize: '30px', fontWeight: 'bold'}}>畢業預審退回確認</div>
+            <div style={{fontSize: '30px', fontWeight: 'bold'}}>畢業預審不同意確認</div>
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -254,7 +266,7 @@ class Check extends React.Component {
               }}
               style={{ color: 'red', fontSize: '20px'}} 
             >
-              確定退回
+              確定不同意
             </Button>
           </DialogActions>
         </Dialog>
