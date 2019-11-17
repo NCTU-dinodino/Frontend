@@ -8,6 +8,10 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Chip from '@material-ui/core/Chip'
 import blue from '@material-ui/core/colors/blue'
 
+import Button from '@material-ui/core/Button'
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
+import { CSVLink } from "react-csv"
+
 import {
   checkHandleChange
 } from '../../../../Redux/Assistants/Actions/Graduation/Check'
@@ -44,6 +48,10 @@ const styles = theme => ({
     fontSize: '20px',
     padding: '20px'
   },
+  button: {
+    width: '100%',
+    marginTop: '30px'
+  }
 })
 
 class CheckControl extends React.Component {
@@ -58,6 +66,20 @@ class CheckControl extends React.Component {
     this.props.checkHandleChange({
       program_filter: this.props.Check.program_filter.map( (v, i) => i === idx ? !v : v)
     })
+  }
+
+  csvDownload = () => {
+    const { classes, Check } = this.props
+    if (!Check.csvDone) {
+      return <Button variant="contained" className={classes.button}>
+        下載
+      </Button>
+    }
+    return <CSVLink data={Check.csvArr} onClick = { () => console.log(Check.csvArr) }>
+      <Button variant="contained" className={classes.button}>
+        下載
+      </Button>
+    </CSVLink>
   }
 
   render() {
@@ -137,6 +159,7 @@ class CheckControl extends React.Component {
               style = {{ background: Check.program_filter[3] ? blue[300] : null, flex: 1, marginTop: '3px', marginBottom: '3px' }}
             />
           </div>
+          {this.csvDownload()}
       </div>
     )
   }

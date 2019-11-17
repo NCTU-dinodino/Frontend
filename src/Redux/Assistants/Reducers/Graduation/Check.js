@@ -4,7 +4,9 @@ const initialState = {
   input: '',
   checks: [],
   reason: '',
-  program_filter: [false, false, false, false]
+  program_filter: [false, false, false, false],
+  csvDone: false,
+  csvArr: []
 }
 
 export default handleActions({
