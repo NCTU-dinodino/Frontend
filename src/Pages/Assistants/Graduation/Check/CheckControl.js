@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button'
 import { CSVLink } from "react-csv"
 
 import {
+  fetchCheck,
   checkHandleChange
 } from '../../../../Redux/Assistants/Actions/Graduation/Check'
 
@@ -50,14 +51,18 @@ const styles = theme => ({
   button: {
     width: '100%',
     marginTop: '30px'
-  }
+  },
+  toolBarButton: {
+    fontSize: '20px',
+    width: '100%',
+  },
 })
 
 class CheckControl extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      type: 'PENDING'
     }
   }
 
@@ -81,11 +86,31 @@ class CheckControl extends React.Component {
     </CSVLink>
   }
 
+  toolBarButton = (hightlight, type, label) => {
+    return (
+      <Button 
+        className={this.props.classes.toolBarButton}
+        style = {{
+          color: (hightlight ? '#68BB66' : '#6f6f6f')
+        }}
+        onClick = { () => {
+          this.props.checkHandleChange({ type })
+          this.props.fetchCheck()
+        }}
+      >
+        {label}
+      </Button>
+    )
+  }
+
   render() {
     const { classes, Check } = this.props
 
     return (
       <div className={classes.container}>
+        {this.toolBarButton(Check.type === 'PENDING', 'PENDING', '審　核　中')}
+        {this.toolBarButton(Check.type === 'ACCEPTED', 'ACCEPTED', '同　意畢業')}
+        {this.toolBarButton(Check.type === 'REJECTED', 'REJECTED', '不同意畢業')}
         <FormControl style={{ width: '100%', flex: 1 }}>
           <InputLabel
             FormLabelClasses={{
@@ -170,6 +195,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  fetchCheck: () => dispatch(fetchCheck()),
   checkHandleChange: (payload) => dispatch(checkHandleChange(payload))
 
 })

@@ -6,7 +6,8 @@ const initialState = {
   reason: '',
   program_filter: [false, false, false, false],
   csvDone: false,
-  csvArr: []
+  csvArr: [],
+  type: 'PENDING'
 }
 
 export default handleActions({

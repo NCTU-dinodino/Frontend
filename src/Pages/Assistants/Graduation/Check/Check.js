@@ -100,9 +100,17 @@ class Check extends React.Component {
   }
 
   filter = (checks) => {
+    const TYEP = {
+      'PENDING': 1,
+      'ACCEPTED': 2,
+      'REJECTED': 3
+    }
     if (!this.props.Check.program_filter.reduce((prev, curr) => prev |= curr, false))
-      return checks
-    return checks.filter( check => this.props.Check.program_filter[check.program.charCodeAt() - 'A'.charCodeAt()]);
+      return checks.filter( check => parseInt(check.submit_status, 10) === TYEP[this.props.Check.type])
+    return checks.filter( check => 
+      this.props.Check.program_filter[check.program.charCodeAt() - 'A'.charCodeAt()]
+      && parseInt(check.submit_status, 10) === TYEP[this.props.Check.type]
+    );
   }
 
   render() {
@@ -112,12 +120,16 @@ class Check extends React.Component {
         <Table>
           <TableHead>
             <TableRow style={{display: 'flex', justifyContent: 'center'}}>
+              { this.props.Check.type === 'PENDING' && 
               <TableCell style={{flex: 0.025, padding: '0px'}} >
                 <IconButton style={{fontSize: '18px'}} disabled/>
               </TableCell>
+              }
+              { this.props.Check.type === 'PENDING' && 
               <TableCell style={{flex: 0.025, padding: '0px'}} >
                 <IconButton style={{fontSize: '18px'}} disabled/>
               </TableCell>
+              }
               <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '20px'}}>學號</TableCell>
               <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>姓名</TableCell>
               <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>年級</TableCell>
@@ -130,27 +142,30 @@ class Check extends React.Component {
           {
             this.filter(this.props.Check.checks).map( (check, idx) => (
               <TableRow hover style={{ display: 'flex', justifyContent: 'center'}} key={idx} > 
-                <TableCell style={{flex: 0.025, padding: '0px'}}>
-                  <Tooltip
-                    title={'同意'} 
-                    placement='top'
-                    classes={{
-                      tooltip: classes.tooltip
-                    }}
-                  >
-                    <IconButton style={{color: 'green', fontSize: '18px'}}
-                      onClick = { () =>
-                        this.setState({ 
-                          agreeOpen: true,
-                          check
-                        })
-                      }
+                { this.props.Check.type === 'PENDING' && 
+                  <TableCell style={{flex: 0.025, padding: '0px'}}>
+                    <Tooltip
+                      title={'同意'} 
+                      placement='top'
+                      classes={{
+                        tooltip: classes.tooltip
+                      }}
                     >
-                      <DoneIcon />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
-                <TableCell style={{flex: 0.025, padding: '0px'}}>
+                      <IconButton style={{color: 'green', fontSize: '18px'}}
+                        onClick = { () =>
+                          this.setState({ 
+                            agreeOpen: true,
+                            check
+                          })
+                        }
+                      >
+                        <DoneIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell> 
+                }
+                { this.props.Check.type === 'PENDING' && 
+                  <TableCell style={{flex: 0.025, padding: '0px'}}>
                   <Tooltip
                     title={'不同意'} 
                     placement='top'
@@ -170,6 +185,7 @@ class Check extends React.Component {
                     </IconButton>
                   </Tooltip>
                 </TableCell>
+                }
                 <TableCell style={{fontSize: '18px', flex: 0.1583, paddingTop: '11px', paddingLeft: '20px'}}>
                   {this.hightlight(check.sname, this.props.Check.input)}
                   <OpenInNew style={{
@@ -259,7 +275,7 @@ class Check extends React.Component {
             <Button 
               onClick={() => {
                 this.setState({ agreeOpen: false})
-                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 2, reason: this.props.Check.reason })
+                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 2 })
               }} 
               style={{ color: 'blue', fontSize: '20px'}} 
             >
@@ -352,7 +368,7 @@ class Check extends React.Component {
                   return ;
                 }
                 this.setState({ rejectOpen: false})
-                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 3 })
+                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 3, reason: this.props.Check.reason })
               }}
               style={{ color: 'red', fontSize: '20px'}} 
             >

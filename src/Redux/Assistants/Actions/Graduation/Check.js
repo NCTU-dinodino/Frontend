@@ -8,7 +8,7 @@ export const checkHandleChange = (payload) => dispatch => {
   dispatch(check_handle_change(payload));
 }
 
-export const fetchCheck = (payload) => dispatch => {
+export const fetchCheck = () => dispatch => {
   dispatch(check_handle_change({csvDone: false}));
 	axios.all([
 		axios.post('/assistants/graduate/studentList', {
@@ -24,25 +24,25 @@ export const fetchCheck = (payload) => dispatch => {
 		dispatch(check_handle_change({
 			checks: [
 				...second_res.data
-					.filter( _ => _.submit_status === 1 )
+          .filter( _ => _.submit_status === 1 || _.submit_status === 2 || _.submit_status === 3)
 					.map( check => ({...check, grade: '二'})),
 				...third_res.data
-					.filter( _ => _.submit_status === 1 )
+          .filter( _ => _.submit_status === 1 || _.submit_status === 2 || _.submit_status === 3)
 					.map( check => ({ ...check, grade: '三'})),
 				...fourth_res.data
-					.filter( _ => _.submit_status === 1 )
+          .filter( _ => _.submit_status === 1 || _.submit_status === 2 || _.submit_status === 3)
 					.map( check => ({ ...check, grade: '四'}))
       ],
       csvDone: true,
       csvArr: parseCsv([
 				...second_res.data
-					.filter( _ => _.submit_status === 0 || _.submit_status === 1 || _.submit_status === 2)
+          .filter( _ => _.submit_status === 1 || _.submit_status === 2 || _.submit_status === 3)
 					.map( check => ({...check, grade: '二'})),
 				...third_res.data
-					.filter( _ => _.submit_status === 0 || _.submit_status === 1 || _.submit_status === 2)
+          .filter( _ => _.submit_status === 1 || _.submit_status === 2 || _.submit_status === 3)
 					.map( check => ({ ...check, grade: '三'})),
 				...fourth_res.data
-					.filter( _ => _.submit_status === 0 || _.submit_status === 1 || _.submit_status === 2)
+          .filter( _ => _.submit_status === 1 || _.submit_status === 2 || _.submit_status === 3)
 					.map( check => ({ ...check, grade: '四'}))
       ])
     }))
