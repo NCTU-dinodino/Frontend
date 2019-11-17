@@ -169,7 +169,6 @@ const parseCsv = (data) => {
       compulse,
       condition
     ])
-    console.log(csvArr[i])
   }
   return csvArr
 }

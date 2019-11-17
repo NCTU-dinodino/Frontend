@@ -9,7 +9,6 @@ import Chip from '@material-ui/core/Chip'
 import blue from '@material-ui/core/colors/blue'
 
 import Button from '@material-ui/core/Button'
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload'
 import { CSVLink } from "react-csv"
 
 import {
@@ -159,7 +158,7 @@ class CheckControl extends React.Component {
               style = {{ background: Check.program_filter[3] ? blue[300] : null, flex: 1, marginTop: '3px', marginBottom: '3px' }}
             />
           </div>
-          {this.csvDownload()}
+          {/* {this.csvDownload()} */}
       </div>
     )
   }
