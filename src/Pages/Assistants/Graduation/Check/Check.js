@@ -20,10 +20,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import OpenInNew from '@material-ui/icons/OpenInNew'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
 
 import {
   fetchCheck,
-  updateGraduateStatus
+  updateGraduateStatus,
+  checkHandleChange
 } from '../../../../Redux/Assistants/Actions/Graduation/Check'
 
 import CircularProgressbar from 'react-circular-progressbar'
@@ -40,8 +44,20 @@ const styles = theme => ({
   },
   tooltip: {
     fontSize: '15px'
-  }
-  
+  },
+  cssLabel: {
+    fontSize: 15,
+    '&$cssFocused': {
+      color: '#68BB66'
+    },
+    fontWeight: 'normal'
+  },
+  cssFocused: {},
+  cssUnderline: {
+    '&:after': {
+      borderBottomColor: '#68BB66'
+    },
+  },
 })
 
 const GRAD_STATUS_CN = ['未符合', '將符合', '已符合']
@@ -215,7 +231,7 @@ class Check extends React.Component {
             <Button 
               onClick={() => {
                 this.setState({ agreeOpen: false})
-                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 2 })
+                this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 2, reason: this.props.Check.reason })
               }} 
               style={{ color: 'blue', fontSize: '20px'}} 
             >
@@ -236,19 +252,50 @@ class Check extends React.Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              <div style={{fontSize: '20px', margin: '10px', color: 'black'}}>
+              <br />
+              <br />
+              <span style={{fontSize: '20px', margin: '10px', color: 'black'}}>
                 {"姓名: " + this.state.check.sname}
-              </div>
-              <div style={{fontSize: '20px', margin: '10px', color: 'black'}}>
+              </span>
+              <br />
+              <br />
+              <span style={{fontSize: '20px', margin: '10px', color: 'black'}}>
                 {"學號: " + this.state.check.student_id}
-              </div>
-              <div style={{fontSize: '20px', margin: '10px', color: 'black'}}>
+              </span>
+              <br />
+              <br />
+              <span style={{fontSize: '20px', margin: '10px', color: 'black'}}>
                 {"畢業學分: " + this.state.check.total_credit}
-              </div>
-              <div style={{fontSize: '20px', margin: '10px', color: 'black'}}>
+              </span>
+              <br />
+              <br />
+              <span style={{fontSize: '20px', margin: '10px', color: 'black'}}>
                 {"畢業狀態: " + GRAD_STATUS_CN[this.state.check.graduate_status]}
-              </div>
+              </span>
             </DialogContentText>
+            <FormControl style={{ width: '100%', flex: 1 }}>
+              <InputLabel
+                FormLabelClasses={{
+                  root: classes.cssLabel,
+                  focused: classes.cssFocused,
+                }}
+              >
+                不同意原因
+              </InputLabel>
+              <Input
+                classes={{
+                  underline: classes.cssUnderline,
+                }}
+                onChange={
+                  (event) => this.props.checkHandleChange({
+                    reason: event.target.value[event.target.value.length - 1] === "\\" ? 
+                      event.target.value.substr(0, event.target.value.length - 1) :
+                      event.target.value
+                  })
+                }
+                value={Check.input}
+              />
+            </FormControl>
           </DialogContent>
           <DialogActions>
             <Button 
@@ -261,6 +308,11 @@ class Check extends React.Component {
             </Button>
             <Button 
               onClick={() => {
+                console.log(this.props.Check.reason)
+                if (this.props.Check.reason === "") {
+                  window.alert("請輸入不同意原因")
+                  return ;
+                }
                 this.setState({ rejectOpen: false})
                 this.props.updateGraduateStatus({ student_id: this.state.check.student_id, graduate_submit: 3 })
               }}
@@ -281,7 +333,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchCheck: () => dispatch(fetchCheck()),
-  updateGraduateStatus: (payload) => dispatch(updateGraduateStatus(payload))
+  updateGraduateStatus: (payload) => dispatch(updateGraduateStatus(payload)),
+  checkHandleChange: (payload) => dispatch(checkHandleChange(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Check))

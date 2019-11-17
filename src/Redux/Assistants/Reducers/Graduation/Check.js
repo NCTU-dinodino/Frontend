@@ -2,7 +2,8 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
   input: '',
-  checks: []
+  checks: [{}],
+  reason: ''
 }
 
 export default handleActions({
