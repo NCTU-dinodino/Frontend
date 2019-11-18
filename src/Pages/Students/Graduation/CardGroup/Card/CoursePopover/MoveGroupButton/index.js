@@ -59,6 +59,7 @@ class Index extends React.Component {
     this.setState({
       anchorEl: null
     })
+    this.props.resetMoveTargets()
   }
 
   handleItemSelect (target) {
@@ -70,9 +71,8 @@ class Index extends React.Component {
       origin_group: this.props.title,
       target_group: target
     })
-    this.setState({
-      anchorEl: null
-    })
+    this.handleClose()
+    this.props.onClose()
   }
 
   render () {
@@ -138,6 +138,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getGraduationInfo: () => dispatch(getGraduationInfo()),
   getMoveTargets: (payload) => dispatch(getMoveTargets(payload)),
+  resetMoveTargets: () => dispatch(actions.graduation.moveCourse.store([])),
   moveCourse: (payload) => dispatch(moveCourse(payload)),
   moveCourseDone: () => dispatch(actions.graduation.moveCourse.setSuccess(false))
 })

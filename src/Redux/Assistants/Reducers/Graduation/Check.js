@@ -2,7 +2,12 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
   input: '',
-  checks: []
+  checks: [],
+  reason: '',
+  program_filter: [false, false, false, false],
+  csvDone: false,
+  csvArr: [],
+  type: 'PENDING'
 }
 
 export default handleActions({

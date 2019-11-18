@@ -74,20 +74,20 @@ const ColorInstruction = withStyles(styles)(({ classes, color, text }) => (
   </React.Fragment>
 ))
 
-const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, classes, mobile }) => {
+const Index = ({ overview, reviewStatus, rejectReason, englishStatus, forAssistant, idCard, classes, mobile }) => {
   const reviewStatusText = {
-    '0': '未送審',
-    '1': '審核中',
-    '2': '審核通過',
-    '3': '審核不通過'
+    0: '未送審',
+    1: '審核中',
+    2: '審核通過',
+    3: '審核不通過'
   }[reviewStatus]
 
   const englishStatusText = {
-    '0': '未考過英檢',
-    '1': '通過外語榮譽學分（可免修外語）',
-    '2': '已通過英檢免試申請',
-    '3': '已考過英檢',
-    '4': '已考過英檢'
+    0: '未考過英檢',
+    1: '通過外語榮譽學分（可免修外語）',
+    2: '已通過英檢免試申請',
+    3: '已考過英檢',
+    4: '已考過英檢'
   }[englishStatus]
 
   if (mobile) return (
@@ -115,11 +115,18 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
       </Grid>
       <Grid item xs={12} container className={classes.reviewRowMobile}>
         <Grid item xs={10}>
-          <div>是否已考過英檢：{ englishStatusText }</div>
           <div>
-            畢業預審是否已送交助理審核：
+            畢業預審狀態：
             <span style={{ color: 'red' }}>{ reviewStatusText }</span>
           </div>
+          {
+            reviewStatus === 3 &&
+            <div>
+              審核不通過原因：
+              <span style={{ color: 'red' }}>{ rejectReason }</span>
+            </div>
+          }
+          <div>是否已考過英檢：{ englishStatusText }</div>
         </Grid>
         <Grid item xs={2} container justify='flex-end'>
           <MenuButtonGroup />
@@ -147,11 +154,18 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
               {idCard.id}
             </div>
           }
-          <div>是否已考過英檢：{ englishStatusText }</div>
           <div>
-            畢業預審是否已送交助理審核：
+            畢業預審狀態：
             <span style={{ color: 'red' }}>{ reviewStatusText }</span>
           </div>
+          {
+            reviewStatus === 3 &&
+            <div>
+              審核不通過原因：
+              <span style={{ color: 'red' }}>{ rejectReason }</span>
+            </div>
+          }
+          <div>是否已考過英檢：{ englishStatusText }</div>
         </Grid>
         <Grid item md={3} container justify='flex-end' alignItems='center'>
           <ProfessionalGroupMenu />
@@ -173,6 +187,7 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
 const mapStateToProps = (state) => ({
   overview: state.Student.Graduation.detail.overview,
   reviewStatus: state.Student.Graduation.getReview.status,
+  rejectReason: state.Student.Graduation.getReview.rejectReason,
   englishStatus: state.Student.Graduation.english.status,
   idCard: state.Student.Graduation.assistant.idCard,
   forAssistant: state.Student.Graduation.assistant.using

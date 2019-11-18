@@ -77,7 +77,7 @@ const Router = () => (
         <Route exact path='/assistants/course' render={() => <Frame><AssistantGradStatus /></Frame>} />
         <Route exact path='/assistants/mail' render={() => <Frame><AssistantMail /></Frame>} />
         <Route exact path='/assistants/setting' render={() => <Frame><AssistantSetting /></Frame>} />
-        <Route path='/assistants/head/s/:sid/:sname/:program' component={StudentDetail} />
+        <Route path='/assistants/head/s/:sid/:sname/:program/:net_media' component={StudentDetail} />
         <Route path='/assistants/head/c/:sid/:type/:time/:sname/:grade/:program' component={StudentVerify} />
       </Switch>
       <Route path='/' component={Footer} />

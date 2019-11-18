@@ -54,65 +54,115 @@ const supplementText = (course, title) => {
   if (title.slice(0, 2) !== '通識' && course.type === '通識') return '待助理確認。'
 }
 
-const CoursePopover = ({ course, title, label, forAssistant, mobile }) => (
-  <Grid item xs={6} sm={3} lg={2} container justify='center'>
-    <PopoverButton
-      label={label}
-      backgroundColor={courseColor(course, title)}
-      flash={!course.complete}
-      mobile={mobile}
-    >
-      <div>{course.cn}</div>
-      <div>分數:&nbsp;{(course.score === null) ? '-' : course.score}</div>
-      <div>等級:&nbsp;{(course.grade === '0') ? '-' : course.grade}</div>
-      <div>英文授課:&nbsp;{(course.english) ? '是' : '否'}</div>
-      <div>實得學分:&nbsp;{course.realCredit}</div>
-      <br />
-      <div style={{ color: 'red' }}>{supplementText(course, title)}</div>
-      {
-        !forAssistant &&
-        <MoveGroupButton
-          title={title}
-          course={course}
-          mobile={mobile}
-        />
-      }
-    </PopoverButton>
-  </Grid>
-)
+class CoursePopover extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { anchorEl: null }
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
 
-const GeneralCoursePopover = ({ type, title, forAssistant, mobile }) => (
-  <Grid item xs={6} sm={3} lg={2} container justify='center'>
-    <PopoverButton
-      label={type.name}
-      backgroundColor={generalCourseColor(type.courses)}
-      flash={(type.length === 0)}
-      mobile={mobile}
-    >
-      {
-        type.courses.map((course, index) => (
-          <li key={index}>
-            { course.cn }
-            {
-              (course.type) !== '通識' &&
-              <div style={{ display: 'inline', color: 'red' }}> (待助理確認。)</div>
-            }
-            <div style={{ float: 'right', color: course.color }}>{ course.score }</div>
-            <div style={{ margin: '0 0 15px 8px' }}>
-              {
-                !forAssistant &&
-                <MoveGroupButton
-                  title={title}
-                  course={course}
-                  mobile={mobile}
-                />
-              }
-            </div>
-          </li>
-        ))
-      }
-    </PopoverButton>
-  </Grid>
-)
+  handleOpen (e) {
+    this.setState({ anchorEl: e.currentTarget })
+  }
+
+  handleClose () {
+    this.setState({ anchorEl: null })
+  }
+
+  render () {
+    const { course, title, label, forAssistant, mobile } = this.props
+
+    return (
+      <Grid item xs={6} sm={3} lg={2} container justify='center'>
+        <PopoverButton
+          label={label}
+          backgroundColor={courseColor(course, title)}
+          flash={!course.complete}
+          mobile={mobile}
+          anchorEl={this.state.anchorEl}
+          onOpen={this.handleOpen}
+          onClose={this.handleClose}
+        >
+          <div>{course.cn}</div>
+          <div>分數:&nbsp;{(course.score === null) ? '-' : course.score}</div>
+          <div>等級:&nbsp;{(course.grade === '0') ? '-' : course.grade}</div>
+          <div>英文授課:&nbsp;{(course.english) ? '是' : '否'}</div>
+          <div>實得學分:&nbsp;{course.realCredit}</div>
+          <br />
+          <div style={{ color: 'red' }}>{supplementText(course, title)}</div>
+          {
+            !forAssistant &&
+            <MoveGroupButton
+              title={title}
+              course={course}
+              mobile={mobile}
+              onClose={this.handleClose}
+            />
+          }
+        </PopoverButton>
+      </Grid>
+    )
+  }
+}
+
+class GeneralCoursePopover extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { anchorEl: null }
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  handleOpen (e) {
+    this.setState({ anchorEl: e.currentTarget })
+  }
+
+  handleClose () {
+    this.setState({ anchorEl: null })
+  }
+
+  render () {
+    const { type, title, forAssistant, mobile } = this.props
+
+    return (
+      <Grid item xs={6} sm={3} lg={2} container justify='center'>
+        <PopoverButton
+          label={type.name}
+          backgroundColor={generalCourseColor(type.courses)}
+          flash={(type.length === 0)}
+          mobile={mobile}
+          anchorEl={this.state.anchorEl}
+          onOpen={this.handleOpen}
+          onClose={this.handleClose}
+        >
+          {
+            type.courses.map((course, index) => (
+              <li key={index}>
+                { course.cn }
+                {
+                  (course.type) !== '通識' &&
+                  <div style={{ display: 'inline', color: 'red' }}> (待助理確認。)</div>
+                }
+                <div style={{ float: 'right', color: course.color }}>{ course.score }</div>
+                <div style={{ margin: '0 0 15px 8px' }}>
+                  {
+                    !forAssistant &&
+                    <MoveGroupButton
+                      title={title}
+                      course={course}
+                      mobile={mobile}
+                      onClose={this.handleClose}
+                    />
+                  }
+                </div>
+              </li>
+            ))
+          }
+        </PopoverButton>
+      </Grid>
+    )
+  }
+}
 
 export { CoursePopover, GeneralCoursePopover }
