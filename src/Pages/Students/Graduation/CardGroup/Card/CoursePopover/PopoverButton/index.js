@@ -19,14 +19,9 @@ const styles = theme => ({
 })
 
 class Index extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = { anchorEl: null }
-  }
-
   render () {
     const { label, flash, backgroundColor, mobile, children, classes } = this.props
-    const { anchorEl } = this.state
+    const { anchorEl } = this.props
 
     return (
       <div>
@@ -49,7 +44,7 @@ class Index extends React.Component {
                 width: mobile ? '100px' : '140px'
               }}
               label={label}
-              onClick={(e) => this.setState({ anchorEl: e.currentTarget })}
+              onClick={this.props.onOpen}
             />
           </MuiThemeProvider>
         </div>
@@ -61,7 +56,7 @@ class Index extends React.Component {
             vertical: 'bottom',
             horizontal: 'left'
           }}
-          onClose={(e) => this.setState({ anchorEl: null })}
+          onClose={this.props.onClose}
         >
           <div className={classes.popoverContent}>
             {children}

@@ -70,9 +70,8 @@ class Index extends React.Component {
       origin_group: this.props.title,
       target_group: target
     })
-    this.setState({
-      anchorEl: null
-    })
+    this.handleClose()
+    this.props.onClose()
   }
 
   render () {
