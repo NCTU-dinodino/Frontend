@@ -31,8 +31,13 @@ export const fetchCheck = (payload) => dispatch => {
 				...fourth_res.data
 					.filter( _ => _.submit_status === 1 )
 					.map( check => ({ ...check, grade: '四'}))
-			]
-		}))
+			].sort( (a, b) => a.student_id - b.student_id )
+    }))
+    dispatch(triggerUpdateData([
+      ...second_res.data.filter( _ => _.submit_status === 1 ).map( _ => _.student_id ),
+      ...third_res.data.filter( _ => _.submit_status === 1 ).map( _ => _.student_id ),
+      ...fourth_res.data.filter( _ => _.submit_status === 1 ).map( _ => _.student_id )   
+    ]))
 	})).catch( err => console.log(err) )
 }
 
@@ -40,4 +45,20 @@ export const updateGraduateStatus = payload => dispatch => {
 	axios.post('/assistants/graduate/graduateCheck', payload).then( res => {
 		dispatch(update_graduate_status(payload))
 	}).catch( err => console.log(err) )
+}
+
+export const triggerUpdateDataByStudentIds = (payload) => dispatch => {
+  payload.map( student_id => 
+    axios.get('/assistants/graduate/studentListUpdate', {
+      params: { student_id }
+    }
+  ))
+}
+
+export const triggerUpdateData = (payload) => dispatch => {
+  setTimeout( () => {
+      dispatch(triggerUpdateDataByStudentIds(payload))
+      dispatch(fetchCheck())
+    }
+  , 10000);
 }

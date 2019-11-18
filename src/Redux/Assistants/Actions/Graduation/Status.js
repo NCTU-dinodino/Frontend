@@ -28,3 +28,4 @@ export const triggerUpdateData = () => dispatch => {
     })
   })
 }
+
