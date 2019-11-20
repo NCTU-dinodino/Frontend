@@ -46,7 +46,7 @@ export const fetchCheck = () => dispatch => {
           .map( check => ({ ...check, grade: '四'}))
       ])
     }))
-    dispatch(triggerUpdateData([
+    dispatch(triggerUpdateDataByStudentIds([
       ...second_res.data.filter( _ => _.submit_status === 1 ).map( _ => _.student_id ),
       ...third_res.data.filter( _ => _.submit_status === 1 ).map( _ => _.student_id ),
       ...fourth_res.data.filter( _ => _.submit_status === 1 ).map( _ => _.student_id )   
@@ -191,12 +191,4 @@ export const triggerUpdateDataByStudentIds = (payload) => dispatch => {
       params: { student_id }
     }
   ))
-}
-
-export const triggerUpdateData = (payload) => dispatch => {
-  setTimeout( () => {
-      dispatch(triggerUpdateDataByStudentIds(payload))
-      dispatch(fetchCheck())
-    }
-  , 10000);
 }

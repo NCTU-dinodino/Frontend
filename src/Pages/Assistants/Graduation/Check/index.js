@@ -7,6 +7,10 @@ import Drawer from '@material-ui/core/Drawer';
 import Check from './Check';
 import CheckControl from './CheckControl';
 
+import {
+  fetchCheck
+} from '../../../../Redux/Assistants/Actions/Graduation/Check'
+
 const styles = theme => ({
   root: {
     width: '100%'
@@ -28,7 +32,17 @@ const styles = theme => ({
 })
 
 class index extends React.Component {
-    
+  
+  componentDidMount() {
+    this.props.fetchCheck()
+    this.setState({
+      idx: setInterval(() => this.props.fetchCheck(), 10000)
+    })
+  }
+  componentWillUnmount() {
+    clearInterval(this.state.idx);
+  }
+
   render() {
 
     const { classes } = this.props;
@@ -58,7 +72,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-
+  fetchCheck: () => dispatch(fetchCheck()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(index))
