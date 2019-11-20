@@ -12,7 +12,6 @@ import Button from '@material-ui/core/Button'
 import { CSVLink } from "react-csv"
 
 import {
-  fetchCheck,
   checkHandleChange
 } from '../../../../Redux/Assistants/Actions/Graduation/Check'
 
@@ -95,7 +94,6 @@ class CheckControl extends React.Component {
         }}
         onClick = { () => {
           this.props.checkHandleChange({ type })
-          this.props.fetchCheck()
         }}
       >
         {label}
@@ -195,7 +193,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchCheck: () => dispatch(fetchCheck()),
   checkHandleChange: (payload) => dispatch(checkHandleChange(payload))
 
 })

@@ -25,7 +25,6 @@ import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 
 import {
-  fetchCheck,
   updateGraduateStatus,
   checkHandleChange
 } from '../../../../Redux/Assistants/Actions/Graduation/Check'
@@ -70,7 +69,6 @@ class Check extends React.Component {
       rejectOpen: false,
       check: {}
     }
-    this.props.fetchCheck()
   }
 
   hightlight = (label, raw_input) => {
@@ -386,7 +384,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchCheck: () => dispatch(fetchCheck()),
   updateGraduateStatus: (payload) => dispatch(updateGraduateStatus(payload)),
   checkHandleChange: (payload) => dispatch(checkHandleChange(payload))
 })
