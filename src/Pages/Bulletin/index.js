@@ -62,7 +62,6 @@ const styles = theme => ({
     maxHeight: '50vh',
     overflow: 'scroll',
     fontSize: '18px',
-    letterSpacing: '2px',
     paddingTop: '15px',
     paddingLeft: '15px',
     backgroundColor: '#fafafa',
@@ -101,6 +100,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
+    letterSpacing: '1.5px',
     color: '#555',
     '&:hover, &:focus': {
       color: '#888'
