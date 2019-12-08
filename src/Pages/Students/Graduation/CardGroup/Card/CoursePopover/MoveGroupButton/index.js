@@ -29,18 +29,6 @@ class Index extends React.Component {
     }
   }
 
-  componentDidMount () {
-    const { forAssistant, idCard, studentIdcard, course } = this.props
-    const sid = forAssistant ? idCard.id : studentIdcard.student_id
-    // 拿取可移動的目標
-    this.props.getMoveTargets({
-      student_id: sid,
-      cn: course.cn, // 中文課名
-      code: course.code, // 課號
-      type: course.type
-    })
-  }
-
   componentDidUpdate () {
     // 移動成功後，重新拿課程資料並重置移動狀態
     if (this.props.success) {
@@ -50,6 +38,16 @@ class Index extends React.Component {
   }
 
   handleClick (event) {
+    const { forAssistant, idCard, studentIdcard, course } = this.props
+    const sid = forAssistant ? idCard.id : studentIdcard.student_id
+    // 拿取可移動的目標
+    this.props.getMoveTargets({
+      student_id: sid,
+      cn: course.cn, // 中文課名
+      code: course.code, // 課號
+      type: course.type
+    })
+
     this.setState({
       anchorEl: event.currentTarget
     })
