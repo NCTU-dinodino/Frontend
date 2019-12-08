@@ -55,18 +55,55 @@ export const fetchCheck = () => dispatch => {
 }
 
 const parseCsv = (data) => {
-  console.log("input")
-  console.log(data)
-  let csvArr = []
-  csvArr.push([
-    '學號',
-    '組別',
-    '預審狀態',
-    '畢業狀態',
-    '本學期必過課程',
-    '尚缺課程或學分數'
-  ])
-
+  return [['學號','姓名','班級', '累計學分', '預審狀態','畢業狀態', '必修科目', '專業選修', '其他選修', '通識', '外語', '英文畢業門檻', '體育', '服務學習', '導師時間', '藝文賞析'],
+    ...data.filter( data_ => data_ !== undefined)
+      .sort( (a, b) => a.program === b.program ? a.student_id.localeCompare(b.student_id) : a.program.localeCompare(b.program))
+      .map( data_ => [
+        data_.student_id,
+        data_.name,
+        data_.program,
+        data_.total_credit,
+        data_.submit_status === 0 ? '未送審' : data_.submit_status === 1 ? '審核中' : data_.submit_status === 2 ? '已通過' : data_.submit_status === 3 ? '未通過' : '',
+        data_.graduate_status === '0' ? '未符合' : data_.graduate_status === '1' ? '將符合' : data_.graduate_status === '2' ? '已符合' : '',
+        data_.compulse.reduce( (prev, curr) => {
+          if (prev.length === 0)
+            return curr;
+          else
+            return prev + ", " + curr;
+        }, ""),
+        data_.pro + "學分",
+        data_.other + "學分",
+        data_.submit_type === '0' ? (
+          "舊制通識缺" + data_.old_total + "學分\r\n" +
+          "當代向度缺" + data_.old_contemp + "學分\r\n" +
+          "文化向度缺" + data_.old_culture + "學分\r\n" +
+          "歷史向度缺" + data_.old_history + "學分\r\n" +
+          "公民向度缺" + data_.old_citizen + "學分\r\n" +
+          "群己向度缺" + data_.old_group + "學分\r\n" +
+          "自然向度缺" + data_.old_science + "學分\r\n"
+        ) : (
+          "新制通識缺" + data_.new_total + "學分\r\n" +
+          "核心社會向度缺" + data_.new_core_society + "學分\r\n" +
+          "核心人文向度缺" + data_.new_core_humanity + "學分\r\n" +
+          "跨院向度缺" + data_.new_cross + "學分\r\n" +
+          "校基本向度缺" + data_.new_basic + "學分\r\n"
+        ),
+        "缺" + data_.en_total + "學分\r\n" +
+        "基礎缺" + data_.en_basic + "學分\r\n" +
+        "進階缺" + data_.en_advanced + "學分\r\n"
+        ,
+        { 0: '未考過英檢',
+          1: '通過外語榮譽學分（可免修外語）',
+          2: '已通過英檢免試申請',
+          3: '已考過英檢',
+          4: '已考過英檢' }[parseInt(data_.en_status, 10)],
+        data_.pe + "門",
+        data_.service + "門",
+        data_.mentor + "門",
+        data_.art + "門"
+      ])
+  ];
+  /*
   for (let i = 0; i < data.length; i++) {
     let data_ = data[i][0]
     if (data_ === undefined) continue
@@ -176,6 +213,7 @@ const parseCsv = (data) => {
     ])
   }
   return csvArr
+  */
 }
 
 
