@@ -106,7 +106,7 @@ const Index = ({ overview, reviewStatus, rejectReason, englishStatus, forAssista
           </Grid>
           <Grid item xs={12} container alignItems='center'>
             <ColorInstruction color={classes.greyGreen} text='免修或抵免' />
-            <ColorInstruction color={classes.grey} text='待確認' />
+            <ColorInstruction color={classes.grey} text='待確認或重複' />
           </Grid>
         </Grid>
         <Grid item xs={4} container justify='flex-end' alignItems='center'>
@@ -141,7 +141,7 @@ const Index = ({ overview, reviewStatus, rejectReason, englishStatus, forAssista
         <ColorInstruction color={classes.red} text='未通過' />
         <ColorInstruction color={classes.purple} text='當期' />
         <ColorInstruction color={classes.greyGreen} text='免修或抵免' />
-        <ColorInstruction color={classes.grey} text='待確認' />
+        <ColorInstruction color={classes.grey} text='待確認或重複' />
       </Grid>
       <Grid item md={12} container className={classes.reviewRow}>
         <Grid item md={9}>
