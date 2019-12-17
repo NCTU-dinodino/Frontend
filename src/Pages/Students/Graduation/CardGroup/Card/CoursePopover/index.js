@@ -16,10 +16,9 @@ const courseColor = (course, title) => {
   const { complete, reason, type } = course
 
   if (complete) {
-    if (reason === 'now') return purple
+    if (reason === 'duplicate') return grey
     if (reason === 'notCS') return '#a29951'
     if (reason === 'free1' || reason === 'free2' || reason === 'english') return greyGreen
-    if (reason === 'duplicate') return grey
     // 非通識課程放在通識區
     if (title.slice(0, 2) === '通識' && type !== '通識') return grey
     // 通識課程放在其他區
@@ -27,6 +26,7 @@ const courseColor = (course, title) => {
     return green
   }
   else {
+    if (reason === 'duplicate') return grey
     if (reason === 'now') return purple
     return red
   }
