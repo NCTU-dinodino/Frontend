@@ -88,7 +88,7 @@ class Score extends React.Component {
         score.student.id.search(target) !== -1 ||
         score.student.name.search(target) !== -1 ||
         score.professor_name.search(target) !== -1 ||
-        score.student.comment.search(target) !== -1
+        (score.student.comment && score.student.comment.search(target) !== -1)
       )
     })
   }
