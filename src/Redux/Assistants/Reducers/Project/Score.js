@@ -2,7 +2,12 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
   scores: [],
-  input: ''
+  csvArr: [],
+  input: "",
+  csvDone: true,
+  year: "",
+  semester: "",
+  first_second: ""
 }
 
 export default handleActions({
