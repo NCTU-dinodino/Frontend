@@ -31,6 +31,25 @@ const styles = theme => ({
     textAlign: 'center',
     color: '#6f6f6f'
   },
+  button: {
+    fontSize: '16px'
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 100
+  },
+  textField2: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 400
+  },
+  label: {
+    fontSize: '20px'
+  },
+  dialog: {
+    padding: '10px'
+  }
 
 })
 
@@ -41,7 +60,7 @@ class Score extends React.Component {
     this.state = {
       open_edit: -1,
       new_score: 0,
-      new_comment: "無評論"
+      new_comment: ''
     }
   }
 
@@ -118,7 +137,7 @@ class Score extends React.Component {
                         <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{ this.hightlight(score.student.id, Score.input) }</div>
                         <div style={{ fontSize: 20, flex: 0.3, textAlign: 'center', color: 'black' }} >{ this.hightlight(score.student.name, Score.input) }</div>
                         <div style={{ fontSize: 20, flex: 0.3, textAlign: 'center', color: 'black' }} >{ this.hightlight(score.professor_name, Score.input) }</div>
-                        <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{ score.student.score ? score.student.score : '尚未評分' }</div>
+                        <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{ score.student.score !== null ? score.student.score : '尚未評分' }</div>
                         <div>
                           <Button variant="outlined" className={classes.button} onClick = { () => this.setState({
                             open_edit: index,
@@ -163,18 +182,34 @@ class Score extends React.Component {
                           <br />
                           <div style = {{ display: 'flex' }}>
                             <div style = {{ flex: 1 }} />
-                            <Button className={classes.button} onClick={ () => this.setState({ open_edit: -1 }) } >取消</Button>
+                            <Button className={classes.button} onClick={ () => 
+                              this.setState({ 
+                                open_edit: -1,
+                                new_score: 0,
+                                new_comment: ''
+                              }) 
+                            } >
+                              取消
+                            </Button>
                             <Button color="primary" className={classes.button} onClick = { () => {
-                              set_scores({
-                                student_id: score.student.id,
-                                tname: score.professor_name,
-                                research_title: score.student.research_title,
-                                first_second: first_second,
-                                semester: year + '-' + semester,
-                                new_score: new_score,
-                                new_comment: new_comment
-                              })
-                              this.setState({ open_edit: -1 })
+                              if ((parseInt(new_score, 10) >= 90 || parseInt(new_score, 10) < 60) && new_comment === '')
+                                alert('分數低於60分或是90分以上需附上評論');
+                              else {
+                                set_scores({
+                                  student_id: score.student.id,
+                                  tname: score.professor_name,
+                                  research_title: score.student.research_title,
+                                  first_second: first_second,
+                                  semester: year + '-' + semester,
+                                  new_score: new_score,
+                                  new_comment: new_comment
+                                })
+                                this.setState({ 
+                                  open_edit: -1,
+                                  new_score: 0,
+                                  new_comment: ''
+                                })
+                              }
                             }}>
                               送出！
                             </Button>
