@@ -81,21 +81,14 @@ class Score extends React.Component {
     ) : label
   }
 
-  input_filter = (teachers, target) => {
-    return teachers.filter( teacher => {
+  input_filter = (scores, target) => {
+    return scores.filter( score => {
       return (
         target === '' || 
-        teacher.professor_name.search(target) !== -1 ||
-        teacher.accepted.projects.reduce( (project_prev, project) =>
-          project_prev |= project.students.reduce( (student_prev, student) =>
-            student_prev |= student.id.search(target) !== -1 || student.name.search(target) !== -1
-          ,0) || project.title.search(target) !== -1
-        ,false) ||
-        teacher.pending.projects.reduce( (project_prev, project) =>
-          project_prev |= project.students.reduce( (student_prev, student) =>
-            student_prev |= student.id.search(target) !== -1 || student.name.search(target) !== -1
-          ,0) || project.title.search(target) !== -1
-        ,false)
+        score.student.id.search(target) !== -1 ||
+        score.student.name.search(target) !== -1 ||
+        score.professor_name.search(target) !== -1 ||
+        score.student.comment.search(target) !== -1
       )
     })
   }
@@ -193,7 +186,7 @@ class Score extends React.Component {
                       {
                         score.student.comment
                           ? <div style={{ width: '100%', display: 'flex' }} >
-                            <div style={{ fontSize: 17, flex: 1, textAlign: 'center' }} variant='display1' >{score.student.comment}</div>
+                            <div style={{ fontSize: 17, flex: 1, textAlign: 'center' }} variant='display1' >{this.hightlight(score.student.comment, Score.input)}</div>
                           </div>
                           : <div style={{ width: '100%', display: 'flex' }} >
                             <div style={{ fontSize: 17, flex: 1, textAlign: 'center' }} variant='display1' >無評論</div>
