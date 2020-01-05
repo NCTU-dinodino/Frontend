@@ -62,7 +62,7 @@ class ScoreControl extends React.Component {
       payload.semester !== "" &&
       payload.first_second !== ""
     ) {
-      this.props.fetch_score(payload)
+      this.props.fetch_score({semester: payload.year + '-' + payload.semester, first_second: payload.first_second})
     }
   }
 
