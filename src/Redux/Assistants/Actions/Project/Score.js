@@ -19,6 +19,7 @@ import axios from 'axios';
 // }
 
 export const score_handle_change = createAction('SCORE_HANDLE_CHANGE');
+export const set_scores = createAction('SET_SCORES')
 
 export const scoreHandleChange = (payload) => dispatch => {
   dispatch(score_handle_change(payload));
@@ -43,5 +44,13 @@ export const fetchCsv = payload => dispatch => {
       csvArr.push([data[i].research_title, data[i].tname, data[i].sname, data[i].student_id, data[i].score, data[i].comment])
     }
     dispatch(score_handle_change({csvArr: csvArr, csvDone: true}))
+  })
+}
+
+export const setScores = payload => dispatch => {
+  axios.post('/assistants/research/setScore', payload).then( res => {
+    dispatch(set_scores(payload))
+  }).catch( err => {
+    console.log(err)
   })
 }
