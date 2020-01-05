@@ -14,7 +14,7 @@ import { setScores } from '../../../../Redux/Assistants/Actions/Project/Score'
 
 const styles = theme => ({
   container: {
-    width: '100%',
+    width: '80%',
     margin: '0 auto',
     position: 'relative',
     marginBottom: '50px'
