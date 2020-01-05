@@ -57,6 +57,30 @@ class Score extends React.Component {
     )
   }
 
+  hightlight = (label, raw_input) => {
+    if (raw_input === '')
+      return label
+    const target = new RegExp(raw_input,"gi");
+    var result, indices = [];
+    while ( (result = target.exec(label)) ) {
+        indices.push(result.index);
+    }
+    indices.push(label.length)
+    return indices.length ? (
+      <span>
+        <span>{label.substr(0, indices[0])}</span>
+        {
+          indices.map( (index, idx) =>
+            <span key={idx}>
+              <span style={{background: 'yellow'}}>{label.substr(index, raw_input.length)}</span>
+              <span>{idx === indices.length - 1 ? '' : label.substr(index + raw_input.length, indices[idx + 1] - index - raw_input.length)}</span>
+            </span>
+          )
+        }
+      </span>
+    ) : label
+  }
+
   input_filter = (teachers, target) => {
     return teachers.filter( teacher => {
       return (
