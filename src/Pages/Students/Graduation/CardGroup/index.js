@@ -51,15 +51,15 @@ const Index = ({ overview, reviewStatus, generalCourseType, mobile }) => (
     }
     {
       // 還沒送審或送審時選新制
-      (reviewStatus === 0 || generalCourseType === 1) &&
-      <Card
-        title='通識(新制)'
-        complete={overview.general_new}
-        require={overview.general_new_require}
-        value={overview.general_new / overview.general_new_require * 100}
-        unit='學分'
-        mobile={mobile}
-      />
+      // (reviewStatus === 0 || generalCourseType === 1) &&
+      // <Card
+      //   title='通識(新制)'
+      //   complete={overview.general_new}
+      //   require={overview.general_new_require}
+      //   value={overview.general_new / overview.general_new_require * 100}
+      //   unit='學分'
+      //   mobile={mobile}
+      // />
     }
     <Card
       title='外語'
