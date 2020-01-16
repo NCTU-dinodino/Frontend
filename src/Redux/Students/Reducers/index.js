@@ -6,6 +6,7 @@ import Map from './Map'
 import Graduation from './Graduation'
 import Credit from './Credit'
 import Recommend from './Recommend'
+import ChatBot from './ChatBot'
 
 export default combineReducers({
   User,
@@ -14,5 +15,6 @@ export default combineReducers({
   Graduation,
   Project,
   Credit,
-  Recommend
+  Recommend,
+  ChatBot
 })

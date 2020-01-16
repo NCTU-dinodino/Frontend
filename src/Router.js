@@ -31,6 +31,7 @@ import StudentRecommend from './Pages/Students/Recommend'
 import StudentProfessor from './Pages/Students/Professor'
 import StudentProject from './Pages/Students/Project'
 import StudentCredit from './Pages/Students/Credit'
+import StudentChatBot from './Pages/Students/ChatBot'
 // import StudentCreditApply from './Pages/Students/Credit/Stepper'
 
 import Bulletin from './Pages/Bulletin'
@@ -44,6 +45,7 @@ const Router = () => (
     <div>
       {/*<Route path='/' component={Snow} />*/}
       <Route path='/students' component={StudentHead} />
+      <Route path='/students' component={StudentChatBot} />
       <Route path='/teachers' component={TeacherHead} />
       <Route path='/assistants' component={AssistantHead} />
       <Switch>
@@ -58,6 +60,7 @@ const Router = () => (
         <Route exact path='/students/professor' render={() => <StudentProfessor />} />
         <Route exact path='/students/project' render={() => <StudentProject />} />
         <Route exact path='/students/credit' render={() => <StudentCredit />} />
+        <Route exact path='/students/chatbot' render={() => <StudentChatBot mobile/>} />
         {/*<Route exact path='/students/credit/apply' render={() => <StudentCreditApply />} />*/}
 
         <Route exact path='/teachers/head' component={TeacherHome} />
