@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 class StudentDetail extends React.Component {
   constructor (props) {
     super(props)
-    props.getGraduationInfoAssistantVersion(this.props.match.params.sid, this.props.match.params.sname, this.props.match.params.program, 0)
+    props.getGraduationInfoAssistantVersion(this.props.match.params.sid, this.props.match.params.sname, this.props.match.params.program, this.props.match.params.net_media)
   }
 
   render () {

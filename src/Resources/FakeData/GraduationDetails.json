@@ -531,20 +531,21 @@
     "require": 12,
     "course": [
       {
-        "cn": "全民國防教育軍事訓練課程－國防科技",
-        "en": "All-out Defense Education Military Training-Defens",
-        "score": 85,
+        "cn": "數位內容設計與展演",
+        "en": "Content Design and Presentation",
+        "score": 83,
         "reason": "CS",
         "complete": true,
-        "grade": "A",
-        "code": "MIN1043",
+        "grade": "A-",
+        "code": "GEC8839",
         "realCredit": 2,
         "originalCredit": 2,
         "english": false,
-        "year": 1,
-        "semester": 1,
+        "year": 2,
+        "semester": 2,
         "move": false,
-        "type": "軍訓"
+        "type": "通識",
+        "dimension": "自然"
       }
     ]
   },
@@ -1076,6 +1077,12 @@
     "course": []
   },
   {
+    "title": "軍訓",
+    "credit": 0,
+    "require": 0,
+    "course": []
+  },
+  {
     "total": 97,
     "total_require": 128,
     "compulsory": 54,
@@ -1103,6 +1110,7 @@
     "art": 2,
     "art_require": 2,
     "graduate": 0,
-    "dmajor_minor_program": 0
+    "dmajor_minor_program": 0,
+    "military": 0
   }
 ]

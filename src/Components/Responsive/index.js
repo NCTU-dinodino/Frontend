@@ -23,9 +23,9 @@ const styles = theme => ({
   }
 })
 
-const ResponsiveContainer = withStyles(styles)(({ children, classes }) => (
+const ResponsiveContainer = withStyles(styles)(({ children, justify, classes }) => (
   <Grid container justify='center'>
-    <Grid item container className={classes.container}>
+    <Grid item container justify={justify} className={classes.container}>
       { children }
     </Grid>
   </Grid>

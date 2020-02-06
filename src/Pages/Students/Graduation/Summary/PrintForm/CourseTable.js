@@ -23,7 +23,7 @@ const Course = withStyles(styles)(props => {
   )
 })
 
-const CourseTable = ({ title, courses, classes }) => {
+const CourseTable = ({ title, require, courses, classes }) => {
   courses.forEach((course, index) => {
     // comment (在此新增的欄位)
     course.comment = ''
@@ -72,7 +72,9 @@ const CourseTable = ({ title, courses, classes }) => {
   return (
     <React.Fragment>
       <tr className={classes.subTitle}>
-        <td rowSpan={courses.length + 1 + (title === '外語')}>{title}</td>
+        <td rowSpan={courses.length + 1 + (title === '外語')}>
+          {`${title}(${(title === '通識(新制)') ? require.total : require || 0})`}
+        </td>
         <td>科目名稱</td>
         <td>學前</td>
         <td>1上</td>

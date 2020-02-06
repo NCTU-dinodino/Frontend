@@ -14,3 +14,18 @@ export const fetchStatus = (payload) => dispatch => {
     })) 
   })
 }
+
+export const triggerUpdateData = () => dispatch => {
+  ['二', '三', '四'].forEach(title => {
+    axios.post('/assistants/graduate/gradeStudentId', { grade: title }).then(res => {
+      res.data.forEach(student => {
+        axios.get('/assistants/graduate/studentListUpdate', {
+          params: {
+            student_id: student.student_id
+          }
+        })
+      })
+    })
+  })
+}
+

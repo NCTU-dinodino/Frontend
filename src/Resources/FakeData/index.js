@@ -1,4 +1,5 @@
 
+import Bulletins from './Bulletins.json'
 import GraduationDetails from './GraduationDetails.json'
 import GraduationDetails_empty from './GraduationDetails_empty.json'
 import Course from './Course.json'
@@ -19,6 +20,7 @@ import Credit from './Credit.json'
 import ProfessorProject from './ProfessorProject.json'
 
 export default {
+  Bulletins,
   GraduationDetails,
   GraduationDetails_empty,
   Course,

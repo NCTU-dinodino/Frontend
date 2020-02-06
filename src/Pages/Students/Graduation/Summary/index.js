@@ -33,23 +33,21 @@ const styles = theme => ({
     height: 10,
     margin: 7
   },
-  red: {
-    backgroundColor: '#d93a64'
-  },
+  // 顏色和 /Pages/Students/Graduation/CardGroup/Card/CoursePopover/index.js 對應
   green: {
-    backgroundColor: '#3aa276'
+    backgroundColor: '#3db586'
   },
-  grey: {
-    backgroundColor: 'grey'
-  },
-  yellow: {
-    backgroundColor: '#a29149'
+  red: {
+    backgroundColor: '#d95467'
   },
   purple: {
-    backgroundColor: '#6A94A2'
+    backgroundColor: '#8888ff'
   },
-  blue: {
-    backgroundColor: '#9e48d9'
+  greyGreen: {
+    backgroundColor: '#6a94a2'
+  },
+  grey: {
+    backgroundColor: '#bdbdbd'
   },
   text: {
     color: '#7B7B7B',
@@ -76,20 +74,20 @@ const ColorInstruction = withStyles(styles)(({ classes, color, text }) => (
   </React.Fragment>
 ))
 
-const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, classes, mobile }) => {
+const Index = ({ overview, reviewStatus, rejectReason, englishStatus, forAssistant, idCard, classes, mobile }) => {
   const reviewStatusText = {
-    '0': '未送審',
-    '1': '審核中',
-    '2': '審核通過',
-    '3': '審核不通過'
+    0: '未送審',
+    1: '審核中',
+    2: '審核通過',
+    3: '審核不通過'
   }[reviewStatus]
 
   const englishStatusText = {
-    '0': '未考過英檢',
-    '1': '通過外語榮譽學分（可免修外語）',
-    '2': '已通過英檢免試申請',
-    '3': '已考過英檢',
-    '4': '已考過英檢'
+    0: '未考過英檢',
+    1: '通過外語榮譽學分（可免修外語）',
+    2: '已通過英檢免試申請',
+    3: '已考過英檢',
+    4: '已考過英檢'
   }[englishStatus]
 
   if (mobile) return (
@@ -104,12 +102,11 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
           <Grid item xs={12} container alignItems='center'>
             <ColorInstruction color={classes.green} text='已通過' />
             <ColorInstruction color={classes.red} text='未通過' />
-            <ColorInstruction color={classes.grey} text='未修課' />
+            <ColorInstruction color={classes.purple} text='當期' />
           </Grid>
           <Grid item xs={12} container alignItems='center'>
-            <ColorInstruction color={classes.yellow} text='未抵免' />
-            <ColorInstruction color={classes.purple} text='免修或抵免' />
-            <ColorInstruction color={classes.blue} text='當期' />
+            <ColorInstruction color={classes.greyGreen} text='免修或抵免' />
+            <ColorInstruction color={classes.grey} text='待確認或重複' />
           </Grid>
         </Grid>
         <Grid item xs={4} container justify='flex-end' alignItems='center'>
@@ -118,11 +115,18 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
       </Grid>
       <Grid item xs={12} container className={classes.reviewRowMobile}>
         <Grid item xs={10}>
-          <div>是否已考過英檢：{ englishStatusText }</div>
           <div>
-            畢業預審是否已送交助理審核：
+            畢業預審狀態：
             <span style={{ color: 'red' }}>{ reviewStatusText }</span>
           </div>
+          {
+            reviewStatus === 3 &&
+            <div>
+              審核不通過原因：
+              <span style={{ color: 'red' }}>{ rejectReason }</span>
+            </div>
+          }
+          <div>是否已考過英檢：{ englishStatusText }</div>
         </Grid>
         <Grid item xs={2} container justify='flex-end'>
           <MenuButtonGroup />
@@ -135,10 +139,9 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
       <Grid item md={12} container alignItems='center'>
         <ColorInstruction color={classes.green} text='已通過' />
         <ColorInstruction color={classes.red} text='未通過' />
-        <ColorInstruction color={classes.grey} text='未修課' />
-        <ColorInstruction color={classes.yellow} text='未抵免' />
-        <ColorInstruction color={classes.purple} text='免修或抵免' />
-        <ColorInstruction color={classes.blue} text='當期' />
+        <ColorInstruction color={classes.purple} text='當期' />
+        <ColorInstruction color={classes.greyGreen} text='免修或抵免' />
+        <ColorInstruction color={classes.grey} text='待確認或重複' />
       </Grid>
       <Grid item md={12} container className={classes.reviewRow}>
         <Grid item md={9}>
@@ -151,11 +154,18 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
               {idCard.id}
             </div>
           }
-          <div>是否已考過英檢：{ englishStatusText }</div>
           <div>
-            畢業預審是否已送交助理審核：
+            畢業預審狀態：
             <span style={{ color: 'red' }}>{ reviewStatusText }</span>
           </div>
+          {
+            reviewStatus === 3 &&
+            <div>
+              審核不通過原因：
+              <span style={{ color: 'red' }}>{ rejectReason }</span>
+            </div>
+          }
+          <div>是否已考過英檢：{ englishStatusText }</div>
         </Grid>
         <Grid item md={3} container justify='flex-end' alignItems='center'>
           <ProfessionalGroupMenu />
@@ -177,6 +187,7 @@ const Index = ({ overview, reviewStatus, englishStatus, forAssistant, idCard, cl
 const mapStateToProps = (state) => ({
   overview: state.Student.Graduation.detail.overview,
   reviewStatus: state.Student.Graduation.getReview.status,
+  rejectReason: state.Student.Graduation.getReview.rejectReason,
   englishStatus: state.Student.Graduation.english.status,
   idCard: state.Student.Graduation.assistant.idCard,
   forAssistant: state.Student.Graduation.assistant.using

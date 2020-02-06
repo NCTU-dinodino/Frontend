@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Frame from './Components/Frame'
-import Login from './Pages/Login/Login'
+import Login from './Pages/Login'
 
 import TeacherHead from './Pages/Teachers/Head'
 import TeacherHome from './Pages/Teachers/Home'
@@ -11,8 +11,8 @@ import TeacherFamily from './Pages/Teachers/Family'
 import TeacherVerify from './Pages/Teachers/Verify'
 
 import AssistantHead from './Pages/Assistants/Head'
-import AssistantHome from './Pages/Assistants/Home'
-import AssistantGrad from './Pages/Assistants/Graduation'
+import AssistantGradStatus from './Pages/Assistants/Graduation/Status'
+import AssistantGradCheck from './Pages/Assistants/Graduation/Check'
 import AssistantProject from './Pages/Assistants/Project'
 import AssistantMail from './Pages/Assistants/Mail'
 import AssistantSetting from './Pages/Assistants/Setting'
@@ -24,7 +24,6 @@ import StudentList from './Pages/Assistants/Family/StudentList'
 import TeacherList from './Pages/Assistants/Family'
 
 import StudentHead from './Pages/Students/Head'
-import StudentHome from './Pages/Students/Home'
 import StudentGrad from './Pages/Students/Graduation'
 import StudentMap from './Pages/Students/Map_v2'
 import StudentMapV3 from './Pages/Students/Map_v3'
@@ -34,6 +33,7 @@ import StudentProject from './Pages/Students/Project'
 import StudentCredit from './Pages/Students/Credit'
 // import StudentCreditApply from './Pages/Students/Credit/Stepper'
 
+import Bulletin from './Pages/Bulletin'
 import Footer from './Components/Footer'
 // import Snow from 'react-snow-effect'
 
@@ -50,7 +50,7 @@ const Router = () => (
         <Route exact path='/' component={Login} />
         {/* students route */}
 
-        <Route exact path='/students/head/' render={() => <StudentHome />} />
+        <Route exact path='/students/head/' render={() => <Bulletin />} />
         <Route exact path='/students/grad' render={() => <StudentGrad />} />
         <Route exact path='/students/map' render={() => <StudentMap />} />
         <Route exact path='/students/map_v3' render={() => <StudentMapV3 />} />
@@ -67,16 +67,17 @@ const Router = () => (
         <Route exact path='/teachers/family' component={TeacherFamily} />
         <Route exact path='/teachers/verify' component={TeacherVerify} />
 
-        <Route exact path='/assistants/head' render={() => <Frame><AssistantHome /></Frame>} />
-        <Route exact path='/assistants/grad' render={() => <Frame><AssistantGrad /></Frame>} />
+        <Route exact path='/assistants/head' render={() => <Frame><Bulletin admin /></Frame>} />
+        <Route exact path='/assistants/grad' render={() => <Frame><AssistantGradCheck /></Frame>} />
         <Route exact path='/assistants/project' render={() => <Frame><AssistantProject /></Frame>} />
         <Route exact path='/assistants/family' render={() => <Frame><TeacherList /></Frame>} />
         <Route exact path='/assistants/family/:tid' component={StudentList} />
         <Route exact path='/assistants/verify' component={AssistantVerify2} />
         <Route exact path='/assistants/marmot0814/verify' render={ () => <Frame><AssistantVerify2 /></Frame> } />
+        <Route exact path='/assistants/course' render={() => <Frame><AssistantGradStatus /></Frame>} />
         <Route exact path='/assistants/mail' render={() => <Frame><AssistantMail /></Frame>} />
         <Route exact path='/assistants/setting' render={() => <Frame><AssistantSetting /></Frame>} />
-        <Route path='/assistants/head/s/:sid/:sname/:program' component={StudentDetail} />
+        <Route path='/assistants/head/s/:sid/:sname/:program/:net_media' component={StudentDetail} />
         <Route path='/assistants/head/c/:sid/:type/:time/:sname/:grade/:program' component={StudentVerify} />
       </Switch>
       <Route path='/' component={Footer} />

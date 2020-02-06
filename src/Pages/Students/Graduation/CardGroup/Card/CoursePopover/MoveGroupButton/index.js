@@ -38,15 +38,16 @@ class Index extends React.Component {
   }
 
   handleClick (event) {
-    const sid = this.props.forAssistant ? this.props.idCard.id : this.props.studentIdcard.student_id
-
+    const { forAssistant, idCard, studentIdcard, course } = this.props
+    const sid = forAssistant ? idCard.id : studentIdcard.student_id
     // 拿取可移動的目標
     this.props.getMoveTargets({
       student_id: sid,
-      cn: this.props.course.cn, // 中文課名
-      code: this.props.course.code, // 課號
-      type: this.props.course.type
+      cn: course.cn, // 中文課名
+      code: course.code, // 課號
+      type: course.type
     })
+
     this.setState({
       anchorEl: event.currentTarget
     })
@@ -56,6 +57,7 @@ class Index extends React.Component {
     this.setState({
       anchorEl: null
     })
+    this.props.resetMoveTargets()
   }
 
   handleItemSelect (target) {
@@ -67,9 +69,8 @@ class Index extends React.Component {
       origin_group: this.props.title,
       target_group: target
     })
-    this.setState({
-      anchorEl: null
-    })
+    this.handleClose()
+    this.props.onClose()
   }
 
   render () {
@@ -135,6 +136,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getGraduationInfo: () => dispatch(getGraduationInfo()),
   getMoveTargets: (payload) => dispatch(getMoveTargets(payload)),
+  resetMoveTargets: () => dispatch(actions.graduation.moveCourse.store([])),
   moveCourse: (payload) => dispatch(moveCourse(payload)),
   moveCourseDone: () => dispatch(actions.graduation.moveCourse.setSuccess(false))
 })

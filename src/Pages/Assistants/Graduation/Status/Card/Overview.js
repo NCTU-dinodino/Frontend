@@ -53,7 +53,7 @@ class Overview extends React.Component {
             fontWeight: 'bold',
             cursor: 'pointer',
             verticalAlign: 'middle'}}
-            onClick={() => window.open('/assistants/head/s/' + student.student_id + '/' + student.sname + '/' + student.program)}
+            onClick={() => window.open('/assistants/head/s/' + student.student_id + '/' + student.sname + '/' + student.program + '/' + student.net_media)}
           />
         </div>
         <div style={{ fontSize: '20px', marginBottom: '10px' }}>{ this.hightlight(student.student_id + ' / ' + student.program, Status.input) }</div>
