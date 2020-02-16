@@ -36,29 +36,10 @@ const Index = ({ courses, title, forAssistant, mobile }) => {
     }
   ]
 
-  // 把每個通識丟到正確的分類，然後加上會在 GeneralCoursePopover 用到的欄位
+  // 把每個通識丟到正確的分類
   courses.forEach(course => {
     const type = generalCourseTypes.find(type => course.dimension === type.dimension)
-    if (type) {
-      if (course.reason === 'now') {
-        type.courses.push({
-          ...course,
-          color: '#9e48d9',
-          score: '(當期課程)'
-        })
-      } else if (course.reason === 'free1' || course.reason === 'free2') {
-        type.courses.push({
-          ...course,
-          color: '#6A94A2',
-          cn: `${course.cn} (抵免課程)`
-        })
-      } else {
-        type.courses.push({
-          ...course,
-          color: 'green'
-        })
-      }
-    }
+    if (type) type.courses.push({ ...course })
   })
 
   return (
@@ -69,7 +50,6 @@ const Index = ({ courses, title, forAssistant, mobile }) => {
             key={index}
             type={type}
             title={`${title}-${type.dimension}`}
-            forAssistant={forAssistant}
             mobile={mobile}
           />
         ))

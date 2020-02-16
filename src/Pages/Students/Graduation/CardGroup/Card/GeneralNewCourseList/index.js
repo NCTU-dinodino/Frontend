@@ -33,16 +33,16 @@ const styles = theme => ({
   }
 })
 
-const Title = withStyles(styles)(({ title, complete, require, unit, classes }) => (
+const Title = withStyles(styles)(({ title, acquire, require, unit, classes }) => (
   <div>
     <div className={classes.cardTitle}>{ title }</div>
-    <font size={5} color='#338d68'>{ complete }</font>/
+    <font size={5} color='#338d68'>{ acquire }</font>/
     <div className={classes.cardTitle}>{ require }</div>
     { unit }
   </div>
 ))
 
-const GeneralNewCourseList = (props) => {
+const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobile }) => {
   const generalCourseTypes = [
     {
       name: '人文',
@@ -71,32 +71,11 @@ const GeneralNewCourseList = (props) => {
     }
   ]
 
-  // 把每個通識丟到正確的分類，然後加上會在 GeneralCoursePopover 用到的欄位
-  props.courses.forEach(course => {
+  // 把每個通識丟到正確的分類
+  courses.forEach(course => {
     const type = generalCourseTypes.find(type => course.dimension === type.dimension)
-    if (type) {
-      if (course.reason === 'now') {
-        type.courses.push({
-          ...course,
-          color: '#9e48d9',
-          score: '(當期課程)'
-        })
-      } else if (course.reason === 'free1' || course.reason === 'free2') {
-        type.courses.push({
-          ...course,
-          color: '#6A94A2',
-          cn: `${course.cn} (抵免課程)`
-        })
-      } else {
-        type.courses.push({
-          ...course,
-          color: 'green'
-        })
-      }
-    }
+    if (type) type.courses.push({ ...course })
   })
-
-  const { classes, mobile, overview } = props
 
   return (
     <Grid item xs={12} container className={mobile ? '' : classes.container}>
@@ -104,8 +83,8 @@ const GeneralNewCourseList = (props) => {
         <div className={classes.dimension}>
           <Title
             title='核心'
-            complete={overview.credit === null ? 0 : overview.credit.core}
-            require={overview.require.core}
+            acquire={acquire.core}
+            require={require.core}
             unit='學分'
           />
         </div>
@@ -115,14 +94,14 @@ const GeneralNewCourseList = (props) => {
         {
           // 核心-自然非資工必修
           generalCourseTypes
-            .filter(type => type.dimension.slice(0, 2) === '核心' && !(type.dimension === '核心-自然' && type.courses.length === 0))
+            .filter(type => (type.dimension.slice(0, 2) === '核心' && 
+                            !(type.dimension === '核心-自然' && type.courses.length === 0)))
             .map((type, index) => (
               <GeneralCoursePopover
                 key={index}
                 type={type}
-                title={`${props.title}-${type.dimension}`}
-                forAssistant={props.forAssistant}
-                mobile={props.mobile}
+                title={`${title}-${type.dimension}`}
+                mobile={mobile}
               />
             ))
         }
@@ -132,8 +111,8 @@ const GeneralNewCourseList = (props) => {
         <div className={classes.dimension}>
           <Title
             title='校基本'
-            complete={overview.credit === null ? 0 : overview.credit.basic}
-            require={overview.require.basic}
+            acquire={acquire.basic}
+            require={require.basic}
             unit='學分'
           />
         </div>
@@ -148,9 +127,8 @@ const GeneralNewCourseList = (props) => {
                 key={index}
                 label={course.cn}
                 course={course}
-                title={`${props.title}-校基本`}
-                forAssistant={props.forAssistant}
-                mobile={props.mobile}
+                title={`${title}-校基本`}
+                mobile={mobile}
               />
             ))
         }
@@ -160,8 +138,8 @@ const GeneralNewCourseList = (props) => {
         <div className={classes.dimension}>
           <Title
             title='跨院'
-            complete={overview.credit === null ? 0 : overview.credit.cross}
-            require={overview.require.cross}
+            acquire={acquire.cross}
+            require={require.cross}
             unit='學分'
           />
         </div>
@@ -176,9 +154,8 @@ const GeneralNewCourseList = (props) => {
                 key={index}
                 label={course.cn}
                 course={course}
-                title={`${props.title}-跨院`}
-                forAssistant={props.forAssistant}
-                mobile={props.mobile}
+                title={`${title}-跨院`}
+                mobile={mobile}
               />
             ))
         }
