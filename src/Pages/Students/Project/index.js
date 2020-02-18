@@ -25,6 +25,7 @@ const styles = {
 class Index extends React.Component {
   componentDidMount () {
     this.props.fetchData()
+    window.alert('請注意，本學期專題改由紙本申請')
   }
 
   render () {
@@ -43,7 +44,7 @@ class Index extends React.Component {
                   <ProjectTile data={tile} key={index} />
                 ))
               }
-              <AddIcons />
+              {/* <AddIcons /> */}
             </GridList>
           </div>
           <div style={styles.root} className='visible-xs visible-sm'>
@@ -53,7 +54,7 @@ class Index extends React.Component {
                   <ProjectTile data={tile} key={index} rwd />
                 ))
               }
-              <AddIcons rwd />
+              {/* <AddIcons rwd /> */}
             </GridList>
           </div>
         </div>
