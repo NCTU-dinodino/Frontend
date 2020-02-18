@@ -119,7 +119,7 @@ class Index extends React.Component {
           <DialogContent>
             <PrintForm
               profile={this.props.studentIdcard}
-              reviewData={this.props.reviewData}
+              courseDetail={this.props.courseDetail}
               reviewStatus={this.props.reviewStatus}
               generalCourseType={this.props.generalCourseType}
               professionalField={this.props.professionalField}
@@ -164,7 +164,7 @@ Index.propTypes = {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  reviewData: state.Student.Graduation.detail.data,
+  courseDetail: state.Student.Graduation.detail.data,
   reviewStatus: state.Student.Graduation.getReview.status,
   generalCourseType: state.Student.Graduation.getReview.generalCourseType,
   professionalField: state.Student.Graduation.getReview.professionalField,

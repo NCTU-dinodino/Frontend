@@ -54,31 +54,26 @@ const supplementText = (course, title) => {
   return ''
 }
 
-const scoreText = (score, grade) => {
-  if (score === null) return '無'
+const scoreText = (scores) => {
+  if (!scores.length) return '無'
 
-  const scores = Object.entries(score)
-  const grades = Object.entries(grade)
-  const semester = { '1': '上', '2': '下', '3': '暑' }
   let str = ''
+  scores.forEach((s, index) => {
+    if (index > 0)  str += '、'
 
-  for (let i = 0; i < scores.length; i++) {
-    if (i > 0)  str += '、'
-
-    if (scores[i][1] === -1) str += '無'
+    if (s.score === -1) str += '無'
     else { // 有分數才有等級
-      str += scores[i][1]
+      str += s.score
       str += '('
 
-      if (grades[i][1] === '0') str += '無'
-      else str += grades[i][1]
+      str += s.grade
       str += ')'
     }
     str += ' - '
 
-    str += scores[i][0].slice(0, 3) // 取出 '107-1' 的 '107'
-    str += semester[scores[i][0].charAt(4)] // 把學期轉成中文
-  }
+    str += s.semester.slice(0, 3) // 取出 '107-1' 的 '107'
+    str += ['上', '下', '暑'][s.semester.charAt(4)] // 把學期轉成中文
+  })
   return str
 }
 
@@ -113,7 +108,7 @@ class CoursePopover extends React.Component {
           onClose={this.handleClose}
         >
           <div>{course.cn}</div>
-          <div>分數:&nbsp;{scoreText(course.score, course.grade)}</div>
+          <div>分數:&nbsp;{scoreText(course.scores)}</div>
           <div>英文授課:&nbsp;{(course.english) ? '是' : '否'}</div>
           <div>實得學分:&nbsp;{course.realCredit}</div>
           <br />
@@ -166,7 +161,7 @@ class GeneralCoursePopover extends React.Component {
                 <div style={{ display: 'inline', color: 'red' }}>
                   {supplementText(course, title)}
                 </div>
-                <div style={{ float: 'right' }}>{scoreText(course.score, course.grade)}</div>
+                <div style={{ float: 'right' }}>{scoreText(course.scores)}</div>
                 <div style={{ margin: '0 0 15px 8px' }}>
                   <MoveGroupButton
                     title={title}

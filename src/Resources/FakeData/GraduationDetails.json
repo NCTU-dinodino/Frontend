@@ -1,28 +1,34 @@
 {
   "total": {
-    "acquire": 120,
+    "acquire": 28,
     "require": 128
   },
   "compulsory": {
-    "acquire": 54,
+    "acquire": 3,
     "require": 56,
     "course": [
       {
         "cn": "作業系統概論",
         "en": "Introduction to Operating Systems",
-        "score": {
-          "106-2": 98,
-          "108-2": -1
-        },
+        "scores": [
+          {
+            "score": 98,
+            "grade": "A+",
+            "year": 2,
+            "semester": "106-2"
+          },
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 4,
+            "semester": "108-2"
+          }
+        ],
         "code": "DCP4334",
         "realCredit": 3,
         "originalCredit": 3,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "106-2": "A+",
-          "108-2": "0"
-        },
         "english": false,
         "reason": "now",
         "move": false,
@@ -31,19 +37,25 @@
       {
         "cn": "基礎程式設計(英文授課)",
         "en": "Basic Programming",
-        "score": {
-          "105-2": 74,
-          "106-1": 95
-        },
+        "scores": [
+          {
+            "score": 74,
+            "grade": "B",
+            "year": 1,
+            "semester": "105-2"
+          },
+          {
+            "score": 95,
+            "grade": "A+",
+            "year": 2,
+            "semester": "106-1"
+          }
+        ],
         "code": "DCP1236",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "105-2": "B",
-          "106-1": "A+"
-        },
         "english": true,
         "reason": "",
         "move": false,
@@ -52,355 +64,19 @@
       {
         "cn": "導師時間",
         "en": "Mentor's Hours",
-        "score": {
-          "105-2": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 1,
+            "semester": "105-2"
+          }
+        ],
         "code": "DCP1329",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "105-2": "0"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "微積分（一）",
-        "en": "Calculus (I)",
-        "score": {
-          "104-3": 74
-        },
-        "code": "DAM1305",
-        "realCredit": 4,
-        "originalCredit": 4,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "104-3": "B"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "微積分甲（二）",
-        "en": "Calculus (II)",
-        "score": {
-          "105-2": 96
-        },
-        "code": "DAM1368",
-        "realCredit": 4,
-        "originalCredit": 4,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "微處理機系統實驗(英文授課)",
-        "en": "Microprocessor System Lab.",
-        "score": {
-          "107-1": 95
-        },
-        "code": "DCP3116",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "107-1": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "數位電路設計",
-        "en": "Digital Circuit Design",
-        "score": {
-          "105-2": 95
-        },
-        "code": "DCP1157",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "機率",
-        "en": "Probability ",
-        "score": {
-          "106-1": 90
-        },
-        "code": "DCP3351",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "正規語言概論(英文授課)",
-        "en": "Introduction to Formal Language",
-        "score": {
-          "106-2": 92
-        },
-        "code": "DCP3122",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-2": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "演算法概論",
-        "en": "Introduction to Algorithms",
-        "score": {
-          "106-1": 93
-        },
-        "code": "DCP3573",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "物理(一)",
-        "en": "Physics (I)",
-        "score": {
-          "105-1": 94
-        },
-        "code": "DEP1111",
-        "realCredit": 3,
-        "originalCredit": 4,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "物理(二)",
-        "en": "Physics (II)",
-        "score": {
-          "105-2": 94
-        },
-        "code": "DEP1112",
-        "realCredit": 3,
-        "originalCredit": 4,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "線性代數(英文授課)",
-        "en": "Linear Algebra",
-        "score": {
-          "105-1": 99
-        },
-        "code": "DCP1234",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-1": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "編譯器設計概論",
-        "en": "Intro. to Compiler Design",
-        "score": null,
-        "code": "DCP4529",
-        "realCredit": 0,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": false,
-        "grade": null,
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "計算機概論與程式設計",
-        "en": "Introduction to Computers and Programming",
-        "score": {
-          "105-1": 98
-        },
-        "code": "DCP1203",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "計算機組織(英文授課)",
-        "en": "Computer Organization",
-        "score": {
-          "106-2": 99
-        },
-        "code": "DCP2108",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-2": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "計算機網路概論",
-        "en": "Intro. to Computer Networks",
-        "score": {
-          "106-1": 96
-        },
-        "code": "DCP4513",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "資料結構與物件導向程式設計",
-        "en": "Data Structures and Object-oriented Programming",
-        "score": {
-          "105-2": 100
-        },
-        "code": "DCP1242",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "資訊工程專題(一)(英文授課)",
-        "en": "Computer Science and Engineering Projects (I)",
-        "score": {
-          "107-1": 89
-        },
-        "code": "DCP3103",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "107-1": "A"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "資訊工程專題(二)(英文授課)",
-        "en": "Computer Science and Engineering Projects (II)",
-        "score": {
-          "107-2": 96
-        },
-        "code": "DCP4121",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "107-2": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "資訊工程研討",
-        "en": "Computer Science Seminars",
-        "score": {
-          "107-1": -1
-        },
-        "code": "DCP3115",
-        "realCredit": 0,
-        "originalCredit": 0,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "107-1": "0"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -409,36 +85,12 @@
       {
         "cn": "離散數學",
         "en": "Discrete Mathematics",
-        "score": {
-          "105-2": 100
-        },
+        "scores": [],
         "code": "DCP2353",
-        "realCredit": 3,
+        "realCredit": 0,
         "originalCredit": 3,
         "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "導師時間",
-        "en": "Mentor's Hours",
-        "score": {
-          "105-1": -1
-        },
-        "code": "DCP1329",
-        "realCredit": 0,
-        "originalCredit": 0,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-1": "0"
-        },
+        "complete": false,
         "english": false,
         "reason": "",
         "move": false,
@@ -447,100 +99,26 @@
     ]
   },
   "professional": {
-    "acquire": 29,
+    "acquire": 6,
     "require": 32,
     "course": [
       {
-        "cn": "資料庫系統概論",
-        "en": "Introduction to Database Systems ",
-        "score": {
-          "106-1": 99
-        },
-        "code": "DCP1187",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "106-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "機器學習概論",
-        "en": "Introduction to Machine Learning",
-        "score": {
-          "106-1": 91
-        },
-        "code": "DCP1241",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "106-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
         "cn": "計算數論",
         "en": "computational number theory ",
-        "score": {
-          "106-1": 91
-        },
+        "scores": [
+          {
+            "score": 91,
+            "grade": "A+",
+            "year": 2,
+            "semester": "106-1"
+          }
+        ],
         "code": "IOC5176",
         "realCredit": 3,
         "originalCredit": 3,
         "type": "大學部修研究所課程",
         "complete": true,
-        "grade": {
-          "106-1": "A+"
-        },
         "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "網路通訊原理",
-        "en": "Principles of communications networks ",
-        "score": {
-          "106-2": 75
-        },
-        "code": "DCP1228",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "106-2": "B"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "演算法(英文授課)",
-        "en": "Algorithms",
-        "score": {
-          "106-2": 89
-        },
-        "code": "IOC5194",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "大學部修研究所課程",
-        "complete": true,
-        "grade": {
-          "106-2": "A"
-        },
-        "english": true,
         "reason": "",
         "move": false,
         "dimension": null
@@ -548,289 +126,67 @@
       {
         "cn": "電腦安全概論(英文授課）",
         "en": "Introduction to Computer Security",
-        "score": {
-          "107-2": 99
-        },
+        "scores": [
+          {
+            "score": 99,
+            "grade": "A+",
+            "year": 3,
+            "semester": "107-2"
+          }
+        ],
         "code": "DCP3109",
         "realCredit": 3,
         "originalCredit": 3,
         "type": "選修",
         "complete": true,
-        "grade": {
-          "107-2": "A+"
-        },
         "english": true,
         "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "計算機架構(英文授課)",
-        "en": "Computer Architecture",
-        "score": {
-          "107-2": 99
-        },
-        "code": "IOC5091",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "大學部修研究所課程",
-        "complete": true,
-        "grade": {
-          "107-2": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "高等UNIX程式設計(英文授課)",
-        "en": "Advanced Programming in the UNIX Environment",
-        "score": {
-          "107-2": 93
-        },
-        "code": "IOC5174",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "大學部修研究所課程",
-        "complete": true,
-        "grade": {
-          "107-2": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "組合最佳化演算法",
-        "en": "Combinatorial Optimization Algorithms",
-        "score": {
-          "107-2": 93
-        },
-        "code": "IOC5195",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "大學部修研究所課程",
-        "complete": true,
-        "grade": {
-          "107-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "數理邏輯",
-        "en": "Mathematical Logic\n",
-        "score": {
-          "108-1": -1
-        },
-        "code": "DCP1154",
-        "realCredit": 0,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": false,
-        "grade": {
-          "108-1": "0"
-        },
-        "english": false,
-        "reason": "now",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "計算機系統管理",
-        "en": "Computer System Administration",
-        "score": {
-          "108-1": -1
-        },
-        "code": "DCP4301",
-        "realCredit": 0,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": false,
-        "grade": {
-          "108-1": "0"
-        },
-        "english": false,
-        "reason": "now",
         "move": false,
         "dimension": null
       },
       {
         "cn": "平行程式設計",
         "en": "Parallel Programming",
-        "score": {
-          "108-1": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 4,
+            "semester": "108-1"
+          }
+        ],
         "code": "IOC5181",
         "realCredit": 0,
         "originalCredit": 3,
         "type": "選修",
         "complete": false,
-        "grade": {
-          "108-1": "0"
-        },
         "english": false,
         "reason": "now",
         "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "網路程式設計",
-        "en": "Network Programming",
-        "score": {
-          "108-1": -1
-        },
-        "code": "IOE5015",
-        "realCredit": 0,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": false,
-        "grade": {
-          "108-1": "0"
-        },
-        "english": false,
-        "reason": "now",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "物理(一)",
-        "en": "Physics (I)",
-        "score": {
-          "105-1": 94
-        },
-        "code": "DEP1111_one",
-        "realCredit": 1,
-        "originalCredit": 4,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": true,
-        "dimension": null
-      },
-      {
-        "cn": "物理(二)",
-        "en": "Physics (II)",
-        "score": {
-          "105-2": 94
-        },
-        "code": "DEP1112_one",
-        "realCredit": 1,
-        "originalCredit": 4,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": true,
         "dimension": null
       }
     ]
   },
   "other": {
-    "acquire": 15,
+    "acquire": 3,
     "require": 12,
     "course": [
       {
         "cn": "Python 應用概論",
         "en": "Introduction to Python Applications",
-        "score": {
-          "107-1": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 3,
+            "semester": "107-1"
+          }
+        ],
         "code": "CCP1054",
         "realCredit": 3,
         "originalCredit": 3,
         "type": "選修",
         "complete": true,
-        "grade": {
-          "107-1": "0"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "LabVIEW 程式語言",
-        "en": "LabVIEW Programming Language",
-        "score": {
-          "105-1": 99
-        },
-        "code": "DCP1235",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "105-1": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "MATLAB 程式語言",
-        "en": "MATLAB Programming Language",
-        "score": {
-          "105-2": 85
-        },
-        "code": "DCP1212",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "105-2": "A"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "競技程式設計(一)",
-        "en": "Competitive Programming(I)",
-        "score": {
-          "105-2": 91
-        },
-        "code": "DCP3603",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "105-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "競技程式設計(二)",
-        "en": "Competitive Programming (II)",
-        "score": {
-          "106-1": -1
-        },
-        "code": "DCP1217",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "選修",
-        "complete": true,
-        "grade": {
-          "106-1": "0"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -845,17 +201,19 @@
       {
         "cn": "外語榮譽學分",
         "en": "",
-        "score": {
-          "105-1": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 1,
+            "semester": "105-1"
+          }
+        ],
         "code": "DFR4504",
         "realCredit": 8,
         "originalCredit": 8,
         "type": "外語",
         "complete": true,
-        "grade": {
-          "105-1": "0"
-        },
         "english": false,
         "reason": "free2",
         "move": false,
@@ -864,61 +222,46 @@
     ]
   },
   "general": {
-    "acquire": 14,
+    "acquire": 8,
     "require": 20,
     "course": [
       {
         "cn": "當代世界",
         "en": "Contemporary World",
-        "score": {
-          "108-2": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 4,
+            "semester": "108-1"
+          }
+        ],
         "code": "GEC0002",
         "realCredit": 0,
         "originalCredit": 2,
         "type": "通識",
         "complete": false,
-        "grade": {
-          "108-2": "0"
-        },
         "english": false,
         "reason": "now",
         "move": false,
         "dimension": "通識"
       },
       {
-        "cn": "台灣史",
-        "en": "The Taiwan History",
-        "score": {
-          "105-1": 87
-        },
-        "code": "GEC2000",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "通識",
-        "complete": true,
-        "grade": {
-          "105-1": "A"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": "歷史"
-      },
-      {
         "cn": "心理學概論",
         "en": "Introduction to Psychology",
-        "score": {
-          "105-2": 86
-        },
+        "scores": [
+          {
+            "score": 86,
+            "grade": "A",
+            "year": 1,
+            "semester": "105-2"
+          }
+        ],
         "code": "GEC4001",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "通識",
         "complete": true,
-        "grade": {
-          "105-2": "A"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -927,93 +270,61 @@
       {
         "cn": "政治學",
         "en": "Political Science",
-        "score": {
-          "108-2": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 4,
+            "semester": "108-1"
+          }
+        ],
         "code": "GEC3001",
         "realCredit": 0,
         "originalCredit": 2,
         "type": "通識",
         "complete": false,
-        "grade": {
-          "108-2": "0"
-        },
         "english": false,
         "reason": "now",
         "move": false,
         "dimension": "公民"
       },
       {
-        "cn": "社會學",
-        "en": "Sociology",
-        "score": {
-          "106-1": 77
-        },
-        "code": "GEC4000",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "通識",
-        "complete": true,
-        "grade": {
-          "106-1": "B+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": "群己"
-      },
-      {
         "cn": "國際政治經濟學",
         "en": "International Political Economy",
-        "score": {
-          "106-1": 85
-        },
+        "scores": [
+          {
+            "score": 85,
+            "grade": "A",
+            "year": 2,
+            "semester": "106-1"
+          }
+        ],
         "code": "GEC7451",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "通識",
         "complete": true,
-        "grade": {
-          "106-1": "A"
-        },
         "english": false,
         "reason": "",
         "move": false,
         "dimension": "公民"
       },
       {
-        "cn": "經濟社會學",
-        "en": "Economy and Society",
-        "score": {
-          "106-2": 86
-        },
-        "code": "GEC8174",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "通識",
-        "complete": true,
-        "grade": {
-          "106-2": "A"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": "群己"
-      },
-      {
         "cn": "統計方法與資料分析",
         "en": "Statistical Methods and Data Analysis",
-        "score": {
-          "106-2": 95
-        },
+        "scores": [
+          {
+            "score": 95,
+            "grade": "A",
+            "year": 2,
+            "semester": "106-2"
+          }
+        ],
         "code": "CGE1003",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "選修",
         "complete": true,
-        "grade": {
-          "106-2": "A+"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1022,17 +333,19 @@
       {
         "cn": "生活中的機器人科技",
         "en": "Robot Technology in Daily Lives",
-        "score": {
-          "107-1": 92
-        },
+        "scores": [
+          {
+            "score": 92,
+            "grade": "A+",
+            "year": 3,
+            "semester": "107-1"
+          }
+        ],
         "code": "CGE1010",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "通識",
         "complete": true,
-        "grade": {
-          "107-1": "A+"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1042,9 +355,9 @@
   },
   "general_new": {
     "acquire": {
-      "total": 14,
-      "core": 6,
-      "basic": 8,
+      "total": 8,
+      "core": 2,
+      "basic": 6,
       "cross": 0
     },
     "require": {
@@ -1057,55 +370,40 @@
       {
         "cn": "當代世界",
         "en": "Contemporary World",
-        "score": {
-          "108-2": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 4,
+            "semester": "108-1"
+          }
+        ],
         "code": "GEC0002",
         "realCredit": 0,
         "originalCredit": 2,
         "type": "通識",
         "complete": false,
-        "grade": {
-          "108-2": "0"
-        },
         "english": false,
         "reason": "now",
         "move": false,
         "dimension": "核心-社會"
       },
       {
-        "cn": "台灣史",
-        "en": "The Taiwan History",
-        "score": {
-          "105-1": 87
-        },
-        "code": "GEC2000",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "通識",
-        "complete": true,
-        "grade": {
-          "105-1": "A"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": "核心-人文"
-      },
-      {
         "cn": "心理學概論",
         "en": "Introduction to Psychology",
-        "score": {
-          "105-2": 86
-        },
+        "scores": [
+          {
+            "score": 86,
+            "grade": "A",
+            "year": 1,
+            "semester": "105-2"
+          }
+        ],
         "code": "GEC4001",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "通識",
         "complete": true,
-        "grade": {
-          "105-2": "A"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1114,74 +412,40 @@
       {
         "cn": "政治學",
         "en": "Political Science",
-        "score": {
-          "108-2": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 4,
+            "semester": "108-1"
+          }
+        ],
         "code": "GEC3001",
         "realCredit": 0,
         "originalCredit": 2,
         "type": "通識",
         "complete": false,
-        "grade": {
-          "108-2": "0"
-        },
         "english": false,
         "reason": "now",
         "move": false,
         "dimension": "核心-社會"
       },
       {
-        "cn": "社會學",
-        "en": "Sociology",
-        "score": {
-          "106-1": 77
-        },
-        "code": "GEC4000",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "通識",
-        "complete": true,
-        "grade": {
-          "106-1": "B+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": "核心-社會"
-      },
-      {
         "cn": "國際政治經濟學",
         "en": "International Political Economy",
-        "score": {
-          "106-1": 85
-        },
+        "scores": [
+          {
+            "score": 85,
+            "grade": "A",
+            "year": 2,
+            "semester": "106-1"
+          }
+        ],
         "code": "GEC7451",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "通識",
         "complete": true,
-        "grade": {
-          "106-1": "A"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": "校基本素養"
-      },
-      {
-        "cn": "經濟社會學",
-        "en": "Economy and Society",
-        "score": {
-          "106-2": 86
-        },
-        "code": "GEC8174",
-        "realCredit": 2,
-        "originalCredit": 2,
-        "type": "通識",
-        "complete": true,
-        "grade": {
-          "106-2": "A"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1190,17 +454,19 @@
       {
         "cn": "統計方法與資料分析",
         "en": "Statistical Methods and Data Analysis",
-        "score": {
-          "106-2": 95
-        },
+        "scores": [
+          {
+            "score": 95,
+            "grade": "A+",
+            "year": 2,
+            "semester": "106-2"
+          }
+        ],
         "code": "CGE1003",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "選修",
         "complete": true,
-        "grade": {
-          "106-2": "A+"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1209,17 +475,19 @@
       {
         "cn": "生活中的機器人科技",
         "en": "Robot Technology in Daily Lives",
-        "score": {
-          "107-1": 92
-        },
+        "scores": [
+          {
+            "score": 92,
+            "grade": "A+",
+            "year": 3,
+            "semester": "107-1"
+          }
+        ],
         "code": "CGE1010",
         "realCredit": 2,
         "originalCredit": 2,
         "type": "通識",
         "complete": true,
-        "grade": {
-          "107-1": "A+"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1228,23 +496,25 @@
     ]
   },
   "pe": {
-    "acquire": 6,
+    "acquire": 2,
     "require": 6,
     "course": [
       {
         "cn": "大一體育",
         "en": "Physical Education",
-        "score": {
-          "105-2": 81
-        },
+        "scores": [
+          {
+            "score": 81,
+            "grade": "A-",
+            "year": 1,
+            "semester": "105-2"
+          }
+        ],
         "code": "PYY1051",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "體育",
         "complete": true,
-        "grade": {
-          "105-2": "A-"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1253,93 +523,19 @@
       {
         "cn": "體育－桌球甲",
         "en": "Physical Education",
-        "score": {
-          "106-2": 81
-        },
+        "scores": [
+          {
+            "score": 82,
+            "grade": "A-",
+            "year": 2,
+            "semester": "106-2"
+          }
+        ],
         "code": "PYY1207",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "106-2": "A-"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "體育－籃球甲",
-        "en": "Physical Education",
-        "score": {
-          "107-1": 85
-        },
-        "code": "PYY1201",
-        "realCredit": 0,
-        "originalCredit": 0,
-        "type": "體育",
-        "complete": true,
-        "grade": {
-          "107-1": "A"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "體育－壘球乙",
-        "en": "Physical Education",
-        "score": {
-          "107-2": 90
-        },
-        "code": "PYY1225",
-        "realCredit": 0,
-        "originalCredit": 0,
-        "type": "體育",
-        "complete": true,
-        "grade": {
-          "107-2": "A+"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "大一體育",
-        "en": "Physical Education",
-        "score": {
-          "105-1": 76
-        },
-        "code": "PYY1051",
-        "realCredit": 0,
-        "originalCredit": 0,
-        "type": "體育",
-        "complete": true,
-        "grade": {
-          "105-1": "B"
-        },
-        "english": false,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "體育－桌球甲",
-        "en": "Physical Education",
-        "score": {
-          "106-1": 88
-        },
-        "code": "PYY1207",
-        "realCredit": 0,
-        "originalCredit": 0,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-1": "A"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1354,17 +550,19 @@
       {
         "cn": "服務學習(一)",
         "en": "Service Learning I",
-        "score": {
-          "105-2": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 1,
+            "semester": "105-2"
+          }
+        ],
         "code": "DCP1194",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "105-2": "0"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1373,17 +571,19 @@
       {
         "cn": "服務學習(二)",
         "en": "Service Learning II",
-        "score": {
-          "106-1": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 2,
+            "semester": "106-1"
+          }
+        ],
         "code": "DCP1190",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "106-1": "0"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1398,17 +598,19 @@
       {
         "cn": "藝文賞析教育",
         "en": "Arts Appreciation Education",
-        "score": {
-          "105-2": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 1,
+            "semester": "105-2"
+          }
+        ],
         "code": "ART0003",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "105-2": "0"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1417,17 +619,19 @@
       {
         "cn": "藝文賞析教育",
         "en": "Arts Appreciation Education",
-        "score": {
-          "105-1": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 1,
+            "semester": "105-1"
+          }
+        ],
         "code": "ART0003",
         "realCredit": 0,
         "originalCredit": 0,
         "type": "必修",
         "complete": true,
-        "grade": {
-          "105-1": "0"
-        },
         "english": false,
         "reason": "",
         "move": false,
@@ -1441,36 +645,19 @@
       {
         "cn": "全民國防教育軍事訓練課程－國際情勢",
         "en": "All-out Defense Education Military Training-International Situations",
-        "score": {
-          "108-1": -1
-        },
+        "scores": [
+          {
+            "score": -1,
+            "grade": "0",
+            "year": 4,
+            "semester": "108-1"
+          }
+        ],
         "code": "MIN1045",
         "realCredit": 0,
         "originalCredit": 2,
         "type": "軍訓",
         "complete": false,
-        "grade": {
-          "108-1": "0"
-        },
-        "english": false,
-        "reason": "now",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "全民國防教育軍事訓練課程－國防政策",
-        "en": "All-out Defense Education Military Training-National Defense Policies",
-        "score": {
-          "108-1": -1
-        },
-        "code": "MIN1042",
-        "realCredit": 0,
-        "originalCredit": 2,
-        "type": "軍訓",
-        "complete": false,
-        "grade": {
-          "108-1": "0"
-        },
         "english": false,
         "reason": "now",
         "move": false,
@@ -1484,17 +671,19 @@
       {
         "cn": "電腦對局理論",
         "en": "Theory of Computer Games",
-        "score": {
-          "107-1": 95
-        },
+        "scores": [
+          {
+            "score": 95,
+            "grade": "A+",
+            "year": 3,
+            "semester": "107-1"
+          }
+        ],
         "code": "IOC5121",
         "realCredit": 3,
         "originalCredit": 3,
         "type": "大學部修研究所課程",
         "complete": true,
-        "grade": {
-          "107-1": "A+"
-        },
         "english": false,
         "reason": "",
         "move": true,
@@ -1509,99 +698,25 @@
     ]
   },
   "english": {
-    "acquire": 5,
+    "acquire": 1,
     "require": 1,
     "course": [
       {
-        "cn": "微處理機系統實驗(英文授課)",
-        "en": "Microprocessor System Lab.",
-        "score": {
-          "107-1": 95
-        },
-        "code": "DCP3116",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "107-1": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "正規語言概論(英文授課)",
-        "en": "Introduction to Formal Language",
-        "score": {
-          "106-2": 92
-        },
-        "code": "DCP3122",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-2": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "線性代數(英文授課)",
-        "en": "Linear Algebra",
-        "score": {
-          "105-1": 99
-        },
-        "code": "DCP1234",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "105-1": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
-        "cn": "計算機組織(英文授課)",
-        "en": "Computer Organization",
-        "score": {
-          "106-2": 99
-        },
-        "code": "DCP2108",
-        "realCredit": 3,
-        "originalCredit": 3,
-        "type": "必修",
-        "complete": true,
-        "grade": {
-          "106-2": "A+"
-        },
-        "english": true,
-        "reason": "",
-        "move": false,
-        "dimension": null
-      },
-      {
         "cn": "電腦安全概論(英文授課）",
         "en": "Introduction to Computer Security",
-        "score": {
-          "107-2": 99
-        },
+        "scores": [
+          {
+            "score": 99,
+            "grade": "A+",
+            "year": 3,
+            "semester": "107-2"
+          }
+        ],
         "code": "DCP3109",
         "realCredit": 3,
         "originalCredit": 3,
         "type": "選修",
         "complete": true,
-        "grade": {
-          "107-2": "A+"
-        },
         "english": true,
         "reason": "",
         "move": false,

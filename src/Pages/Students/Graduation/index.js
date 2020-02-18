@@ -6,9 +6,9 @@ import CardGroup from './CardGroup'
 import { ResponsiveContainer } from '../../../Components/Responsive'
 
 class Index extends React.Component {
-  componentDidMount () {
-    window.alert('請注意，共同課程(外語+通識)至多只能採計40學分')
-  }
+  // componentDidMount () {
+  //   window.alert('請注意，共同課程(外語+通識)至多只能採計40學分')
+  // }
 
   render () {
     return (
