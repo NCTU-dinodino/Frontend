@@ -1,37 +1,35 @@
-[
-  {
-    "title": "共同必修",
-    "credit": 0,
+{
+  "total": {
+    "acquire": 0,
+    "require": 0
+  },
+  "compulsory": {
+    "acquire": 0,
     "require": 0,
     "course": []
   },
-  {
-    "title": "專業選修",
-    "credit": 0,
+  "professional": {
+    "acquire": 0,
     "require": 0,
     "course": []
   },
-  {
-    "title": "其他選修",
-    "credit": 0,
+  "other": {
+    "acquire": 0,
     "require": 0,
     "course": []
   },
-  {
-    "title": "外語",
-    "credit": 0,
+  "language": {
+    "acquire": 0,
     "require": 0,
     "course": []
   },
-  {
-    "title": "通識(舊制)",
-    "credit": 0,
+  "general": {
+    "acquire": 0,
     "require": 0,
     "course": []
   },
-  {
-    "title": "通識(新制)",
-    "credit": {
+  "general_new": {
+    "acquire": {
       "total": 0,
       "core": 0,
       "basic": 0,
@@ -45,72 +43,38 @@
     },
     "course": []
   },
-  {
-    "title": "體育",
-    "credit": 0,
+  "pe": {
+    "acquire": 0,
     "require": 0,
     "course": []
   },
-  {
-    "title": "服務學習",
-    "credit": 0,
+  "service": {
+    "acquire": 0,
     "require": 0,
+    "course": []
+  },
+  "art": {
+    "acquire": 0,
+    "require": 0,
+    "course": []
+  },
+  "exclusion": {
+    "acquire": 0,
+    "course": []
+  },
+  "graduate": {
+    "acquire": 0,
+    "course": []
+  },
+  "dmajor_minor_program": {
+    "acquire": 0,
     "course": [
+      
     ]
   },
-  {
-    "title": "藝文賞析",
-    "credit": 0,
+  "english": {
+    "acquire": 0,
     "require": 0,
     "course": []
-  },
-  {
-    "title": "抵免研究所課程",
-    "credit": 0,
-    "require": 0,
-    "course": []
-  },
-  {
-    "title": "雙主修、輔系、學分學程",
-    "credit": 0,
-    "require": 0,
-    "course": []
-  },
-  {
-    "title": "軍訓",
-    "credit": 0,
-    "require": 0,
-    "course": []
-  },
-  {
-    "total": 0,
-    "total_require": 0,
-    "compulsory": 0,
-    "compulsory_require": 0,
-    "core": 0,
-    "core_require": 0,
-    "vice": 0,
-    "vice_require": 0,
-    "pro": 0,
-    "pro_require": 0,
-    "english": 0,
-    "english_require": 0,
-    "other": 0,
-    "other_require": 0,
-    "general": 0,
-    "general_require": 0,
-    "general_new": 0,
-    "general_new_require": 0,
-    "pe": 0,
-    "pe_require": 0,
-    "language": 0,
-    "language_require": 0,
-    "service": 0,
-    "service_require": 0,
-    "art": 0,
-    "art_require": 0,
-    "graduate": 0,
-    "dmajor_minor_program": 0,
-    "military": 0
   }
-]
+}
