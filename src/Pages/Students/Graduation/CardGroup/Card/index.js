@@ -18,9 +18,10 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import CloseIcon from '@material-ui/icons/Close'
 import AnimatedProgress from '../../../../../Components/AnimatedProgress'
-import CourseList from './CourseList'
-import GeneralCourseList from './GeneralCourseList'
-import GeneralNewCourseList from './GeneralNewCourseList'
+import NormalCourseList from './CourseList/NormalCourseList'
+import GeneralCourseList from './CourseList/GeneralCourseList'
+import GeneralNewCourseList from './CourseList/GeneralNewCourseList'
+import ServiceCourseList from './CourseList/ServiceCourseList'
 
 const styles = theme => ({
   container: {
@@ -133,27 +134,42 @@ class Index extends React.Component {
           ? Math.min(100, 100 * acquire.total / require.total)
           : Math.min(100, 100 * acquire / require)
 
-    const ListComponent = (
-      title === '通識(舊制)'
-        ? <GeneralCourseList
+    let ListComponent
+    if (title === '通識(舊制)') {
+      ListComponent = (
+        <GeneralCourseList
           courses={course}
           title={title}
           mobile={mobile}
         />
-        : title === '通識(新制)'
-          ? <GeneralNewCourseList
-            courses={course}
-            title={title}
-            acquire={acquire}
-            require={require}
-            mobile={mobile}
-          />
-          : <CourseList
-            courses={course}
-            title={title}
-            mobile={mobile}
-          />
-    )
+      )
+    } else if (title === '通識(新制)') {
+      ListComponent = (
+        <GeneralNewCourseList
+          courses={course}
+          title={title}
+          acquire={acquire}
+          require={require}
+          mobile={mobile}
+        />
+      )
+    } else if (title === '服務學習') {
+      ListComponent = (
+        <ServiceCourseList
+          courses={course}
+          title={title}
+          mobile={mobile}
+        />
+      )
+    } else {
+      ListComponent = (
+        <NormalCourseList
+          courses={course}
+          title={title}
+          mobile={mobile}
+        />
+      )
+    }
 
     // for mobile
     if (mobile) {

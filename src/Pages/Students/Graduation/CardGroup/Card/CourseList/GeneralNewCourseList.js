@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Hidden } from '@material-ui/core'
-import { CoursePopover, GeneralCoursePopover } from '../CoursePopover'
+import { NormalCoursePopover, GeneralCoursePopover } from '../CoursePopover'
 
 const styles = theme => ({
   container: {
@@ -123,7 +123,7 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
           generalCourseTypes
             .find(type => type.dimension === '校基本素養').courses
             .map((course, index) => (
-              <CoursePopover
+              <NormalCoursePopover
                 key={index}
                 label={course.cn}
                 course={course}
@@ -150,7 +150,7 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
           generalCourseTypes
             .find(type => type.dimension === '跨院基本素養').courses
             .map((course, index) => (
-              <CoursePopover
+              <NormalCoursePopover
                 key={index}
                 label={course.cn}
                 course={course}

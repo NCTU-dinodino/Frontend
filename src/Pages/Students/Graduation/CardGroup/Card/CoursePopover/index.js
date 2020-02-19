@@ -12,7 +12,7 @@ const grey = '#bdbdbd'
 const greyGreen = '#6a94a2'
 
 // 決定普通課程的按鈕顏色
-const courseColor = (course, title) => {
+const normalCourseColor = (course, title) => {
   const { complete, reason, type } = course
 
   if (complete) {
@@ -36,6 +36,13 @@ const generalCourseColor = (courses) => {
   for (let i = 0; i < courses.length; i++) {
     if (courses[i].type !== '通識')  return grey
   }
+  if (courses.length === 1 && courses[0].reason === 'now') return purple
+  return green
+}
+
+// 決定服學課程的按鈕顏色
+const serviceCourseColor = (courses) => {
+  if (courses.length === 0) return red
   if (courses.length === 1 && courses[0].reason === 'now') return purple
   return green
 }
@@ -72,12 +79,12 @@ const scoreText = (scores) => {
     str += ' - '
 
     str += s.semester.slice(0, 3) // 取出 '107-1' 的 '107'
-    str += ['上', '下', '暑'][s.semester.charAt(4)] // 把學期轉成中文
+    str += { 1: '上', 2: '下', 3: '暑' }[s.semester.charAt(4)] // 把學期轉成中文
   })
   return str
 }
 
-class CoursePopover extends React.Component {
+class NormalCoursePopover extends React.Component {
   constructor (props) {
     super(props)
     this.state = { anchorEl: null }
@@ -100,7 +107,7 @@ class CoursePopover extends React.Component {
       <Grid item xs={6} sm={3} lg={2} container justify='center'>
         <PopoverButton
           label={label}
-          backgroundColor={courseColor(course, title)}
+          backgroundColor={normalCourseColor(course, title)}
           flash={!course.complete}
           mobile={mobile}
           anchorEl={this.state.anchorEl}
@@ -178,4 +185,58 @@ class GeneralCoursePopover extends React.Component {
   }
 }
 
-export { CoursePopover, GeneralCoursePopover }
+class ServiceCoursePopover extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = { anchorEl: null }
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  handleOpen (e) {
+    this.setState({ anchorEl: e.currentTarget })
+  }
+
+  handleClose () {
+    this.setState({ anchorEl: null })
+  }
+
+  render () {
+    const { type, title, mobile } = this.props
+
+    return (
+      <Grid item xs={6} sm={3} lg={2} container justify='center'>
+        <PopoverButton
+          label={type.name}
+          backgroundColor={serviceCourseColor(type.courses)}
+          flash={(type.length === 0)}
+          mobile={mobile}
+          anchorEl={this.state.anchorEl}
+          onOpen={this.handleOpen}
+          onClose={this.handleClose}
+        >
+          {
+            type.courses.map((course, index) => (
+              <li key={index}>
+                {course.cn}
+                <div style={{ display: 'inline', color: 'red' }}>
+                  {supplementText(course, title)}
+                </div>
+                <div style={{ float: 'right' }}>{scoreText(course.scores)}</div>
+                <div style={{ margin: '0 0 15px 8px' }}>
+                  <MoveGroupButton
+                    title={title}
+                    course={course}
+                    onClose={this.handleClose}
+                  />
+                </div>
+              </li>
+            ))
+          }
+        </PopoverButton>
+      </Grid>
+    )
+  }
+}
+
+export { NormalCoursePopover, GeneralCoursePopover, ServiceCoursePopover }

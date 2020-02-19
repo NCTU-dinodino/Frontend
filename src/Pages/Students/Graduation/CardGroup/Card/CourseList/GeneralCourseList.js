@@ -2,7 +2,7 @@
 import React from 'react'
 import { GeneralCoursePopover } from '../CoursePopover'
 
-const Index = ({ courses, title, forAssistant, mobile }) => {
+const Index = ({ courses, title, mobile }) => {
   const generalCourseTypes = [
     {
       name: '當代',
