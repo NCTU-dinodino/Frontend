@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { CoursePopover } from '../CoursePopover'
+import { NormalCoursePopover } from '../CoursePopover'
 
 /* 
  * 物理一門4學分，資工只要求3學分
@@ -9,11 +9,11 @@ import { CoursePopover } from '../CoursePopover'
  */
 const specialCourse = ['物理(一)', '物理(二)', '物理(一)榮譽班', '物理(二)榮譽班', '微處理機系統實驗']
 
-const Index = ({ courses, title, forAssistant, mobile }) => (
+const Index = ({ courses, title, mobile }) => (
   <React.Fragment>
     {
       courses.map((course, index) => (
-        <CoursePopover
+        <NormalCoursePopover
           key={index}
           label={(specialCourse.includes(course.cn) && course.realCredit > 0)
             ? `${course.cn}  ${course.realCredit}學分`
@@ -21,7 +21,6 @@ const Index = ({ courses, title, forAssistant, mobile }) => (
           }
           course={course}
           title={title}
-          forAssistant={forAssistant}
           mobile={mobile}
         />
       ))

@@ -4,8 +4,7 @@ import { handleActions } from 'redux-actions'
 
 const initialState = {
   detail: {
-    data: [],
-    overview: {}
+    data: {}
   },
   english: {
     status: 0
@@ -34,16 +33,10 @@ const initialState = {
 export default handleActions({
   GRADUATION: {
     DETAIL: {
-      STORE: (state, action) => {
-        let newData = [ ...action.payload ]
-        let newOverview = { ...newData[newData.length - 1] }
-        newData.length = newData.length - 1
-
-        return ({ ...state, detail: {
-          data: newData,
-          overview: newOverview
-        }})
-      }
+      STORE: (state, action) => ({ ...state, detail: {
+        ...state.detail,
+        data: action.payload
+      }})
     },
     ENGLISH: {
       STORE: (state, action) => ({ ...state, english: {

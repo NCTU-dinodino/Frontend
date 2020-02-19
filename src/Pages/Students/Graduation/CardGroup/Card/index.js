@@ -1,6 +1,5 @@
 
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import {
@@ -19,9 +18,10 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import CloseIcon from '@material-ui/icons/Close'
 import AnimatedProgress from '../../../../../Components/AnimatedProgress'
-import CourseList from './CourseList'
-import GeneralCourseList from './GeneralCourseList'
-import GeneralNewCourseList from './GeneralNewCourseList'
+import NormalCourseList from './CourseList/NormalCourseList'
+import GeneralCourseList from './CourseList/GeneralCourseList'
+import GeneralNewCourseList from './CourseList/GeneralNewCourseList'
+import ServiceCourseList from './CourseList/ServiceCourseList'
 
 const styles = theme => ({
   container: {
@@ -57,14 +57,30 @@ const styles = theme => ({
   }
 })
 
-const Title = withStyles(styles)(({ title, complete, require, unit, optional, classes }) => {
-  // 抵免研究所、雙主修...
-  if (optional) {
+const Title = withStyles(styles)(({ title, acquire, require, unit, optional, classes }) => {
+  if (!unit) { // 其他不計入畢業學分
     return (
       <div>
         <div className={classes.cardTitle}>{ title }</div>
-        <font size={5} color='#338d68'>{ complete }</font>
+      </div>
+    )
+  }
+  if (optional) { // 抵免研究所、雙主修...
+    return (
+      <div>
+        <div className={classes.cardTitle}>{ title }</div>
+        <font size={5} color='#338d68'>{ acquire }</font>
         <div className={classes.cardTitle} />
+        { unit }
+      </div>
+    )
+  }
+  if (title === '通識(新制)') {
+    return (
+      <div>
+        <div className={classes.cardTitle}>{ title }</div>
+        <font size={5} color='#338d68'>{ acquire.total }</font>/
+        <div className={classes.cardTitle}>{ require.total }</div>
         { unit }
       </div>
     )
@@ -73,7 +89,7 @@ const Title = withStyles(styles)(({ title, complete, require, unit, optional, cl
   return (
     <div>
       <div className={classes.cardTitle}>{ title }</div>
-      <font size={5} color='#338d68'>{ complete }</font>/
+      <font size={5} color='#338d68'>{ acquire }</font>/
       <div className={classes.cardTitle}>{ require }</div>
       { unit }
     </div>
@@ -107,9 +123,53 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, mobile } = this.props
+    if (!this.props.group) return null
 
-    if (this.props.data === undefined) return null
+    const { classes, title, group, unit, optional, mobile } = this.props
+    const { acquire, require, course } = group
+    const progressValue =
+      optional
+        ? 100
+        : title === '通識(新制)'
+          ? Math.min(100, 100 * acquire.total / require.total)
+          : Math.min(100, 100 * acquire / require)
+
+    let ListComponent
+    if (title === '通識(舊制)') {
+      ListComponent = (
+        <GeneralCourseList
+          courses={course}
+          title={title}
+          mobile={mobile}
+        />
+      )
+    } else if (title === '通識(新制)') {
+      ListComponent = (
+        <GeneralNewCourseList
+          courses={course}
+          title={title}
+          acquire={acquire}
+          require={require}
+          mobile={mobile}
+        />
+      )
+    } else if (title === '服務學習') {
+      ListComponent = (
+        <ServiceCourseList
+          courses={course}
+          title={title}
+          mobile={mobile}
+        />
+      )
+    } else {
+      ListComponent = (
+        <NormalCourseList
+          courses={course}
+          title={title}
+          mobile={mobile}
+        />
+      )
+    }
 
     // for mobile
     if (mobile) {
@@ -117,28 +177,26 @@ class Index extends React.Component {
         <React.Fragment>
           <Grid item xs={6} className={classes.titleMobile} onClick={this.handleOpen}>
             <Title
-              title={this.props.title}
-              complete={this.props.complete}
-              require={this.props.require}
-              optional={this.props.optional}
-              unit={this.props.unit}
+              title={title}
+              acquire={acquire}
+              require={require}
+              optional={optional}
+              unit={unit}
             />
-            <AnimatedProgress value={this.props.value} />
+            <AnimatedProgress value={progressValue} />
           </Grid>
 
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}
             PaperProps={{
-              classes: {
-               root: classes.dialogMobile
-              }
+              classes: { root: classes.dialogMobile }
             }}
           >
             <AppBar className={classes.appBar}>
               <Toolbar>
                 <Typography variant='title' color='inherit' className={classes.flex}>
-                  { this.props.title }
+                  {title}
                 </Typography>
                 <IconButton color='inherit' aria-label='Close' onClick={this.handleClose}>
                   <CloseIcon />
@@ -147,26 +205,7 @@ class Index extends React.Component {
             </AppBar>
             <DialogContent>
               <Grid container style={{ marginTop: '24px' }}>
-                {
-                  this.props.title === '通識(舊制)'
-                    ? <GeneralCourseList
-                      courses={this.props.data.course}
-                      title={this.props.title}
-                      mobile
-                    />
-                    : this.props.title === '通識(新制)'
-                      ? <GeneralNewCourseList
-                        courses={this.props.data.course}
-                        overview={this.props.data}
-                        title={this.props.title}
-                        mobile
-                      />
-                      : <CourseList
-                        courses={this.props.data.course}
-                        title={this.props.title}
-                        mobile
-                      />
-                }
+                {ListComponent}
               </Grid>
             </DialogContent>
           </Dialog>
@@ -187,43 +226,24 @@ class Index extends React.Component {
                 <LinearProgress
                   classes={{ barColorPrimary: classes.progress }}
                   variant='determinate'
-                  value={isNaN(this.props.value) ? 0 : Math.min(100, this.props.value)}
-                  color={this.props.value >= 100 ? 'primary' : 'secondary'}
+                  value={progressValue}
+                  color={progressValue === 100 ? 'primary' : 'secondary'}
                 />
               </Grid>
               <Grid item md={4} className={classes.title}>
                 <Title
-                  title={this.props.title}
-                  complete={this.props.complete}
-                  require={this.props.require}
-                  optional={this.props.optional}
-                  unit={this.props.unit}
+                  title={title}
+                  acquire={acquire}
+                  require={require}
+                  optional={optional}
+                  unit={unit}
                 />
               </Grid>
             </Grid>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Grid container alignItems='center'>
-              {
-                this.props.title === '通識(舊制)'
-                  ? <GeneralCourseList
-                    courses={this.props.data.course}
-                    title={this.props.title}
-                    forAssistant={this.props.forAssistant}
-                  />
-                  : this.props.title === '通識(新制)'
-                    ? <GeneralNewCourseList
-                      courses={this.props.data.course}
-                      overview={this.props.data}
-                      title={this.props.title}
-                      forAssistant={this.props.forAssistant}
-                    />
-                    : <CourseList
-                      courses={this.props.data.course}
-                      title={this.props.title}
-                      forAssistant={this.props.forAssistant}
-                    />
-              }
+              {ListComponent}
             </Grid>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -236,12 +256,4 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  data: state.Student.Graduation.detail.data.filter(t => t.title === ownProps.title)[0],
-  forAssistant: state.Student.Graduation.assistant.using
-})
-
-const mapDispatchToProps = (dispatch) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
+export default withStyles(styles)(Index)
