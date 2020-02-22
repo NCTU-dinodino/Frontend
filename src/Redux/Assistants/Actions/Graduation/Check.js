@@ -59,8 +59,8 @@ const parseCsv = (data) => {
     ...data.filter( data_ => data_ !== undefined)
       .sort( (a, b) => a.program === b.program ? a.student_id.localeCompare(b.student_id) : a.program.localeCompare(b.program))
       .map( data_ => [
-        data_.student_id,
-        data_.name,
+        '=""' + data_.student_id + '""',
+        data_.sname,
         data_.program,
         data_.total_credit,
         data_.submit_status === 0 ? '未送審' : data_.submit_status === 1 ? '審核中' : data_.submit_status === 2 ? '已通過' : data_.submit_status === 3 ? '未通過' : '',
@@ -69,7 +69,7 @@ const parseCsv = (data) => {
           if (prev.length === 0)
             return curr;
           else
-            return prev + ", " + curr;
+            return prev + "\r\n" + curr;
         }, ""),
         data_.pro + "學分",
         data_.other + "學分",
