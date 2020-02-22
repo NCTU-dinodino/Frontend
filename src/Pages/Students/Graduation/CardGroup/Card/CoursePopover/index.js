@@ -108,7 +108,6 @@ class NormalCoursePopover extends React.Component {
         <PopoverButton
           label={label}
           backgroundColor={normalCourseColor(course, title)}
-          flash={!course.complete}
           anchorEl={this.state.anchorEl}
           onOpen={this.handleOpen}
           onClose={this.handleClose}
@@ -154,7 +153,6 @@ class GeneralCoursePopover extends React.Component {
         <PopoverButton
           label={type.name}
           backgroundColor={generalCourseColor(type.courses)}
-          flash={(type.length === 0)}
           anchorEl={this.state.anchorEl}
           onOpen={this.handleOpen}
           onClose={this.handleClose}
@@ -207,7 +205,6 @@ class ServiceCoursePopover extends React.Component {
         <PopoverButton
           label={type.name}
           backgroundColor={serviceCourseColor(type.courses)}
-          flash={(type.length === 0)}
           anchorEl={this.state.anchorEl}
           onOpen={this.handleOpen}
           onClose={this.handleClose}

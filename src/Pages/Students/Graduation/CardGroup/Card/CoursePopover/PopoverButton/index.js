@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles'
 import { Popover } from '@material-ui/core'
 import { FlatButton } from 'material-ui'
 import { MuiThemeProvider } from 'material-ui/styles'
-import '../../../../../../../../node_modules/animate.css/animate.css'
 
 const styles = theme => ({
   buttonWrapper: {
@@ -29,12 +28,12 @@ const styles = theme => ({
 
 class Index extends React.Component {
   render () {
-    const { label, flash, backgroundColor, children, classes } = this.props
+    const { label, backgroundColor, children, classes } = this.props
     const { anchorEl } = this.props
 
     return (
       <div>
-        <div className={`${classes.buttonWrapper} ${flash && 'animated flash'}`}>
+        <div className={classes.buttonWrapper}>
           <MuiThemeProvider>
             <FlatButton
               className={classes.flatButton}
