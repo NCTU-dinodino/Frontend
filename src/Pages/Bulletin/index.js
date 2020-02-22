@@ -60,7 +60,7 @@ const styles = theme => ({
   contentRoot: {
     height: '50vh',
     maxHeight: '50vh',
-    overflow: 'scroll',
+    overflowY: 'scroll',
     fontSize: '18px',
     paddingTop: '15px',
     paddingLeft: '15px',
@@ -260,11 +260,10 @@ class Bulletin extends React.Component {
   render () {
     const { classes, bulletins, admin } = this.props
     const { type, formOpen, formType, formError, payload } = this.state
-    console.log(bulletins)
 
     return (
       <ResponsiveContainer justify='center'>
-        <Grid item xs={10} container justify='center'>
+        <Grid item xs={12} md={11} lg={10} container justify='center'>
           <div className={classes.root}>
             { // 是助理才能新增
               admin &&
