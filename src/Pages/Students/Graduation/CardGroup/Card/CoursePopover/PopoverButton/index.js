@@ -5,29 +5,38 @@ import { withStyles } from '@material-ui/core/styles'
 import { Popover } from '@material-ui/core'
 import { FlatButton } from 'material-ui'
 import { MuiThemeProvider } from 'material-ui/styles'
-import '../../../../../../../../node_modules/animate.css/animate.css'
 
 const styles = theme => ({
-  button: {
+  buttonWrapper: {
     margin: '0 1px 6px 1px',
     height: 32
   },
   popoverContent: {
     margin: theme.spacing.unit * 2,
     width: 250
+  },
+  flatButton: {
+    transition: 'background .2s linear',
+    overflow: 'hidden',
+    borderRadius: 2,
+    width: 140,
+    [theme.breakpoints.down('sm')]: {
+      width: 100
+    }
   }
 })
 
 class Index extends React.Component {
   render () {
-    const { label, flash, backgroundColor, mobile, children, classes } = this.props
+    const { label, backgroundColor, children, classes } = this.props
     const { anchorEl } = this.props
 
     return (
       <div>
-        <div className={`${classes.button} ${flash && 'animated flash'}`}>
+        <div className={classes.buttonWrapper}>
           <MuiThemeProvider>
             <FlatButton
+              className={classes.flatButton}
               hoverColor='#80b0d9'
               backgroundColor={backgroundColor}
               labelStyle={{
@@ -36,12 +45,6 @@ class Index extends React.Component {
                 fontSize: '1em',
                 fontWeight: 300,
                 letterSpacing: 1
-              }}
-              style={{
-                transition: 'background .2s linear',
-                overflow: 'hidden',
-                borderRadius: 2,
-                width: mobile ? '100px' : '140px'
               }}
               label={label}
               onClick={this.props.onOpen}

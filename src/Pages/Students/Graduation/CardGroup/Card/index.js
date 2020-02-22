@@ -39,7 +39,7 @@ const styles = theme => ({
     fontSize: 14
   },
   dialogMobile: {
-      minWidth: '65%'
+    minWidth: '80%'
   },
   appBar: {
     position: 'relative',
@@ -140,7 +140,6 @@ class Index extends React.Component {
         <GeneralCourseList
           courses={course}
           title={title}
-          mobile={mobile}
         />
       )
     } else if (title === '通識(新制)') {
@@ -158,7 +157,6 @@ class Index extends React.Component {
         <ServiceCourseList
           courses={course}
           title={title}
-          mobile={mobile}
         />
       )
     } else {
@@ -166,7 +164,6 @@ class Index extends React.Component {
         <NormalCourseList
           courses={course}
           title={title}
-          mobile={mobile}
         />
       )
     }
