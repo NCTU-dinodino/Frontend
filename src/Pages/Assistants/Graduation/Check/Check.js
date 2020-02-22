@@ -59,6 +59,7 @@ const styles = theme => ({
   },
 })
 
+const SUBMIT_STATUS_CN = ['', '審核中', '通過', '不通過']
 const GRAD_STATUS_CN = ['未符合', '將符合', '已符合']
 
 class Check extends React.Component {
@@ -98,17 +99,32 @@ class Check extends React.Component {
   }
 
   filter = (checks) => {
-    const TYEP = {
-      'PENDING': 1,
-      'ACCEPTED': 2,
-      'REJECTED': 3
+    const TYPE = {
+      '未符合': 0,
+      '將符合': 1,
+      '已符合': 2
     }
-    if (!this.props.Check.program_filter.reduce((prev, curr) => prev |= curr, false))
-      return checks.filter( check => parseInt(check.submit_status, 10) === TYEP[this.props.Check.type])
-    return checks.filter( check => 
-      this.props.Check.program_filter[check.program.charCodeAt() - 'A'.charCodeAt()]
-      && parseInt(check.submit_status, 10) === TYEP[this.props.Check.type]
-    );
+    if (this.props.Check.type === '審核中') {
+      if (!this.props.Check.program_filter.reduce((prev, curr) => prev |= curr, false))
+        return checks.filter( check => parseInt(check.submit_status, 10) === 1)
+      else
+        return checks.filter( check => 
+          this.props.Check.program_filter[check.program.charCodeAt() - 'A'.charCodeAt()]
+          && checks.filter( check => parseInt(check.submit_status, 10) === 1)
+        )
+    } else {
+      if (!this.props.Check.program_filter.reduce((prev, curr) => prev |= curr, false))
+        return checks.filter( check => 
+          parseInt(check.submit_status, 10) !== 1
+          && parseInt(check.graduate_status, 10) === TYPE[this.props.Check.type]
+        )
+      else
+        return checks.filter( check => 
+          this.props.Check.program_filter[check.program.charCodeAt() - 'A'.charCodeAt()]
+          && parseInt(check.submit_status, 10) !== 1
+          && parseInt(check.graduate_status, 10) === TYPE[this.props.Check.type]
+        )
+    }
   }
 
   render() {
@@ -118,12 +134,12 @@ class Check extends React.Component {
         <Table>
           <TableHead>
             <TableRow style={{display: 'flex', justifyContent: 'center'}}>
-              { this.props.Check.type === 'PENDING' && 
+              { this.props.Check.type === '審核中' && 
               <TableCell style={{flex: 0.025, padding: '0px'}} >
                 <IconButton style={{fontSize: '18px'}} disabled/>
               </TableCell>
               }
-              { this.props.Check.type === 'PENDING' && 
+              { this.props.Check.type === '審核中' && 
               <TableCell style={{flex: 0.025, padding: '0px'}} >
                 <IconButton style={{fontSize: '18px'}} disabled/>
               </TableCell>
@@ -133,17 +149,19 @@ class Check extends React.Component {
               <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>年級</TableCell>
               <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>班級</TableCell>
               <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>總學分</TableCell>
-              <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>狀態</TableCell>
+              <TableCell style={{fontSize: '25px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>
+              {this.props.Check.type === '審核中' ? '畢業狀態' : '審核結果'}
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
           {
             this.filter(this.props.Check.checks).map( (check, idx) => (
               <TableRow hover style={{ display: 'flex', justifyContent: 'center'}} key={idx} > 
-                { this.props.Check.type === 'PENDING' && 
+                { this.props.Check.type === '審核中' && 
                   <TableCell style={{flex: 0.025, padding: '0px'}}>
                     <Tooltip
-                      title={'同意'} 
+                      title={'通過'} 
                       placement='top'
                       classes={{
                         tooltip: classes.tooltip
@@ -162,10 +180,10 @@ class Check extends React.Component {
                     </Tooltip>
                   </TableCell> 
                 }
-                { this.props.Check.type === 'PENDING' && 
+                { this.props.Check.type === '審核中' && 
                   <TableCell style={{flex: 0.025, padding: '0px'}}>
                   <Tooltip
-                    title={'不同意'} 
+                    title={'不通過'} 
                     placement='top'
                     classes={{
                       tooltip: classes.tooltip
@@ -210,8 +228,11 @@ class Check extends React.Component {
                     }}
                   />
                 </TableCell>
-                <TableCell style={{fontSize: '18px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>{this.hightlight(GRAD_STATUS_CN[check.graduate_status], this.props.Check.input)}</TableCell>
-
+                <TableCell style={{fontSize: '18px', flex: 0.1583, paddingTop: '11px', paddingLeft: '0px'}}>{
+                  this.hightlight(
+                    this.props.Check.type !== '審核中' ? SUBMIT_STATUS_CN[check.submit_status] : GRAD_STATUS_CN[check.graduate_status], 
+                  this.props.Check.input)
+                }</TableCell>
               </TableRow>
             ))
           }
@@ -257,7 +278,7 @@ class Check extends React.Component {
               <br />
               <br />
               <span style={{fontSize: '20px', margin: '10px', color: 'black'}}>
-                {"畢業狀態: " + GRAD_STATUS_CN[this.state.check.graduate_status]}
+                {"畢業狀態: " + SUBMIT_STATUS_CN[this.state.check.submit_status]}
               </span>
             </DialogContentText>
           </DialogContent>
@@ -322,7 +343,7 @@ class Check extends React.Component {
               <br />
               <br />
               <span style={{fontSize: '20px', margin: '10px', color: 'black'}}>
-                {"畢業狀態: " + GRAD_STATUS_CN[this.state.check.graduate_status]}
+                {"畢業狀態: " + SUBMIT_STATUS_CN[this.state.check.submit_status]}
               </span>
             </DialogContentText>
             <FormControl style={{ width: '100%', flex: 1 }}>

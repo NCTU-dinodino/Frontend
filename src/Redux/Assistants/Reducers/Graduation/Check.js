@@ -7,7 +7,7 @@ const initialState = {
   program_filter: [false, false, false, false],
   csvDone: false,
   csvArr: [],
-  type: 'PENDING'
+  type: '審核中'
 }
 
 export default handleActions({
