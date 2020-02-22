@@ -58,6 +58,9 @@ const styles = theme => ({
     }
   },
   contentRoot: {
+    height: '50vh',
+    maxHeight: '50vh',
+    overflow: 'scroll',
     fontSize: '18px',
     paddingTop: '15px',
     paddingLeft: '15px',
@@ -97,6 +100,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
+    letterSpacing: '1.5px',
     color: '#555',
     '&:hover, &:focus': {
       color: '#888'
@@ -256,6 +260,7 @@ class Bulletin extends React.Component {
   render () {
     const { classes, bulletins, admin } = this.props
     const { type, formOpen, formType, formError, payload } = this.state
+    console.log(bulletins)
 
     return (
       <ResponsiveContainer justify='center'>
