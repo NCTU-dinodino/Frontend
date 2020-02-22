@@ -101,7 +101,6 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
                 key={index}
                 type={type}
                 title={`${title}-${type.dimension}`}
-                mobile={mobile}
               />
             ))
         }
@@ -128,7 +127,6 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
                 label={course.cn}
                 course={course}
                 title={`${title}-校基本`}
-                mobile={mobile}
               />
             ))
         }
@@ -155,7 +153,6 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
                 label={course.cn}
                 course={course}
                 title={`${title}-跨院`}
-                mobile={mobile}
               />
             ))
         }

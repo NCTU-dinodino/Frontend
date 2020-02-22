@@ -9,7 +9,7 @@ import { NormalCoursePopover } from '../CoursePopover'
  */
 const specialCourse = ['物理(一)', '物理(二)', '物理(一)榮譽班', '物理(二)榮譽班', '微處理機系統實驗']
 
-const Index = ({ courses, title, mobile }) => (
+const Index = ({ courses, title }) => (
   <React.Fragment>
     {
       courses.map((course, index) => (
@@ -21,7 +21,6 @@ const Index = ({ courses, title, mobile }) => (
           }
           course={course}
           title={title}
-          mobile={mobile}
         />
       ))
     }

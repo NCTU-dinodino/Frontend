@@ -2,7 +2,7 @@
 import React from 'react'
 import { ServiceCoursePopover } from '../CoursePopover'
 
-const Index = ({ courses, title, mobile }) => {
+const Index = ({ courses, title }) => {
   const service1 = {
     name: '服務學習(一)',
     courses: []
@@ -24,12 +24,10 @@ const Index = ({ courses, title, mobile }) => {
       <ServiceCoursePopover
         type={service1}
         title={title}
-        mobile={mobile}
       />
       <ServiceCoursePopover
         type={service2}
         title={title}
-        mobile={mobile}
       />
     </React.Fragment>
   )
