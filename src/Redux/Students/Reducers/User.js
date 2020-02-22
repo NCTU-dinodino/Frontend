@@ -9,15 +9,11 @@ const initialState = {
     grade: '大一',
     email: 'hihi@gmail.com',
     status: 'w'
-  },
-  FooterColor: '#6C6C6C'
+  }
 }
 
 export default handleActions({
   UPDATE_USER_INFO: (state, action) => ({ ...state, studentIdcard: { ...action.payload } }),
-  CHANGE_FOOTER_COLOR: (state, action) => {
-    return ({ ...state, FooterColor: action.payload })
-  },
   STUDENT_UPDATE_IDCARD: (state, action) => {
     return ({ ...state, 
       studentIdCard: {
