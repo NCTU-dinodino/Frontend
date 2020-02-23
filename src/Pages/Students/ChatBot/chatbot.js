@@ -37,7 +37,7 @@ class Index extends Component {
     }
 
     handleChange(e) {
-        console.log('change')
+        // console.log('change')
         if (e.target.value != '\n')
             this.setState({ inputValue: e.target.value });
     }
@@ -59,7 +59,7 @@ class Index extends Component {
     }
 
     scrollToBottom = () => {
-        console.log(this.messagesEndRef)
+        // console.log(this.messagesEndRef)
         this.messagesEndRef.scrollIntoView();
     }
 
@@ -74,7 +74,7 @@ class Index extends Component {
     render() {
         let { messages, classes } = this.props
         let { inputValue } = this.state
-        console.log(inputValue.replace('\n', '\\n'))
+        // console.log(inputValue.replace('\n', '\\n'))
         return (
             <MuiThemeProvider>
                 <Grid

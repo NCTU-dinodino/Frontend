@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export default handleActions({
-    ENTER_CHATBOT_MESSAGE: (state, action) => {
+    ADD_CHATBOT_MESSAGE: (state, action) => {
         let messages = state.messages
         return { ...state, messages: messages.concat([action.payload]) }
     }
