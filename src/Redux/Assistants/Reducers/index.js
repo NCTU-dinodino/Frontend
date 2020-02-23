@@ -3,10 +3,12 @@ import User from './User'
 import Project from './Project/index'
 import Graduation from './Graduation/index'
 import Verify from './Verify/index'
+import Setting from './Setting/index'
 
 export default combineReducers({
   User,
   Project,
   Graduation,
-  Verify
+  Verify,
+  Setting
 })
