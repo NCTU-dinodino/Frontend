@@ -92,7 +92,7 @@ const parseCsv = (data) => {
         "基礎缺" + data_.en_basic + "學分\r\n" +
         "進階缺" + data_.en_advanced + "學分\r\n"
         ,
-        { 0: '未考過英檢',
+        { 0: '未考過英檢\r\n進階英文四學分缺' + data_.en_uncertified + '學分',
           1: '通過外語榮譽學分（可免修外語）',
           2: '已通過英檢免試申請',
           3: '已考過英檢',
