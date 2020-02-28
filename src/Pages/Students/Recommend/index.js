@@ -138,7 +138,7 @@ class Recommend extends React.Component {
                 {this.props.recommendCourses.map((row, index) => (
                   <TableRow key={index} className={classes.row}>
                     <TableCell className={classes.font2}>{index + 1}</TableCell>
-                    <TableCell className={classes.font2}><a href={row.url}>{row.cos_cname}</a></TableCell>
+                    <TableCell className={classes.font2}><a href={row.cos_url}>{row.cos_cname}</a></TableCell>
                     <TableCell className={classes.font2}>{row.teacher}</TableCell>
                     <TableCell className={classes.font2}>{row.cos_time}</TableCell>
                     <TableCell className={classes.font2}>{row.cos_code}</TableCell>
