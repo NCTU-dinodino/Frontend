@@ -74,14 +74,8 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, englishStatus, course, targets } = this.props
-    const moveDisabled = (
-      (
-        (englishStatus === 0 || englishStatus === null) &&
-        course.cn.search('進階英文') !== -1
-      ) ||
-      course.reason === 'english'
-    )
+    const { classes, targets, title } = this.props
+    const moveDisabled = (title === '英文授課')
 
     return (
       <div>
@@ -91,7 +85,7 @@ class Index extends React.Component {
           className={classes.root}
           disabled={moveDisabled}
         >
-          { moveDisabled ? '不能移動此課程' : '移動課程' }
+          移動課程
         </Button>
 
         <Menu
@@ -126,7 +120,6 @@ Index.propTypes = {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  englishStatus: state.Student.Graduation.english.status,
   targets: state.Student.Graduation.moveCourse.targets,
   success: state.Student.Graduation.moveCourse.success,
   idCard: state.Student.Graduation.assistant.idCard,
