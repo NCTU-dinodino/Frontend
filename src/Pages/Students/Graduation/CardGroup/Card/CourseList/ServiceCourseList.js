@@ -14,9 +14,10 @@ const Index = ({ courses, title }) => {
 
   // 把服學一二分類
   courses.forEach(course => {
-    if (course.cn.indexOf('服務學習(一)') !== -1)      service1.courses.push(course)
-    else if (course.cn.indexOf('服務學習(二)') !== -1) service2.courses.push(course)
-    else if (course.cn.indexOf('服務學習二') !== -1)   service2.courses.push(course)
+    if (course.cn.indexOf('服務學習') !== -1) {
+      if (course.cn.indexOf('一') !== -1) service1.courses.push(course)
+      if (course.cn.indexOf('二') !== -1) service2.courses.push(course)
+    }
   })
 
   return (
