@@ -17,8 +17,10 @@ const initialState = {
   },
   sendReview: {
   },
+  getMoveTarget: {
+    targets: []
+  },
   moveCourse: {
-    targets: [],
     success: false
   },
   resetCourse: {
@@ -60,18 +62,20 @@ export default handleActions({
         generalCourseType: action.payload.general_course_type
       }})
     },
+    GET_MOVE_TARGET: {
+      STORE: (state, action) => ({ ...state, getMoveTarget: {
+        ...state.getMoveTarget,
+        targets: action.payload
+      }})
+    },
     MOVE_COURSE: {
       STORE: (state, action) => ({ ...state, moveCourse: {
-        ...state.moveCourse,
-        targets: action.payload
-      }}),
-      SET_SUCCESS: (state, action) => ({ ...state, moveCourse: {
         ...state.moveCourse,
         success: action.payload
       }})
     },
     RESET_COURSE: {
-      SET_SUCCESS: (state, action) => ({ ...state, resetCourse: {
+      STORE: (state, action) => ({ ...state, resetCourse: {
         ...state.resetCourse,
         success: action.payload
       }})

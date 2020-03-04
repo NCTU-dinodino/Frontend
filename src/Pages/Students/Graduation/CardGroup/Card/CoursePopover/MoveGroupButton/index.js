@@ -5,10 +5,11 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Button, Menu, MenuItem } from '@material-ui/core'
 import {
-  actions,
   getGraduationInfo,
   getMoveTargets,
-  moveCourse
+  resetMoveTargets,
+  moveCourse,
+  moveCourseDone
 } from '../../../../../../../Redux/Students/Actions/Graduation'
 
 const styles = theme => ({
@@ -24,9 +25,7 @@ class Index extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleClose = this.handleClose.bind(this)
     this.handleItemSelect = this.handleItemSelect.bind(this)
-    this.state = {
-      anchorEl: null
-    }
+    this.state = { anchorEl: null }
   }
 
   componentDidUpdate () {
@@ -48,15 +47,11 @@ class Index extends React.Component {
       type: course.type
     })
 
-    this.setState({
-      anchorEl: event.currentTarget
-    })
+    this.setState({ anchorEl: event.currentTarget })
   }
 
   handleClose () {
-    this.setState({
-      anchorEl: null
-    })
+    this.setState({ anchorEl: null })
     this.props.resetMoveTargets()
   }
 
@@ -75,7 +70,6 @@ class Index extends React.Component {
 
   render () {
     const { classes, targets, title } = this.props
-    const moveDisabled = (title === '英文授課')
 
     return (
       <div>
@@ -83,11 +77,10 @@ class Index extends React.Component {
           variant='outlined'
           onClick={this.handleClick}
           className={classes.root}
-          disabled={moveDisabled}
+          disabled={title === '英文授課'} // 不可從英文授課的欄位移動
         >
           移動課程
         </Button>
-
         <Menu
           id='simple-menu'
           anchorEl={this.state.anchorEl}
@@ -108,7 +101,6 @@ class Index extends React.Component {
             ))
           }
         </Menu>
-
       </div>
     )
   }
@@ -120,7 +112,7 @@ Index.propTypes = {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  targets: state.Student.Graduation.moveCourse.targets,
+  targets: state.Student.Graduation.getMoveTarget.targets,
   success: state.Student.Graduation.moveCourse.success,
   idCard: state.Student.Graduation.assistant.idCard,
   forAssistant: state.Student.Graduation.assistant.using,
@@ -129,9 +121,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getGraduationInfo: () => dispatch(getGraduationInfo()),
   getMoveTargets: (payload) => dispatch(getMoveTargets(payload)),
-  resetMoveTargets: () => dispatch(actions.graduation.moveCourse.store([])),
+  resetMoveTargets: () => dispatch(resetMoveTargets()),
   moveCourse: (payload) => dispatch(moveCourse(payload)),
-  moveCourseDone: () => dispatch(actions.graduation.moveCourse.setSuccess(false))
+  moveCourseDone: () => dispatch(moveCourseDone())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
