@@ -5,13 +5,10 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Button, Menu, MenuItem } from '@material-ui/core'
 import {
-  getGraduationInfo,
   getMoveTargets,
   resetMoveTargets,
-  moveCourse,
-  moveCourseDone
+  moveCourse
 } from '../../../../../../../Redux/Students/Actions/Graduation'
-import { FETCHING_STATUS } from '../../../../../../../Utilities/constant'
 
 const styles = theme => ({
   root: {
@@ -27,19 +24,6 @@ class Index extends React.Component {
     this.handleClose = this.handleClose.bind(this)
     this.handleItemSelect = this.handleItemSelect.bind(this)
     this.state = { anchorEl: null }
-  }
-
-  componentDidUpdate (prevProps) {
-    // 移動成功後，重新拿課程資料並重置移動狀態
-    if (this.props.moveStatus !== prevProps.moveStatus &&
-        this.props.moveStatus === FETCHING_STATUS.DONE) {
-      if (this.props.moveSuccess) {
-        this.props.getGraduationInfo()
-      } else {
-        window.alert(this.props.moveFailReason)
-      }
-      this.props.moveCourseDone()
-    }
   }
 
   handleClick (event) {
@@ -119,19 +103,14 @@ Index.propTypes = {
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
   moveTargets: state.Student.Graduation.getMoveTarget.targets,
-  moveSuccess: state.Student.Graduation.moveCourse.success,
-  moveFailReason: state.Student.Graduation.moveCourse.reason,
-  moveStatus: state.Student.Graduation.moveCourse.status,
   idCard: state.Student.Graduation.assistant.idCard,
   forAssistant: state.Student.Graduation.assistant.using,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getGraduationInfo: () => dispatch(getGraduationInfo()),
   getMoveTargets: (payload) => dispatch(getMoveTargets(payload)),
   resetMoveTargets: () => dispatch(resetMoveTargets()),
-  moveCourse: (payload) => dispatch(moveCourse(payload)),
-  moveCourseDone: () => dispatch(moveCourseDone())
+  moveCourse: (payload) => dispatch(moveCourse(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
