@@ -2,8 +2,9 @@
 import { createActions } from 'redux-actions'
 import axios from 'axios'
 import FakeData from '../../../../Resources/FakeData'
+import { FETCHING_STATUS } from '../../../../Utilities/constant'
 
-export const actions = createActions({
+const actions = createActions({
   GRADUATION: {
     DETAIL: {
       STORE: null
@@ -17,12 +18,15 @@ export const actions = createActions({
     SEND_REVIEW: {
       STORE: null
     },
+    GET_MOVE_TARGET: {
+      STORE: null
+    },
     MOVE_COURSE: {
       STORE: null,
-      SET_SUCCESS: null
+      SET_STATUS: null
     },
     RESET_COURSE: {
-      SET_SUCCESS: null
+      STORE: null
     },
     ASSISTANT: {
       STORE: null
@@ -110,20 +114,39 @@ export const reviewSubmit = (payload) => dispatch => {
 export const getMoveTargets = (payload) => dispatch => {
   axios
     .post('/students/graduate/legalMoveTarget', payload)
-    .then(res => dispatch(actions.graduation.moveCourse.store(res.data)))
+    .then(res => dispatch(actions.graduation.getMoveTarget.store(res.data)))
     .catch(err => console.log(err))
 }
 
+export const resetMoveTargets = () => dispatch => {
+  dispatch(actions.graduation.getMoveTarget.store([]))
+}
+
 export const moveCourse = (payload) => dispatch => {
+  dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.FETCHING))
   axios
     .post('/students/graduate/moveCourse', payload)
-    .then(res => dispatch(actions.graduation.moveCourse.setSuccess(true)))
-    .catch(err => console.log(err))
+    .then(res => {
+      dispatch(actions.graduation.moveCourse.store(res.data))
+      dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.DONE))
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.ERROR))
+    })
+}
+
+export const moveCourseDone = () => dispatch => {
+  dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.IDLE))
 }
 
 export const resetCourse = (payload) => dispatch => {
   axios
     .post('/students/graduate/resetMove', payload)
-    .then(res => dispatch(actions.graduation.resetCourse.setSuccess(true)))
+    .then(res => dispatch(actions.graduation.resetCourse.store(true)))
     .catch(err => console.log(err))
+}
+
+export const resetCourseDone = () => dispatch => {
+  dispatch(actions.graduation.resetCourse.store(false))
 }
