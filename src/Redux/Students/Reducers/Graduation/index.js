@@ -1,6 +1,6 @@
 
 import { handleActions } from 'redux-actions'
-// import { FETCHING_STATUS } from '../../../../Utilities/constant'
+import { FETCHING_STATUS } from '../../../../Utilities/constant'
 
 const initialState = {
   detail: {
@@ -21,7 +21,9 @@ const initialState = {
     targets: []
   },
   moveCourse: {
-    success: false
+    success: false,
+    reason: '',
+    status: FETCHING_STATUS.IDLE
   },
   resetCourse: {
     success: false
@@ -71,7 +73,12 @@ export default handleActions({
     MOVE_COURSE: {
       STORE: (state, action) => ({ ...state, moveCourse: {
         ...state.moveCourse,
-        success: action.payload
+        success: action.payload.success,
+        reason: action.payload.reason
+      }}),
+      SET_STATUS: (state, action) => ({ ...state, moveCourse: {
+        ...state.moveCourse,
+        status: action.payload
       }})
     },
     RESET_COURSE: {

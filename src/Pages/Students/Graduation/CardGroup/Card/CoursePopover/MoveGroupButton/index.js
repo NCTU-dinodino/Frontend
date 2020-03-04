@@ -11,6 +11,7 @@ import {
   moveCourse,
   moveCourseDone
 } from '../../../../../../../Redux/Students/Actions/Graduation'
+import { FETCHING_STATUS } from '../../../../../../../Utilities/constant'
 
 const styles = theme => ({
   root: {
@@ -28,10 +29,15 @@ class Index extends React.Component {
     this.state = { anchorEl: null }
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (prevProps) {
     // 移動成功後，重新拿課程資料並重置移動狀態
-    if (this.props.success) {
-      this.props.getGraduationInfo()
+    if (this.props.moveStatus !== prevProps.moveStatus &&
+        this.props.moveStatus === FETCHING_STATUS.DONE) {
+      if (this.props.moveSuccess) {
+        this.props.getGraduationInfo()
+      } else {
+        window.alert(this.props.moveFailReason)
+      }
       this.props.moveCourseDone()
     }
   }
@@ -69,7 +75,7 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, targets, title } = this.props
+    const { classes, moveTargets, title } = this.props
 
     return (
       <div>
@@ -89,8 +95,8 @@ class Index extends React.Component {
           className={classes.root}
         >
           {
-            targets &&
-            targets.map((target, index) => (
+            moveTargets &&
+            moveTargets.map((target, index) => (
               <MenuItem
                 key={index}
                 className={classes.root}
@@ -112,8 +118,10 @@ Index.propTypes = {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  targets: state.Student.Graduation.getMoveTarget.targets,
-  success: state.Student.Graduation.moveCourse.success,
+  moveTargets: state.Student.Graduation.getMoveTarget.targets,
+  moveSuccess: state.Student.Graduation.moveCourse.success,
+  moveFailReason: state.Student.Graduation.moveCourse.reason,
+  moveStatus: state.Student.Graduation.moveCourse.status,
   idCard: state.Student.Graduation.assistant.idCard,
   forAssistant: state.Student.Graduation.assistant.using,
 })

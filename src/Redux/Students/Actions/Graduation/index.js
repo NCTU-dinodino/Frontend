@@ -2,6 +2,7 @@
 import { createActions } from 'redux-actions'
 import axios from 'axios'
 import FakeData from '../../../../Resources/FakeData'
+import { FETCHING_STATUS } from '../../../../Utilities/constant'
 
 const actions = createActions({
   GRADUATION: {
@@ -21,7 +22,8 @@ const actions = createActions({
       STORE: null
     },
     MOVE_COURSE: {
-      STORE: null
+      STORE: null,
+      SET_STATUS: null
     },
     RESET_COURSE: {
       STORE: null
@@ -121,14 +123,21 @@ export const resetMoveTargets = () => dispatch => {
 }
 
 export const moveCourse = (payload) => dispatch => {
+  dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.FETCHING))
   axios
     .post('/students/graduate/moveCourse', payload)
-    .then(res => dispatch(actions.graduation.moveCourse.store(true)))
-    .catch(err => console.log(err))
+    .then(res => {
+      dispatch(actions.graduation.moveCourse.store(res.data))
+      dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.DONE))
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.ERROR))
+    })
 }
 
 export const moveCourseDone = () => dispatch => {
-  dispatch(actions.graduation.moveCourse.store(false))
+  dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.IDLE))
 }
 
 export const resetCourse = (payload) => dispatch => {
