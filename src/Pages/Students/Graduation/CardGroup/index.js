@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Card from './Card'
 
-const Index = ({ courseDetail, reviewStatus, generalCourseType, mobile }) => (
+const Index = ({ sid, courseDetail, reviewStatus, generalCourseType, mobile }) => (
   <React.Fragment>
     <Card
       title='共同必修'
@@ -30,8 +30,10 @@ const Index = ({ courseDetail, reviewStatus, generalCourseType, mobile }) => (
       mobile={mobile}
     />
     {
-      // 還沒送審或送審時選舊制
-      (reviewStatus === 0 || generalCourseType === 0) &&
+      // 學號05(或以前)開頭: 還沒送審或送審時選舊制才顯示
+      // 學號06(或以後)開頭: 不顯示
+      (sid.substr(0, 2) <= '05' &&
+      (reviewStatus === 0 || generalCourseType === 0)) &&
       <Card
         title='通識(舊制)'
         group={courseDetail.general}
@@ -40,8 +42,10 @@ const Index = ({ courseDetail, reviewStatus, generalCourseType, mobile }) => (
       />
     }
     {
-      // 還沒送審或送審時選新制
-      (reviewStatus === 0 || generalCourseType === 1) &&
+      // 學號05(或以前)開頭: 還沒送審或送審時選新制才顯示
+      // 學號06(或以後)開頭: 隨時顯示
+      (sid.substr(0, 2) > '05' ||
+      (reviewStatus === 0 || generalCourseType === 1)) &&
       <Card
         title='通識(新制)'
         group={courseDetail.general_new}
@@ -97,6 +101,7 @@ const Index = ({ courseDetail, reviewStatus, generalCourseType, mobile }) => (
 )
 
 const mapStateToProps = (state) => ({
+  sid: state.Student.User.studentIdcard.student_id,
   courseDetail: state.Student.Graduation.detail.data,
   reviewStatus: state.Student.Graduation.getReview.status,
   generalCourseType: state.Student.Graduation.getReview.generalCourseType

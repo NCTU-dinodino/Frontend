@@ -183,7 +183,7 @@ const Index = ({ courseDetail, reviewStatus, rejectReason, englishStatus, forAss
           />
         </Grid>
         <Grid item md={9} lg={10}>
-          <DetailProgress courseDetail={courseDetail} />
+          <DetailProgress />
         </Grid>
       </Grid>
     </React.Fragment>

@@ -1,5 +1,6 @@
 
 import React from 'react'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Hidden } from '@material-ui/core'
 import AnimatedProgress from '../../../../../Components/AnimatedProgress'
@@ -46,7 +47,7 @@ const NoProgressBar = withStyles(styles)(({ classes, title, acquire, unit }) => 
   </Grid>
 ))
 
-const Index = withStyles(styles)(({ classes, courseDetail }) => ( 
+const Index = withStyles(styles)(({ classes, sid, courseDetail, reviewStatus, generalCourseType }) => (
   <Hidden only='xs'>
     <Grid container spacing={8}>
       <ProgressBar
@@ -73,18 +74,30 @@ const Index = withStyles(styles)(({ classes, courseDetail }) => (
         acquire={courseDetail.english && courseDetail.english.acquire}
         require={courseDetail.english && courseDetail.english.require}
       />
-      <ProgressBar
-        title='通識(舊制)'
-        unit='學分'
-        acquire={courseDetail.general && courseDetail.general.acquire}
-        require={courseDetail.general && courseDetail.general.require}
-      />
-      <ProgressBar
-        title='通識(新制)'
-        unit='學分'
-        acquire={courseDetail.general_new && courseDetail.general_new.acquire.total}
-        require={courseDetail.general_new && courseDetail.general_new.require.total}
-      />
+      {
+        // 學號05(或以前)開頭: 還沒送審或送審時選舊制才顯示
+        // 學號06(或以後)開頭: 不顯示
+        (sid.substr(0, 2) <= '05' &&
+        (reviewStatus === 0 || generalCourseType === 0)) &&
+        <ProgressBar
+          title='通識(舊制)'
+          unit='學分'
+          acquire={courseDetail.general && courseDetail.general.acquire}
+          require={courseDetail.general && courseDetail.general.require}
+        />
+      }
+      {
+        // 學號05(或以前)開頭: 還沒送審或送審時選新制才顯示
+        // 學號06(或以後)開頭: 隨時顯示
+        (sid.substr(0, 2) > '05' ||
+        (reviewStatus === 0 || generalCourseType === 1)) &&
+        <ProgressBar
+          title='通識(新制)'
+          unit='學分'
+          acquire={courseDetail.general_new && courseDetail.general_new.acquire.total}
+          require={courseDetail.general_new && courseDetail.general_new.require.total}
+        />
+      }
       <ProgressBar
         title={
           <div>
@@ -131,4 +144,14 @@ const Index = withStyles(styles)(({ classes, courseDetail }) => (
   </Hidden>
 ))
 
-export default Index
+const mapStateToProps = (state) => ({
+  sid: state.Student.User.studentIdcard.student_id,
+  courseDetail: state.Student.Graduation.detail.data,
+  reviewStatus: state.Student.Graduation.getReview.status,
+  generalCourseType: state.Student.Graduation.getReview.generalCourseType
+})
+
+const mapDispatchToProps = (dispatch) => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Index)

@@ -90,6 +90,7 @@ class Index extends React.Component {
 
   render () {
     const { classes } = this.props
+    const sid = this.props.studentIdcard.student_id
 
     return (
       <div>
@@ -127,19 +128,23 @@ class Index extends React.Component {
               forAssistant={this.props.forAssistant}
             />
             <form className={classes.form}>
-              <div>
-                <label className={classes.label}>請選擇採用的通識制度</label>
-                <Select
-                  native
-                  className={classes.select}
-                  value={this.props.reviewStatus === 0 ? this.state.generalCourseType : this.props.generalCourseType}
-                  onChange={this.handleChange}
-                  disabled={this.props.reviewStatus !== 0}
-                >
-                  <option value={0}>舊制</option>
-                  <option value={1}>新制</option>
-                </Select>
-              </div>
+              {
+                // 學號05(或以前)開頭才有選擇
+                sid.substr(0, 2) <= '05' &&
+                <div>
+                  <label className={classes.label}>請選擇採用的通識制度</label>
+                  <Select
+                    native
+                    className={classes.select}
+                    value={this.props.reviewStatus === 0 ? this.state.generalCourseType : this.props.generalCourseType}
+                    onChange={this.handleChange}
+                    disabled={this.props.reviewStatus !== 0}
+                  >
+                    <option value={0}>舊制</option>
+                    <option value={1}>新制</option>
+                  </Select>
+                </div>
+              }
               <Button
                 className={classes.button}
                 variant='contained'

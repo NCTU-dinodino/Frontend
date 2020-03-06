@@ -5,7 +5,7 @@ import CourseTable from './CourseTable'
 import styles from './styles'
 
 const PrintForm = props => {
-  const { classes, courseDetail } = props
+  const { classes, courseDetail, reviewStatus, generalCourseType } = props
   const sid = props.forAssistant ? props.idCard.id : props.profile.student_id
   const sname = props.forAssistant ? props.idCard.sname : props.profile.sname
   const program = ['網多組(網)', '網多組(多)', '資工組', '資電組'][props.professionalField]
@@ -29,17 +29,14 @@ const PrintForm = props => {
     if (a.dimension > b.dimension) return 1
     return 0
   })
-  // 如果未送審就新舊制都顯示，有送審就根據當初選擇
-  if (props.reviewStatus === 0) {
+  // 學號05(或以前)開頭: 如果未送審就新舊制都顯示，有送審就根據當初選擇
+  // 學號06(或以後)開頭: 只顯示新制
+  if (sid.substr(0, 2) <= '05' &&
+      (reviewStatus === 0 || generalCourseType === 0)) {
     commonCategory.push({ ...courseDetail.general, title: '通識(舊制)' })
-    commonCategory.push({
-      ...courseDetail.general_new,
-      title: '通識(新制)',
-      require: courseDetail.general_new.require.total
-    })
-  } else if (props.generalCourseType === 0) {
-    commonCategory.push({ ...courseDetail.general, title: '通識(舊制)' })
-  } else if (props.generalCourseType === 1) {
+  }
+  if (sid.substr(0, 2) > '05' ||
+      (reviewStatus === 0 || generalCourseType === 1)) {
     commonCategory.push({
       ...courseDetail.general_new,
       title: '通識(新制)',
@@ -78,7 +75,7 @@ const PrintForm = props => {
 
       <tbody>
         <tr>
-          <td colSpan='17' className={classes.program}>105學年度 {program}</td>
+          <td colSpan='17' className={classes.program}>{`1${sid.substr(0, 2)}學年度 ${program}`}</td>
         </tr>
         <tr>
           <td colSpan='17' className={classes.infoRow}>
