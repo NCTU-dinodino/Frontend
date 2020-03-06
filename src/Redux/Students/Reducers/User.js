@@ -3,8 +3,8 @@ import { handleActions } from 'redux-actions'
 const initialState = {
   type: 'student', // for Navbar
   studentIdcard: {
-    sname: '王小明',
-    student_id: '0416000',
+    sname: '測試',
+    student_id: '0516000',
     program: '資工A',
     grade: '大一',
     email: 'hihi@gmail.com',
