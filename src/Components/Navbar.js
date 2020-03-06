@@ -1,23 +1,25 @@
+
 import React from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
-import { Navbar, Nav, NavItem, DropdownButton, MenuItem, ButtonToolbar } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, ButtonToolbar } from 'react-bootstrap'
 import defalt from '../Resources/defalt.jpg'
 import dinoIcon from '../Resources/dinoIcon_graduate.png'
 import NavButton from './NavButton'
 import { withStyles } from '@material-ui/core/styles'
+import {
+  FormControl,
+  Input,
+  InputLabel,
+  Select,
+  MenuItem as MUIMenuItem
+} from '@material-ui/core'
+import { OnSuperMode } from '../Redux/Assistants/Actions/User'
+import { studentUpdateIdCard } from '../Redux/Students/Actions/User'
+import { teacherUpdateIdCard } from '../Redux/Teachers/Actions/User'
 import './Navbar.css'
-import {OnSuperMode} from '../Redux/Assistants/Actions/User'
-import {studentUpdateIdCard} from '../Redux/Students/Actions/User'
-import {teacherUpdateIdCard} from '../Redux/Teachers/Actions/User'
-
-import FormControl from '@material-ui/core/FormControl'
-import Input from '@material-ui/core/Input'
-import InputLabel from '@material-ui/core/InputLabel'
-import Select from '@material-ui/core/Select'
-import { MenuItem as MUIMenuItem } from '@material-ui/core'
 
 const style = {
   BrandBox: {
@@ -61,213 +63,234 @@ const style = {
   },
 }
 
+const headUrl = {
+  'student': '/students/head',
+  'assistant': '/assistants/head',
+  'teacher': '/teachers/head',
+}
+
+const navItems = {
+  'student': [
+    {
+      label: '畢業預審',
+      icon: 'fa fa-graduation-cap',
+      url: '/students/grad'
+    },
+    {
+      label: '推薦課程',
+      icon: 'glyphicon glyphicon-file',
+      url: '/students/recommend'
+    },
+    {
+      label: '專題',
+      icon: 'fa fa-users',
+      url: '/students/project'
+    },
+    {
+      label: '課程抵免',
+      icon: 'fa fa-list-alt',
+      url: '/students/credit'
+    }
+  ],
+  'assistant': [
+    {
+      label: '畢業預審',
+      icon: 'fa fa-graduation-cap',
+      url: '/assistants/grad'
+    },
+    {
+      label: '修課狀況',
+      icon: 'fa fa-university',
+      url: '/assistants/course'
+    },
+    {
+      label: '學生專題',
+      icon: 'fa fa-users',
+      url: '/assistants/project'
+    },
+    {
+      label: '導生',
+      icon: 'fa fa-coffee',
+      url: '/assistants/family'
+    },
+    {
+      label: '抵免審核',
+      icon: 'fa fa-list-alt',
+      url: '/assistants/verify'
+    }
+  ],
+  'teacher': [
+    {
+      label: '專題',
+      icon: 'fa fa-users',
+      url: '/teachers/group'
+    },
+    {
+      label: '課程',
+      icon: 'glyphicon glyphicon-file',
+      url: '/teachers/course'
+    },
+    {
+      label: '導生',
+      icon: 'fa fa-coffee',
+      url: '/teachers/family'
+    },
+    {
+      label: '抵免審核',
+      icon: 'fa fa-list-alt',
+      url: '/teachers/verify'
+    }
+  ]
+}
+
 class _Navbar extends React.Component {
   constructor (props) {
     super(props)
-    if (props.type === 'assistant')
-      props.OnSuperMode();
-    if (props.superMode) {
-      console.log("Hello")
-      console.log(props.type)
-      if (props.type === 'student')
-        props.studentUpdateIdCard();
-      if (props.type === 'teacher')
-        props.teacherUpdateIdCard();
-    }
-    this.state = {
-      selectedButtonIndex: 0,
-      onClicks: props.onTouchTaps.map((callback, index) => this.wrapCallback(callback, index)),
-    }
-    this.wrapCallback = this.wrapCallback.bind(this)
+    this.state = { expanded: false }
     this.onToggleCollapse = this.onToggleCollapse.bind(this)
-    this.dropButton = this.dropButton.bind(this)
   }
 
-  wrapCallback (callback, index) {
-    return () => {
-      this.setState({
-        ...this.state,
-        selectedButtonIndex: index,
-        expanded: false
-      })
-      callback()
+  componentDidMount () {
+    if (this.props.type === 'assistant') this.props.OnSuperMode()
+    if (this.props.superMode) {
+      if (this.props.type === 'student') this.props.studentUpdateIdCard()
+      if (this.props.type === 'teacher') this.props.teacherUpdateIdCard()
     }
   }
 
   onToggleCollapse (expanded) {
-    this.setState({
-      ...this.state,
-      expanded: expanded
-    })
+    this.setState({ expanded: expanded })
   }
 
-  dropButton () {
-    const { onClicks } = this.state
-    return (
-      <DropdownButton
-        bsStyle={{ background: '#EEEEEE' }}
-        bsSize='xsmall'
-        noCaret
-        title={
-          <div className='idcard' /* onClick={onClicks[4]} */>
-            <img id='idcard-photo' src={defalt} alt='' />
-            <div style={{
-              display: 'inline-block',
-              verticalAlign: 'middle',
-              marginLeft: 9
-            }}>
-              <div id='idcard-top'>{this.props.name}</div>
-              <div id='idcard-buttom'>{this.props.subname}</div>
-            </div>
-          </div>
-        }
-      >
-        <MenuItem eventKey='1' onClick={onClicks[4]}>郵件</MenuItem>
-        <MenuItem divider />
-        {
-          this.props.type === 'teacher'
-            ? <MenuItem eventKey='4' onClick={onClicks[5]}>個人頁面</MenuItem>
-            : <MenuItem eventKey='4' disabled>個人頁面</MenuItem>
-        }
-      </DropdownButton>
-    )
-  }
-
-
-// <NavButton key={4} label='教授' icon='fa fa-coffee' onClick={onClicks[4]} selected={this.props.router && this.props.location.pathname.match(this.props.router[4]) !== null} />,
-// <NavButton key={0} label='首頁' icon='fa fa-flag' onClick={onClicks[0]} selected={this.props.router && this.props.location.pathname.match(this.props.router[0]) !== null} />,
   render () {
+    const { expanded } = this.state
+    const { classes, type, name, subname, superMode } = this.props
 
-    const { onClicks } = this.state
-    const { classes } = this.props
-    const navItems = {
-      'student': [
-        <NavButton key={1} label='畢業預審' icon='fa fa-graduation-cap' onClick={onClicks[1]} selected={this.props.router && this.props.location.pathname.match(this.props.router[1]) !== null} />,
-        <NavButton key={3} label='推薦課程' icon='fa fa-users' onClick={onClicks[3]} selected={this.props.router && this.props.location.pathname.match(this.props.router[3]) !== null} />,
-        <NavButton key={5} label='專題' icon='glyphicon glyphicon-file' onClick={onClicks[5]} selected={this.props.router && this.props.location.pathname.match(this.props.router[5]) !== null} />,
-        <NavButton key={6} label='課程抵免' icon='fa fa-list-alt' onClick={onClicks[6]} selected={this.props.router && this.props.location.pathname.match(this.props.router[6]) !== null} />
-      ],
-      'assistant': [
-        <NavButton key={0} label='首頁' icon='fa fa-flag' onClick={onClicks[0]} selected={this.props.router && this.props.location.pathname.match(this.props.router[0]) !== null} />,
-        <NavButton key={1} label='畢業預審' icon='fa fa-graduation-cap' onClick={onClicks[1]} selected={this.props.router && this.props.location.pathname.match(this.props.router[1]) !== null} />,
-        <NavButton key={2} label='修課狀況' icon='fa fa-university' onClick={onClicks[2]} selected={this.props.router && this.props.location.pathname.match(this.props.router[2]) !== null} />,
-        <NavButton key={3} label='學生專題' icon='fa fa-users' onClick={onClicks[3]} selected={this.props.router && this.props.location.pathname.match(this.props.router[3]) !== null} />,
-        <NavButton key={4} label='導生' icon='fa fa-coffee' onClick={onClicks[4]} selected={this.props.router && this.props.location.pathname.match(this.props.router[4]) !== null} />,
-        <NavButton key={5} label='抵免審核' icon='fa fa-list-alt' onClick={onClicks[5]} selected={this.props.router && this.props.location.pathname.match(this.props.router[5]) !== null} />
-      ],
-      'teacher': [
-        <NavButton key={0} label='首頁' icon='fa fa-flag' onClick={onClicks[0]} selected={this.props.router && this.props.location.pathname.match(this.props.router[0]) !== null} />,
-        <NavButton key={1} label='專題' icon='fa fa-users' onClick={onClicks[1]} selected={this.props.router && this.props.location.pathname.match(this.props.router[1]) !== null} />,
-        <NavButton key={2} label='課程' icon='fa fa-list-alt' onClick={onClicks[2]} selected={this.props.router && this.props.location.pathname.match(this.props.router[2]) !== null} />,
-        <NavButton key={3} label='導生' icon='fa fa-coffee' onClick={onClicks[3]} selected={this.props.router && this.props.location.pathname.match(this.props.router[3]) !== null} />,
-        <NavButton key={4} label='抵免審核' icon='fa fa-list-alt' onClick={onClicks[4]} selected={this.props.router && this.props.location.pathname.match(this.props.router[4]) !== null} />
-      ]
-    }
-    // <NavButton key={1} label='教授課程' icon='fa fa-pie-chart' onClick={onClicks[1]} selected={selectedButtonIndex === 1}/>,
-    // <NavButton key={3} label='導生' icon='fa fa-coffee' onClick={onClicks[3]} selected={selectedButtonIndex === 3}/>,
-    return <Navbar staticTop fixedTop fluid expanded={this.state.expanded} onToggle={this.onToggleCollapse}>
-      <Navbar.Header>
-        {/* <div style={{...style.BrandBox, borderLeft: `6px solid ${this.props.color}`}}> */}
-        <div style={{ ...style.BrandBox }}>
-          <img src={dinoIcon} style={{ height: 35, cursor: 'pointer' }} alt='' onClick={onClicks[0]} />
-          {/* <span style={style.BrandName}>交大資工線上助理</span> */}
-          {/* <span style={style.BrandSubName} className='hidden-xs hidden-sm'>NCTU Curriculum Assistant</span> */}
-        </div>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav>{navItems[this.props.type]}</Nav>
-        <Nav pullRight>
-          <NavItem className='logout-box'>
-            <ButtonToolbar>
-              {/* {this.dropButton()} */}
-              <div className='idcard' /* onClick={onClicks[4]} */>
-                {/* <MuiThemeProvider> */}
-                {/* <Notifications color = {'#c40000'} className='red-spot animated swing' style={{animationDuration:'2s', animationIterationCount:10000,}}/> */}
-                {/* </MuiThemeProvider> */}
-                <img id='idcard-photo' src={defalt} alt='' />
-                <div style={{
-                  display: 'inline-block',
-                  verticalAlign: 'middle',
-                  marginLeft: 9
-                }}>
-                  <div id='idcard-top'>{this.props.name}</div>
-                  <div id='idcard-buttom'>{this.props.subname}</div>
-                </div>
-              </div>
-              <MuiThemeProvider>
-                <RaisedButton
-                  backgroundColor='#DDDDDD'
-                  style={{ marginLeft: '12px' }}
-                  labelStyle={style.LogoutButtonLabel}
-                  label='登出'
-                  onClick={() => { window.location = '/logout' }}
+    return (
+      <Navbar staticTop fixedTop fluid expanded={expanded} onToggle={this.onToggleCollapse}>
+        <Navbar.Header>
+          <div className={classes.BrandBox}>
+            <img
+              alt=''
+              src={dinoIcon}
+              style={{ height: 35, cursor: 'pointer' }}
+              onClick={() => this.props.history.push(headUrl[type])}
+            />
+          </div>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav>
+            {
+              navItems[type].map((item, index) => (
+                <NavButton
+                  key={item.url}
+                  label={item.label}
+                  icon={item.icon}
+                  link={item.url}
+                  onClick={() => {
+                    this.setState({ expanded: false })
+                    this.props.history.push(item.url)
+                  }}
+                  selected={this.props.location.pathname === item.url}
                 />
-              </MuiThemeProvider>
-            </ButtonToolbar>
-          </NavItem>
-        </Nav>
-        <Nav pullRight>{
-          (process.env.REACT_APP_ASSISTANT_SUPER_mode === "on" && this.props.superMode) ? 
-            <FormControl style={{ width: '150px', marginRight: '20px' }} >
-              <InputLabel
-                FormLabelClasses={{
-                  root: classes.cssLabel,
-                  focused: classes.cssFocused,
-                }}
-              >
-                切換角色
-              </InputLabel>
-              <Select
-                input={
-                  <Input
-                    classes={{
-                      underline: classes.cssUnderline,
-                    }}
+              ))
+            }
+          </Nav>
+          <Nav pullRight>
+            <NavItem className='logout-box'>
+              <ButtonToolbar>
+                <div className='idcard' /* onClick={onClicks[4]} */>
+                  {/* <MuiThemeProvider> */}
+                  {/* <Notifications color = {'#c40000'} className='red-spot animated swing' style={{animationDuration:'2s', animationIterationCount:10000,}}/> */}
+                  {/* </MuiThemeProvider> */}
+                  <img id='idcard-photo' src={defalt} alt='' />
+                  <div style={{
+                    display: 'inline-block',
+                    verticalAlign: 'middle',
+                    marginLeft: 9
+                  }}>
+                    <div id='idcard-top'>{name}</div>
+                    <div id='idcard-buttom'>{subname}</div>
+                  </div>
+                </div>
+                <MuiThemeProvider>
+                  <RaisedButton
+                    backgroundColor='#DDDDDD'
+                    style={{ marginLeft: '12px' }}
+                    labelStyle={style.LogoutButtonLabel}
+                    label='登出'
+                    onClick={() => { window.location = '/logout' }}
                   />
-                }
-                value={this.props.type}
-                style={{ fontSize: '15px' }}
-              >
-                <MUIMenuItem 
-                  value={"assistant"} 
-                  style={{ fontSize: '20px' }} 
-                  component={Link} to='/assistants/head'
+                </MuiThemeProvider>
+              </ButtonToolbar>
+            </NavItem>
+          </Nav>
+          <Nav pullRight>
+            {
+              (process.env.REACT_APP_ASSISTANT_SUPER_mode === "on" && superMode) &&
+              <FormControl style={{ width: '150px', marginRight: '20px' }}>
+                <InputLabel
+                  FormLabelClasses={{
+                    root: classes.cssLabel,
+                    focused: classes.cssFocused,
+                  }}
                 >
-                  助理端
-                </MUIMenuItem>
-                <MUIMenuItem 
-                  value={"teacher"} 
-                  style={{ fontSize: '20px' }} 
-                  component={Link} to='/teachers/head'
+                  切換角色
+                </InputLabel>
+                <Select
+                  input={
+                    <Input
+                      classes={{
+                        underline: classes.cssUnderline,
+                      }}
+                    />
+                  }
+                  value={type}
+                  style={{ fontSize: '15px' }}
                 >
-                  教授端
-                </MUIMenuItem>
-                <MUIMenuItem
-                  value={"student"} 
-                  style={{ fontSize: '20px' }}
-                  component={Link} to='/students/head'
-                >
-                  學生端
-                </MUIMenuItem>
-              </Select>
-            </FormControl> : ''
-          }
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+                  <MUIMenuItem 
+                    value='assistant'
+                    style={{ fontSize: '20px' }}
+                    component={Link}
+                    to='/assistants/head'
+                  >
+                    助理端
+                  </MUIMenuItem>
+                  <MUIMenuItem 
+                    value='teacher'
+                    style={{ fontSize: '20px' }} 
+                    component={Link}
+                    to='/teachers/head'
+                  >
+                    教授端
+                  </MUIMenuItem>
+                  <MUIMenuItem
+                    value='student'
+                    style={{ fontSize: '20px' }}
+                    component={Link}
+                    to='/students/head'
+                  >
+                    學生端
+                  </MUIMenuItem>
+                </Select>
+              </FormControl>
+            }
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    )
   }
 }
 
-const mapState = (state) => ({
-  color: state.Student.User.FooterColor,
+const mapStateToProps = (state) => ({
   superMode: state.Assistant.User.superMode
 })
 
-const mapDispatch = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   OnSuperMode: () => dispatch(OnSuperMode()),
   studentUpdateIdCard: () => dispatch(studentUpdateIdCard()),
   teacherUpdateIdCard: () => dispatch(teacherUpdateIdCard())
 })
 
-export default connect(mapState, mapDispatch)(withRouter(withStyles(style)(_Navbar)))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(withRouter(_Navbar)))
