@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
@@ -5,24 +6,19 @@ import { Grid, Row } from 'react-bootstrap'
 import Navbar from '../../Components/Navbar'
 import { fetchProfessors } from '../../Redux/Students/Actions/Professor'
 import { fetchUser } from '../../Redux/Students/Actions/User'
-import { fetchCourse, fetchCoursePass } from '../../Redux/Students/Actions/Map'
 import { getGraduationInfo } from '../../Redux/Students/Actions/Graduation'
 
 class Head extends Component {
   componentDidMount () {
     this.props.fetchUser()
     this.props.fetchProfessor()
-    this.props.fetchCourse()
-    this.props.fetchCoursePass()
     this.props.getGraduationInfo()
-
   }
 
   render () {
     const router = [
       '/students/head',
       '/students/grad',
-      '/students/map',
       '/students/recommend',
       '/students/professor',
       '/students/project',
@@ -31,19 +27,16 @@ class Head extends Component {
     const onTouchTapsrouter = [
       () => this.props.history.push(router[0]),
       () => this.props.history.push(router[1]),
-      () => this.props.history.push(router[2]),
       () => this.props.history.push(router[3]),
       () => this.props.history.push(router[4]),
       () => this.props.history.push(router[5]),
       () => this.props.history.push(router[6]),
-      () => this.select(6),
       () => this.select(7),
       () => this.select(8),
       () => this.select(9)
     ]
     const onTouchTapsOthers = [
       () => this.select(0),
-      () => window.alert('非資工系學生無此功能'),
       () => window.alert('非資工系學生無此功能'),
       () => this.select(3),
       () => this.select(4),
@@ -80,8 +73,6 @@ const mapState = (state) => ({
 const mapDispatch = (dispatch) => ({
   fetchUser: () => dispatch(fetchUser()),
   fetchProfessor: () => dispatch(fetchProfessors()),
-  fetchCourse: () => dispatch(fetchCourse()),
-  fetchCoursePass: () => dispatch(fetchCoursePass()),
   getGraduationInfo: () => dispatch(getGraduationInfo())
 })
 

@@ -25,8 +25,6 @@ import TeacherList from './Pages/Assistants/Family'
 
 import StudentHead from './Pages/Students/Head'
 import StudentGrad from './Pages/Students/Graduation'
-import StudentMap from './Pages/Students/Map_v2'
-import StudentMapV3 from './Pages/Students/Map_v3'
 import StudentRecommend from './Pages/Students/Recommend'
 import StudentProfessor from './Pages/Students/Professor'
 import StudentProject from './Pages/Students/Project'
@@ -52,8 +50,6 @@ const Router = () => (
 
         <Route exact path='/students/head/' render={() => <Bulletin />} />
         <Route exact path='/students/grad' render={() => <StudentGrad />} />
-        <Route exact path='/students/map' render={() => <StudentMap />} />
-        <Route exact path='/students/map_v3' render={() => <StudentMapV3 />} />
         <Route exact path='/students/recommend' render={() => <StudentRecommend />} />
         <Route exact path='/students/professor' render={() => <StudentProfessor />} />
         <Route exact path='/students/project' render={() => <StudentProject />} />
