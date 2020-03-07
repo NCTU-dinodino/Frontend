@@ -1,6 +1,6 @@
 import React from 'react'
 
-import defaultPic from '../../../Resources/defalt.jpg'
+import defaultPic from '../../../Resources/default_profile.jpg'
 import ReplyDialog from '../Group/ReplyDialog'
 import InfoCard from '../Shared/InfoCard'
 import Loading from '../../../Components/Loading'

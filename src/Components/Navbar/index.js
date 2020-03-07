@@ -11,13 +11,13 @@ import {
   Input,
   InputLabel,
   Select,
-  MenuItem as MUIMenuItem
+  MenuItem
 } from '@material-ui/core'
 import NavButton from './NavButton'
 import { OnSuperMode } from '../../Redux/Assistants/Actions/User'
 import { studentUpdateIdCard } from '../../Redux/Students/Actions/User'
 import { teacherUpdateIdCard } from '../../Redux/Teachers/Actions/User'
-import defalt from '../../Resources/defalt.jpg'
+import default_profile from '../../Resources/default_profile.jpg'
 import dinoIcon from '../../Resources/dinoIcon_graduate.png'
 import styles from './styles'
 
@@ -158,7 +158,7 @@ class _Navbar extends React.Component {
           <Nav pullRight>
             <NavItem className={classes.logoutBox}>
               <div className={classes.idCard}>
-                <img className={classes.idCardPhoto} src={defalt} alt='' />
+                <img className={classes.idCardPhoto} src={default_profile} alt='' />
                 <div className={classes.idCardText}>
                   <div>{name}</div>
                   <div>{subname}</div>
@@ -198,30 +198,30 @@ class _Navbar extends React.Component {
                   value={type}
                   style={{ fontSize: '15px' }}
                 >
-                  <MUIMenuItem 
+                  <MenuItem 
                     value='assistant'
                     style={{ fontSize: '20px' }}
                     component={Link}
                     to='/assistants/head'
                   >
                     助理端
-                  </MUIMenuItem>
-                  <MUIMenuItem 
+                  </MenuItem>
+                  <MenuItem 
                     value='teacher'
                     style={{ fontSize: '20px' }} 
                     component={Link}
                     to='/teachers/head'
                   >
                     教授端
-                  </MUIMenuItem>
-                  <MUIMenuItem
+                  </MenuItem>
+                  <MenuItem
                     value='student'
                     style={{ fontSize: '20px' }}
                     component={Link}
                     to='/students/head'
                   >
                     學生端
-                  </MUIMenuItem>
+                  </MenuItem>
                 </Select>
               </FormControl>
             }
