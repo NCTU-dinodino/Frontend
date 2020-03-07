@@ -34,8 +34,10 @@ const styles = theme => ({
   logoutBox: {
     padding: '6px 12px 6px 0px',
     minWidth: 233,
-    '&>a': {
-      padding: '0 !important'
+    [theme.breakpoints.up('md')]: {
+      '&>a': {
+        padding: '0 !important'
+      }
     }
   },
   idCard: {
