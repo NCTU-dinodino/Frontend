@@ -4,7 +4,7 @@ import { GridList } from 'material-ui/GridList'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import ProjectTile from './Tile'
 import { fetchProjects } from '../../../Redux/Students/Actions/Project'
-import AddIcons from './AddProject'
+// import AddIcons from './AddProject'
 import './style.css'
 
 const styles = {

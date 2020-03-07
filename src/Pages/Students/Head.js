@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Grid, Row } from 'react-bootstrap'
 import Navbar from '../../Components/Navbar'
 import { fetchUser } from '../../Redux/Students/Actions/User'
 import { getGraduationInfo } from '../../Redux/Students/Actions/Graduation'
@@ -18,15 +17,13 @@ class Head extends Component {
     const { studentIdcard } = this.props
 
     return (
-      <Grid id='Head' fluid>
-        <Row>
-          <Navbar
-            type='student'
-            name={studentIdcard.sname}
-            subname={studentIdcard.program + studentIdcard.grade}
-          />
-        </Row>
-      </Grid>
+      <div style={{ paddingTop: 56 }}>
+        <Navbar
+          type='student'
+          name={studentIdcard.sname}
+          subname={studentIdcard.program + studentIdcard.grade}
+        />
+      </div>
     )
   }
 }

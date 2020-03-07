@@ -1,9 +1,9 @@
+
 import React from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
-import {Grid, Row, Col} from 'react-bootstrap'
 import Navbar from '../../Components/Navbar'
-import {connect} from 'react-redux'
-import {UpdateUserInfo} from '../../Redux/Assistants/Actions/User'
+import { UpdateUserInfo } from '../../Redux/Assistants/Actions/User'
 
 class Head extends React.Component {
   componentDidMount () {
@@ -24,17 +24,13 @@ class Head extends React.Component {
 
   render () {
     return (
-      <Grid fluid>
-        <Row>
-          <Col>
-            <Navbar
-              type='assistant'
-              name={this.props.idCard.name}
-              subname={this.props.idCard.prog + this.props.idCard.grad}
-            />
-          </Col>
-        </Row>
-      </Grid>
+      <div style={{ paddingTop: 56 }}>
+        <Navbar
+          type='assistant'
+          name={this.props.idCard.name}
+          subname={this.props.idCard.prog + this.props.idCard.grad}
+        />
+      </div>
     )
   }
 }
