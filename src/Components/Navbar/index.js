@@ -4,10 +4,7 @@ import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import RaisedButton from 'material-ui/RaisedButton'
-import { Navbar, Nav, NavItem, ButtonToolbar } from 'react-bootstrap'
-import defalt from '../Resources/defalt.jpg'
-import dinoIcon from '../Resources/dinoIcon_graduate.png'
-import NavButton from './NavButton'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { withStyles } from '@material-ui/core/styles'
 import {
   FormControl,
@@ -16,67 +13,13 @@ import {
   Select,
   MenuItem as MUIMenuItem
 } from '@material-ui/core'
-import { OnSuperMode } from '../Redux/Assistants/Actions/User'
-import { studentUpdateIdCard } from '../Redux/Students/Actions/User'
-import { teacherUpdateIdCard } from '../Redux/Teachers/Actions/User'
-
-const styles = theme => ({
-  navbar: {
-    backgroundColor: '#eee',
-    color: '#7b7b7b'
-  },
-  navBrand: {
-    height: 28,
-    display: 'inline-block',
-    marginTop: 12,
-    marginLeft: 7,
-    marginRight: 25,
-    verticalAlign: 'top',
-    transition: 'background-color 0.5s ease'
-  },
-  logoutButtonLabel: {
-    fontFamily: 'Noto Sans CJK TC',
-    fontSize: 14,
-    color: '#7B7B7B'
-  },
-  cssLabel: {
-    fontSize: 15,
-    '&$cssFocused': {
-      color: '#68BB66'
-    },
-    fontWeight: 'normal'
-  },
-  cssFocused: {},
-  cssUnderline: {
-    '&:after': {
-      borderBottomColor: '#68BB66'
-    }
-  },
-  logoutBox: {
-    padding: '6px 12px 6px 0px',
-    minWidth: 233,
-    '&>a': {
-      padding: '0 !important'
-    }
-  },
-  idCard: {
-    marginRight: 20,
-    display: 'inline-block',
-    zoom: 0.85
-  },
-  idCardText: {
-    display: 'inline-block',
-    verticalAlign: 'middle',
-    marginLeft: 9
-  },
-  idCardPhoto: {
-    margin: 0,
-    height: 40,
-    width: 40,
-    display: 'inline-block',
-    verticalAlign: 'middle'
-  }
-})
+import NavButton from './NavButton'
+import { OnSuperMode } from '../../Redux/Assistants/Actions/User'
+import { studentUpdateIdCard } from '../../Redux/Students/Actions/User'
+import { teacherUpdateIdCard } from '../../Redux/Teachers/Actions/User'
+import defalt from '../../Resources/defalt.jpg'
+import dinoIcon from '../../Resources/dinoIcon_graduate.png'
+import styles from './styles'
 
 const headUrl = {
   'student': '/students/head',
