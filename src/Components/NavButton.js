@@ -1,42 +1,49 @@
+
 import React from 'react'
 import { NavItem } from 'react-bootstrap'
+import { withStyles } from '@material-ui/core/styles'
 
-const style = {
-  Icon: {
+const styles = theme => ({
+  navButton: {
+    [theme.breakpoints.up('md')]: {
+      fontSize: 12,
+      padding: '8px 12px 10px',
+      textAlign: 'center',
+      width: 80,
+      '&>a': {
+        padding: '0 !important'
+      }
+    },
+  },
+  icon: {
     width: '100%',
     fontSize: 19,
     height: 24,
     transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
   },
-  IconSelected: {
+  iconSelected: {
     color: '#68BB66'
   },
-  Label: {
+  label: {
     lineHeight: '15px',
     transition: 'color 0.3s, font-size 0.3s'
   },
-  LabelSelected: {
+  labelSelected: {
     fontSize: 14,
     color: '#68BB66'
   }
-}
+})
 
-class NavButton extends React.Component {
-  render () {
-    const {label, icon, selected, onClick} = this.props
-    return (/*
-            <BottomNavigationItem
-                icon={icon}
-                style={style}
-                onTouchTap={onTouchTap}
-                selected={selected}
-            /> */
-      <NavItem className='nav-button' onClick={onClick}>
-        <i className={icon + ' hidden-xs'} style={{...style.Icon, ...(selected && style.IconSelected)}} aria-hidden='true' />
-        <div style={{...style.Label, ...(selected && style.LabelSelected)}}>{label}</div>
-      </NavItem>
-    )
-  }
-}
+const NavButton = ({ label, icon, selected, onClick, classes }) => (
+  <NavItem className={classes.navButton} onClick={onClick}>
+    <i
+      className={`${icon} ${classes.icon} ${selected && classes.iconSelected}`}
+      aria-hidden='true'
+    />
+    <div className={`${classes.label} ${selected && classes.labelSelected}`}>
+      {label}
+    </div>
+  </NavItem>
+)
 
-export default NavButton
+export default withStyles(styles)(NavButton)

@@ -19,10 +19,13 @@ import {
 import { OnSuperMode } from '../Redux/Assistants/Actions/User'
 import { studentUpdateIdCard } from '../Redux/Students/Actions/User'
 import { teacherUpdateIdCard } from '../Redux/Teachers/Actions/User'
-import './Navbar.css'
 
-const style = {
-  BrandBox: {
+const styles = theme => ({
+  navbar: {
+    backgroundColor: '#eee',
+    color: '#7b7b7b'
+  },
+  navBrand: {
     height: 28,
     display: 'inline-block',
     marginTop: 12,
@@ -31,19 +34,7 @@ const style = {
     verticalAlign: 'top',
     transition: 'background-color 0.5s ease'
   },
-  BrandName: {
-    fontFamily: 'Noto Sans CJK TC',
-    fontWeight: 400,
-    fontSize: 20,
-    marginLeft: 9
-  },
-  BrandSubName: {
-    fontFamily: 'Noto Sans CJK TC',
-    fontWeight: 'lighter',
-    fontSize: 14,
-    marginLeft: 10
-  },
-  LogoutButtonLabel: {
+  logoutButtonLabel: {
     fontFamily: 'Noto Sans CJK TC',
     fontSize: 14,
     color: '#7B7B7B'
@@ -59,9 +50,33 @@ const style = {
   cssUnderline: {
     '&:after': {
       borderBottomColor: '#68BB66'
-    },
+    }
   },
-}
+  logoutBox: {
+    padding: '6px 12px 6px 0px',
+    minWidth: 233,
+    '&>a': {
+      padding: '0 !important'
+    }
+  },
+  idCard: {
+    marginRight: 20,
+    display: 'inline-block',
+    zoom: 0.85
+  },
+  idCardText: {
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    marginLeft: 9
+  },
+  idCardPhoto: {
+    margin: 0,
+    height: 40,
+    width: 40,
+    display: 'inline-block',
+    verticalAlign: 'middle'
+  }
+})
 
 const headUrl = {
   'student': '/students/head',
@@ -167,9 +182,9 @@ class _Navbar extends React.Component {
     const { classes, type, name, subname, superMode } = this.props
 
     return (
-      <Navbar staticTop fixedTop fluid expanded={expanded} onToggle={this.onToggleCollapse}>
+      <Navbar className={classes.navbar} staticTop fixedTop fluid expanded={expanded} onToggle={this.onToggleCollapse}>
         <Navbar.Header>
-          <div className={classes.BrandBox}>
+          <div className={classes.navBrand}>
             <img
               alt=''
               src={dinoIcon}
@@ -198,32 +213,23 @@ class _Navbar extends React.Component {
             }
           </Nav>
           <Nav pullRight>
-            <NavItem className='logout-box'>
-              <ButtonToolbar>
-                <div className='idcard' /* onClick={onClicks[4]} */>
-                  {/* <MuiThemeProvider> */}
-                  {/* <Notifications color = {'#c40000'} className='red-spot animated swing' style={{animationDuration:'2s', animationIterationCount:10000,}}/> */}
-                  {/* </MuiThemeProvider> */}
-                  <img id='idcard-photo' src={defalt} alt='' />
-                  <div style={{
-                    display: 'inline-block',
-                    verticalAlign: 'middle',
-                    marginLeft: 9
-                  }}>
-                    <div id='idcard-top'>{name}</div>
-                    <div id='idcard-buttom'>{subname}</div>
-                  </div>
+            <NavItem className={classes.logoutBox}>
+              <div className={classes.idCard}>
+                <img className={classes.idCardPhoto} src={defalt} alt='' />
+                <div className={classes.idCardText}>
+                  <div>{name}</div>
+                  <div>{subname}</div>
                 </div>
-                <MuiThemeProvider>
-                  <RaisedButton
-                    backgroundColor='#DDDDDD'
-                    style={{ marginLeft: '12px' }}
-                    labelStyle={style.LogoutButtonLabel}
-                    label='登出'
-                    onClick={() => { window.location = '/logout' }}
-                  />
-                </MuiThemeProvider>
-              </ButtonToolbar>
+              </div>
+              <MuiThemeProvider>
+                <RaisedButton
+                  backgroundColor='#DDDDDD'
+                  style={{ marginLeft: '12px' }}
+                  labelStyle={styles.logoutButtonLabel}
+                  label='登出'
+                  onClick={() => { window.location = '/' }}
+                />
+              </MuiThemeProvider>
             </NavItem>
           </Nav>
           <Nav pullRight>
@@ -293,4 +299,4 @@ const mapDispatchToProps = (dispatch) => ({
   teacherUpdateIdCard: () => dispatch(teacherUpdateIdCard())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(style)(withRouter(_Navbar)))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(_Navbar)))
