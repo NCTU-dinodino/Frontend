@@ -10,8 +10,6 @@ export const uploadHandleChange = (payload) => dispatch => {
 export const fetchXLSX = (payload) => dispatch => {
   dispatch(upload_handle_change({done: false}))
   axios.post('/dataFormDownload', payload).then ( res => {
-    console.log("return")
-    console.log(res.data)
     dispatch(upload_handle_change({file: res.data, done: true}))
   })
 }
@@ -23,13 +21,13 @@ export const fetchLogs = () => dispatch => {
 }
 
 export const uploadXLSX = (payload) => dispatch => {
-  const id = setInterval( () => fetchLogs(), 2000)
+  const id = setInterval( () => dispatch(fetchLogs()), 2000)
   axios.post('/dataUpload', payload).then( res => {
     window.alert("匯入成功!!")
+    dispatch(fetchLogs())
   }).catch( err => {
     window.alert("上傳錯誤!!");
     console.log(err)
   })
   clearInterval(id)
-  fetchLogs()
 }
