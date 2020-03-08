@@ -23,7 +23,7 @@ export const fetchLogs = () => dispatch => {
 }
 
 export const uploadXLSX = (payload) => dispatch => {
-  const id = setInterval( () => dispatch(fetchLogs()), 2000)
+  const id = setInterval( () => fetchLogs(), 2000)
   axios.post('/dataUpload', payload).then( res => {
     window.alert("匯入成功!!")
   }).catch( err => {
@@ -31,5 +31,5 @@ export const uploadXLSX = (payload) => dispatch => {
     console.log(err)
   })
   clearInterval(id)
-  dispatch(fetchLogs())
+  fetchLogs()
 }
