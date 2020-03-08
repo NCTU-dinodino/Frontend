@@ -6,8 +6,8 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
-// import Upload from './Upload/Upload';
-// import UploadControl from './Upload/UploadControl';
+import Upload from './Upload/Upload';
+import UploadControl from './Upload/UploadControl';
 import Time from './Time/Time';
 // import TimeControl from './Time/TimeControl';
 
@@ -106,11 +106,11 @@ class index extends React.Component {
             {this.toolBarButton(type === 'UPLOAD', 'UPLOAD', '上傳資料')}
             {this.toolBarButton(type === 'TIME', 'TIME', '時間設定')}
             <Divider />
-            {/* {
+            {
               type === 'UPLOAD' ? (
                 <UploadControl />
               ) : ''
-            } */}
+            }
           </Drawer>
         </div>
         <div style = {{ marginLeft: '30vh' }}>
@@ -124,9 +124,9 @@ class index extends React.Component {
               <div style = {{ flex: 0.1 }} />
             </div>
           ) : type === 'UPLOAD' ? (
-            ''// <Upload />
+            <Upload />
           ) : type === 'TIME' ? (
-            <Time />
+            ''//<Time />
           ) : ''
         }
         </div>
