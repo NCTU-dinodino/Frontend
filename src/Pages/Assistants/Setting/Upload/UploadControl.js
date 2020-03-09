@@ -65,10 +65,7 @@ class UploadControl extends React.Component {
   constructor(props) {
     super(props);
     this.props.fetch_logs()
-    this.fileRef = React.createRef(),
-    this.state = {
-      filename: ''
-    }
+    this.fileRef = React.createRef()
   }
 
   downloadXLSX = () => {
@@ -205,7 +202,7 @@ class UploadControl extends React.Component {
               (event) => {
                 this.props.uploadHandleChange({ 
                   data_type: event.target.value 
-                }),
+                })
                 this.props.fetch_xlsx({data_type: event.target.value})
               }
             }
@@ -228,7 +225,7 @@ class UploadControl extends React.Component {
             style={{display: 'inline', width: '30%'}}
             disabled={Upload.data_type === ""}
           >
-            下載模板
+            下載範例
           </Button>
           <div style={{flex: 0.4}} />
           <form>

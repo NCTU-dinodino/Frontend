@@ -32,6 +32,7 @@ class Head extends React.Component {
       '/assistants/project',
       '/assistants/family',
       '/assistants/verify',
+      '/assistants/setting',
       '/assistants/mail'
     ]
     const onTouchTaps = [
@@ -42,6 +43,7 @@ class Head extends React.Component {
       () => this.props.history.push(router[4]),
       () => this.props.history.push(router[5]),
       () => this.props.history.push(router[6]),
+      () => this.props.history.push(router[7]),
     ]
     return (
       <Grid fluid>

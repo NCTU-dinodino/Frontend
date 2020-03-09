@@ -21,13 +21,30 @@ export const fetchLogs = () => dispatch => {
 }
 
 export const uploadXLSX = (payload) => dispatch => {
-  const id = setInterval( () => dispatch(fetchLogs()), 2000)
+  const id = setInterval(dispatch(fetchLogs()), 2000)
   axios.post('/dataUpload', payload).then( res => {
-    window.alert("匯入成功!!")
+    window.alert("檔案上傳至伺服器成功, 正在處理資料...")
     dispatch(fetchLogs())
   }).catch( err => {
-    window.alert("上傳錯誤!!");
+    window.alert("檔案上傳至伺服器失敗, 請檢查連線是否有問題, 或是通知dinodino開發團隊!");
     console.log(err)
   })
   clearInterval(id)
+}
+
+export const deleteLog = (payload) => dispatch => {
+  axios.post('/dataLog/delete', payload).then( res => {
+  }).catch( err => {
+    window.alert("操作失敗")
+    console.log(err)
+  })
+}
+
+export const deleteAllLogs = () => dispatch => {
+  axios.get('/dataLog/deleteAll').then( res => {
+
+  }).catch( err => {
+    window.alert("操作失敗")
+    console.log(err)
+  })
 }

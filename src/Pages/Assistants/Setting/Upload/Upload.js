@@ -7,6 +7,14 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
+
+import {
+  deleteLog,
+  deleteAllLogs
+} from '../../../../Redux/Assistants/Actions/Setting/Upload'
 
 const styles = theme => ({
 
@@ -110,26 +118,56 @@ class Upload extends React.Component {
           <Table>
             <TableHead>
               <TableRow style={{display: 'flex', justifyContent: 'center'}}>
+                <TableCell style={{flex: 0.025, padding: '0px'}}>
+                  <Tooltip
+                    title={'全部刪除'} 
+                    placement='top'
+                    classes={{
+                      tooltip: classes.tooltip
+                    }}
+                  >
+                    <IconButton style={{color: 'red', fontSize: '18px'}}
+                      onClick = { () => this.props.delete_all_logs() }
+                    >
+                      <ClearIcon />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+                <TableCell style={{fontSize: '25px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>上傳時間</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '20px'}}>學年</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.1, paddingTop: '11px', paddingLeft: '0px'}}>學期</TableCell>
-                <TableCell style={{fontSize: '25px', flex: 0.15, paddingTop: '11px', paddingLeft: '0px'}}>上傳類型</TableCell>
+                <TableCell style={{fontSize: '25px', flex: 0.15, paddingTop: '11px', paddingLeft: '0px'}}>檔案類型</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>狀態</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>備註</TableCell>
-                <TableCell style={{fontSize: '25px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>上傳時間</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
             {
               Upload.logs
-                .filter((log, idx) => log.year === Upload.year && log.semester === Upload.semester)
+                .filter((log) => log.year === Upload.year && log.semester === Upload.semester)
                 .map( (log, idx) => (
-                  <TableRow hover style={{ display: 'flex', justifyContent: 'center'}} key={idx} > 
+                  <TableRow hover style={{ display: 'flex', justifyContent: 'center'}} key={idx} >
+                    <TableCell style={{flex: 0.025, padding: '0px'}}>
+                      <Tooltip
+                        title={'刪除'} 
+                        placement='top'
+                        classes={{
+                          tooltip: classes.tooltip
+                        }}
+                      >
+                        <IconButton style={{color: 'red', fontSize: '18px'}}
+                          onClick = { () => this.props.delete_log({id: log.id}) }
+                        >
+                          <ClearIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </TableCell>
+                    <TableCell style={{fontSize: '18px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>{log.time}</TableCell>                 
                     <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '20px'}}>{log.year}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.1, paddingTop: '11px', paddingLeft: '0px'}}>{SEMESTER_CN[log.semester]}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.15, paddingTop: '11px', paddingLeft: '0px'}}>{log.data_type}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>{STATUS_CN[log.status]}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>{log.message}</TableCell>
-                    <TableCell style={{fontSize: '18px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>{log.time}</TableCell>                 
                   </TableRow>
                 ))
             }
@@ -146,8 +184,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-//   updateGraduateStatus: (payload) => dispatch(updateGraduateStatus(payload)),
-//   checkHandleChange: (payload) => dispatch(checkHandleChange(payload))
+  delete_all_logs: () => dispatch(deleteAllLogs()),
+  delete_log: (payload) => dispatch(deleteLog(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Upload))
