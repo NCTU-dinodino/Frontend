@@ -126,19 +126,19 @@ class Upload extends React.Component {
                       tooltip: classes.tooltip
                     }}
                   >
-                    <IconButton style={{color: 'red', fontSize: '18px'}}
+                    <IconButton style={{color: 'red', fontSize: '25px', paddingTop: '5px', paddingRight: '10px'}}
                       onClick = { () => this.props.delete_all_logs() }
                     >
                       <ClearIcon />
                     </IconButton>
                   </Tooltip>
                 </TableCell>
-                <TableCell style={{fontSize: '25px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>上傳時間</TableCell>
-                <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '20px'}}>學年</TableCell>
-                <TableCell style={{fontSize: '25px', flex: 0.1, paddingTop: '11px', paddingLeft: '0px'}}>學期</TableCell>
+                <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>學年</TableCell>
+                <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>學期</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.15, paddingTop: '11px', paddingLeft: '0px'}}>檔案類型</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>狀態</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>備註</TableCell>
+                <TableCell style={{fontSize: '25px', flex: 0.2, paddingTop: '11px', paddingLeft: '0px'}}>上傳時間</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -155,19 +155,19 @@ class Upload extends React.Component {
                           tooltip: classes.tooltip
                         }}
                       >
-                        <IconButton style={{color: 'red', fontSize: '18px'}}
+                        <IconButton style={{color: 'red', fontSize: '18px', paddingRight: '10px'}}
                           onClick = { () => this.props.delete_log({id: log.id}) }
                         >
                           <ClearIcon />
                         </IconButton>
                       </Tooltip>
-                    </TableCell>
-                    <TableCell style={{fontSize: '18px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>{log.time}</TableCell>                 
-                    <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '20px'}}>{log.year}</TableCell>
-                    <TableCell style={{fontSize: '18px', flex: 0.1, paddingTop: '11px', paddingLeft: '0px'}}>{SEMESTER_CN[log.semester]}</TableCell>
+                    </TableCell>              
+                    <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>{log.year}</TableCell>
+                    <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>{SEMESTER_CN[log.semester]}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.15, paddingTop: '11px', paddingLeft: '0px'}}>{log.data_type}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>{STATUS_CN[log.status]}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>{log.message}</TableCell>
+                    <TableCell style={{fontSize: '18px', flex: 0.2, paddingTop: '11px', paddingLeft: '0px'}}>{log.time}</TableCell>   
                   </TableRow>
                 ))
             }

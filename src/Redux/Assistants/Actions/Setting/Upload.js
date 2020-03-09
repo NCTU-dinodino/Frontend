@@ -34,6 +34,7 @@ export const uploadXLSX = (payload) => dispatch => {
 
 export const deleteLog = (payload) => dispatch => {
   axios.post('/dataLog/delete', payload).then( res => {
+    dispatch(fetchLogs())
   }).catch( err => {
     window.alert("操作失敗")
     console.log(err)
@@ -42,7 +43,7 @@ export const deleteLog = (payload) => dispatch => {
 
 export const deleteAllLogs = () => dispatch => {
   axios.get('/dataLog/deleteAll').then( res => {
-
+    dispatch(fetchLogs())
   }).catch( err => {
     window.alert("操作失敗")
     console.log(err)
