@@ -90,7 +90,7 @@ class Index extends React.Component {
 
   render () {
     const { classes } = this.props
-    const sid = this.props.studentIdcard.student_id
+    const sid = this.props.forAssistant ? this.props.idCard.id : this.props.studentIdcard.student_id
 
     return (
       <div>
