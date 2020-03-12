@@ -26,7 +26,7 @@ const styles = theme => ({
 class Index extends React.Component {
   onBeforePrint () {
     // 設定title(存檔預設檔名)
-    const sid = this.props.studentIdcard.student_id
+    const sid = this.props.forAssistant ? this.props.idCard.id : this.props.studentIdcard.student_id
     this.originalTitle = window.document.title
     window.document.title = `${sid}_畢業預審表`
   }

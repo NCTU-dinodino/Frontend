@@ -47,7 +47,7 @@ const NoProgressBar = withStyles(styles)(({ classes, title, acquire, unit }) => 
   </Grid>
 ))
 
-const Index = withStyles(styles)(({ classes, sid, courseDetail, reviewStatus, generalCourseType }) => (
+const Index = withStyles(styles)(({ classes, sid, courseDetail, reviewStatus, generalCourseType, idCard, forAssistant }) => (
   <Hidden only='xs'>
     <Grid container spacing={8}>
       <ProgressBar
@@ -77,7 +77,7 @@ const Index = withStyles(styles)(({ classes, sid, courseDetail, reviewStatus, ge
       {
         // 學號05(或以前)開頭: 還沒送審或送審時選舊制才顯示
         // 學號06(或以後)開頭: 不顯示
-        (sid.substr(0, 2) <= '05' &&
+        ((forAssistant ? idCard.id : sid).substr(0, 2) <= '05' &&
         (reviewStatus === 0 || generalCourseType === 0)) &&
         <ProgressBar
           title='通識(舊制)'
@@ -89,7 +89,7 @@ const Index = withStyles(styles)(({ classes, sid, courseDetail, reviewStatus, ge
       {
         // 學號05(或以前)開頭: 還沒送審或送審時選新制才顯示
         // 學號06(或以後)開頭: 隨時顯示
-        (sid.substr(0, 2) > '05' ||
+        ((forAssistant ? idCard.id : sid).substr(0, 2) > '05' ||
         (reviewStatus === 0 || generalCourseType === 1)) &&
         <ProgressBar
           title='通識(新制)'
@@ -148,7 +148,9 @@ const mapStateToProps = (state) => ({
   sid: state.Student.User.studentIdcard.student_id,
   courseDetail: state.Student.Graduation.detail.data,
   reviewStatus: state.Student.Graduation.getReview.status,
-  generalCourseType: state.Student.Graduation.getReview.generalCourseType
+  generalCourseType: state.Student.Graduation.getReview.generalCourseType,
+  idCard: state.Student.Graduation.assistant.idCard,
+  forAssistant: state.Student.Graduation.assistant.using
 })
 
 const mapDispatchToProps = (dispatch) => ({
