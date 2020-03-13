@@ -1,51 +1,70 @@
-import React from 'react'
 
-const AutoLogout = WrappedClass =>
-  class extends React.Component {
-    constructor (props) {
-      super(props)
-      this.events = [
-        'load',
-        'mousemove',
-        'mousedown',
-        'click',
-        'scroll',
-        'keypress'
-      ]
-      this.state = {
-        logoutTime: 1000 * 60 * 30 // auto logout after do nothing 30 min
-      }
-      this.setTimer = this.setTimer.bind(this)
-      this.clearTimer = this.clearTimer.bind(this)
-      this.resetTimer = this.resetTimer.bind(this)
+import React from 'react'
+import { connect } from 'react-redux'
+import { update_timer_signal } from '../Redux/Index/Actions'
+
+class Wrapper extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      // 如果連續15分鐘沒有call API就自動導向登入頁面
+      // 因為後端設定連線時間為20分鐘(前端故意設定略小於後端)，call API後端也會重置時間
+      logoutTime: 1000 * 60 * 15
     }
-    componentDidMount () {
-      if (window.location.pathname !== '/' && window.location.pathname !== '/logout') {
-        this.events.forEach(
-          event => window.addEventListener(event, this.resetTimer)
-        )
-        this.setTimer()
-      }
-    }
-    setTimer () {
-      this.timer = setTimeout(this.logout, this.state.logoutTime)
-    }
-    clearTimer () {
-      clearTimeout(this.timer)
-    }
-    resetTimer () {
-      this.clearTimer()
+    this.setTimer = this.setTimer.bind(this)
+    this.clearTimer = this.clearTimer.bind(this)
+    this.resetTimer = this.resetTimer.bind(this)
+  }
+
+  componentDidMount () {
+    if (window.location.pathname !== '/' && window.location.pathname !== '/logout') {
       this.setTimer()
     }
+  }
 
-    logout () {
-      window.location.assign('/logout')
-    }
-    render () {
-      return (
-        <WrappedClass {...this.props} />
-      )
+  componentDidUpdate (prevProps) {
+    if (this.props.signal) {
+      this.resetTimer()
+      this.props.updateTimerSignal(false)
     }
   }
+
+  setTimer () {
+    this.timer = setTimeout(this.logout, this.state.logoutTime)
+  }
+
+  clearTimer () {
+    clearTimeout(this.timer)
+  }
+
+  resetTimer () {
+    this.clearTimer()
+    this.setTimer()
+  }
+
+  logout () {
+    window.location.assign('/')
+  }
+
+  render () {
+    return this.props.children
+  }
+}
+
+const mapStateToProps = (state) => ({
+  signal: state.Index.timer_signal
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  updateTimerSignal: (signal) => dispatch(update_timer_signal(signal))
+})
+
+const AutoLogoutWrapper = connect(mapStateToProps, mapDispatchToProps)(Wrapper)
+
+const AutoLogout = (ChildComponent) => () => (
+  <AutoLogoutWrapper>
+    <ChildComponent />
+  </AutoLogoutWrapper>
+)
 
 export default AutoLogout
