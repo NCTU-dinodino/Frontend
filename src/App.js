@@ -27,7 +27,6 @@ const { dispatch } = store
 // 在 response 回來後更新 timer signal，讓自動登出重新計時
 axios.interceptors.response.use(
   (response) => {
-    console.log('interceptor')
     dispatch(update_timer_signal(true))
     return response
   }
