@@ -24,7 +24,7 @@ import axios from 'axios'
 const styles = () => ({
   container: {
     width: '80%',
-    margin: '25px auto'
+    margin: '0px auto'
   },
   bar: {
     display: 'flex',

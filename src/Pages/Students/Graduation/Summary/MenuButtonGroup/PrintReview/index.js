@@ -26,7 +26,7 @@ const styles = theme => ({
 class Index extends React.Component {
   onBeforePrint () {
     // 設定title(存檔預設檔名)
-    const sid = this.props.studentIdcard.student_id
+    const sid = this.props.forAssistant ? this.props.idCard.id : this.props.studentIdcard.student_id
     this.originalTitle = window.document.title
     window.document.title = `${sid}_畢業預審表`
   }
@@ -60,7 +60,7 @@ class Index extends React.Component {
           <PrintForm
             ref={el => (this.printRef = el)}
             profile={this.props.studentIdcard}
-            reviewData={this.props.reviewData}
+            courseDetail={this.props.courseDetail}
             reviewStatus={this.props.reviewStatus}
             generalCourseType={this.props.generalCourseType}
             professionalField={this.props.professionalField}
@@ -79,7 +79,7 @@ Index.propTypes = {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  reviewData: state.Student.Graduation.detail.data,
+  courseDetail: state.Student.Graduation.detail.data,
   reviewStatus: state.Student.Graduation.getReview.status,
   generalCourseType: state.Student.Graduation.getReview.generalCourseType,
   professionalField: state.Student.Graduation.getReview.professionalField,

@@ -5,38 +5,51 @@ import CourseTable from './CourseTable'
 import styles from './styles'
 
 const PrintForm = props => {
-  const { classes } = props
+  const { classes, courseDetail, reviewStatus, generalCourseType } = props
   const sid = props.forAssistant ? props.idCard.id : props.profile.student_id
   const sname = props.forAssistant ? props.idCard.sname : props.profile.sname
   const program = ['網多組(網)', '網多組(多)', '資工組', '資電組'][props.professionalField]
-
-  const commonCategoryTitle = ['外語', '體育', '服務學習', '藝文賞析', '軍訓', '雙主修、輔系、學分學程']
+  
   const csCategory = []
   const commonCategory = []
 
-  props.reviewData.forEach((item, index) => {
-    if (item.title.slice(0, 2) === '通識') {
-      // 根據向度排序
-      item.course.sort((a, b) => {
-        if (a.dimension < b.dimension) return -1
-        if (a.dimension > b.dimension) return 1
-        return 0
-      })
+  csCategory.push({ ...courseDetail.compulsory, title: '共同必修' })
+  csCategory.push({ ...courseDetail.professional, title: '專業選修' })
+  csCategory.push({ ...courseDetail.other, title: '其他選修' })
+  csCategory.push({ ...courseDetail.graduate, title: '抵免研究所課程' })
 
-      // 如果未送審就新舊制都顯示，有送審就根據當初選擇
-      if (props.reviewStatus === 0) {
-        commonCategory.push(item)
-      } else if (props.generalCourseType === 0 && item.title === '通識(舊制)') {
-        commonCategory.push(item)
-      } else if (props.generalCourseType === 1 && item.title === '通識(新制)') {
-        commonCategory.push(item)
-      }
-    } else if (commonCategoryTitle.indexOf(item.title) !== -1) {
-      commonCategory.push(item)
-    } else {
-      csCategory.push(item)
-    }
+  // 根據向度排序
+  courseDetail.general.course.sort((a, b) => {
+    if (a.dimension < b.dimension) return -1
+    if (a.dimension > b.dimension) return 1
+    return 0
   })
+  courseDetail.general_new.course.sort((a, b) => {
+    if (a.dimension < b.dimension) return -1
+    if (a.dimension > b.dimension) return 1
+    return 0
+  })
+  // 學號05(或以前)開頭: 如果未送審就新舊制都顯示，有送審就根據當初選擇
+  // 學號06(或以後)開頭: 只顯示新制
+  if (sid.substr(0, 2) <= '05' &&
+      (reviewStatus === 0 || generalCourseType === 0)) {
+    commonCategory.push({ ...courseDetail.general, title: '通識(舊制)' })
+  }
+  if (sid.substr(0, 2) > '05' ||
+      (reviewStatus === 0 || generalCourseType === 1)) {
+    commonCategory.push({
+      ...courseDetail.general_new,
+      title: '通識(新制)',
+      require: courseDetail.general_new.require.total
+    })
+  }
+
+  commonCategory.push({ ...courseDetail.language, title: '外語' })
+  commonCategory.push({ ...courseDetail.pe, title: '體育' })
+  commonCategory.push({ ...courseDetail.service, title: '服務學習' })
+  commonCategory.push({ ...courseDetail.art, title: '藝文賞析' })
+  commonCategory.push({ ...courseDetail.dmajor_minor_program, title: '雙主修、輔系、學分學程' })
+  commonCategory.push({ ...courseDetail.exclusion, title: '其他不計入畢業學分' })
 
   return (
     <table className={classes.table}>
@@ -62,7 +75,7 @@ const PrintForm = props => {
 
       <tbody>
         <tr>
-          <td colSpan='17' className={classes.program}>105學年度 {program}</td>
+          <td colSpan='17' className={classes.program}>{`1${sid.substr(0, 2)}學年度 ${program}`}</td>
         </tr>
         <tr>
           <td colSpan='17' className={classes.infoRow}>

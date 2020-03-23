@@ -4,7 +4,6 @@ import axios from 'axios'
 // import FakeData from '../../../../Resources/FakeData'
 
 export const storeRecommendCourses = createAction('STORE_RECOMMEND_COURSES')
-export const storePopularCourses = createAction('STORE_POPULAR_COURSES')
 export const updateRating = createAction('UPDATE_RATING')
 
 export const fetchRecommendCourses = () => dispatch => {
@@ -14,17 +13,6 @@ export const fetchRecommendCourses = () => dispatch => {
     })
     .catch(err => {
       // dispatch(storeRecommendCourses(FakeData.RecommendCos.map( e => ({ ...e, rating: false }) )))
-      console.log(err)
-    })
-}
-
-export const fetchPopularCourses = () => dispatch => {
-  axios.get('/students/recommend/current')
-    .then(res => {
-      dispatch(storePopularCourses(res.data))
-    })
-    .catch(err => {
-      // dispatch(storePopularCourses(FakeData.RecommendHot))
       console.log(err)
     })
 }

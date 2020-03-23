@@ -1,7 +1,7 @@
 import React from 'react'
 
 // resource
-import defaultPic from '../../../Resources/defalt.jpg'
+import defaultPic from '../../../Resources/default_profile.jpg'
 
 // component
 import InfoCard from '../Shared/InfoCard'

@@ -4,11 +4,7 @@ import GroupList from './GroupList'
 import GroupApply from './GroupApply'
 import './Group.css'
 
-import {Tabs, Tab} from 'material-ui/Tabs';
-
-// for tabs
-// import 'rc-tabs/assets/index.css'
-// import '../../../Components/ca-rc-tabs.css'
+import {Tabs, Tab} from 'material-ui/Tabs'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Show from './Show'
