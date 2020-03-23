@@ -75,6 +75,11 @@ const navItems = {
       label: '抵免審核',
       icon: 'fa fa-list-alt',
       url: '/assistants/verify'
+    },
+    {
+      label: '系統設定',
+      icon: 'fa fa-cogs'
+      url: '/assistants/setting'
     }
   ],
   'teacher': [

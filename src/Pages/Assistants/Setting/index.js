@@ -2,112 +2,148 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 
-import { FormControl } from "react-bootstrap";
-import moment from "moment";
-import DateTimeRangeContainer from "react-advanced-datetimerange-picker";
+import Drawer from '@material-ui/core/Drawer';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+
+import Upload from './Upload/Upload';
+import UploadControl from './Upload/UploadControl';
+
+// import Time from './Time/Time';
+// import TimeControl from './Time/TimeControl';
+
+// import { 
+//   fetchCheck,
+// } from '../../../Redux/Assistants/Actions/Project/Check'
+
+// import {
+//   fetchStatus,
+// } from '../../../Redux/Assistants/Actions/Project/Status'
+
 
 const styles = theme => ({
   root: {
-    width: '90%',
-    margin: '0 auto'
+    width: '100%',
+  },
+  drawer: {
+    position: 'fixed',
+    overflow: 'hidden',
+    zIndex: 1,
+    flexGrow: 1,
+    display: 'flex',
+    height: '100vh',
+  },
+  button: {
+    fontSize: '20px',
+  },
+  drawerPaper: {
+    position: 'relative',
+    width: '30vh',
+    background: '#EBEBEB',
+    color: '#3B3B3B'
+  },
+  warningText: {
+    fontSize: '30px',
+    flex: 1,
+    textAlign: 'center',
+    color: '#6f6f6f'
+  },
+
+  cssLabel: {
+    fontSize: 20,
+    '&$cssFocused': {
+      color: '#68BB66'
+    },
+    fontWeight: 'normal'
+  },
+  cssFocused: {},
+  cssUnderline: {
+    '&:after': {
+      borderBottomColor: '#68BB66'
+    },
   },
 })
 
 class index extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      start: null,
-      end: null
-    };
-
-    this.applyCallback = this.applyCallback.bind(this);
+      type: 'UNCHOOSE',
+    }
   }
 
-  applyCallback(startDate, endDate) {
-    console.log("Apply Callback");
-    console.log(startDate.format("DD-MM-YYYY HH:mm"));
-    console.log(endDate.format("DD-MM-YYYY HH:mm"));
-    this.setState({
-      start: startDate,
-      end: endDate
-    });
-  }
-
-  renderVanillaPicker(ranges, local, maxDate) {
-    let value = 
-      (this.state.start === null || this.state.end === null) ? '尚未設定' : 
-    `${this.state.start.format(
-      "YYYY-MM-DD HH:mm"
-    )} - ${this.state.end.format("YYYY-MM-DD HH:mm")}`;
-    let disabled = true;
-    let start = moment();
-    let end = moment(start).add(2, "months").subtract(1, "minute");
+  toolBarButton = (hightlight, type, label) => {
     return (
-      <div>
-        <DateTimeRangeContainer
-          start={this.state.start === null ? start : this.state.start}
-          end={this.state.end === null ? end : this.state.end}
-          local={local}
-          applyCallback={this.applyCallback}
-          smartMode
-        >
-          <FormControl
-            id="formControlsTextB"
-            type="text"
-            label="Text"
-            placeholder="Enter text"
-            style={{ cursor: "pointer" }}
-            disabled={disabled}
-            value={value}
-          />
-        </DateTimeRangeContainer>
-        <br />
-      </div>
-    );
+      <Button 
+        className={this.props.classes.button}
+        style = {{
+          color: (hightlight ? '#68BB66' : '#6f6f6f')
+        }}
+        onClick = { () => {
+          this.setState({
+            type
+          })
+        }}
+      >
+        {label}
+      </Button>
+    )
   }
 
-  render() {
-    let now = new Date();
-    let start = moment(
-      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0)
-    );
-    // let end = moment(start)
-    //   .add(1, "days")
-    //   .subtract(1, "seconds");
-    let ranges = {
-      // "Today Only": [moment(start), moment(end)],
-      // "Yesterday Only": [
-      //   moment(start).subtract(1, "days"),
-      //   moment(end).subtract(1, "days")
-      // ],
-      // "3 Days": [moment(start).subtract(3, "days"), moment(end)],
-      // "5 Days": [moment(start).subtract(5, "days"), moment(end)],
-      // "1 Week": [moment(start).subtract(7, "days"), moment(end)],
-      // "2 Weeks": [moment(start).subtract(14, "days"), moment(end)],
-      // "1 Month": [moment(start).subtract(1, "months"), moment(end)],
-      // "90 Days": [moment(start).subtract(90, "days"), moment(end)],
-      // "1 Year": [moment(start).subtract(1, "years"), moment(end)]
-    };
-    let local = {
-      format: "YYYY-MM-DD HH:mm",
-      sundayFirst: false
-    };
-    let maxDate = moment(start).add(100, "years");
+  render () {
+    const { classes } = this.props;
+    const { type } = this.state;
+
     return (
-      <div className="container">
-        {this.renderVanillaPicker(ranges, local, maxDate)}
+      <div className={classes.root}>
+        <div className={classes.drawer}>
+          <Drawer
+            variant="permanent"
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            {this.toolBarButton(type === 'UPLOAD', 'UPLOAD', '上傳資料')}
+            {this.toolBarButton(type === 'TIME', 'TIME', '時間設定')}
+            <Divider />
+            {
+              type === 'UPLOAD' ? (
+                <UploadControl />
+              ) : ''
+            }
+          </Drawer>
+        </div>
+        <div style = {{ marginLeft: '30vh' }}>
+        {
+          type === 'UNCHOOSE' ? (
+            <div style = {{ display: 'flex', width: '100%' }}>
+              <div style = {{ flex: 0.1 }}/>
+              <div className={classes.warningText}>
+                請選取左方的選項
+              </div>
+              <div style = {{ flex: 0.1 }} />
+            </div>
+          ) : type === 'UPLOAD' ? (
+            <Upload />
+          ) : type === 'TIME' ? (
+            ''//<Time />
+          ) : ''
+        }
+        </div>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
-
+    Upload: state.Assistant.Setting.Upload,
+    Time: state.Assistant.Setting.Time
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
+//   fetch_status: (payload) => dispatch(fetchStatus(payload)),
+//   fetch_check: (payload) => dispatch(fetchCheck(payload)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(index))
