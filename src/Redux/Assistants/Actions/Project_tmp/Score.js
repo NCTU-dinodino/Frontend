@@ -7,7 +7,7 @@ export const storeScoreCsvData = createAction('STORE_SCORE_CSV_DATA')
 export const storeScoreCsvDataStart = createAction('STORE_SCORE_CSV_DATA_START')
 
 export const fetchScores = (post_item) => dispatch => {
-  axios.post('/assistants/research/gradeList', post_item).then(res => {
+  axios.post('/_api/assistants/research/gradeList', post_item).then(res => {
     dispatch(store_scores(res.data))
   }).catch(err => {
     console.log(err)
@@ -15,7 +15,7 @@ export const fetchScores = (post_item) => dispatch => {
 }
 
 export const setScores = payload => dispatch => {
-  axios.post('/assistants/research/setScore', payload).then( res => {
+  axios.post('/_api/assistants/research/setScore', payload).then( res => {
     dispatch(set_scores(payload))
   }).catch( err => {
     console.log(err)
@@ -29,7 +29,7 @@ export const downloadCsv = req => dispatch => {
   //   csvArr.push([data[i].tname, data[i].sname, data[i].student_id, data[i].score, data[i].comment])
   // }
   dispatch(storeScoreCsvDataStart())
-  axios.post('/assistants/research/gradeDownload', req).then(res => {
+  axios.post('/_api/assistants/research/gradeDownload', req).then(res => {
     let data = res.data
     let csvArr = []
     csvArr.push(['專題名稱', '老師', '姓名', '學號', '成績', '評語'])

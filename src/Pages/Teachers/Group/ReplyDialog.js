@@ -83,7 +83,7 @@ export default class ReplyDialog extends React.Component {
   }
 
   fetchStudentEmailById (s) {
-    axios.post('/professors/students/StudentInfo', {
+    axios.post('/_api/professors/students/StudentInfo', {
       student_id: s.student_id
     }).then(res => {
       return res.data.email
@@ -109,7 +109,7 @@ export default class ReplyDialog extends React.Component {
 
       console.log(log)
 
-      axios.post('/mail/sendmail', log).then(res => {
+      axios.post('/_api/mail/sendmail', log).then(res => {
         console.log(res)
       }).catch(err => {
         console.log(err)
@@ -140,7 +140,7 @@ export default class ReplyDialog extends React.Component {
     ))
     console.log(students)
     this.setState({open: false})
-    axios.post('/professors/researchApply/setAgree', {
+    axios.post('/_api/professors/researchApply/setAgree', {
       research_title: this.props.title,
       tname: this.props.idCard.tname,
       mail: this.props.idCard.mail,

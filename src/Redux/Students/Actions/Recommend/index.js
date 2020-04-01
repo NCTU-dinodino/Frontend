@@ -7,7 +7,7 @@ export const storeRecommendCourses = createAction('STORE_RECOMMEND_COURSES')
 export const updateRating = createAction('UPDATE_RATING')
 
 export const fetchRecommendCourses = () => dispatch => {
-  axios.get('/students/recommend/courseList')
+  axios.get('/_api/students/recommend/courseList')
     .then(res => {
       dispatch(storeRecommendCourses(res.data.map(e => ({ ...e, rating: false }))))
     })
@@ -18,7 +18,7 @@ export const fetchRecommendCourses = () => dispatch => {
 }
 
 export const setStarRating = (payload, index) => dispatch => {
-  axios.post('/students/recommend/setStar', payload)
+  axios.post('/_api/students/recommend/setStar', payload)
     .then(() => {
       dispatch(updateRating(index))
     })

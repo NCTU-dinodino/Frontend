@@ -57,7 +57,7 @@ export default class TableMail extends Component {
   handleMailReader = (index) => {
     let mail = this.props.tableData[index]
     let _this = this
-    axios.post('/mail/content', {
+    axios.post('/_api/mail/content', {
       mail_id: mail.mail_id
     })
       .then(res => {

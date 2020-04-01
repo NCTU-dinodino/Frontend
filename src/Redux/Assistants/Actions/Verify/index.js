@@ -4,7 +4,7 @@ import axios from 'axios';
 export const verifyHandleChange = createAction('VERIFY_HANDLE_CHANGE');
 
 export const getTeacherList = () => dispatch => {
-	axios.get('/assistants/advisee/teacherList').then( res => {
+	axios.get('/_api/assistants/advisee/teacherList').then( res => {
 		dispatch(verifyHandleChange({
 			teacherList: res.data
 				.sort((a, b) => b.status - a.status)
@@ -19,7 +19,7 @@ export const getTeacherList = () => dispatch => {
 }
 
 export const getFormList = () => dispatch => {
-	axios.get('/assistants/offsetApply/Show').then( res => {
+	axios.get('/_api/assistants/offsetApply/Show').then( res => {
 		dispatch(verifyHandleChange({
 			formList: res.data
 				.map((e, i) => ({

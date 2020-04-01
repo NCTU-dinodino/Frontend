@@ -10,11 +10,11 @@ export const checkHandleChange = (payload) => dispatch => {
 
 export const fetchCheck = (payload) => dispatch => {
   axios.all([
-    axios.post('/assistants/research/professorList', {
+    axios.post('/_api/assistants/research/professorList', {
       ...payload,
       first_second: "1"
     }),
-    axios.post('/assistants/research/professorList', {
+    axios.post('/_api/assistants/research/professorList', {
       ...payload,
       first_second: "2"
     })
@@ -52,8 +52,8 @@ export const fetchCheck = (payload) => dispatch => {
 
 export const agreeCheck = (payload) => dispatch => {
   axios.all([
-    axios.post('/assistants/research/setAddStatus', payload),
-    axios.post('/assistants/research/setFirstSecond', payload)
+    axios.post('/_api/assistants/research/setAddStatus', payload),
+    axios.post('/_api/assistants/research/setFirstSecond', payload)
   ]).then(axios.spread((first_res, second_res) => {
     dispatch(check_delete(payload.student_id))
     window.confirm("加選成功")
@@ -63,7 +63,7 @@ export const agreeCheck = (payload) => dispatch => {
 }
 
 export const rejectCheck = (payload) => dispatch => {
-  axios.post('/assistants/research/delete', payload).then( res => {
+  axios.post('/_api/assistants/research/delete', payload).then( res => {
     dispatch(check_delete(payload.student_id))
     window.confirm("退選成功")
   }).catch(err => 

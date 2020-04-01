@@ -5,7 +5,7 @@ import axios from 'axios/index'
 export const UpdateUserInfo = createAction('UPDATE_USER_INFO')
 
 export const fetchUser = (page = 1) => dispatch => {
-  axios.get('/professors/profile').then(ProfileData => {
+  axios.get('/_api/professors/profile').then(ProfileData => {
     let data = {...ProfileData.data[0]}
     console.log('UPDATE USER INFO: ', data)
     dispatch(UpdateUserInfo(data))

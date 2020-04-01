@@ -10,7 +10,7 @@ export const storeScoreCsvDataStart = createAction('STORE_SCORE_CSV_DATA_START')
 
 
 export const fetchTeachers = (post_item) => dispatch => {
-  axios.post('/assistants/research/professorList', post_item).then(res => {
+  axios.post('/_api/assistants/research/professorList', post_item).then(res => {
     dispatch(store_teachers(res.data))
   }).catch(err => {
     console.log(err)
@@ -18,7 +18,7 @@ export const fetchTeachers = (post_item) => dispatch => {
 }
 
 export const setAddStatus = (post_item) => dispatch => {
-  axios.post('/assistants/research/setAddStatus', post_item).then(res => {
+  axios.post('/_api/assistants/research/setAddStatus', post_item).then(res => {
     if (res.data.signal === 1) {
       dispatch(update_add_status(post_item.student_id))
     }
@@ -30,7 +30,7 @@ export const setAddStatus = (post_item) => dispatch => {
 }
 
 export const setFirstSecond = (post_item) => dispatch => {
-  axios.patch('/assistants/research/setFirstSecond', post_item).then(res => {
+  axios.patch('/_api/assistants/research/setFirstSecond', post_item).then(res => {
     if (res.data.signal === 1) {
       dispatch(update_first_second(post_item.student_id))
     }
@@ -42,7 +42,7 @@ export const setFirstSecond = (post_item) => dispatch => {
 }
 
 export const deteleResearch = (post_item) => dispatch => {
-  axios.post('/assistants/research/delete', post_item).then(res => {
+  axios.post('/_api/assistants/research/delete', post_item).then(res => {
     if (res.data.signal === 1) {
       dispatch(delete_research(post_item.student_id))
     }
@@ -59,7 +59,7 @@ export const downloadCsv = req => dispatch => {
   //   csvArr.push([data[i].tname, data[i].sname, data[i].student_id, data[i].score, data[i].comment])
   // }
   dispatch(storeScoreCsvDataStart())
-  axios.post('/assistants/research/professorListDownload', req).then(res => {
+  axios.post('/_api/assistants/research/professorListDownload', req).then(res => {
     let data = res.data
     let csvArr = []
     csvArr.push(['學生學號', '學生姓名', '指導教授', '專題名稱', '專題級數'])

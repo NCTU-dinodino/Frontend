@@ -8,7 +8,7 @@ export const UpdateResearchList1 = createAction('UPDATE_RESEARCH_LIST_1')
 export const UpdateResearchList2 = createAction('UPDATE_RESEARCH_LIST_2')
 
 export const ChangeTeacher = (payload) => dispatch => {
-  axios.post('/professors/research/setReplace', payload)
+  axios.post('/_api/professors/research/setReplace', payload)
     .then(res => {
       window.location.reload()
     })
@@ -19,7 +19,7 @@ export const ChangeTeacher = (payload) => dispatch => {
 }
 
 export const fetchResearchApplyList = (tid) => dispatch => {
-  axios.get('/professors/researchApply/list', {
+  axios.get('/_api/professors/researchApply/list', {
     id: tid
   }).then(res => {
     dispatch(UpdateApplyList(res.data))
@@ -32,7 +32,7 @@ export const fetchResearchList = (tid, sem) => dispatch => {
   console.log('----- fetchResearchList ----')
   console.log('tid: ' + tid)
   console.log('sem: ' + sem)
-  axios.post('/professors/research/list', {
+  axios.post('/_api/professors/research/list', {
     teacherId: tid,
     sem: sem
   }).then(res => {
@@ -47,7 +47,7 @@ export const fetchResearchList1 = (tid, year) => dispatch => {
   console.log('----- fetchResearchList ----')
   console.log('tid: ' + tid)
   console.log('sem: ' + sem)
-  axios.post('/professors/research/list', {
+  axios.post('/_api/professors/research/list', {
     teacherId: tid,
     sem: sem
   }).then(res => {
@@ -62,7 +62,7 @@ export const fetchResearchList2 = (tid, year) => dispatch => {
   console.log('----- fetchResearchList ----')
   console.log('tid: ' + tid)
   console.log('sem: ' + sem)
-  axios.post('/professors/research/list', {
+  axios.post('/_api/professors/research/list', {
     teacherId: tid,
     sem: sem
   }).then(res => {

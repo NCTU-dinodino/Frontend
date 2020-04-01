@@ -67,7 +67,7 @@ class StudentList extends React.Component {
     this.handleClose = this.handleClose.bind(this)
   }
   componentDidMount () {
-    axios.post('/assistants/advisee/studentList', {
+    axios.post('/_api/assistants/advisee/studentList', {
       teacher_id: `T${this.props.match.params.tid}`
     }).then(res => {
       this.setState({
@@ -100,7 +100,7 @@ class StudentList extends React.Component {
       //   studentList: tmp,
       //   cardShow: true
       // })
-      axios.post('/assistants/advisee/semesterScoreList', {
+      axios.post('/_api/assistants/advisee/semesterScoreList', {
         student_id: this.state.studentList[r].student_id
       }).then(res => {
         tmp[r].score = res.data

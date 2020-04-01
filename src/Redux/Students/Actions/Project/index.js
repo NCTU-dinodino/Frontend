@@ -9,7 +9,7 @@ export const storeProjectFile = createAction('STORE_PROJECT_FILE')
 export const storeProjectIntro = createAction('STORE_PROJECT_INTRO')
 
 export const fetchProjects = (page = 1) => dispatch => {
-  axios.get('/students/research/list')
+  axios.get('/_api/students/research/list')
     .then(res => dispatch(storeProjects(res.data)))
     .catch(error => {
       console.log(error)
@@ -18,7 +18,7 @@ export const fetchProjects = (page = 1) => dispatch => {
 }
 
 export const deleteProject = (payload) => dispatch => {
-  axios.post('/students/research/delete', payload)
+  axios.post('/_api/students/research/delete', payload)
     .then(res => {
       window.location.reload()
     })
@@ -29,7 +29,7 @@ export const deleteProject = (payload) => dispatch => {
 }
 
 export const editProject = (payload, handleClose) => dispatch => {
-  axios.post('/students/research/edit', payload)
+  axios.post('/_api/students/research/edit', payload)
     .then(res => {
       dispatch(storeProjectsIntro(payload.new_intro, payload.new_title, payload.semester))
       dispatch(storeProjectsImage(payload.new_photo, payload.new_title, payload.semester))
@@ -57,7 +57,7 @@ export const storeProjectsIntro = (intro, researchTitle, semester) => dispatch =
   dispatch(storeProjectIntro(object))
 }
 export const changeProjectProfessor = (payload) => dispatch => {
-  axios.post('/students/research/setReplace', payload)
+  axios.post('/_api/students/research/setReplace', payload)
     .then(res => {
     })
     .catch(err => {

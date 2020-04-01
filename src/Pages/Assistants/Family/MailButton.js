@@ -70,7 +70,7 @@ class MailButton extends React.Component {
   }
   handleSend () {
     let _this = this
-    axios.post('/mail/sendmail', {
+    axios.post('/_api/mail/sendmail', {
       title: _this.state.titlevalue,
       sender_id: _this.props.sender,
       sender_email: _this.props.sender_email,

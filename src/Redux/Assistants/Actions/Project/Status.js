@@ -10,7 +10,7 @@ import axios from 'axios'
 
 
 // export const fetchTeachers = (post_item) => dispatch => {
-//   axios.post('/assistants/research/professorList', post_item).then(res => {
+//   axios.post('/_api/assistants/research/professorList', post_item).then(res => {
 //     dispatch(store_teachers(res.data))
 //   }).catch(err => {
 //     console.log(err)
@@ -24,7 +24,7 @@ export const statusHandleChange = (payload) => dispatch => {
 }
 
 export const fetchStatus = (payload) => dispatch => {
-  axios.post('/assistants/research/professorList', payload).then(res => {
+  axios.post('/_api/assistants/research/professorList', payload).then(res => {
     dispatch(status_handle_change({
       teachers: res.data.map( teacher => ({
           ...teacher,
@@ -40,7 +40,7 @@ export const fetchStatus = (payload) => dispatch => {
 
 export const fetchCsv = (payload) => dispatch => {
   dispatch(status_handle_change({csvDone: false}))
-  axios.post('/assistants/research/professorListDownload', payload).then(res => {
+  axios.post('/_api/assistants/research/professorListDownload', payload).then(res => {
     let data = res.data, csvArr = []
     csvArr.push(['學生學號', '學生姓名', '指導教授', '專題名稱', '專題級數'])
     for (let i = 0; i < data.length; i++) {

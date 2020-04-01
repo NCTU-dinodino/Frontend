@@ -7,7 +7,7 @@ import { UpdateUserInfo } from '../../Redux/Assistants/Actions/User'
 
 class Head extends React.Component {
   componentDidMount () {
-    axios.get('/assistants/profile')
+    axios.get('/_api/assistants/profile')
       .then(studentData => {
         if (studentData.data[0].status) {
           this.props.UpdateUserInfo({

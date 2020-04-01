@@ -32,7 +32,7 @@ export default class Mail extends React.Component {
 
   componentWillMount () {
     let _this = this
-    axios.post('/mail/inbox', {
+    axios.post('/_api/mail/inbox', {
       id: _this.props.id
     })
       .then(res => {
@@ -79,7 +79,7 @@ export default class Mail extends React.Component {
   handlemailaction = (action) => {
     let _this = this
     if(action === 'mail'){
-      axios.post('/mail/inbox', {
+      axios.post('/_api/mail/inbox', {
         id: _this.props.id
       })
         .then(res => {
@@ -95,7 +95,7 @@ export default class Mail extends React.Component {
         })
     }
     else if (action === 'sent'){
-      axios.post('/mail/sent', {
+      axios.post('/_api/mail/sent', {
         id: _this.props.id
       })
         .then(res => {

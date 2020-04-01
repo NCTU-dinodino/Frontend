@@ -9,9 +9,9 @@ export const fetach_start = createAction('FETCH_START')
 
 export const triggerUpdateData = () => dispatch => {
   ['四'].forEach(title => {
-    axios.post('/assistants/graduate/gradeStudentId', { grade: title }).then(res => {
+    axios.post('/_api/assistants/graduate/gradeStudentId', { grade: title }).then(res => {
       res.data.forEach(student => {
-        axios.get('/assistants/graduate/studentListUpdate', {
+        axios.get('/_api/assistants/graduate/studentListUpdate', {
           params: {
             student_id: student.student_id
           }
@@ -23,10 +23,10 @@ export const triggerUpdateData = () => dispatch => {
 
 export const fetchStudent = grade => dispatch => {
   dispatch(fetach_start())
-  axios.post('/assistants/graduate/studentList', { grade }).then(res => {
+  axios.post('/_api/assistants/graduate/studentList', { grade }).then(res => {
     dispatch(store_student(res.data))
   })
-  axios.post('/assistants/graduate/studentListDownload', { grade }).then(res => {
+  axios.post('/_api/assistants/graduate/studentListDownload', { grade }).then(res => {
     // let data = res.data
     // let csvArr = []
     // csvArr.push([
@@ -118,7 +118,7 @@ export const fetchStudent = grade => dispatch => {
 }
 
 export const setGradutateState = post_item => dispatch => {
-  axios.post('/assistants/graduate/check', post_item).then(res => {
+  axios.post('/_api/assistants/graduate/check', post_item).then(res => {
     dispatch(set_graduate_state(post_item))
   }).catch(err => {
     console.log(err)

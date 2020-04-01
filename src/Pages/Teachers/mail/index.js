@@ -50,7 +50,7 @@ export default class index extends React.Component {
   }
 
   fetchData(){
-    axios.post('/professors/mail/inbox', {
+    axios.post('/_api/professors/mail/inbox', {
       id: 'T9229'
       // id: this.props.tid,
     }).then(res => {
@@ -63,7 +63,7 @@ export default class index extends React.Component {
   }
 
   fetchMailContent(mid){
-    axios.post('/professors/mail/content', {
+    axios.post('/_api/professors/mail/content', {
       mail_id: mid,
     }).then(res => {
       console.log('MAIL CONTENT RECEIVED')
