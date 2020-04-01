@@ -78,7 +78,7 @@ const navItems = {
     },
     {
       label: '系統設定',
-      icon: 'fa fa-cogs'
+      icon: 'fa fa-cogs',
       url: '/assistants/setting'
     }
   ],
