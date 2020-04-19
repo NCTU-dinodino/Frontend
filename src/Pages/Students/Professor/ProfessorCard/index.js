@@ -14,7 +14,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
 import RwdIconButton from './RwdIconButton'
 import { storeProfessorsImage } from '../../../../Redux/Students/Actions/Professor'
-import pic from '../../../../Resources/defalt.jpg'
+import pic from '../../../../Resources/default_profile.jpg'
 import './style.css'
 
 

@@ -8,8 +8,6 @@ import dinoIcon from '../../Resources/dinodino_login_graduate.png'
 
 const styles = theme => ({
   container: {
-    width: '100vw',
-    height: '100vh',
     backgroundColor: '#eee'
   },
   img: {

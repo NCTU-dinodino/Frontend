@@ -10,9 +10,9 @@ import {
 } from '@material-ui/core'
 import AutoRenewIcon from '@material-ui/icons/Autorenew'
 import {
-  actions,
   getGraduationInfo,
-  resetCourse
+  resetCourse,
+  resetCourseDone
 } from '../../../../../../Redux/Students/Actions/Graduation'
 
 const styles = theme => ({
@@ -62,7 +62,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getGraduationInfo: () => dispatch(getGraduationInfo()),
   resetCourse: (payload) => dispatch(resetCourse(payload)),
-  resetCourseDone: () => dispatch(actions.graduation.resetCourse.setSuccess(false))
+  resetCourseDone: () => dispatch(resetCourseDone())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))

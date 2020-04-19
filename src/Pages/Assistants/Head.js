@@ -1,72 +1,46 @@
+
 import React from 'react'
+import { connect } from 'react-redux'
 import axios from 'axios'
-import {Grid, Row, Col} from 'react-bootstrap'
-import {withRouter} from 'react-router-dom'
 import Navbar from '../../Components/Navbar'
-import {connect} from 'react-redux'
-import {UpdateUserInfo} from '../../Redux/Assistants/Actions/User'
+import { UpdateUserInfo } from '../../Redux/Assistants/Actions/User'
 
 class Head extends React.Component {
-  constructor (props) {
-    super(props)
-    axios.get('/assistants/profile').then(studentData => {
-      if (studentData.data[0].status) {
-        this.props.UpdateUserInfo({
-          name: studentData.data[0].aname,
-          prog: studentData.data[0].assistant_id,
-          grad: studentData.data[0].status
-        })
-      } else window.location.assign('/logout')
-    }).catch(err => {
-      console.log(err)
-    })
-    this.state = {
-      index: 0
-    }
+  componentDidMount () {
+    axios.get('/assistants/profile')
+      .then(studentData => {
+        if (studentData.data[0].status) {
+          this.props.UpdateUserInfo({
+            name: studentData.data[0].aname,
+            prog: studentData.data[0].assistant_id,
+            grad: studentData.data[0].status
+          })
+        } else window.location.assign('/logout')
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
+
   render () {
-    const router = [
-      '/assistants/head',
-      '/assistants/grad',
-      '/assistants/course',
-      '/assistants/project',
-      '/assistants/family',
-      '/assistants/verify',
-      '/assistants/mail'
-    ]
-    const onTouchTaps = [
-      () => this.props.history.push(router[0]),
-      () => this.props.history.push(router[1]),
-      () => this.props.history.push(router[2]),
-      () => this.props.history.push(router[3]),
-      () => this.props.history.push(router[4]),
-      () => this.props.history.push(router[5]),
-      () => this.props.history.push(router[6]),
-    ]
     return (
-      <Grid fluid>
-        <Row>
-          <Col>
-            <Navbar type='assistant'
-              name={this.props.idCard.name}
-              subname={this.props.idCard.prog + this.props.idCard.grad}
-              onTouchTaps={onTouchTaps}
-              selectedIndex={this.state.index}
-              router={router}
-            />
-          </Col>
-        </Row>
-      </Grid>
+      <div style={{ paddingTop: 56 }}>
+        <Navbar
+          type='assistant'
+          name={this.props.idCard.name}
+          subname={this.props.idCard.prog + this.props.idCard.grad}
+        />
+      </div>
     )
   }
 }
 
-const mapState = (state) => ({
+const mapStateToProps = (state) => ({
   idCard: state.Assistant.User.idCard
 })
 
-const mapDispatch = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   UpdateUserInfo: (payload) => dispatch(UpdateUserInfo(payload))
 })
 
-export default connect(mapState, mapDispatch)(withRouter(Head))
+export default connect(mapStateToProps, mapDispatchToProps)(Head)

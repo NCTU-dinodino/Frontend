@@ -82,6 +82,7 @@ class Index extends React.Component {
     this.props.getCreditList()
     this.props.resetCourse()
     this.props.setError(false)
+    window.alert('請注意，本學期抵免改由紙本申請')
   }
 
   componentDidUpdate (prevProps) {
