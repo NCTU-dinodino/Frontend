@@ -134,7 +134,7 @@ class Upload extends React.Component {
                   </Tooltip>
                 </TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>學年</TableCell>
-                <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>學期</TableCell>
+                <TableCell style={{fontSize: '25px', flex: 0.10, paddingTop: '11px', paddingLeft: '0px'}}>學期</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.15, paddingTop: '11px', paddingLeft: '0px'}}>檔案類型</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>狀態</TableCell>
                 <TableCell style={{fontSize: '25px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>備註</TableCell>
@@ -163,7 +163,7 @@ class Upload extends React.Component {
                       </Tooltip>
                     </TableCell>              
                     <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>{log.year}</TableCell>
-                    <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>{SEMESTER_CN[log.semester]}</TableCell>
+                    <TableCell style={{fontSize: '18px', flex: 0.10, paddingTop: '11px', paddingLeft: '0px'}}>{SEMESTER_CN[log.semester]}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.15, paddingTop: '11px', paddingLeft: '0px'}}>{log.data_type}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.05, paddingTop: '11px', paddingLeft: '0px'}}>{STATUS_CN[log.status]}</TableCell>
                     <TableCell style={{fontSize: '18px', flex: 0.3, paddingTop: '11px', paddingLeft: '0px'}}>{log.message}</TableCell>
