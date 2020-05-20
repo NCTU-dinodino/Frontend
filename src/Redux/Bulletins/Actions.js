@@ -25,7 +25,7 @@ export const actions = createActions({
 export const getBulletins = () => dispatch => {
   dispatch(actions.bulletins.index.setStatus(FETCHING_STATUS.FETCHING))
   axios
-    .get('/bulletin')
+    .get('/_api/common/bulletin')
     .then(({ data: bulletins }) => {
       dispatch(actions.bulletins.index.store(bulletins))
       dispatch(actions.bulletins.index.setStatus(FETCHING_STATUS.DONE))
@@ -39,7 +39,7 @@ export const getBulletins = () => dispatch => {
 export const newBulletin = (payload) => dispatch => {
   dispatch(actions.bulletins.new.setStatus(FETCHING_STATUS.FETCHING))
   axios
-    .post('/bulletin', payload)
+    .post('/_api/common/bulletin', payload)
     .then(() => dispatch(actions.bulletins.new.setStatus(FETCHING_STATUS.DONE)))
     .catch(() => dispatch(actions.bulletins.new.setStatus(FETCHING_STATUS.FAIL)))
 }
@@ -47,7 +47,7 @@ export const newBulletin = (payload) => dispatch => {
 export const editBulletin = (payload) => dispatch => {
   dispatch(actions.bulletins.edit.setStatus(FETCHING_STATUS.FETCHING))
   axios
-    .post('/bulletin/edit', payload)
+    .post('/_api/common/bulletin/edit', payload)
     .then(() => dispatch(actions.bulletins.edit.setStatus(FETCHING_STATUS.DONE)))
     .catch(() => dispatch(actions.bulletins.edit.setStatus(FETCHING_STATUS.FAIL)))
 }
@@ -55,7 +55,7 @@ export const editBulletin = (payload) => dispatch => {
 export const deleteBulletin = (payload) => dispatch => {
   dispatch(actions.bulletins.delete.setStatus(FETCHING_STATUS.FETCHING))
   axios
-    .post('/bulletin/delete', payload)
+    .post('/_api/common/bulletin/delete', payload)
     .then(() => dispatch(actions.bulletins.delete.setStatus(FETCHING_STATUS.DONE)))
     .catch(() => dispatch(actions.bulletins.delete.setStatus(FETCHING_STATUS.FAIL)))
 }

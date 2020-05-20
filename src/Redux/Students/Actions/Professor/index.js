@@ -16,7 +16,7 @@ export const storeImage = createAction('STORE_IMAGE')
 
 export const fetchProfessors = () => dispatch => {
   dispatch(setStatus(FETCHING_STATUS.FETCHING))
-  axios.get('/_api/students/professorInfo/list', { params: { year: getYear() } })
+  axios.get('/_api/students/professor/list', { params: { year: getYear() } })
     .then(res => {
       dispatch(storeProfessors(res.data))
       dispatch(setStatus(FETCHING_STATUS.DONE))
@@ -27,7 +27,7 @@ export const fetchProfessors = () => dispatch => {
       // dispatch(setStatus(FETCHING_STATUS.DONE))
     })
 
-  axios.get('/_api/students/professorInfo/getMentor')
+  axios.get('/_api/students/professor/mentor')
     .then(res => {
       dispatch(storeProfessorMentor(res.data))
       dispatch(setStatus(FETCHING_STATUS.DONE))
@@ -52,7 +52,7 @@ export const sendMailToProfessor = (payload) => dispatch => {
 }
 
 export const getPastProjects = (payload) => dispatch => {
-  axios.post('/_api/students/professorInfo/pastResearch', payload)
+  axios.post('/_api/students/professor/pastResearch', payload)
     .then(res => {
       dispatch(storePastProjects(res.data))
     })
@@ -94,7 +94,7 @@ export const sendProjectAgree = (payload) => dispatch => {
     name.push(member.name)
   })
   if (postFlag) {
-    axios.post('/_api/students/research/showStudentStatus', {
+    axios.post('/_api/students/project/showStudentStatus', {
       participants: participants
     })
       .then(res => {
@@ -110,7 +110,7 @@ export const sendProjectAgree = (payload) => dispatch => {
         if (postFlag) {
           let r = window.confirm('注意！如果您確定送出表單且教授也同意了，將代表您加簽 專題（一）或 專題（二） 課程，確定要送出表單嗎?')
           if (r) {
-            axios.post('/_api/students/research/create', {
+            axios.post('/_api/students/project/create', {
               semester: getSemester(),
               student_num: participants.length,
               tname: payload.tname,

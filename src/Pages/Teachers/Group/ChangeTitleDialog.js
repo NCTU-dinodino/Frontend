@@ -104,7 +104,7 @@ export default class ChangeTitleDialog extends React.Component {
       console.log('year: ' + this.props.year)
       console.log('new_title: ' + this.state.title)
 
-      axios.post('/_api/professors/research/setTitle', {
+      axios.post('/_api/professors/project/setTitle', {
         research_title: this.props.title,
         tname: this.props.idCard.tname,
         first_second: this.props.firstSecond,

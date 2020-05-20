@@ -9,20 +9,20 @@ export const uploadHandleChange = (payload) => dispatch => {
 
 export const fetchXLSX = (payload) => dispatch => {
   dispatch(upload_handle_change({done: false}))
-  axios.post('/_api/dataFormDownload', payload).then ( res => {
+  axios.post('/_api/assistants/data', payload).then ( res => {
     dispatch(upload_handle_change({file: res.data, done: true}))
   })
 }
 
 export const fetchLogs = () => dispatch => {
-  axios.get('/_api/dataLog').then( res => {
+  axios.get('/_api/assistants/data/log').then( res => {
     dispatch(upload_handle_change({logs: res.data}))
   })
 }
 
 export const uploadXLSX = (payload) => dispatch => {
   const id = setInterval(dispatch(fetchLogs()), 2000)
-  axios.post('/_api/dataUpload', payload).then( res => {
+  axios.post('/_api/assistants/data/upload', payload).then( res => {
     window.alert("檔案上傳至伺服器成功, 正在處理資料...")
     dispatch(fetchLogs())
   }).catch( err => {
@@ -33,7 +33,7 @@ export const uploadXLSX = (payload) => dispatch => {
 }
 
 export const deleteLog = (payload) => dispatch => {
-  axios.post('/_api/dataLog/delete', payload).then( res => {
+  axios.post('/_api/assistants/data/log/delete', payload).then( res => {
     dispatch(fetchLogs())
   }).catch( err => {
     window.alert("操作失敗")

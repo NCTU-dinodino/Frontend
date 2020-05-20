@@ -35,8 +35,7 @@ const actions = createActions({
 })
 
 const getCourseDetail = (payload) => dispatch => {
-  axios
-    .post('/students/graduate/detail', payload)
+  axios.post('/_api/students/graduation/detail', payload)
     .then(res =>  dispatch(actions.graduation.detail.store(res.data)))
     .catch(err => {
       dispatch(actions.graduation.detail.store(FakeData.GraduationDetails_empty)) // for error display
@@ -46,8 +45,7 @@ const getCourseDetail = (payload) => dispatch => {
 }
 
 export const getGraduationInfo = (payload = null) => dispatch => {
-  axios
-    .get('/students/graduate/check')
+  axios.get('/_api/students/graduation/check')
     .then(res => {
       let newPayload
       // 已經送審或是沒有特別選組別，就用api抓到的組別
@@ -64,15 +62,13 @@ export const getGraduationInfo = (payload = null) => dispatch => {
       console.log(err)
     })
 
-  axios
-    .get('/students/graduate/english')
+  axios.get('/_api/students/graduation/english')
     .then(res =>  dispatch(actions.graduation.english.store(res.data.status)))
     .catch(err =>  console.log(err))
 }
 
 export const getGraduationInfoAssistantVersion = (id, sname, program, field) => dispatch => {
-  axios
-    .post('/assistants/graduate/detail', {
+  axios.post('/_api/assistants/graduation/detail', {
       professional_field: field
     }, { params:{
       student_id: id
@@ -83,8 +79,7 @@ export const getGraduationInfoAssistantVersion = (id, sname, program, field) => 
       console.log(err)
     })
 
-  axios
-    .get('/assistants/graduate/check', {
+  axios.get('/_api/assistants/graduation/check', {
       params: {
         student_id: id
       }
@@ -92,8 +87,7 @@ export const getGraduationInfoAssistantVersion = (id, sname, program, field) => 
     .then(res => dispatch(actions.graduation.getReview.store({ ...res.data, professional_field: field })))
     .catch(err => console.log(err))
 
-  axios
-    .get('/assistants/graduate/english', {
+  axios.get('/_api/assistants/graduation/english', {
       params: {
         student_id: id
       }
@@ -105,15 +99,13 @@ export const getGraduationInfoAssistantVersion = (id, sname, program, field) => 
 }
 
 export const reviewSubmit = (payload) => dispatch => {
-  axios
-    .post('/students/graduate/check', payload)
+  axios.post('/_api/students/graduation/check', payload)
     .then(res => dispatch(actions.graduation.sendReview.store(res.data)))
     .catch(err => console.log(err))
 }
 
 export const getMoveTargets = (payload) => dispatch => {
-  axios
-    .post('/students/graduate/legalMoveTarget', payload)
+  axios.post('/_api/students/graduation/courseMove/target', payload)
     .then(res => dispatch(actions.graduation.getMoveTarget.store(res.data)))
     .catch(err => console.log(err))
 }
@@ -124,8 +116,7 @@ export const resetMoveTargets = () => dispatch => {
 
 export const moveCourse = (payload) => dispatch => {
   dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.FETCHING))
-  axios
-    .post('/students/graduate/moveCourse', payload)
+  axios.post('/_api/students/graduation/courseMove', payload)
     .then(res => {
       dispatch(actions.graduation.moveCourse.store(res.data))
       dispatch(actions.graduation.moveCourse.setStatus(FETCHING_STATUS.DONE))
@@ -141,8 +132,7 @@ export const moveCourseDone = () => dispatch => {
 }
 
 export const resetCourse = (payload) => dispatch => {
-  axios
-    .post('/students/graduate/resetMove', payload)
+  axios.post('/_api/students/graduation/courseMove/reset', payload)
     .then(res => dispatch(actions.graduation.resetCourse.store(true)))
     .catch(err => console.log(err))
 }

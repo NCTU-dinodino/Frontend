@@ -93,7 +93,7 @@ export default class index extends React.Component {
   }
 
   fetchData () {
-    axios.get('/_api/professors/curriculum/allCourses', {
+    axios.get('/_api/professors/course', {
       id: this.props.tid,
     }).then(res => {
       this.setState({initItem: res.data})
@@ -145,7 +145,7 @@ export default class index extends React.Component {
   searchCallback = (item) => {
     this.setState({item})
 
-    axios.post('/_api/professors/curriculum/scoreDetail', {
+    axios.post('/_api/professors/course/scoreDetail', {
       cos_code: item.cos_code,
       unique_id: item.unique_id,
     }).then(res => {
@@ -154,7 +154,7 @@ export default class index extends React.Component {
       console.log(err)
     })
 
-    axios.post('/_api/professors/curriculum/scoreInterval', {
+    axios.post('/_api/professors/course/scoreInterval', {
       cos_code: item.cos_code,
       unique_id: item.unique_id,
     }).then(res => {

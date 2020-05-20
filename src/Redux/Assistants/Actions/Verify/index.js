@@ -19,7 +19,7 @@ export const getTeacherList = () => dispatch => {
 }
 
 export const getFormList = () => dispatch => {
-	axios.get('/_api/assistants/offsetApply/Show').then( res => {
+	axios.get('/_api/assistants/offset/formList').then( res => {
 		dispatch(verifyHandleChange({
 			formList: res.data
 				.map((e, i) => ({
@@ -34,7 +34,7 @@ export const getFormList = () => dispatch => {
 
 export const verifyHandleOk = payload => dispatch => {
 	axios
-		.post('/assistants/offsetApply/setAgree', payload.req)
+		.post('/_api/assistants/offset/agree', payload.req)
 		.then( res => {
 			if (res.data.signal === 1) {
 				dispatch(verifyHandleChange({
@@ -64,7 +64,7 @@ export const verifyHandleOk = payload => dispatch => {
 
 export const verifyHandleWithdraw = payload => dispatch => {
 	axios
-		.post('/assistants/offsetApply/setAgree', payload.req)
+		.post('/_api/assistants/offset/agree', payload.req)
 		.then( res => {
 			if (res.data.signal === 1) {
 				dispatch(verifyHandleChange({
@@ -95,7 +95,7 @@ export const verifyHandleWithdraw = payload => dispatch => {
 
 export const verifyHandleReturn = payload => dispatch => {
 	axios
-		.post('/assistants/offsetApply/setAgree', payload.req)
+		.post('/_api/assistants/offset/agree', payload.req)
 		.then( res => {
 			if (res.data.signal === 1) {
 				dispatch(verifyHandleChange({
@@ -127,7 +127,7 @@ export const verifyHandleReturn = payload => dispatch => {
 
 export const verifyHandleSend = payload => dispatch => {
 	axios
-		.post('/assistants/offsetApply/setAgree', payload.req)
+		.post('/_api/assistants/offset/agree', payload.req)
 		.then( res => {
 			if (res.data.signal === 1) {
 				dispatch(verifyHandleChange({
@@ -159,7 +159,7 @@ export const verifyHandleSend = payload => dispatch => {
 
 export const verifyHandleAllReset = payload => dispatch => {
 	axios
-		.post('/assistants/offsetApply/setAgree', payload.req)
+		.post('/_api/assistants/offset/agree', payload.req)
 		.then( res => {
 			if (res.data.signal === 1) {
 				dispatch(verifyHandleChange({
@@ -190,7 +190,7 @@ export const verifyHandleAllReset = payload => dispatch => {
 
 export const verifyHandleDownloadFile = payload => dispatch => {
 	axios
-		.post('/assistants/offsetApply/File', payload)
+		.post('/_api/assistants/offset/file', payload)
 		.then( res => {
 			if (res.data.file) {
 				const linkSource = res.data.file;

@@ -24,7 +24,7 @@ class StudentVerify extends React.Component {
     this.printApplicationTable = this.printApplicationTable.bind(this)
   }
   componentDidMount(){
-    axios.get('/_api/assistants/offsetApply/Info',{
+    axios.get('/_api/assistants/offset/info',{
       params: {
         student_id: this.props.match.params.sid
       }

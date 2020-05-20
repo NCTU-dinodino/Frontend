@@ -11,7 +11,7 @@ import axios from 'axios';
 
 
 // export const fetchTeachers = (post_item) => dispatch => {
-//   axios.post('/_api/assistants/research/professorList', post_item).then(res => {
+//   axios.post('/_api/assistants/project/professorList', post_item).then(res => {
 //     dispatch(store_teachers(res.data))
 //   }).catch(err => {
 //     console.log(err)
@@ -26,7 +26,7 @@ export const scoreHandleChange = (payload) => dispatch => {
 }
 
 export const fetchScore = payload => dispatch => {
-  axios.post('/_api/assistants/research/gradeList', payload).then( res => {
+  axios.post('/_api/assistants/project/gradeList', payload).then( res => {
     dispatch(score_handle_change({
       scores: res.data
     }))
@@ -37,7 +37,7 @@ export const fetchScore = payload => dispatch => {
 
 export const fetchCsv = payload => dispatch => {
   dispatch(score_handle_change({csvDone: false}))
-  axios.post('/_api/assistants/research/gradeDownload', payload).then(res => {
+  axios.post('/_api/assistants/project/gradeList/download', payload).then(res => {
     let data = res.data, csvArr = []
     csvArr.push(['專題名稱', '老師', '姓名', '學號', '成績', '評語'])
     for (let i = 0; i < data.length; i++) {
@@ -48,7 +48,7 @@ export const fetchCsv = payload => dispatch => {
 }
 
 export const setScores = payload => dispatch => {
-  axios.post('/_api/assistants/research/setScore', payload).then( res => {
+  axios.post('/_api/assistants/project/setScore', payload).then( res => {
     dispatch(set_scores(payload))
   }).catch( err => {
     console.log(err)

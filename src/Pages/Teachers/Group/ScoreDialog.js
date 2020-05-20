@@ -122,7 +122,7 @@ export default class ScoreDialog extends React.Component {
         console.log('new_score[' + i + ']: ' + this.state.scores[i])
         console.log('comment[' + i + ']: ' + this.state.comments[i])
 
-        axios.post('/_api/professors/research/setScore', {
+        axios.post('/_api/professors/project/setScore', {
           student_id: item.student_id,
           tname: this.props.idCard.tname,
           research_title: this.props.title,

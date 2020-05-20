@@ -35,8 +35,7 @@ export const actions = createActions({
 })
 
 export const getCreditList = () => dispatch => {
-  axios
-    .get('/students/offsetApply/list')
+  axios.get('/_api/students/offset/list')
     .then(res => dispatch(actions.credit.list.store(res.data)))
     .catch(err => {
       // dispatch(actions.credit.list.store(FakeData.Credit))
@@ -45,8 +44,7 @@ export const getCreditList = () => dispatch => {
 }
 
 export const sendWaiveCourse = (payload) => dispatch => {
-  axios
-    .post('/students/offsetApply/createWaive', payload)
+  axios.post('/_api/students/offset/waive', payload)
     .then(res => window.alert('送出成功'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
@@ -55,8 +53,7 @@ export const sendWaiveCourse = (payload) => dispatch => {
 }
 
 export const sendExemptCourse = (payload) => dispatch => {
-  axios
-    .post('/students/offsetApply/createExempt', payload)
+  axios.post('/_api/students/offset/exempt', payload)
     .then(res => window.alert('送出成功'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
@@ -65,8 +62,7 @@ export const sendExemptCourse = (payload) => dispatch => {
 }
 
 export const sendCompulsoryCourse = (payload) => dispatch => {
-  axios
-    .post('/students/offsetApply/createCompulsory', payload)
+  axios.post('/_api/students/offset/compulsory', payload)
     .then(res => window.alert('送出成功'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
@@ -75,8 +71,7 @@ export const sendCompulsoryCourse = (payload) => dispatch => {
 }
 
 export const sendEnglishCourse = (payload) => dispatch => {
-  axios
-    .post('/students/offsetApply/createEnglish', payload)
+  axios.post('/_api/students/offset/english', payload)
     .then(res => window.alert('送出成功'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
@@ -86,8 +81,7 @@ export const sendEnglishCourse = (payload) => dispatch => {
 
 export const editCredit = (payload) => dispatch => {
   dispatch(actions.credit.edit.setStatus(FETCHING_STATUS.FETCHING))
-  axios
-    .post('/students/offsetApply/edit', payload)
+  axios.post('/_api/students/offset/edit', payload)
     .then(res => {
       window.alert('編輯成功')
       dispatch(actions.credit.edit.setStatus(FETCHING_STATUS.DONE))
@@ -101,8 +95,7 @@ export const editCredit = (payload) => dispatch => {
 
 export const deleteCredit = (payload) => dispatch => {
   dispatch(actions.credit.delete.setStatus(FETCHING_STATUS.FETCHING))
-  axios
-    .post('/students/offsetApply/delete', payload)
+  axios.post('/_api/students/offset/delete', payload)
     .then(res => {
       window.alert('刪除成功')
       dispatch(actions.credit.delete.setStatus(FETCHING_STATUS.DONE))

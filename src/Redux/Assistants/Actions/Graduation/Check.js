@@ -11,13 +11,13 @@ export const checkHandleChange = (payload) => dispatch => {
 export const fetchCheck = () => dispatch => {
   dispatch(check_handle_change({csvDone: false}));
 	axios.all([
-		axios.post('/_api/assistants/graduate/studentList', {
+		axios.post('/_api/assistants/graduation/studentList', {
 			grade: '二'
 		}),
-		axios.post('/_api/assistants/graduate/studentList', {
+		axios.post('/_api/assistants/graduation/studentList', {
 			grade: '三'
 		}),
-		axios.post('/_api/assistants/graduate/studentList', {
+		axios.post('/_api/assistants/graduation/studentList', {
 			grade: '四'
 		})
 	]).then(axios.spread((second_res, third_res, fourth_res) => {
@@ -218,14 +218,14 @@ const parseCsv = (data) => {
 
 
 export const updateGraduateStatus = payload => dispatch => {
-	axios.post('/_api/assistants/graduate/graduateCheck', payload).then( res => {
+	axios.post('/_api/assistants/graduation/graduateCheck', payload).then( res => {
 		dispatch(update_graduate_status(payload))
 	}).catch( err => console.log(err) )
 }
 
 export const triggerUpdateDataByStudentIds = (payload) => dispatch => {
   payload.map( student_id => 
-    axios.get('/_api/assistants/graduate/studentListUpdate', {
+    axios.get('/_api/assistants/graduation/studentList/edit', {
       params: { student_id }
     }
   ))

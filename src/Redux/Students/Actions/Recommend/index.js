@@ -18,7 +18,7 @@ export const fetchRecommendCourses = () => dispatch => {
 }
 
 export const setStarRating = (payload, index) => dispatch => {
-  axios.post('/_api/students/recommend/setStar', payload)
+  axios.post('/_api/students/recommend/rating', payload)
     .then(() => {
       dispatch(updateRating(index))
     })
