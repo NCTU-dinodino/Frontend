@@ -8,8 +8,8 @@ class Wrapper extends React.Component {
     super(props)
     this.state = {
       // 如果連續15分鐘沒有call API就自動導向登入頁面
-      // 因為後端設定連線時間為20分鐘(前端故意設定略小於後端)，call API後端也會重置時間
-      logoutTime: 1000 * 60 * 15
+      // 因為後端設定連線時間為30分鐘(前端故意設定略小於後端)，call API後端也會重置時間
+      logoutTime: 1000 * 60 * 27
     }
     this.setTimer = this.setTimer.bind(this)
     this.clearTimer = this.clearTimer.bind(this)
