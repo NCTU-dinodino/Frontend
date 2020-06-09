@@ -53,8 +53,8 @@ export const fetchStudent = grade => dispatch => {
     //   '核心',
     //   '核心社會向度',
     //   '核心人文向度',
-    //   '校基本素養',
-    //   '跨院',
+    //   '校基本能力',
+    //   '外院基本能力',
     //   '外語的狀態',
     //   '外語',
     //   '外語基礎',
@@ -207,11 +207,11 @@ const parseCsv = (data) => {
         conditionIndex++
       }
       if (parseInt(data_.new_basic, 10) !== 0) {
-        condition += (conditionIndex + '. 通識校基本素養向度缺' + parseInt(data_.new_basic, 10) + ' 學分\r\n')
+        condition += (conditionIndex + '. 通識校基本能力向度缺' + parseInt(data_.new_basic, 10) + ' 學分\r\n')
         conditionIndex++
       }
       if (parseInt(data_.new_cross, 10) !== 0) {
-        condition += (conditionIndex + '. 通識跨院向度缺' + parseInt(data_.new_cross, 10) + ' 學分\r\n')
+        condition += (conditionIndex + '. 通識外院基本能力向度缺' + parseInt(data_.new_cross, 10) + ' 學分\r\n')
         conditionIndex++
       }
     }

@@ -449,7 +449,7 @@
         "english": false,
         "reason": "",
         "move": false,
-        "dimension": "校基本素養"
+        "dimension": "校基本能力"
       },
       {
         "cn": "統計方法與資料分析",
@@ -470,7 +470,7 @@
         "english": false,
         "reason": "",
         "move": false,
-        "dimension": "校基本素養"
+        "dimension": "校基本能力"
       },
       {
         "cn": "生活中的機器人科技",
@@ -491,7 +491,7 @@
         "english": false,
         "reason": "",
         "move": false,
-        "dimension": "校基本素養"
+        "dimension": "校基本能力"
       }
     ]
   },

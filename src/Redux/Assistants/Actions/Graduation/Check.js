@@ -175,11 +175,11 @@ const parseCsv = (data) => {
         conditionIndex++
       }
       if (parseInt(data_.new_basic, 10) !== 0) {
-        condition += (conditionIndex + '. 通識校基本素養向度缺' + parseInt(data_.new_basic, 10) + ' 學分\r\n')
+        condition += (conditionIndex + '. 通識校基本能力向度缺' + parseInt(data_.new_basic, 10) + ' 學分\r\n')
         conditionIndex++
       }
       if (parseInt(data_.new_cross, 10) !== 0) {
-        condition += (conditionIndex + '. 通識跨院向度缺' + parseInt(data_.new_cross, 10) + ' 學分\r\n')
+        condition += (conditionIndex + '. 通識外院基本能力向度缺' + parseInt(data_.new_cross, 10) + ' 學分\r\n')
         conditionIndex++
       }
     }
