@@ -127,7 +127,13 @@ class _Navbar extends React.Component {
 
   render () {
     const { expanded } = this.state
-    const { classes, type, name, subname, superMode } = this.props
+    const { classes, type, name, subname, superMode, sid } = this.props
+
+    const is108Student = (type == 'student' && sid.substr(0, 2) == '08')
+    if(is108Student){
+        navItems['student'][0]['label'] = '畢業預審(維護中)'
+        navItems['student'][0]['url'] = '#'
+    }
 
     return (
       <Navbar className={classes.navbar} staticTop fixedTop fluid expanded={expanded} onToggle={this.onToggleCollapse}>
@@ -152,6 +158,9 @@ class _Navbar extends React.Component {
                   icon={item.icon}
                   link={item.url}
                   onClick={() => {
+                    if(is108Student && index == 0){
+                      window.alert('本功能正在開發中，請敬請期待。')
+                    }
                     this.setState({ expanded: false })
                     this.props.history.push(item.url)
                   }}
@@ -238,7 +247,8 @@ class _Navbar extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  superMode: state.Assistant.User.superMode
+  superMode: state.Assistant.User.superMode,
+  sid: state.Student.User.studentIdcard.student_id
 })
 
 const mapDispatchToProps = (dispatch) => ({
