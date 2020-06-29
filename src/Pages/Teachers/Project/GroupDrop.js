@@ -6,8 +6,7 @@ import InfoCard from '../Shared/InfoCard'
 import Loading from '../../../Components/Loading'
 // mui
 import Avatar from 'material-ui/Avatar'
-//Chips are compact elements that represent an input, attribute, or action.
-import Chip from 'material-ui/Chip' 
+import Chip from 'material-ui/Chip'
 import { Dialog } from 'material-ui'
 // for multiTheme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -166,7 +165,7 @@ class GroupApply extends React.Component {
   // FOR CHIP
   handleChip = (i) => {
     let chipOpen = this.state.chipOpen
-    chipOpen.set(i, true)
+    chipOpen.set(i, true) // set the map, key=i, value=true
     this.setState({chipOpen})
   }
 
@@ -284,11 +283,14 @@ const ApplyButton = (props) => {
 }
 
 const getSemester = () => {
-  const Today = new Date()  // current time
+  const Today = new Date()
   return ((Today.getFullYear() - 1912) + Number(((Today.getMonth() + 1) >= 8 ? 1 : 0))) + '-' + ((Today.getMonth() + 1) >= 8 ? '1' : '2')
 }
 
-// mapStateToProps : trigger when the state in store changed
+// mapStateToProps(): pass the state in the redux store as props to the component.
+// It is called every time the store state changes.
+// return idCard, applyList, research to component
+// check Redux/Teachers/Reducers/User.js
 const mapStateToProps = (state) => ({
   idCard: state.Teacher.User.idCard,
   applyList: state.Teacher.Research.applyList,
@@ -298,5 +300,5 @@ const mapDispatchToProps = (dispatch) => ({
   FetchResearchApplyList: (tid) => dispatch(fetchResearchApplyList()),
   FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
 })
-
+// the connection of react component and redux store
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(GroupApply))

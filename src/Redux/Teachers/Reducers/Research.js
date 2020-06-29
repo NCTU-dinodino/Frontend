@@ -308,6 +308,7 @@ const initialState = {
   }
 }
 
+// construct reducers
 export default handleActions({
   UPDATE_APPLY_LIST: (state, action) => {
     console.log('UPDATE_APPLY_LIST ACTION: ', {...state, applyList: [...action.payload]})
