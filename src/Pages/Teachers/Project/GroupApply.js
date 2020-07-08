@@ -134,9 +134,9 @@ class GroupApply extends React.Component {
     }
     this.props.FetchResearchApplyList(tid)
     this.props.FetchResearchList(tid, sem)
-    this.setState({loading: false})
+    //this.setState({loading: false})
   }
-
+  // execute after component be render to DOM
   componentDidMount () {
     this.fetchData()
   }
@@ -178,7 +178,7 @@ class GroupApply extends React.Component {
 
   render () {
     const acc = this.props.research.current_accept
-    const { applyList } = this.props
+    const { applyList } = this.props // this.props.applyList
 
     return (
       <div>
