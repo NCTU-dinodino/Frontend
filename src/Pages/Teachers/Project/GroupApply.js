@@ -123,6 +123,10 @@ class GroupApply extends React.Component {
     this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
+    console.log('------ tid ------')
+    console.log(tid)
+    console.log('------ sem ------')
+    console.log(sem)
     if( tid === '001' ){
       // NOT A VALID TID
       setTimeout(
