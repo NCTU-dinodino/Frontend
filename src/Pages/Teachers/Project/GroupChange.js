@@ -108,7 +108,7 @@ const styles = {
 }
 
 
-class GroupApply extends React.Component {
+class GroupChange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -317,4 +317,4 @@ const mapDispatchToProps = (dispatch) => ({
   FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
 })
 // the connection of react component and redux store
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(GroupApply))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(GroupChange))
