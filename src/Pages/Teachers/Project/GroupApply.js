@@ -112,7 +112,7 @@ class GroupApply extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: true,
+      //loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: new Map(),
       sem: getSemester()
@@ -177,7 +177,7 @@ class GroupApply extends React.Component {
   }
 
   render () {
-    const acc = this.props.research.current_accept
+    const acc = this.props.research.current_accept // 目前已招收人數
     const { applyList } = this.props // this.props.applyList
 
     return (
@@ -199,7 +199,7 @@ class GroupApply extends React.Component {
             isLoading={this.state.loading} />
           {!this.state.loading && applyList !== undefined
             ?
-            applyList.map((item, i) => (
+            applyList.map((item, i) => (  // item: a project group
               <ApplyButton
                 key={i}
                 keyId={i}
@@ -231,9 +231,10 @@ const StudentStatusHint = (props) => (
 const ApplyButton = (props) => {
   return (
     <div className='groupBtn' key={props.keyId}>
+      {/*this reply button is define in Group/ReplyDialog */}
       <ReplyDialog
         idCard={props.idCard}
-        status={props.item.status}
+        status={props.item.status} // 0:
         title={props.item.research_title}
         participants={props.item.participants}
         firstSecond={props.item.first_second}
@@ -247,6 +248,7 @@ const ApplyButton = (props) => {
       <div>
         <MuiThemeProvider>
           <div className='chipWrapper'>
+          {/*show the little tag(chip) of each student: student name and id*/}
             {props.item.participants.map((p, i) => (
               <div key={i}>
                 <Chip className='group-chip'
@@ -289,6 +291,7 @@ const getSemester = () => {
 }
 
 // mapStateToProps : trigger when the state in store changed
+// props of GroupApply
 const mapStateToProps = (state) => ({
   idCard: state.Teacher.User.idCard,
   applyList: state.Teacher.Research.applyList,

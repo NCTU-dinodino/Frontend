@@ -3,36 +3,36 @@ import { handleActions } from 'redux-actions'
 // INITIALIZATIONS FOR REDUCERS, WHICH IS GOING TO TAKE ACTIONS
 const initialState = {
   applyList: [
-    { research_title: '...',
+    { research_title: '以GA/PLS/KNN估算車禍訴訟賠償金',
       status: 0,
-      year: '...-...',
+      year: '108-1',
       first_second: '...',
       participants: [
-        { student_id: '...',
-          sname: '...',
-          email: '...',
-          phone: '',
+        { student_id: '0616000',
+          sname: '柯文哲',
+          email: 'balabala@gmail.com',
+          phone: '0912345678',
           first_second: '...',
           student_status: 1
         },
-        { student_id: '...',
-          sname: '...',
-          email: '...',
-          phone: '',
+        { student_id: '0616001',
+          sname: '連勝文',
+          email: 'banana@gmail.com',
+          phone: '0911111111',
           first_second: '...',
           student_status: 1
         },
-        { student_id: '...',
-          sname: '...',
-          email: '...',
-          phone: '',
+        { student_id: '0611234',
+          sname: '韓國瑜',
+          email: 'koreanfish@gmail.com',
+          phone: '0999999999',
           first_second: '...',
           student_status: 1
         },
-        { student_id: '...',
-          sname: '...',
-          email: '...',
-          phone: '',
+        { student_id: '0511111',
+          sname: '蘇貞昌',
+          email: 'gogogogo@gmail.com',
+          phone: '0988888888',
           first_second: '...',
           student_status: 2
         }
@@ -73,15 +73,15 @@ const initialState = {
         }
       ]
     },
-    { research_title: '...',
-      status: 0,
-      year: '...-...',
+    { research_title: '棋類遊戲人工智慧-EinSStein Wurfelt nicht',
+      status: 2,
+      year: '108-1',
       first_second: '...',
       participants: [
-        { student_id: '...',
-          sname: '...',
-          email: '...',
-          phone: '',
+        { student_id: '0511123',
+          sname: '王金平',
+          email: 'wang123@gmail.com',
+          phone: '0987654321',
           first_second: '...',
           student_status: 1
         }
@@ -305,7 +305,58 @@ const initialState = {
         year: '...'
       }
     ]
-  }
+  },
+  changeTeacherList: [
+    { 
+      // applicants: [
+      //   {
+      //     student_id: '0616000',
+      //     sname: '柯文哲',
+      //     email: 'balabala@gmail.com',
+      //     phone: '0912345678',
+      //     first_second: '...',
+      //     student_status: 1
+      //   },
+      //   { student_id: '0616001',
+      //     sname: '蔡英文',
+      //     email: 'vegetable@gmail.com',
+      //     phone: '0987654321',
+      //     first_second: '...',
+      //     student_status: 1
+      //   }
+      // ],
+      research_title: '圍棋 AI 擬人化 (Personification of Go AI)',
+      status: 0,
+      year: '108-2',
+      first_second: '...',
+      participants: [
+        { student_id: '0616000',
+          sname: '柯文哲',
+          email: 'balabala@gmail.com',
+          phone: '0912345678',
+          first_second: '...',
+          student_status: 1,
+          replace_pro: 1
+        },
+        { student_id: '0616001',
+          sname: '蔡英文',
+          email: 'vegetable@gmail.com',
+          phone: '0987654321',
+          first_second: '...',
+          student_status: 1,
+          replace_pro: 1
+        },
+        { student_id: '0511777',
+          sname: '陳其邁',
+          email: 'chenchimai@gmail.com',
+          phone: '0955555555',
+          first_second: '...',
+          student_status: 2,
+          replace_pro: 0
+        }
+      ]
+    },
+  ]
 }
 
 // construct reducers
@@ -326,5 +377,9 @@ export default handleActions({
   UPDATE_RESEARCH_LIST_2: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST_2 ACTION: ', { ...state, research: {...action.payload} })
     return ({ ...state, research2: {...action.payload} })
+  },
+  UPDATE_CHANGE_TEACHER_LIST: (state, action) => {
+    console.log('UPDATE_CHANGE_TEACHER_LIST ACTION: ', { ...state, changeTeacherList: {...action.payload} })
+    return ({ ...state, changeTeacherList: {...action.payload} })
   }
 }, initialState)

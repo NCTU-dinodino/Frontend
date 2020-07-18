@@ -13,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles';
 // components
 import GroupList from './GroupList'
 import GroupApply from './GroupApply'
+import GroupChange from './GroupChange'
 // css
 import './style.css'
 // REDUX
@@ -40,7 +41,7 @@ class Index extends React.Component {
       case 1:
         return <GroupApply idCard={this.props.idCard} handleGroupClick={this.handleGroupClick} />
       case 2:
-        return <GroupList idCard={this.props.idCard} handleGroupClick={this.handleGroupClick} />
+        return <GroupChange idCard={this.props.idCard} handleGroupClick={this.handleGroupClick} />
     }
   }
   render () {

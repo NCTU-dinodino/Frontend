@@ -6,6 +6,7 @@ export const UpdateApplyList = createAction('UPDATE_APPLY_LIST')
 export const UpdateResearchList = createAction('UPDATE_RESEARCH_LIST')
 export const UpdateResearchList1 = createAction('UPDATE_RESEARCH_LIST_1')
 export const UpdateResearchList2 = createAction('UPDATE_RESEARCH_LIST_2')
+export const UpdateChangeTeacherList = createAction('UPDATE_CHANGE_TEACHER_LIST')
 
 export const ChangeTeacher = (payload) => dispatch => {
   axios.post('/professors/research/setReplace', payload)
@@ -18,10 +19,23 @@ export const ChangeTeacher = (payload) => dispatch => {
     })
 }
 
+export const changeTeacherList = (tid, sem) => dispatch => {
+  axios.get('/professors/research/changeTeacherList', {
+    id: tid,
+    sem: sem
+  }).then(res => {
+    console.log('------ChangeTeacher--------');
+    dispatch(UpdateChangeTeacherList(res.data))
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
 export const fetchResearchApplyList = (tid) => dispatch => {
   axios.get('/professors/researchApply/list', {
     id: tid
   }).then(res => {
+    console.log(res);
     dispatch(UpdateApplyList(res.data))
   }).catch(err => {
     console.log(err)
@@ -36,6 +50,7 @@ export const fetchResearchList = (tid, sem) => dispatch => {
     teacherId: tid,
     sem: sem
   }).then(res => {
+    console.log(res);
     dispatch(UpdateResearchList(res.data))
   }).catch(err => {
     console.log(err)

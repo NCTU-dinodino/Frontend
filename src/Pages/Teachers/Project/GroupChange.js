@@ -1,7 +1,8 @@
 import React from 'react'
 
 import defaultPic from '../../../Resources/default_profile.jpg'
-import ReplyDialog from '../Group/ReplyDialog'
+// import ReplyDialog from '../Group/ReplyDialog'
+import ReplyDialogChange from './ReplyDialogChange'
 import InfoCard from '../Shared/InfoCard'
 import Loading from '../../../Components/Loading'
 // mui
@@ -13,7 +14,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { withStyles } from '@material-ui/core/styles/index'
 // REDUX
 import { connect } from 'react-redux'
-import { fetchResearchApplyList, fetchResearchList } from '../../../Redux/Teachers/Actions/Research/index'
+import { changeTeacherList, fetchResearchList } from '../../../Redux/Teachers/Actions/Research/index'
 
 const styles = {
   noticeTitle: {
@@ -131,7 +132,7 @@ class GroupApply extends React.Component {
         }, 1500)
       return
     }
-    this.props.FetchResearchApplyList(tid)
+    this.props.ChangeTeacherList(tid, sem)
     this.props.FetchResearchList(tid, sem)
     this.setState({loading: false})
   }
@@ -177,8 +178,8 @@ class GroupApply extends React.Component {
 
   render () {
     const acc = this.props.research.current_accept
-    const { applyList } = this.props
-
+    const { changeTeacherList } = this.props
+    console.log(changeTeacherList)
     return (
       <div>
         <div className='subTitle'>
@@ -196,9 +197,10 @@ class GroupApply extends React.Component {
             left={40}
             top={20}
             isLoading={this.state.loading} />
-          {!this.state.loading && applyList !== undefined
+          {!this.state.loading && changeTeacherList !== undefined
             ?
-            applyList.map((item, i) => (
+            // split each group in changeTeacher List, each item means a project
+            changeTeacherList.map((item, i) => (  
               <ApplyButton
                 key={i}
                 keyId={i}
@@ -228,21 +230,16 @@ const StudentStatusHint = (props) => (
 )
 
 const ApplyButton = (props) => {
+  
   return (
     <div className='groupBtn' key={props.keyId}>
-      <ReplyDialog
-        idCard={props.idCard}
-        status={props.item.status}
-        title={props.item.research_title}
-        participants={props.item.participants}
-        firstSecond={props.item.first_second}
-        year={props.item.year}
-        parentFunction={props.parentFunction}
-      />
+      
+      {/*show year and project title*/}
       <div className='groupTitle'>
         <span className='apply-btn-year'>{props.item.year}</span>
         {props.item.research_title}
       </div>
+      {/*show all members*/}
       <div>
         <MuiThemeProvider>
           <div className='chipWrapper'>
@@ -278,6 +275,26 @@ const ApplyButton = (props) => {
           </div>
         </MuiThemeProvider>
       </div>
+      <div className='applymem'>
+        <div className='changeText'>申請更換專題的學生：</div>
+        {props.item.participants.filter(p => p.replace_pro===1).map((p,i,arr)=>(
+          <div className='student_name'>{p.replace_pro?p.sname+' ':''}
+          {(i+1)!==arr.length?'、':''}
+          </div>
+        ))}
+        {/*show reply button*/}
+        <div className='replybtn'>
+          <ReplyDialogChange
+            idCard={props.idCard}
+            status={props.item.status}
+            title={props.item.research_title}
+            participants={props.item.participants}
+            firstSecond={props.item.first_second}
+            year={props.item.year}
+            parentFunction={props.parentFunction}
+          />
+        </div>
+      </div>
     </div>
   )
 }
@@ -290,14 +307,13 @@ const getSemester = () => {
 // mapStateToProps(): pass the state in the redux store as props to the component.
 // It is called every time the store state changes.
 // return idCard, applyList, research to component
-// check Redux/Teachers/Reducers/User.js
 const mapStateToProps = (state) => ({
-  idCard: state.Teacher.User.idCard,
-  applyList: state.Teacher.Research.applyList,
-  research: state.Teacher.Research.research
+  idCard: state.Teacher.User.idCard, // check Redux/Teachers/Reducers/User.js
+  changeTeacherList: state.Teacher.Research.changeTeacherList, // check Redux/Teachers/Reducers/Research.js
+  research: state.Teacher.Research.research // check Redux/Teachers/Reducers/Research.js
 })
 const mapDispatchToProps = (dispatch) => ({
-  FetchResearchApplyList: (tid) => dispatch(fetchResearchApplyList()),
+  ChangeTeacherList: (tid) => dispatch(changeTeacherList()),
   FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
 })
 // the connection of react component and redux store
