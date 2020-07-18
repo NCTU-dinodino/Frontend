@@ -313,7 +313,7 @@ const mapStateToProps = (state) => ({
   research: state.Teacher.Research.research // check Redux/Teachers/Reducers/Research.js
 })
 const mapDispatchToProps = (dispatch) => ({
-  ChangeTeacherList: (tid) => dispatch(changeTeacherList()),
+  ChangeTeacherList: (tid, sem) => dispatch(changeTeacherList()),
   FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
 })
 // the connection of react component and redux store
