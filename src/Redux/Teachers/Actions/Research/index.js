@@ -23,7 +23,7 @@ export const fetchChangeTeacherList = (tid, sem) => dispatch => {
   console.log('----- changeTeacherList ----')
   console.log('tid: ' + tid)
   console.log('sem: ' + sem)
-  axios.post('/professors/research/changeTeacherList', {
+  axios.get('/professors/research/changeTeacherList', {
     teacherId: tid,
     sem: sem
   }).then(res => {
