@@ -14,7 +14,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { withStyles } from '@material-ui/core/styles/index'
 // REDUX
 import { connect } from 'react-redux'
-import { changeTeacherList, fetchResearchList } from '../../../Redux/Teachers/Actions/Research/index'
+import { fetchChangeTeacherList, fetchResearchList } from '../../../Redux/Teachers/Actions/Research/index'
 
 const styles = {
   noticeTitle: {
@@ -132,9 +132,13 @@ class GroupChange extends React.Component {
         }, 1500)
       return
     }
-    this.props.ChangeTeacherList(tid, sem)
+    this.props.FetchChangeTeacherList(tid, sem)
     this.props.FetchResearchList(tid, sem)
     this.setState({loading: false})
+    console.log('----- this.props.changeTeacherList ----')
+    console.log(this.props.changeTeacherList)
+    console.log('----- this.props.research ----')
+    console.log(this.props.research)
   }
 
   componentDidMount () {
@@ -313,7 +317,7 @@ const mapStateToProps = (state) => ({
   research: state.Teacher.Research.research // check Redux/Teachers/Reducers/Research.js
 })
 const mapDispatchToProps = (dispatch) => ({
-  ChangeTeacherList: (tid, sem) => dispatch(changeTeacherList()),
+  FetchChangeTeacherList: (tid, sem) => dispatch(fetchChangeTeacherList()),
   FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
 })
 // the connection of react component and redux store

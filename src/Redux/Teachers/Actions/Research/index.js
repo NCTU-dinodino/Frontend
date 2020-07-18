@@ -19,7 +19,7 @@ export const ChangeTeacher = (payload) => dispatch => {
     })
 }
 
-export const changeTeacherList = (tid, sem) => dispatch => {
+export const fetchChangeTeacherList = (tid, sem) => dispatch => {
   console.log('----- changeTeacherList ----')
   console.log('tid: ' + tid)
   console.log('sem: ' + sem)
