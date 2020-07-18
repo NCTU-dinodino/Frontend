@@ -23,7 +23,7 @@ export const changeTeacherList = (tid, sem) => dispatch => {
   console.log('----- changeTeacherList ----')
   console.log('tid: ' + tid)
   console.log('sem: ' + sem)
-  axios.get('/professors/research/changeTeacherList', {
+  axios.post('/professors/research/changeTeacherList', {
     id: tid,
     sem: sem
   }).then(res => {
@@ -46,9 +46,9 @@ export const fetchResearchApplyList = (tid) => dispatch => {
 }
 
 export const fetchResearchList = (tid, sem) => dispatch => {
-  //console.log('----- fetchResearchList ----')
-  //console.log('tid: ' + tid)
-  //console.log('sem: ' + sem)
+  console.log('----- fetchResearchList ----')
+  console.log('tid: ' + tid)
+  console.log('sem: ' + sem)
   axios.post('/professors/research/list', {
     teacherId: tid,
     sem: sem
