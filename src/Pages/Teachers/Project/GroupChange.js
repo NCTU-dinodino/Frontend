@@ -184,12 +184,20 @@ class GroupChange extends React.Component {
     })
   }
 
+  isEmpty = (obj) => {
+    for(var key in obj) {
+      if(obj.hasOwnProperty(key))
+        return false;
+    }
+    return true;
+  }
+
   render () {
     const acc = this.props.research.current_accept
     const { changeTeacherList } = this.props
     const test = changeTeacherList[0]
     console.log('------ testtest ------')
-    console.log(changeTeacherList.length)
+    console.log(isEmpty(changeTeacherList))
     console.log('------ changeTeacherList -------')
     console.log(changeTeacherList)
     return (
@@ -209,7 +217,7 @@ class GroupChange extends React.Component {
             left={40}
             top={20}
             isLoading={this.state.loading} />
-          {!this.state.loading && changeTeacherList.length !== 0
+          {!this.state.loading && !isEmpty(changeTeacherList)
             ?
             // split each group in changeTeacher List, each item means a project
             changeTeacherList.map((item, i) => (  
