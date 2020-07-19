@@ -112,7 +112,7 @@ class GroupChange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: true,
+      loading: false,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: new Map(),
       sem: getSemester()
@@ -187,7 +187,9 @@ class GroupChange extends React.Component {
   render () {
     const acc = this.props.research.current_accept
     const { changeTeacherList } = this.props
-    console.log(changeTeacherList)
+    const test = changeTeacherList[0]
+    console.log('------ testtest ------')
+    console.log(Object.keys(changeTeacherList).length === 0)
     return (
       <div>
         <div className='subTitle'>

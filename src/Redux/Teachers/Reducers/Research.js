@@ -325,36 +325,36 @@ const initialState = {
       //     student_status: 1
       //   }
       // ],
-      research_title: '圍棋 AI 擬人化 (Personification of Go AI)',
-      status: 0,
-      year: '108-2',
-      first_second: '...',
-      participants: [
-        { student_id: '0616000',
-          sname: '柯文哲',
-          email: 'balabala@gmail.com',
-          phone: '0912345678',
-          first_second: '...',
-          student_status: 1,
-          replace_pro: 1
-        },
-        { student_id: '0616001',
-          sname: '蔡英文',
-          email: 'vegetable@gmail.com',
-          phone: '0987654321',
-          first_second: '...',
-          student_status: 1,
-          replace_pro: 1
-        },
-        { student_id: '0511777',
-          sname: '陳其邁',
-          email: 'chenchimai@gmail.com',
-          phone: '0955555555',
-          first_second: '...',
-          student_status: 2,
-          replace_pro: 0
-        }
-      ]
+      // research_title: '圍棋 AI 擬人化 (Personification of Go AI)',
+      // status: 0,
+      // year: '108-2',
+      // first_second: '...',
+      // participants: [
+      //   { student_id: '0616000',
+      //     sname: '柯文哲',
+      //     email: 'balabala@gmail.com',
+      //     phone: '0912345678',
+      //     first_second: '...',
+      //     student_status: 1,
+      //     replace_pro: 1
+      //   },
+      //   { student_id: '0616001',
+      //     sname: '蔡英文',
+      //     email: 'vegetable@gmail.com',
+      //     phone: '0987654321',
+      //     first_second: '...',
+      //     student_status: 1,
+      //     replace_pro: 1
+      //   },
+      //   { student_id: '0511777',
+      //     sname: '陳其邁',
+      //     email: 'chenchimai@gmail.com',
+      //     phone: '0955555555',
+      //     first_second: '...',
+      //     student_status: 2,
+      //     replace_pro: 0
+      //   }
+      // ]
     },
   ]
 }
