@@ -321,8 +321,8 @@ const mapStateToProps = (state) => ({
   research: state.Teacher.Research.research // check Redux/Teachers/Reducers/Research.js
 })
 const mapDispatchToProps = (dispatch) => ({
-  FetchChangeTeacherList: (tid, sem) => dispatch(fetchChangeTeacherList()),
-  FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
+  FetchChangeTeacherList: (tid, sem) => dispatch(fetchChangeTeacherList(tid, sem)),
+  FetchResearchList: (tid, sem) => dispatch(fetchResearchList(tid, sem))
 })
 // the connection of react component and redux store
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(GroupChange))
