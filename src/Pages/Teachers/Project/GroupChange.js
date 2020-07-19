@@ -189,7 +189,7 @@ class GroupChange extends React.Component {
     const { changeTeacherList } = this.props
     const test = changeTeacherList[0]
     console.log('------ testtest ------')
-    console.log(test)
+    console.log(changeTeacherList.length)
     console.log('------ changeTeacherList -------')
     console.log(changeTeacherList)
     return (
