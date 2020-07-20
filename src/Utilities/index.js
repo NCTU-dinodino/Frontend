@@ -14,6 +14,16 @@ function getSemester () {
   return ((year - 1912) + (month >= 8 ? 1 : 0)) + '-' + ((month >= 8 || month === 1) ? '1' : '2')
 }
 
+function semesterToChinese (semester) {
+  const mapping = {
+    '1': '上',
+    '2': '下',
+    '3': '暑'
+  }
+  const arr = semester.split('-')
+  return `${arr[0]}${mapping[arr[1]]}`
+}
+
 function getTimestamp () {
   let today = new Date()
   let year = today.getFullYear()
@@ -37,6 +47,7 @@ function base64encode (file) {
 export {
   getYear,
   getSemester,
+  semesterToChinese,
   getTimestamp,
   base64encode
 }

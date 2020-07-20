@@ -57,7 +57,7 @@ export const getPastProjects = (payload) => dispatch => {
       dispatch(storePastProjects(res.data))
     })
     .catch(err => {
-      // dispatch(storePastProjects(FakeData.ProfessorProject))
+      dispatch(storePastProjects(FakeData.ProfessorProject))
       console.log(err)
     })
 }
@@ -76,7 +76,7 @@ export const sendProjectAgree = (payload) => dispatch => {
   let postFlag = true
   // 把成員資料放進payload的欄位
   payload.members.forEach((member, index) => {
-    if (!member.id || !member.phone || !member.email || !member.first_second || !member.department) {
+    if (!member.student_id || !member.phone || !member.email || !member.first_second || !member.department) {
       postFlag = false
     }
     if (member.department === 2 && member.name === '') {

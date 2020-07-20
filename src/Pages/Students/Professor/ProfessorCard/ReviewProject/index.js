@@ -3,36 +3,45 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import Dialog from '@material-ui/core/Dialog'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
+import {
+  Dialog,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Slide,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  Grid,
+  withMobileDialog
+} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
-import Slide from '@material-ui/core/Slide'
-import Tooltip from '@material-ui/core/Tooltip'
 import List from '@material-ui/icons/List'
-import MenuItem from '@material-ui/core/MenuItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import ProjectCard from './projectCard'
+import ProjectBar from './ProjectBar'
+import { ResponsiveContainer } from '../../../../../Components/Responsive'
 import { getPastProjects } from '../../../../../Redux/Students/Actions/Professor'
 
-const styles = {
+const styles = theme => ({
   appBar: {
     position: 'relative'
   },
   flex: {
     flex: 1
   },
-  tooltip: {
-    fontSize: '12px'
+  dialogContent: {
+    paddingTop: '50px',
+    paddingBottom: '50px',
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '35px',
+      paddingBottom: '35px',
+    },
   }
-}
+})
 
-function Transition (props) {
-  return <Slide direction='up' {...props} />
-}
+const Transition = (props) => (
+  <Slide direction='up' {...props} />
+)
 
 class Index extends React.Component {
   constructor (props) {
@@ -57,50 +66,48 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes } = this.props
+    const { classes, fullScreen } = this.props
+
     return (
       <div>
-        {
-          this.props.rwd
-            ? <MenuItem className={classes.menuItem} onClick={this.handleDialogOpen}>
-              <ListItemIcon className={classes.icon}>
-                <List />
-              </ListItemIcon>
-              <ListItemText classes={{ primary: classes.primary }} inset primary='查看教授指導專題' />
-            </MenuItem>
-            : <Tooltip title='查看教授指導專題' placement='top' classes={{ tooltip: classes.tooltip }}>
-              <IconButton
-                onClick={this.handleDialogOpen}
-                aria-expanded={this.state.expanded}
-                aria-label='Show more'
-              >
-                <List />
-              </IconButton>
-            </Tooltip>
-        }
+        <MenuItem className={classes.menuItem} onClick={this.handleDialogOpen}>
+          <ListItemIcon className={classes.icon}>
+            <List />
+          </ListItemIcon>
+          <ListItemText classes={{ primary: classes.primary }} inset primary='查看過往指導專題' />
+        </MenuItem>
         <Dialog
-          fullScreen
           open={this.state.open}
           onClose={this.handleDialogClose}
           TransitionComponent={Transition}
+          fullScreen={fullScreen}
+          fullWidth
+          maxWidth='md'
+          PaperProps={{
+            style: {
+              backgroundColor: '#eee',
+            },
+          }}
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
+              <Typography variant='title' color='inherit' className={classes.flex}>
+                查看過往指導專題
+              </Typography>
               <IconButton color='inherit' onClick={this.handleDialogClose} aria-label='Close'>
                 <CloseIcon />
               </IconButton>
-              <Typography variant='title' color='inherit' className={classes.flex}>
-                查看教授指導專題
-              </Typography>
             </Toolbar>
           </AppBar>
-          <div className='container'>
-            {
-              this.props.pastProjects.map((research, index) => (
-                <ProjectCard data={research} profile={this.props.profile} key={index} />
-              ))
-            }
-          </div>
+          <ResponsiveContainer justify='center'>
+            <Grid item xs={12} md={10} className={classes.dialogContent}>
+              {
+                this.props.pastProjects.map((project, index) => (
+                  <ProjectBar data={project} key={index} />
+                ))
+              }
+            </Grid>
+          </ResponsiveContainer>
         </Dialog>
       </div>
     )
@@ -118,4 +125,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   getPastProjects: (payload) => dispatch(getPastProjects(payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(Index)))

@@ -1,7 +1,7 @@
 
 import { createAction } from 'redux-actions'
 import axios from 'axios'
-// import FakeData from '../../../../Resources/FakeData'
+import FakeData from '../../../../Resources/FakeData'
 
 export const storeProjects = createAction('STORE_PROJECTS')
 export const storeProjectImage = createAction('STORE_PROJECT_IMAGE')
@@ -13,7 +13,7 @@ export const fetchProjects = (page = 1) => dispatch => {
     .then(res => dispatch(storeProjects(res.data)))
     .catch(error => {
       console.log(error)
-      // dispatch(storeProjects(FakeData.Project))
+      dispatch(storeProjects(FakeData.Project))
     })
 }
 
