@@ -7,7 +7,6 @@ import {
   IconButton,
   Avatar,
   Divider,
-  Badge,
   Grid,
   Hidden
 } from '@material-ui/core'
@@ -46,6 +45,19 @@ const styles = theme => ({
     color: '#575757',
     [theme.breakpoints.down('md')]: {
       fontSize: '1em',
+    }
+  },
+  badge: {
+    marginLeft: '5px',
+    padding: '1px 5px',
+    borderRadius: '10px',
+    backgroundColor: '#1976d2',
+    color: 'white',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.9em',
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.8em',
     }
   },
   photo: {
@@ -105,9 +117,10 @@ class Index extends React.Component {
             {
               isMentor
                 ? (
-                  <Badge color='primary' badgeContent={'導師'}>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div className={classes.cardTitle}>{ professor.tname }</div>
-                  </Badge>
+                    <div className={classes.badge}>導師</div>
+                  </div>
                 )
                 : (
                   <div className={classes.cardTitle}>{ professor.tname }</div>
