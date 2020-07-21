@@ -380,6 +380,6 @@ export default handleActions({
   },
   UPDATE_CHANGE_TEACHER_LIST: (state, action) => {
     console.log('UPDATE_CHANGE_TEACHER_LIST ACTION: ', { ...state, changeTeacherList: {...action.payload} })
-    return ({ ...state, changeTeacherList: {...action.payload} })
+    return ({ ...state, changeTeacherList: [...action.payload] })
   }
 }, initialState)
