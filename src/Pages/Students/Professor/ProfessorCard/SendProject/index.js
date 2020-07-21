@@ -34,7 +34,7 @@ import MemberIcon from '@material-ui/icons/Accessibility'
 import EmailIcon from '@material-ui/icons/Email'
 import TocIcon from '@material-ui/icons/Toc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { sendProjectAgree } from '../../../../../Redux/Students/Actions/Professor'
+import { newProject } from '../../../../../Redux/Students/Actions/Project'
 import { getSemester } from '../../../../../Utilities'
 import { departmentList } from '../../../../../Utilities/constant'
 
@@ -73,7 +73,7 @@ const Transition = (props) => (
   <Slide direction='up' {...props} />
 )
 
-class SendProjectAgree extends React.Component {
+class SendProject extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -139,7 +139,7 @@ class SendProjectAgree extends React.Component {
 
   handleAddMember () {
     let newNumber = this.state.expandedList.length + 1
-    if (newNumber > limitcount - this.props.profile.scount) {
+    if (newNumber > limitcount - this.props.professor.scount) {
       this.handleSnackbarOpen('專題成員已超過該教授上限！如有外系成員則不算在教授上限內。')
     }
     if (newNumber > 4) {
@@ -205,20 +205,20 @@ class SendProjectAgree extends React.Component {
         }
       }
     }
-    console.log(members)
-    if (number_tmp > limitcount - this.props.profile.scount) {
+
+    if (number_tmp > limitcount - this.props.professor.scount) {
       window.alert('專題成員已超過該教授上限！')
       return
     }
 
     const payload = {
-      tname: this.props.profile.tname,
-      teacher_email: this.props.profile.email,
+      tname: this.props.professor.tname,
+      teacher_email: this.props.professor.email,
       title: title,
       semester: getSemester(),
       members: members
     }
-    this.props.sendProjectAgree(payload)
+    this.props.newProject(payload)
   }
 
   render () {
@@ -227,7 +227,7 @@ class SendProjectAgree extends React.Component {
 
     return (
       <div>
-        <MenuItem disabled={this.props.profile.scount >= limitcount} onClick={this.handleDialogOpen}>
+        <MenuItem disabled={this.props.professor.scount >= limitcount} onClick={this.handleDialogOpen}>
           <ListItemIcon>
             <Face />
           </ListItemIcon>
@@ -523,8 +523,8 @@ const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  sendProjectAgree: (payload) => dispatch(sendProjectAgree(payload))
+const mapDispatchToProps = (dispatch) => ({
+  newProject: (payload) => dispatch(newProject(payload))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(SendProjectAgree)))
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(SendProject)))

@@ -44,9 +44,9 @@ class Index extends React.Component {
   }
 
   render () {
-    const { data, mentor } = this.props.professors
     const { filter } = this.state
-    const professors = this.getFilteredProfessors(data, mentor, filter)
+    const { mentor } = this.props
+    const professors = this.getFilteredProfessors(this.props.professors, mentor, filter)
 
     return (
       <Grid container item xs={12}>
@@ -59,7 +59,11 @@ class Index extends React.Component {
         <Grid item xs={12}>
           {
             professors.map((professor, index) => (
-              <ProfessorCard data={professor} key={index} />
+              <ProfessorCard
+                key={index}
+                professor={professor}
+                isMentor={professor.tname === mentor}
+              />
             ))
           }
         </Grid>
@@ -69,7 +73,8 @@ class Index extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  professors: state.Student.Professor
+  professors: state.Student.Professor.list.data,
+  mentor: state.Student.Professor.mentor.data
 })
 const mapDispatchToProps = (dispatch) => ({
 })

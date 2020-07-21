@@ -1,6 +1,5 @@
 
 import React from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
@@ -15,7 +14,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { withStyles } from '@material-ui/core/styles'
 import RwdIconButton from './RwdIconButton'
-import pic from '../../../../Resources/default_profile.jpg'
+import defaultPhoto from '../../../../Resources/default_profile.jpg'
 
 const styles = theme => ({
   cardWrapper: {
@@ -49,7 +48,7 @@ const styles = theme => ({
       fontSize: '1em',
     }
   },
-  pic: {
+  photo: {
     width: '80%',
     minWidth: '110px',
     overflow: 'hidden',
@@ -86,15 +85,15 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes } = this.props
-    const photo = this.props.data.photo ? this.props.data.photo : pic
+    const { classes, professor, isMentor } = this.props
+    const photo = professor.photo ? professor.photo : defaultPhoto
 
     return (
       <div className={classes.cardWrapper}>
         <Grid container>
           <Hidden mdDown>
             <Grid item md={2}>
-              <img className={classes.pic} src={photo} alt='' />
+              <img className={classes.photo} src={photo} alt='' />
             </Grid>
           </Hidden>
           <Hidden lgUp>
@@ -104,29 +103,29 @@ class Index extends React.Component {
           </Hidden>
           <Grid item xs={8}>
             {
-              this.props.isMentor
+              isMentor
                 ? (
                   <Badge color='primary' badgeContent={'導師'}>
-                    <div className={classes.cardTitle}>{ this.props.data.tname }</div>
+                    <div className={classes.cardTitle}>{ professor.tname }</div>
                   </Badge>
                 )
                 : (
-                  <div className={classes.cardTitle}>{ this.props.data.tname }</div>
+                  <div className={classes.cardTitle}>{ professor.tname }</div>
                 )
             }
             <div className={classes.cardText}>
               <div>
                 已收專題人數：
-                { this.props.data.scount }
-                { this.props.data.scount >= 7 && <font color='#a52a2a'>（名額已滿）</font> }
+                { professor.scount }
+                { professor.scount >= 7 && <font color='#a52a2a'>（名額已滿）</font> }
               </div>
-              <div>研究領域：{ this.props.data.expertise }</div>
-              <div>Email：{ this.props.data.email }</div>
+              <div>研究領域：{ professor.expertise }</div>
+              <div>Email：{ professor.email }</div>
             </div>
           </Grid>
           <Grid item xs={2}>
             <div className={classes.buttonGroup}>
-              <RwdIconButton profile={this.props.data} />
+              <RwdIconButton professor={professor} />
               <IconButton
                 className={
                   classnames(
@@ -148,7 +147,7 @@ class Index extends React.Component {
               <Divider />
               <div className={classes.cardText} style={{ marginTop: '10px', marginBottom: '20px' }}>
                 經歷：<br />
-                { this.props.data.info === '' ? '尚無資料' : this.props.data.info }
+                { professor.info === '' ? '尚無資料' : professor.info }
               </div>
             </Collapse>
           </Grid>
@@ -162,10 +161,4 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  isMentor: state.Student.Professor.mentor === ownProps.data.tname
-})
-const mapDispatchToProps = (dispatch, ownProps) => ({
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
+export default withStyles(styles)(Index)

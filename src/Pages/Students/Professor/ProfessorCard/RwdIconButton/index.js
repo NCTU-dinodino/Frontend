@@ -48,8 +48,8 @@ class LongMenu extends React.Component {
             }
           }}
         >
-          <SendProject profile={this.props.profile} />
-          <ReviewProject profile={this.props.profile} />
+          <SendProject professor={this.props.professor} />
+          <ReviewProject professor={this.props.professor} />
         </Menu>
       </div>
     )

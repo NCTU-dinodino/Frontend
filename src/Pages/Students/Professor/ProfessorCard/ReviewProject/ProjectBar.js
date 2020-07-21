@@ -25,12 +25,12 @@ const styles = theme => ({
 
 class ProjectBar extends React.Component {
   render () {
-    const { classes, data } = this.props
+    const { classes, project } = this.props
 
     return (
       <div className={classes.projectBar}>
-        <div className={classes.semester}>{semesterToChinese(data.semester)}</div>
-        <div className={classes.title}>{data.title}</div>
+        <div className={classes.semester}>{semesterToChinese(project.semester)}</div>
+        <div className={classes.title}>{project.title}</div>
       </div>
     )
   }

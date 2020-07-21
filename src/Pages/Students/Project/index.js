@@ -5,7 +5,8 @@ import { withStyles } from '@material-ui/core/styles'
 import ProjectTile from './Tile'
 import Professor from '../Professor'
 import { ResponsiveContainer } from '../../../Components/Responsive'
-import { fetchProjects } from '../../../Redux/Students/Actions/Project'
+import { getProjects, newProjectReset, deleteProjectReset } from '../../../Redux/Students/Actions/Project'
+import { FETCHING_STATUS } from '../../../Utilities/constant'
 
 const styles = {
   root: {
@@ -36,12 +37,54 @@ const styles = {
 
 class Index extends React.Component {
   componentDidMount () {
-    this.props.fetchProjects()
+    this.props.getProjects()
     // window.alert('請注意，本學期專題改由紙本申請')
   }
 
+  componentDidUpdate (prevProps) {
+    const { newResponse, newStatus, deleteStatus } = this.props
+
+    if (newStatus !== prevProps.newStatus) {
+      if (newStatus === FETCHING_STATUS.DONE) {
+        this.props.getProjects()
+        this.props.newProjectReset()
+      }
+      else if (newStatus === FETCHING_STATUS.ERROR) {
+        let messages = '申請失敗!'
+        newResponse.forEach((response) => {
+          switch (response.status) {
+            case 3:
+              messages += `\n${response.student_id} 基礎程式設計成績待審核`
+              break
+            case 4:
+              messages += `\n${response.student_id} 本學期重複提交申請`
+              break
+            case 5:
+              messages += `\n${response.student_id} 已經修完專題一與專題二`
+              break
+            case 6:
+              messages += `\n${response.student_id} 未修過專題一`
+              break
+            default:
+              break
+          }
+        })
+        window.alert(messages)
+      }
+    }
+    if (deleteStatus !== prevProps.deleteStatus) {
+      if (deleteStatus === FETCHING_STATUS.DONE) {
+        this.props.getProjects()
+        this.props.deleteProjectReset()
+      }
+      else if (deleteStatus === FETCHING_STATUS.ERROR) {
+        window.alert('刪除失敗!')
+      }
+    }
+  }
+
   render () {
-    const { classes } = this.props
+    const { classes, projects } = this.props
 
     return (
       <ResponsiveContainer justify='center'>
@@ -50,8 +93,8 @@ class Index extends React.Component {
         </div>
         <Grid item xs={12} md={10} lg={8}>
           {
-            this.props.data.map((tile, index) => (
-              <ProjectTile data={tile} key={index} />
+            projects.map((project, index) => (
+              <ProjectTile project={project} key={index} />
             ))
           }
         </Grid>
@@ -67,10 +110,15 @@ class Index extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.Student.Project.data
+  projects: state.Student.Project.list.data,
+  newResponse: state.Student.Project.new.data,
+  newStatus: state.Student.Project.new.status,
+  deleteStatus: state.Student.Project.delete.status
 })
 const mapDispatchToProps = (dispatch) => ({
-  fetchProjects: () => dispatch(fetchProjects())
+  getProjects: () => dispatch(getProjects()),
+  newProjectReset: () => dispatch(newProjectReset()),
+  deleteProjectReset: () => dispatch(deleteProjectReset())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))

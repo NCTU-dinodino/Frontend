@@ -61,12 +61,12 @@ class Index extends React.Component {
 
   componentDidMount () {
     this.props.getPastProjects({
-      teacher_id: this.props.profile.teacher_id
+      teacher_id: this.props.professor.teacher_id
     })
   }
 
   render () {
-    const { classes, fullScreen } = this.props
+    const { classes, fullScreen, pastProjects } = this.props
 
     return (
       <div>
@@ -74,7 +74,11 @@ class Index extends React.Component {
           <ListItemIcon className={classes.icon}>
             <List />
           </ListItemIcon>
-          <ListItemText classes={{ primary: classes.primary }} inset primary='查看過往指導專題' />
+          <ListItemText
+            inset
+            primary='查看過往指導專題'
+            classes={{ primary: classes.primary }}
+          />
         </MenuItem>
         <Dialog
           open={this.state.open}
@@ -91,10 +95,18 @@ class Index extends React.Component {
         >
           <AppBar className={classes.appBar}>
             <Toolbar>
-              <Typography variant='title' color='inherit' className={classes.flex}>
+              <Typography
+                variant='title'
+                color='inherit'
+                className={classes.flex}
+              >
                 查看過往指導專題
               </Typography>
-              <IconButton color='inherit' onClick={this.handleDialogClose} aria-label='Close'>
+              <IconButton
+                color='inherit'
+                aria-label='Close'
+                onClick={this.handleDialogClose}
+              >
                 <CloseIcon />
               </IconButton>
             </Toolbar>
@@ -102,8 +114,8 @@ class Index extends React.Component {
           <ResponsiveContainer justify='center'>
             <Grid item xs={12} md={10} className={classes.dialogContent}>
               {
-                this.props.pastProjects.map((project, index) => (
-                  <ProjectBar data={project} key={index} />
+                pastProjects.map((project, index) => (
+                  <ProjectBar project={project} key={index} />
                 ))
               }
             </Grid>
@@ -118,10 +130,10 @@ Index.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  pastProjects: state.Student.Professor.past_projects
+const mapStateToProps = (state) => ({
+  pastProjects: state.Student.Professor.pastProject.data
 })
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   getPastProjects: (payload) => dispatch(getPastProjects(payload))
 })
 

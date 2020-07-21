@@ -64,30 +64,30 @@ class Tile extends React.Component {
   handleDelete (canBeDeleted) {
     if (!canBeDeleted)  return
     if (window.confirm('確定要刪除此專題？')) {
-      const { data } = this.props
+      const { project } = this.props
       this.props.deleteProject({
-        research_title: data.research_title,
-        tname: data.tname,
-        first_second: data.first_second,
-        semester: data.semester
+        tname: project.tname,
+        title: project.title,
+        semester: project.semester,
+        first_second: project.first_second
       })
     }
   }
 
   render () {
-    const { classes, data } = this.props
-    const firstSecond = `專題${data.first_second === 1 ? '一' : '二'}`
+    const { classes, project } = this.props
+    const firstSecond = `專題${project.first_second === 1 ? '一' : '二'}`
     const status = {
       1: '已接受',
       2: '審核中',
       3: '已拒絕'
-    }[data.status]
+    }[project.status]
     const statusClass = {
       1: classes.statusGreen,
       2: classes.statusRed,
       3: classes.statusRed
-    }[data.status]
-    const canBeDeleted = (data.status === 2 || data.status === 3)
+    }[project.status]
+    const canBeDeleted = (project.status === 2 || project.status === 3)
 
     return (
       <ExpansionPanel className={classes.root}>
@@ -96,15 +96,15 @@ class Tile extends React.Component {
           expandIcon={<ExpandMoreIcon />}
         >
           <div className={classes.firstSecond}>{firstSecond}</div>
-          <div className={classes.title}>{data.title}</div>
+          <div className={classes.title}>{project.title}</div>
           <div className={statusClass}>{status}</div>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.panelDetails}>
           <div style={{ flexGrow: '1' }}>
-            <div>指導教授: {data.tname}</div>
-            <div>學期: {semesterToChinese(data.semester)}</div>
-            <div>分數: {data.score}</div>
-            <div>評語: {data.comment}</div>
+            <div>指導教授: {project.tname}</div>
+            <div>學期: {semesterToChinese(project.semester)}</div>
+            <div>分數: {project.score}</div>
+            <div>評語: {project.comment}</div>
           </div>
           <div className={classes.deleteIconWrapper}>
             <DeleteIcon
@@ -125,7 +125,7 @@ Tile.propTypes = {
 const mapStateToProps = (state) => ({
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   deleteProject: (payload) => dispatch(deleteProject(payload))
 })
 
