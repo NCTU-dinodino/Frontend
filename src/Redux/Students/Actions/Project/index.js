@@ -2,7 +2,7 @@
 import { createActions } from 'redux-actions'
 import axios from 'axios'
 import { FETCHING_STATUS } from '../../../../Utilities/constant'
-import FakeData from '../../../../Resources/FakeData'
+// import FakeData from '../../../../Resources/FakeData'
 
 const actions = createActions({
   PROJECT: {
@@ -24,7 +24,7 @@ export const getProjects = () => dispatch => {
     .then(res => dispatch(actions.project.list.store(res.data)))
     .catch(error => {
       console.log(error)
-      dispatch(actions.project.list.store(FakeData.Project))
+      // dispatch(actions.project.list.store(FakeData.Project))
     })
 }
 
@@ -40,7 +40,7 @@ export const newProject = (payload) => dispatch => {
           .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
           .catch(err => {
             console.log(err)
-            dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
+            // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
             dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
           })
       } else {

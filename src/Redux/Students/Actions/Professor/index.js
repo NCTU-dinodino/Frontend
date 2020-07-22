@@ -1,7 +1,7 @@
 
 import { createActions } from 'redux-actions'
 import axios from 'axios'
-import FakeData from '../../../../Resources/FakeData'
+// import FakeData from '../../../../Resources/FakeData'
 import { getYear } from '../../../../Utilities/'
 
 const actions = createActions({
@@ -23,7 +23,7 @@ export const getProfessors = () => dispatch => {
     .then(res => dispatch(actions.professor.list.store(res.data)))
     .catch(error => {
       console.log(error)
-      dispatch(actions.professor.list.store(FakeData.ProfessorList))
+      // dispatch(actions.professor.list.store(FakeData.ProfessorList))
     })
 }
 
@@ -32,7 +32,7 @@ export const getMentor = () => dispatch => {
     .then(res => dispatch(actions.professor.mentor.store(res.data[0].tname)))
     .catch(error => {
       console.log(error)
-      dispatch(actions.professor.mentor.store('張立平'))
+      // dispatch(actions.professor.mentor.store('張立平'))
     })
 }
 
@@ -41,6 +41,6 @@ export const getPastProjects = (payload) => dispatch => {
     .then(res => dispatch(actions.professor.pastProject.store(res.data)))
     .catch(err => {
       console.log(err)
-      dispatch(actions.professor.pastProject.store(FakeData.ProfessorProject))
+      // dispatch(actions.professor.pastProject.store(FakeData.ProfessorProject))
     })
 }
