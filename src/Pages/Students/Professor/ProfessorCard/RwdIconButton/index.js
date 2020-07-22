@@ -48,9 +48,20 @@ class LongMenu extends React.Component {
             }
           }}
         >
-          <SendProject professor={this.props.professor} firstSecond={1} />
-          <SendProject professor={this.props.professor} firstSecond={2} />
-          <ReviewProject professor={this.props.professor} />
+          <SendProject
+            professor={this.props.professor}
+            firstSecond={1}
+            closeMenu={this.handleClose}
+          />
+          <SendProject
+            professor={this.props.professor}
+            firstSecond={2}
+            closeMenu={this.handleClose}
+          />
+          <ReviewProject
+            professor={this.props.professor}
+            closeMenu={this.handleClose}
+          />
         </Menu>
       </div>
     )

@@ -57,6 +57,7 @@ class Index extends React.Component {
 
   handleDialogClose () {
     this.setState({ open: false })
+    this.props.closeMenu()
   }
 
   componentDidMount () {

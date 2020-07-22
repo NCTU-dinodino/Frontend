@@ -112,6 +112,7 @@ class SendProject extends React.Component {
 
   handleDialogClose () {
     this.setState({ openDialog: false })
+    this.props.closeMenu()
   }
 
   handdlePanelChange (expanded, index) {
