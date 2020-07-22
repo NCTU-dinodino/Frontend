@@ -71,13 +71,3 @@ export const deleteProject = (payload) => dispatch => {
 export const deleteProjectReset = () => dispatch => {
   dispatch(actions.project.delete.setStatus(FETCHING_STATUS.IDLE))
 }
-
-// export const changeProjectProfessor = (payload) => dispatch => {
-//   axios.post('/students/research/setReplace', payload)
-//     .then(res => {
-//     })
-//     .catch(err => {
-//       window.alert('儲存失敗，請檢察網路連線')
-//       console.log(err)
-//     })
-// }

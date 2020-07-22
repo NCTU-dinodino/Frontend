@@ -25,7 +25,8 @@ import {
   Hidden
 } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-import Face from '@material-ui/icons/Face'
+import GroupIcon from '@material-ui/icons/Group'
+import AutoRenewIcon from '@material-ui/icons/Autorenew'
 import AddIcon from '@material-ui/icons/Add'
 import PermIcon from '@material-ui/icons/PermIdentity'
 import Remove from '@material-ui/icons/Remove'
@@ -89,7 +90,7 @@ class SendProject extends React.Component {
           phone: '',
           email: '',
           department: '資訊工程學系',
-          first_second: 0,
+          first_second: this.props.firstSecond,
         }
       ]
     }
@@ -159,7 +160,7 @@ class SendProject extends React.Component {
           phone: '',
           email: '',
           department: '資訊工程學系',
-          first_second: 0,
+          first_second: this.props.firstSecond,
         }
       ]
     })
@@ -223,15 +224,19 @@ class SendProject extends React.Component {
 
   render () {
     const { members } = this.state
-    const { classes, fullScreen } = this.props
+    const { classes, fullScreen, firstSecond } = this.props
 
     return (
       <div>
         <MenuItem disabled={this.props.professor.scount >= limitcount} onClick={this.handleDialogOpen}>
           <ListItemIcon>
-            <Face />
+            {
+              firstSecond === 1
+                ? <GroupIcon />
+                : <AutoRenewIcon />
+            }
           </ListItemIcon>
-          <ListItemText inset primary={'專題申請/專題變更'} />
+          <ListItemText inset primary={firstSecond === 1 ? '申請專題一' : '更換為專題二指導教授'} />
         </MenuItem>
 
         <Dialog
@@ -337,8 +342,9 @@ class SendProject extends React.Component {
                             style: { fontSize: '16px' }
                           }}
                           className={classes.memberInput}
+                          disabled
                           value={members[index].first_second}
-                          onChange={(e) => this.handleInputChange(e.target.value, 'first_second', index)}
+                          // onChange={(e) => this.handleInputChange(e.target.value, 'first_second', index)}
                         >
                           <MenuItem value={0}>請選擇專題(ㄧ)或(二)</MenuItem>
                           <MenuItem value={1}>專題（ㄧ）</MenuItem>
