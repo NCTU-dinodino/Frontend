@@ -30,7 +30,7 @@ export const getProjects = () => dispatch => {
 
 export const newProject = (payload) => dispatch => {
   dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
-  axios.post('/students/research/showStudentStatus', payload.members)
+  axios.post('/students/research/showStudentStatus', { members: payload.members })
     .then(res => {
       dispatch(actions.project.new.store(res.data))
       const qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
