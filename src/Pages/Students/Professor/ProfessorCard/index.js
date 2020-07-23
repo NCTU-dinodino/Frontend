@@ -98,7 +98,7 @@ class Index extends React.Component {
 
   render () {
     const { classes, professor, isMentor } = this.props
-    const photo = professor.photo ? 'data:image/png;base64,' + professor.photo : defaultPhoto
+    const photo = professor.photo ? professor.photo : defaultPhoto
 
     return (
       <div className={classes.cardWrapper}>
