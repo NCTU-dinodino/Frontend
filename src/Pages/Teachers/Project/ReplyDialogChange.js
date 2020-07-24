@@ -13,7 +13,7 @@ import axios from 'axios'
 class ReplyDialogChange extends React.Component {
   constructor (props) {
     super(props)
-    this.handleClick = this.handleClick.bind(this)
+    //this.handleClick = this.handleClick.bind(this)
     this.state = {open: false}
   }
 
@@ -51,7 +51,7 @@ class ReplyDialogChange extends React.Component {
     
 
     // trigger update
-    this.props.parentFunction()
+    //this.props.parentFunction()
   }
 
   handleClick (agree) {
