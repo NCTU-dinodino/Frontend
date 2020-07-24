@@ -37,7 +37,7 @@ class ReplyDialogChange extends React.Component {
     const statusText = status === 0 ? '『拒絕』' : '『接受』'
     //if( !window.confirm('確定回覆' + statusText + '?') ) return
 
-    
+    console.log(this.props.research_title)
     this.setState({open: false})
     students.map((p)=>{
       let payload = {
