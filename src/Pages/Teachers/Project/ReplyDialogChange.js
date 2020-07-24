@@ -31,10 +31,11 @@ class ReplyDialogChange extends React.Component {
     let students = this.props.participants.filter( p => (
       p.replace_pro === 1
     ))
+    console.log('-------- students ---------')
     console.log(students)
     // 防呆確認
     const statusText = status === 0 ? '『拒絕』' : '『接受』'
-    if( !window.confirm('確定回覆' + statusText + '?') ) return
+    //if( !window.confirm('確定回覆' + statusText + '?') ) return
 
     
     this.setState({open: false})
@@ -46,6 +47,8 @@ class ReplyDialogChange extends React.Component {
         first_second: p.first_second,
         agree_replace: status
       }
+      console.log('------- payload -------')
+      console.log(payload)
       this.props.ChangeTeacher(payload)
     })
     
