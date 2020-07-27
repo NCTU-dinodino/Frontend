@@ -45,7 +45,7 @@ class ReplyDialogChange extends React.Component {
         semester: this.props.sem,
         research_title: this.props.title,
         first_second: this.props.firstSecond,
-        agree_replace: status
+        agree_replace: parseInt(status, 10)
       }
       console.log('------- payload -------')
       console.log(payload)
