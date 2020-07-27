@@ -43,8 +43,8 @@ class ReplyDialogChange extends React.Component {
       let payload = {
         student_id: p.student_id,
         semester: this.props.sem,
-        research_title: this.props.research_title,
-        first_second: p.first_second,
+        research_title: this.props.title,
+        first_second: this.props.firstSecond,
         agree_replace: status
       }
       console.log('------- payload -------')
@@ -57,16 +57,16 @@ class ReplyDialogChange extends React.Component {
     //this.props.parentFunction()
   }
 
-  handleClick (agree) {
-    let payload = {
-      student_id: this.props.student_id,
-      semester: this.props.sem,
-      research_title: this.props.research.research_title,
-      first_second: this.props.research.first_second,
-      agree_replace: agree
-    }
-    this.props.ChangeTeacher(payload)
-  }
+  // handleClick (agree) {
+  //   let payload = {
+  //     student_id: this.props.student_id,
+  //     semester: this.props.sem,
+  //     research_title: this.props.research.research_title,
+  //     first_second: this.props.research.first_second,
+  //     agree_replace: agree
+  //   }
+  //   this.props.ChangeTeacher(payload)
+  // }
 
   render () {
     const actions = [
