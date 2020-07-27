@@ -49,7 +49,7 @@ class ReplyDialogChange extends React.Component {
       }
       console.log('------- payload -------')
       console.log(payload)
-      //this.props.ChangeTeacher(payload)
+      this.props.ChangeTeacher(payload)
     })
     
 

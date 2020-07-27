@@ -121,16 +121,8 @@ class GroupChange extends React.Component {
   fetchData () {
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
-    console.log('------ tid ------')
-    console.log(tid)
-    console.log('------ sem ------')
-    console.log(sem)
     this.props.FetchChangeTeacherList(tid, sem)
     this.props.FetchResearchList(tid, sem)
-    console.log('----- this.props.changeTeacherList ----')
-    console.log(this.props.changeTeacherList)
-    console.log('----- this.props.research ----')
-    console.log(this.props.research)
   }
 
   componentDidMount () {
