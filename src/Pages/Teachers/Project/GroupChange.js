@@ -112,7 +112,6 @@ class GroupChange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: new Map(),
       sem: getSemester()
@@ -120,25 +119,14 @@ class GroupChange extends React.Component {
   }
 
   fetchData () {
-    this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
     console.log('------ tid ------')
     console.log(tid)
     console.log('------ sem ------')
     console.log(sem)
-    if( tid === '001' ){
-      // NOT A VALID TID
-      setTimeout(
-        () => {
-          console.log('----- fetchData AGAIN!!!! ----')
-          this.fetchData()
-        }, 1500)
-      return
-    }
     this.props.FetchChangeTeacherList(tid, sem)
     this.props.FetchResearchList(tid, sem)
-    this.setState({loading: false})
     console.log('----- this.props.changeTeacherList ----')
     console.log(this.props.changeTeacherList)
     console.log('----- this.props.research ----')
@@ -216,8 +204,8 @@ class GroupChange extends React.Component {
             size={50}
             left={40}
             top={20}
-            isLoading={this.state.loading} />
-          {(!this.state.loading && (Object.keys(changeTeacherList).length !== 0))
+            isLoading={this.props.loadChangeTeacherList} />
+          {(!this.props.loadChangeTeacherList && (Object.keys(changeTeacherList).length !== 0))
             ?
             // split each group in changeTeacher List, each item means a project
             changeTeacherList.map((item, i) => (  
@@ -330,7 +318,8 @@ const getSemester = () => {
 const mapStateToProps = (state) => ({
   idCard: state.Teacher.User.idCard, // check Redux/Teachers/Reducers/User.js
   changeTeacherList: state.Teacher.Research.changeTeacherList, // check Redux/Teachers/Reducers/Research.js
-  research: state.Teacher.Research.research // check Redux/Teachers/Reducers/Research.js
+  research: state.Teacher.Research.research, // check Redux/Teachers/Reducers/Research.js
+  loadChangeTeacherList: state.Teacher.Research.loadChangeTeacherList
 })
 const mapDispatchToProps = (dispatch) => ({
   FetchChangeTeacherList: (tid, sem) => dispatch(fetchChangeTeacherList(tid, sem)),

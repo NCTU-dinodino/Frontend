@@ -42,10 +42,10 @@ class ReplyDialogChange extends React.Component {
     students.map((p)=>{
       let payload = {
         student_id: p.student_id,
-        semester: this.props.sem,
+        semester: this.props.year,
         research_title: this.props.title,
         first_second: this.props.firstSecond,
-        agree_replace: parseInt(status, 10)
+        agree_replace: parseInt(status, 10) // DB input is integer
       }
       console.log('------- payload -------')
       console.log(payload)

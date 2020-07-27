@@ -88,6 +88,7 @@ const initialState = {
       ]
     }
   ],
+  loadApplyList: 0,
   research1: {
     cs_number: 0,
     other_number: 0,
@@ -308,23 +309,6 @@ const initialState = {
   },
   changeTeacherList: [
     { 
-      // applicants: [
-      //   {
-      //     student_id: '0616000',
-      //     sname: '柯文哲',
-      //     email: 'balabala@gmail.com',
-      //     phone: '0912345678',
-      //     first_second: '...',
-      //     student_status: 1
-      //   },
-      //   { student_id: '0616001',
-      //     sname: '蔡英文',
-      //     email: 'vegetable@gmail.com',
-      //     phone: '0987654321',
-      //     first_second: '...',
-      //     student_status: 1
-      //   }
-      // ],
       research_title: '圍棋 AI 擬人化 (Personification of Go AI)',
       status: 0,
       year: '108-2',
@@ -356,7 +340,8 @@ const initialState = {
         }
       ]
     },
-  ]
+  ],
+  loadChangeTeacherList: 1
 }
 
 // construct reducers
@@ -380,6 +365,6 @@ export default handleActions({
   },
   UPDATE_CHANGE_TEACHER_LIST: (state, action) => {
     console.log('UPDATE_CHANGE_TEACHER_LIST ACTION: ', { ...state, changeTeacherList: {...action.payload} })
-    return ({ ...state, changeTeacherList: [...action.payload] })
+    return ({ ...state, changeTeacherList: [...action.payload], loadChangeTeacherList: 0})
   }
 }, initialState)
