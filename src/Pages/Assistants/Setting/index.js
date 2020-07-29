@@ -9,8 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Upload from './Upload/Upload';
 import UploadControl from './Upload/UploadControl';
 
-// import Time from './Time/Time';
-// import TimeControl from './Time/TimeControl';
+import Time from './Time/Time';
 
 // import { 
 //   fetchCheck,
@@ -127,7 +126,7 @@ class index extends React.Component {
           ) : type === 'UPLOAD' ? (
             <Upload />
           ) : type === 'TIME' ? (
-            ''//<Time />
+            <Time />
           ) : ''
         }
         </div>
