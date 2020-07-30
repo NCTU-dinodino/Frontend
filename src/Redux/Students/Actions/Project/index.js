@@ -1,67 +1,73 @@
 
-import { createAction } from 'redux-actions'
+import { createActions } from 'redux-actions'
 import axios from 'axios'
+import { FETCHING_STATUS } from '../../../../Utilities/constant'
 // import FakeData from '../../../../Resources/FakeData'
 
-export const storeProjects = createAction('STORE_PROJECTS')
-export const storeProjectImage = createAction('STORE_PROJECT_IMAGE')
-export const storeProjectFile = createAction('STORE_PROJECT_FILE')
-export const storeProjectIntro = createAction('STORE_PROJECT_INTRO')
+const actions = createActions({
+  PROJECT: {
+    LIST: {
+      STORE: null
+    },
+    NEW: {
+      STORE: null,
+      SET_STATUS: null
+    },
+    DELETE: {
+      SET_STATUS: null
+    }
+  }
+})
 
-export const fetchProjects = (page = 1) => dispatch => {
+export const getProjects = () => dispatch => {
   axios.get('/students/research/list')
-    .then(res => dispatch(storeProjects(res.data)))
+    .then(res => dispatch(actions.project.list.store(res.data)))
     .catch(error => {
       console.log(error)
-      // dispatch(storeProjects(FakeData.Project))
+      // dispatch(actions.project.list.store(FakeData.Project))
     })
+}
+
+export const newProject = (payload) => dispatch => {
+  dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
+  axios.post('/students/research/showStudentStatus', { members: payload.members })
+    .then(res => {
+      dispatch(actions.project.new.store(res.data))
+      const qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
+
+      if (qualified) {
+        axios.post('/students/research/create', payload)
+          .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
+          .catch(err => {
+            console.log(err)
+            // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
+            dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
+          })
+      } else {
+        dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
+    })
+}
+
+export const newProjectReset = () => dispatch => {
+  dispatch(actions.project.new.store([]))
+  dispatch(actions.project.new.setStatus(FETCHING_STATUS.IDLE))
 }
 
 export const deleteProject = (payload) => dispatch => {
+  dispatch(actions.project.delete.setStatus(FETCHING_STATUS.FETCHING))
   axios.post('/students/research/delete', payload)
-    .then(res => {
-      window.location.reload()
-    })
+    .then(res => dispatch(actions.project.delete.setStatus(FETCHING_STATUS.DONE)))
     .catch(err => {
-      window.confirm('刪除失敗，請檢察網路連線')
       console.log(err)
+      dispatch(actions.project.delete.setStatus(FETCHING_STATUS.ERROR))
     })
 }
 
-export const editProject = (payload, handleClose) => dispatch => {
-  axios.post('/students/research/edit', payload)
-    .then(res => {
-      dispatch(storeProjectsIntro(payload.new_intro, payload.new_title, payload.semester))
-      dispatch(storeProjectsImage(payload.new_photo, payload.new_title, payload.semester))
-      dispatch(storeProjectsFile(payload.new_file, payload.new_title, payload.semester))
-      handleClose()
-    })
-    .catch(err => {
-      window.alert('儲存失敗，請檢察網路連線')
-      console.log(err)
-    })
-}
-
-export const storeProjectsImage = (encode, researchTitle, semester) => dispatch => {
-  let object = { encode, researchTitle, semester }
-  dispatch(storeProjectImage(object))
-}
-
-export const storeProjectsFile = (encode, researchTitle, semester) => dispatch => {
-  let object = { encode, researchTitle, semester }
-  dispatch(storeProjectFile(object))
-}
-
-export const storeProjectsIntro = (intro, researchTitle, semester) => dispatch => {
-  let object = { intro, researchTitle, semester }
-  dispatch(storeProjectIntro(object))
-}
-export const changeProjectProfessor = (payload) => dispatch => {
-  axios.post('/students/research/setReplace', payload)
-    .then(res => {
-    })
-    .catch(err => {
-      window.alert('儲存失敗，請檢察網路連線')
-      console.log(err)
-    })
+export const deleteProjectReset = () => dispatch => {
+  dispatch(actions.project.delete.setStatus(FETCHING_STATUS.IDLE))
 }

@@ -4,13 +4,14 @@ import { connect } from 'react-redux'
 import Navbar from '../../Components/Navbar'
 import { fetchUser } from '../../Redux/Students/Actions/User'
 import { getGraduationInfo } from '../../Redux/Students/Actions/Graduation'
-import { fetchProfessors } from '../../Redux/Students/Actions/Professor'
+import { getProfessors, getMentor } from '../../Redux/Students/Actions/Professor'
 
 class Head extends Component {
   componentDidMount () {
     this.props.fetchUser()
     this.props.getGraduationInfo()
-    this.props.fetchProfessor()
+    this.props.getProfessors()
+    this.props.getMentor()
   }
 
   render () {
@@ -35,7 +36,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   fetchUser: () => dispatch(fetchUser()),
   getGraduationInfo: () => dispatch(getGraduationInfo()),
-  fetchProfessor: () => dispatch(fetchProfessors())
+  getProfessors: () => dispatch(getProfessors()),
+  getMentor: () => dispatch(getMentor())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Head)
