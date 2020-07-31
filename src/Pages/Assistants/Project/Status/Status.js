@@ -21,6 +21,9 @@ import Dialog from '@material-ui/core/Dialog'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 
+import {
+  setScore,
+} from '../../../../Redux/Assistants/Actions/Project/Status'
 
 const ADD_STATUS_COLOR = [red['A100'], green[300]]
 const STATUS_COLOR_L = [red[100], green[200]]
@@ -275,7 +278,7 @@ class Status extends React.Component {
             <div style = {{ display: 'flex', paddingLeft: '20px', paddingRight: '20px' }}>
               <TextField
                 label='分數' type='number'
-                value={ this.state.score.score }
+                value={ this.state.score.score || '' }
                 onChange={ (event) => this.setState({ 
                   score: { ...this.state.score,
                     score: event.target.value
@@ -293,9 +296,13 @@ class Status extends React.Component {
               <TextField
                 label='評論'
                 margin='normal'
-                value={ this.state.score.comment }
+                value={ this.state.score.comment || '' }
                 className={classes.textField2}
-                onChange={ (event) => this.setState({ new_comment: event.target.value })}
+                onChange={ (event) => 
+                  this.setState({ score: { ...this.state.score,
+                    comment: event.target.value
+                  }})
+                }
                 InputLabelProps={{
                   classes: {
                     root: classes.label
@@ -332,15 +339,15 @@ class Status extends React.Component {
                 )
                   alert('分數低於60分或是90分以上需附上評論');
                 else {
-                  // this.props.set_scores({
-                  //   student_id: this.state.score.student.id,
-                  //   tname: this.state.score.teacher.name,
-                  //   research_title: this.state.student.title,
-                  //   first_second: this.props.first_second,
-                  //   semester: this.props.year + '-' + this.props.semester,
-                  //   new_score: this.state.score.score,
-                  //   new_comment: this.state.score.comment
-                  // })
+                  this.props.setScore({
+                    student_id: this.state.score.student.id,
+                    tname: this.state.score.teacher.name,
+                    research_title: this.state.score.title,
+                    first_second: this.props.first_second,
+                    semester: this.props.year + '-' + this.props.semester,
+                    new_score: this.state.score.score,
+                    new_comment: this.state.score.comment
+                  })
                   this.setState({ 
                     score: { ...this.state.score,
                       open: false,
@@ -363,6 +370,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  setScore: (payload) => dispatch(setScore(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Status))
