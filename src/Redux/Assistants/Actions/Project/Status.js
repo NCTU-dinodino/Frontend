@@ -67,8 +67,8 @@ export const uploadXLSX = (payload) => dispatch => {
 }
 
 export const fetchXLSX = (payload) => dispatch => {
-  dispatch(status_handle_change({tempplateDone: false}))
+  dispatch(status_handle_change({templateDone: false}))
   axios.post('/dataFormDownload', payload).then ( res => {
-    dispatch(status_handle_change({templateFile: res.data, tempplateDone: true}))
+    dispatch(status_handle_change({templateFile: res.data, templateDone: true}))
   })
 }
