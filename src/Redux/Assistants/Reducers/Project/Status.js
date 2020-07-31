@@ -178,6 +178,25 @@ export default handleActions({
   PROJECT_STATUS_HANDLE_CHANGE: (state, action) => ({ 
     ...state,
     ...action.payload
+  }),
+  PROJECT_STATUS_SET_SCORE: (state, action) => ({
+    ...state,
+    teachers: state.teachers.map(
+      teacher => teacher.professor_name !== action.payload.tname ? teacher : { ...teacher,
+        accepted: { ...teacher.accepted,
+          projects: teacher.accepted.projects.map(
+            project => project.title !== action.payload.research_title ? project : { ...project,
+              students: project.students.map(
+                student => student.id !== action.payload.student_id ? student : { ...student,
+                  score: action.payload.new_score,
+                  comment: action.payload.new_comment
+                }
+              )
+            }
+          )
+        }
+      }  
+    )
   })
 }, {
   ...initialState,

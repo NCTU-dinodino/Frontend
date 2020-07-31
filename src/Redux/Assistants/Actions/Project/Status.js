@@ -18,6 +18,7 @@ import axios from 'axios'
 // }
 
 export const status_handle_change = createAction('PROJECT_STATUS_HANDLE_CHANGE');
+export const set_score = createAction('PROJECT_STATUS_SET_SCORE')
 
 export const statusHandleChange = (payload) => dispatch => {
     dispatch(status_handle_change(payload));
@@ -70,5 +71,15 @@ export const fetchXLSX = (payload) => dispatch => {
   dispatch(status_handle_change({templateDone: false}))
   axios.post('/dataFormDownload', payload).then ( res => {
     dispatch(status_handle_change({templateFile: res.data, templateDone: true}))
+  })
+}
+
+export const setScore = payload => dispatch => {
+  axios.post('/assistants/research/setScore', payload).then( res => {
+    dispatch(set_score(payload))
+    window.alert("評分成功!")
+  }).catch( err => {
+    window.alert("評分失敗, 請連繫dino團隊!")
+    console.log(err)
   })
 }
