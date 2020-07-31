@@ -1,33 +1,37 @@
 
 import { handleActions } from 'redux-actions'
-import { FETCHING_STATUS } from '../../../../Utilities/constant'
 
 const initialState = {
-  data: [],
-  filter: {
-    name: '',
-    scount: 7
+  list: {
+    data: []
   },
-  status: FETCHING_STATUS.IDLE,
-  status_mail: FETCHING_STATUS.IDLE,
-  mentor: '',
-  past_projects: []
+  mentor: {
+    data: ''
+  },
+  pastProject: {
+    data: []
+  }
 }
 
 export default handleActions({
-  SET_STATUS: (state, action) => ({ ...state, status: action.payload }),
-  SET_MAIL_STATUS: (state, action) => ({ ...state, status_mail: action.payload }),
-  STORE_PROFESSORS: (state, action) => ({ ...state, data: action.payload }),
-  STORE_PROFESSOR_MENTOR: (state, action) => ({ ...state, mentor: action.payload[0].tname }),
-  STORE_PAST_PROJECTS: (state, action) => ({ ...state, past_projects: action.payload }),
-  UPDATE_FILTER: (state, action) => ({ ...state, filter: { ...state.filter, ...action.payload } }),
-  STORE_IMAGE: (state, action) => {
-    let newdata = state.data
-    let index = newdata.findIndex(x => { return x.tname === action.payload.tname })
-    newdata[index] = { ...newdata[index], photo: action.payload.url }
-    return {
-      ...state,
-      data: [...newdata]
+  PROFESSOR: {
+    LIST: {
+      STORE: (state, action) => ({ ...state, list: {
+        ...state.list,
+        data: action.payload
+      }})
+    },
+    MENTOR: {
+      STORE: (state, action) => ({ ...state, mentor: {
+        ...state.mentor,
+        data: action.payload
+      }})
+    },
+    PAST_PROJECT: {
+      STORE: (state, action) => ({ ...state, pastProject: {
+        ...state.pastProject,
+        data: action.payload
+      }})
     }
   }
 }, initialState)

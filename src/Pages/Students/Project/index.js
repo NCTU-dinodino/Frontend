@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { GridList } from 'material-ui/GridList'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { Grid } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import ProjectTile from './Tile'
-import { fetchProjects } from '../../../Redux/Students/Actions/Project'
-// import AddIcons from './AddProject'
-import './style.css'
+import Professor from '../Professor'
+import { ResponsiveContainer } from '../../../Components/Responsive'
+import { getProjects, newProjectReset, deleteProjectReset } from '../../../Redux/Students/Actions/Project'
+import { FETCHING_STATUS } from '../../../Utilities/constant'
 
 const styles = {
   root: {
@@ -15,59 +16,109 @@ const styles = {
     marginBottom: '50px',
     textAlign: 'center'
   },
+  divider: {
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 'large',
+    color: '#6C6C6C',
+    borderBottom: '1px solid #d2d2d2',
+    lineHeight: '0.1em',
+    margin: '40px 0 25px'
+  },
   gridList: {
     width: 1000,
     opacity: 1,
     overflowY: 'auto'
+  },
+  title: {
+    fontSize: '20px'
   }
 }
 
 class Index extends React.Component {
   componentDidMount () {
-    this.props.fetchData()
-    window.alert('請注意，本學期專題改由紙本申請')
+    this.props.getProjects()
+    // window.alert('請注意，本學期專題改由紙本申請')
+  }
+
+  componentDidUpdate (prevProps) {
+    const { newResponse, newStatus, deleteStatus } = this.props
+
+    if (newStatus !== prevProps.newStatus) {
+      if (newStatus === FETCHING_STATUS.DONE) {
+        this.props.getProjects()
+        this.props.newProjectReset()
+      }
+      else if (newStatus === FETCHING_STATUS.ERROR) {
+        let messages = '申請失敗!'
+        newResponse.forEach((response) => {
+          switch (response.status) {
+            case 3:
+              messages += `\n${response.student_id} 基礎程式設計成績待審核`
+              break
+            case 4:
+              messages += `\n${response.student_id} 本學期重複提交申請`
+              break
+            case 5:
+              messages += `\n${response.student_id} 已經修完專題一與專題二`
+              break
+            case 6:
+              messages += `\n${response.student_id} 未修過專題一`
+              break
+            default:
+              break
+          }
+        })
+        window.alert(messages)
+      }
+    }
+    if (deleteStatus !== prevProps.deleteStatus) {
+      if (deleteStatus === FETCHING_STATUS.DONE) {
+        this.props.getProjects()
+        this.props.deleteProjectReset()
+      }
+      else if (deleteStatus === FETCHING_STATUS.ERROR) {
+        window.alert('刪除失敗!')
+      }
+    }
   }
 
   render () {
+    const { classes, projects } = this.props
+
     return (
-      <MuiThemeProvider className='container'>
-        <div>
-          <div className='divide-horizontal-list'>
-            <div className='divide-horizontal-span-list' ref='top'>
-              <p >專題列表</p>
-            </div>
-          </div>
-          <div style={styles.root} className='hidden-xs hidden-sm'>
-            <GridList style={styles.gridList} cols={2} cellHeight={270} padding={1}>
-              {
-                this.props.data.map((tile, index) => (
-                  <ProjectTile data={tile} key={index} />
-                ))
-              }
-              {/* <AddIcons /> */}
-            </GridList>
-          </div>
-          <div style={styles.root} className='visible-xs visible-sm'>
-            <GridList cols={1} cellHeight={270} padding={1}>
-              {
-                this.props.data.map((tile, index) => (
-                  <ProjectTile data={tile} key={index} rwd />
-                ))
-              }
-              {/* <AddIcons rwd /> */}
-            </GridList>
-          </div>
+      <ResponsiveContainer justify='center'>
+        <div className={classes.divider}>
+          <p className={classes.title}>專題列表</p>
         </div>
-      </MuiThemeProvider>
+        <Grid item xs={12} md={10} lg={8}>
+          {
+            projects.map((project, index) => (
+              <ProjectTile project={project} key={index} />
+            ))
+          }
+        </Grid>
+        <div className={classes.divider}>
+          <p className={classes.title}>教授列表</p>
+        </div>
+        <Grid item xs={12} md={10} lg={10} style={{ marginBottom: '50px' }}>
+          <Professor />
+        </Grid>
+      </ResponsiveContainer>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  data: state.Student.Project.data
+  projects: state.Student.Project.list.data,
+  newResponse: state.Student.Project.new.data,
+  newStatus: state.Student.Project.new.status,
+  deleteStatus: state.Student.Project.delete.status
 })
 const mapDispatchToProps = (dispatch) => ({
-  fetchData: () => dispatch(fetchProjects())
+  getProjects: () => dispatch(getProjects()),
+  newProjectReset: () => dispatch(newProjectReset()),
+  deleteProjectReset: () => dispatch(deleteProjectReset())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))

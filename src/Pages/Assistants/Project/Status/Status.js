@@ -337,7 +337,6 @@ class Status extends React.Component {
                     || this.state.score.comment === null
                   )
                 )
-                  console.log(this.state.score.comment),
                   alert('分數低於60分或是90分以上需附上評論');
                 else {
                   this.props.setScore({

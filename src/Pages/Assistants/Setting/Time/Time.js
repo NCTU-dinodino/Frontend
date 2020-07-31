@@ -1,16 +1,21 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
+import TextField from '@material-ui/core/TextField';
 
-import { FormControl } from "react-bootstrap";
-import moment from "moment";
-import DateTimeRangeContainer from "react-advanced-datetimerange-picker";
-
-import { getSemester } from '../../../../Utilities'
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
 
 import { 
   timeHandleChange,
+  fetchTime
 } from '../../../../Redux/Assistants/Actions/Setting/Time'
+
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = theme => ({
   container: {
@@ -19,8 +24,20 @@ const styles = theme => ({
     marginBottom: '50px'
   },
   title: {
+    margin: '20px',
     fontSize: '30px',
-    fontWeight: 'bold'
+  },
+  textField: {
+    margin: '20px',
+    flex: 0.4,
+  },
+  btwSign: {
+    margin: '20px',
+    fontSize: '30px',
+  },
+  button: {
+    margin: '10px',
+    fontSize: '30px'
   }
 })
 
@@ -29,92 +46,120 @@ class Time extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: null
+      displayType: null,
+      type: null,
+      open: false,
+      timeRange: {
+        begin: null,
+        end: null
+      }
     }
+    props.fetchTime();
   }
 
-  graduateApplyCallBack = (startDate, endDate) => {
-    this.props.timeHandleChange({
-      graduation: {
-        start: startDate,
-        end: endDate
-      }
-    })
-  }
-  projectApplyCallBack = (startDate, endDate) => {
-    this.props.timeHandleChange({
-      project: {
-        start: startDate,
-        end: endDate
-      }
-    })
-  }
-  verifyApplyCallBack = (startDate, endDate) => {
-    this.props.timeHandleChange({
-      verify: {
-        start: startDate,
-        end: endDate
-      }
-    })
+  handleClickOpen = (displayType, type, timeRange) => {
+    this.setState({ open: true, displayType, type, timeRange });
+  };
+
+  handleCancel = () => {
+    this.setState({ open: false });
+  };
+
+  handleAgree = () => {
+    this.props.timeHandleChange({[this.state.type]: this.state.timeRange})
+    this.setState({ open: false });
   }
 
-  renderVanillaPicker(local, type, applyCallback) {
-    let {start, end} = this.props.Time[type]
-    let value = 
-      (start === null || end === null) ? 
-      '尚未設定' : 
-      `${start.format("YYYY-MM-DD HH:mm")} - ${end.format("YYYY-MM-DD HH:mm")}`;
-    let disabled = true;
+  timeSetting = (classes, displayType, type, timeRange) => {
     return (
-      <div>
-        <DateTimeRangeContainer
-          start={start ? start : moment()}
-          end={end ? end : moment(start).add(2, "months").subtract(1, "minute")}
-          local={local}
-          applyCallback={applyCallback}
-          ranges={{}}
-          smartMode
-        >
-          <FormControl
-            id="formControlsTextB"
-            type="text"
-            label="Text"
-            placeholder="Enter text"
-            style={{ cursor: "pointer" }}
-            disabled={disabled}
-            value={value}
-          />
-        </DateTimeRangeContainer>
-        <br />
-      </div>
-    );
-  }
-
-  timeSelector = (title, type, applyCallback) => {
-    let local = {
-      format: "YYYY-MM-DD HH:mm",
-      sundayFirst: false
-    };
-    return (
-      <div>
-        <div>{title}</div>
-        {this.renderVanillaPicker(local, type, applyCallback)}
+      <div style={{display: "flex"}}>
+        <div className={classes.title}>
+          {displayType}
+        </div>
+        <TextField
+          type="datetime-local"
+          value={timeRange.begin}
+          className={classes.textField}
+          InputProps={{ readOnly: true }}
+        />
+        <div className={classes.btwSign}>~</div>
+        <TextField
+          type="datetime-local"
+          value={timeRange.end}
+          className={classes.textField}
+          InputProps={{ readOnly: true }}
+        />
+        <IconButton className={classes.button} onClick={ () => this.handleClickOpen(displayType, type, timeRange) }>
+          <Icon>edit_icon</Icon>
+        </IconButton>
       </div>
     )
   }
 
   render () {
     const { classes } = this.props
-    const SEMESTER_CN = ['', '上', '下']
     return (
       <div className={classes.container}>
-        <div className={classes.title}>
-          {getSemester().substr(0, 3) + SEMESTER_CN[getSemester().substr(4, 5)] + "學期"}
-        </div>
-        {this.timeSelector('畢業預審', 'graduation', this.graduateApplyCallBack)}
-        {this.timeSelector('專題申請', 'project', this.projectApplyCallBack)}
-        {this.timeSelector('抵免審核', 'verify', this.verifyApplyCallBack)}
+        <div style={{"width": '100%', "height": '50px'}} />
+        {this.timeSetting(classes, "專題申請", "project", this.props.Time.project)}
+        {this.timeSetting(classes, "畢業預審", "graduation", this.props.Time.graduation)}
+        {this.timeSetting(classes, "課程抵免", "verify", this.props.Time.verify)}
+
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+        >
+          <DialogTitle>
+            <div style={{fontSize: '30px'}}>
+              {this.state.displayType}
+            </div>
+          </DialogTitle>
+          <DialogContent>
+            <span style={{fontSize: '18px'}}>開始</span>
+            <TextField
+              type="datetime-local"
+              value={this.state.timeRange.begin}
+              className={classes.textField}
+              onChange={ (e) => 
+                this.setState({
+                  timeRange: {
+                    ...this.state.timeRange,
+                    begin: e.target.value
+                  }
+                })
+              }
+            />
+            <br />
+            <span style={{fontSize: '18px'}}>結束</span>
+            <TextField
+              type="datetime-local"
+              value={this.state.timeRange.end}
+              className={classes.textField}
+              onChange={ (e) => 
+                this.setState({
+                  timeRange: {
+                    ...this.state.timeRange,
+                    end: e.target.value
+                  }
+                })
+              }
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={this.handleCancel} 
+              style={{ color: 'grey', fontSize: '20px'}}
+            >
+              取消
+            </Button>
+            <Button onClick={this.handleAgree}
+              style={{ color: 'blue', fontSize: '20px'}} 
+            >
+              確認
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
+
     )
   }
 }
@@ -125,6 +170,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   timeHandleChange: (payload) => dispatch(timeHandleChange(payload)),
+  fetchTime: () => dispatch(fetchTime())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Time))
