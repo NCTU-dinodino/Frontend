@@ -6,12 +6,20 @@ import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 
+import Chip from '@material-ui/core/Chip'
 import Divider from '@material-ui/core/Divider';
 
 import {
   fetchStatus,
   statusHandleChange,
-  fetchCsv
+  fetchCsv,
+  fetchXLSX,
+  uploadXLSX,
+  getUnScoreList,
+  getNotOnCosList,
+  getNotInSystemList,
+  clearPeopleArray,
+  sendWarningMail
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 
 import MenuItem from '@material-ui/core/MenuItem'
@@ -20,10 +28,10 @@ import Button from '@material-ui/core/Button';
 import { CSVLink } from "react-csv"
 import { base64encode } from '../../../../Utilities'
 
-import {
-  fetchXLSX,
-  uploadXLSX
-} from '../../../../Redux/Assistants/Actions/Project/Status'
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = theme => ({
   containerBlock: {
@@ -58,7 +66,12 @@ const styles = theme => ({
   button: {
     width: '100%',
     fontSize: '16px'
-  }
+  },
+  chip: {
+    margin: '3px',
+    padding: '3px',
+    fontSize: '15px',
+  },
 })
 
 class StatusControl extends React.Component {
@@ -66,7 +79,10 @@ class StatusControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        
+      openMail: false,
+      mailTitle: '',
+      mailType: "",
+      openWithdraw: false,
     }
     this.fileRef = React.createRef()
     this.props.fetch_xlsx({"data_type": "專題選課名單"})
@@ -349,6 +365,10 @@ class StatusControl extends React.Component {
             variant="contained" 
             className={classes.button}
             style={{display: 'inline'}}
+            onClick={ () => {
+              this.props.getNotOnCosList()
+              this.setState({ openMail: true, mailTitle: '至選課系統選課寄信提醒', mainType: "1" })
+            }}
           >
             至選課系統選課
           </Button>
@@ -358,6 +378,10 @@ class StatusControl extends React.Component {
             variant="contained" 
             className={classes.button}
             style={{display: 'inline'}}
+            onClick={ () => {
+              this.props.getNotInSystemList()
+              this.setState({ openMail: true, mailTitle: '至dinodino申請專題寄信提醒', mailType: "0" })
+            }}
           >
             至dinodino申請
           </Button>
@@ -367,6 +391,10 @@ class StatusControl extends React.Component {
             variant="contained" 
             className={classes.button}
             style={{display: 'inline'}}
+            onClick={ () => {
+              this.props.getUnScoreList()
+              this.setState({ openMail: true, mailTitle: '至dinodino評分專題寄信提醒', mailType: "2" })
+            }}
           >
             至dinodino評分
           </Button>
@@ -383,14 +411,106 @@ class StatusControl extends React.Component {
             variant="contained" 
             className={classes.button}
             style={{display: 'inline'}}
+            onClick={ () => {
+              this.props.getNotOnCosList()
+              this.setState({ openWithdraw: true })
+            }}
+            disabled={true}
           >
             退選未選課專題生
           </Button>
         </div>
-        <div className={classes.containerBlock}　style={{height: '50px'}}>
+        <div className={classes.containerBlock}　style={{height: '100px'}}>
         </div>
       </div>}
-    	</div>
+        <Dialog
+          open={this.state.openMail}
+          onClose={
+            () => { 
+              this.setState({ openMail: false })
+            }
+          }
+        >
+          <DialogTitle>
+            <div style={{fontSize: '30px'}}>
+              {this.state.mailTitle}
+            </div>
+          </DialogTitle>
+          <DialogContent>
+            收件者: <br />
+            {
+              Status.people.map( (person, idx) => 
+              <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
+              )
+            }
+          </DialogContent>
+          <DialogActions>
+            <Button 
+              onClick={
+                () => { 
+                  this.setState({ openMail: false })
+                }
+              }
+              style={{ color: 'grey', fontSize: '20px'}}
+            >
+              取消
+            </Button>
+            <Button onClick={ 
+              () => this.props.sendWarningMail({
+                type: this.state.mailType,
+                people: Status.people
+              })
+            }
+              style={{ color: 'blue', fontSize: '20px'}} 
+            >
+              確認
+            </Button>
+          </DialogActions>
+        </Dialog>
+        <Dialog
+          open={this.state.openWithdraw}
+          onClose={
+            () => { 
+              this.setState({ openWithdraw: false })
+            }
+          }
+        >
+          <DialogTitle>
+            <div style={{fontSize: '30px', color: 'red'}}>
+              退選專題
+            </div>
+          </DialogTitle>
+          <DialogContent>
+            退選學生: <br />
+            {
+              Status.people.map( (person, idx) => 
+              <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
+              )
+            }
+          </DialogContent>
+          <DialogActions>
+            <Button 
+              onClick={
+                () => { 
+                  this.setState({ openWithdraw: false })
+                }
+              }
+              style={{ color: 'grey', fontSize: '20px'}}
+            >
+              取消
+            </Button>
+            <Button onClick={ 
+              () => this.props.withdrawStudent({
+                people: this.getWithdrawList(Status.teachers, Status.people)
+              })
+            }
+              style={{ color: 'red', fontSize: '20px'}} 
+            >
+              確認
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     )
   }
 }
@@ -404,7 +524,11 @@ const mapDispatchToProps = (dispatch) => ({
   fetch_status: (payload) => dispatch(fetchStatus(payload)),
   fetch_csv: (payload) => dispatch(fetchCsv(payload)),
   fetch_xlsx: (payload) => dispatch(fetchXLSX(payload)),
-  upload_xlsx: (payload) => dispatch(uploadXLSX(payload))
+  upload_xlsx: (payload) => dispatch(uploadXLSX(payload)),
+  getUnScoreList: () => dispatch(getUnScoreList()),
+  getNotOnCosList: () => dispatch(getNotOnCosList()),
+  getNotInSystemList: () => dispatch(getNotInSystemList()),
+  sendWarningMail: (payload) => dispatch(sendWarningMail(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))

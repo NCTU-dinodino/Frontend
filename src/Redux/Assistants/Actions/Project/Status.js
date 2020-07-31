@@ -19,6 +19,7 @@ import axios from 'axios'
 
 export const status_handle_change = createAction('PROJECT_STATUS_HANDLE_CHANGE');
 export const set_score = createAction('PROJECT_STATUS_SET_SCORE')
+export const get_unscore_teacher_list = createAction('PROJECT_STATUS_GET_UNSCORE_TEACHER_LIST')
 
 export const statusHandleChange = (payload) => dispatch => {
     dispatch(status_handle_change(payload));
@@ -35,6 +36,7 @@ export const fetchStatus = (payload) => dispatch => {
       }))
     }))
   }).catch(err => {
+    window.alert('獲取專題列表失敗')
     console.log(err)
   })
 }
@@ -82,4 +84,41 @@ export const setScore = payload => dispatch => {
     window.alert("評分失敗, 請連繫dino團隊!")
     console.log(err)
   })
+}
+
+export const getUnScoreList = () => dispatch => {
+  dispatch(get_unscore_teacher_list())
+}
+
+export const getNotOnCosList = () => dispatch => {
+  axios.get('/assistants/research/notOnCosList').then( res => {
+    dispatch(status_handle_change({people: res.data}))
+  }).catch( err => {
+    dispatch(status_handle_change({people: []}))
+    window.alert("獲取未選課列表失敗, 請連繫dino團隊!")
+    console.log(err)
+  })
+}
+
+export const getNotInSystemList = () => dispatch => {
+  axios.get('/assistants/research/notInSystemList').then( res => {
+    dispatch(status_handle_change({people: res.data}))
+  }).catch( err => {
+    dispatch(status_handle_change({people: []}))
+    window.alert("獲取未至dino申請列表失敗, 請連繫dino團隊!")
+    console.log(err)
+  })
+}
+
+export const sendWarningMail = (payload) => dispatch => {
+  axios.post('/assistants/research/SendWarningEmail', payload).then( res => {
+    window.alert("寄信成功!")
+  }).catch( err => {
+    window.alert("寄信失敗, 請連繫dino團隊!")
+    console.log(err)
+  })
+}
+
+export const getWithDrawList = (payload) => dispatch => {
+  
 }
