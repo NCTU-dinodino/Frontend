@@ -56,3 +56,19 @@ export const fetchCsv = (payload) => dispatch => {
     dispatch(status_handle_change({csvArr: csvArr, csvDone: true}))
   })
 }
+
+export const uploadXLSX = (payload) => dispatch => {
+  axios.post('/dataUpload', payload).then( res => {
+    window.alert("檔案上傳至伺服器成功, 正在處理資料...")
+  }).catch( err => {
+    window.alert("檔案上傳至伺服器失敗, 請檢查連線是否有問題, 或是通知dinodino開發團隊!");
+    console.log(err)
+  })
+}
+
+export const fetchXLSX = (payload) => dispatch => {
+  dispatch(status_handle_change({templateDone: false}))
+  axios.post('/dataFormDownload', payload).then ( res => {
+    dispatch(status_handle_change({templateFile: res.data, templateDone: true}))
+  })
+}
