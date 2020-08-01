@@ -134,9 +134,16 @@ class StatusControl extends React.Component {
     base64encode(file)
       .then(encoded => {
         this.props.upload_xlsx({
-          file_data: encoded.split('base64,')[1],
-          data_type: "專題選課名單",
-          semester: Status.year + '-' + Status.semester
+          upload: {
+            file_data: encoded.split('base64,')[1],
+            data_type: "專題選課名單",
+            semester: Status.year + '-' + Status.semester
+          },
+          refresh: {
+            year: Status.year,
+            semester: Status.semester,
+            first_second: Status.first_second
+          }
         })
         // this.props.uploadHandleChange(encoded)
         // this.setState({ filename: file.name })

@@ -64,8 +64,9 @@ export const fetchCsv = (payload) => dispatch => {
 }
 
 export const uploadXLSX = (payload) => dispatch => {
-  axios.post('/dataUpload', payload).then( res => {
+  axios.post('/dataUpload', payload.upload).then( res => {
     window.alert("檔案上傳至伺服器成功, 正在處理資料...")
+    fetchStatus(payload.refresh)
   }).catch( err => {
     window.alert("檔案上傳至伺服器失敗, 請檢查連線是否有問題, 或是通知dinodino開發團隊!");
     console.log(err)
