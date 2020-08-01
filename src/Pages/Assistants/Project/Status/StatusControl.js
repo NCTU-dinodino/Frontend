@@ -18,7 +18,6 @@ import {
   getUnScoreList,
   getNotOnCosList,
   getNotInSystemList,
-  clearPeopleArray,
   sendWarningMail
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 

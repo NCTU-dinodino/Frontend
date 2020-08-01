@@ -40,6 +40,7 @@ export const fetchStatus = (payload) => dispatch => {
   }).catch(err => {
     window.alert('獲取專題列表失敗')
     console.log(err)
+    dispatch(status_handle_change({ loading: false }))
   })
 }
 

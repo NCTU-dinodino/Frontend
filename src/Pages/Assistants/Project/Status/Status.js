@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
 import DoneIcon from '@material-ui/icons/Done'
 import EditIcon from '@material-ui/icons/Edit'
+import ClearIcon from '@material-ui/icons/Clear'
 import Tooltip from '@material-ui/core/Tooltip'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Dialog from '@material-ui/core/Dialog'
@@ -207,27 +208,35 @@ class Status extends React.Component {
                                         label={this.hightlight(student.id + " " + student.name, Status.input)}
                                         className={classes.chip}
                                         style={{ background: ADD_STATUS_COLOR[parseInt(student.add_status, 10)] }}
-                                        deleteIcon={student.score === null ? 
-                                          <EditIcon style={{ fontSize: 30, marginRight: '5px' }}/>
-                                          :
-                                          <DoneIcon style={{ fontSize: 30, marginRight: '5px' }}/>
+                                        deleteIcon={
+                                          student.add_status === "0" ? 
+                                            <ClearIcon style={{ fontSize: 30, marginRight: '5px'}} /> : 
+                                          student.score === null ? 
+                                            <EditIcon style={{ fontSize: 30, marginRight: '5px' }}/>
+                                            :
+                                            <DoneIcon style={{ fontSize: 30, marginRight: '5px' }}/>
                                         }
-                                        onDelete={ () => this.setState({
-                                          score: {
-                                            open: true,
-                                            title: project.title,
-                                            score: student.score,
-                                            comment: student.comment,
-                                            student: {
-                                              id: student.id,
-                                              name: student.name
-                                            },
-                                            teacher: {
-                                              id: teacher.professor_id,
-                                              name: teacher.professor_name
-                                            }
+                                        onDelete={ 
+                                          () => { 
+                                            if (student.add_status === "1")
+                                              this.setState({
+                                                score: {
+                                                  open: true,
+                                                  title: project.title,
+                                                  score: student.score,
+                                                  comment: student.comment,
+                                                  student: {
+                                                    id: student.id,
+                                                    name: student.name
+                                                  },
+                                                  teacher: {
+                                                    id: teacher.professor_id,
+                                                    name: teacher.professor_name
+                                                  }
+                                                }
+                                              })
                                           }
-                                        }) }
+                                        }
                                         avatar={<Avatar style={{ fontSize: 20, background: STATUS_COLOR_L[parseInt(student.add_status, 10)] }}>{STUDENT_STATUS_CN[parseInt(student.status, 10)]}</Avatar>}
                                       />
                                     </Tooltip>
