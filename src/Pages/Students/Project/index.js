@@ -64,7 +64,7 @@ class Index extends React.Component {
               messages += `\n${response.student_id} 本學期重複提交申請`
               break
             case 5:
-              messages += `\n${response.student_id} 已經修完專題一與專題二`
+              messages += `\n${response.student_id} 專題一和專題二皆只能修一次`
               break
             case 6:
               messages += `\n${response.student_id} 未修過專題一`
