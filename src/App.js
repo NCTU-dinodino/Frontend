@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import axios from 'axios'
@@ -20,8 +20,8 @@ const theme = createMuiTheme({
     }
   }
 })
-
-const store = createStore(Reducers, applyMiddleware(thunk))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(Reducers, composeEnhancers(applyMiddleware(thunk)))
 const { dispatch } = store
 
 // 在 response 回來後更新 timer signal，讓自動登出重新計時

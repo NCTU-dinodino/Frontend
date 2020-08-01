@@ -10,7 +10,7 @@ const initialState = {
     mail: 'test@gmail.com'
   }
 }
-
+// construct reducers
 export default handleActions({
   UPDATE_USER_INFO: (state, action) => {
     console.log('UPDATE_USER_INFO ACTION: ', {...state, idCard: {...action.payload}})
