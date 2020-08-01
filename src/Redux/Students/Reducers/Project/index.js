@@ -12,6 +12,9 @@ const initialState = {
   },
   delete: {
     status: FETCHING_STATUS.IDLE
+  },
+  times: {
+    status: FETCHING_STATUS.IDLE
   }
 }
 
@@ -38,6 +41,12 @@ export default handleActions({
         ...state.delete,
         status: action.payload
       }})
-    }
+    },
+    TIMES: {
+      SET_STATUS: (state, action) => ({ ...state, times: {
+        ...state.times,
+        status: action.payload
+      }})
+    },
   }
 }, initialState)

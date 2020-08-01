@@ -2,7 +2,7 @@
 import { createActions } from 'redux-actions'
 import axios from 'axios'
 import { FETCHING_STATUS } from '../../../../Utilities/constant'
-// import FakeData from '../../../../Resources/FakeData'
+import FakeData from '../../../../Resources/FakeData'
 
 const actions = createActions({
   PROJECT: {
@@ -15,6 +15,9 @@ const actions = createActions({
     },
     DELETE: {
       SET_STATUS: null
+    },
+    TIMES: {
+      SET_STATUS: null
     }
   }
 })
@@ -24,7 +27,7 @@ export const getProjects = () => dispatch => {
     .then(res => dispatch(actions.project.list.store(res.data)))
     .catch(error => {
       console.log(error)
-      // dispatch(actions.project.list.store(FakeData.Project))
+      dispatch(actions.project.list.store(FakeData.Project))
     })
 }
 
@@ -40,7 +43,7 @@ export const newProject = (payload) => dispatch => {
           .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
           .catch(err => {
             console.log(err)
-            // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
+            dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
             dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
           })
       } else {
@@ -70,4 +73,26 @@ export const deleteProject = (payload) => dispatch => {
 
 export const deleteProjectReset = () => dispatch => {
   dispatch(actions.project.delete.setStatus(FETCHING_STATUS.IDLE))
+}
+
+export const getTimes = () => dispatch => {
+  dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
+  axios.get('/assistants/getTimes')
+    .then(res => {
+      var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
+      var date = today.getFullYear() + '-'
+                + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+                + ('0' + today.getDate()).slice(-2) + 'T'
+                + ('0' + today.getHours()).slice(-2) + ':'
+                + ('0' + today.getMinutes()).slice(-2)
+
+      if (begin > date || end < date )
+        dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+      else 
+        dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
+    })
 }
