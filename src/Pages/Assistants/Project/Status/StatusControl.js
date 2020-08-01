@@ -18,7 +18,8 @@ import {
   getUnScoreList,
   getNotOnCosList,
   getNotInSystemList,
-  sendWarningMail
+  sendWarningMail,
+  withdrawStudents
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 
 import MenuItem from '@material-ui/core/MenuItem'
@@ -31,6 +32,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+import red from '@material-ui/core/colors/red'
 
 const styles = theme => ({
   containerBlock: {
@@ -71,6 +74,10 @@ const styles = theme => ({
     padding: '3px',
     fontSize: '15px',
   },
+  dialog: {
+    minWidth: '60vw',
+    minHeight: '40vh'
+  }
 })
 
 class StatusControl extends React.Component {
@@ -148,6 +155,24 @@ class StatusControl extends React.Component {
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
+  }
+
+  getWithdrawList = () => {
+    const { Status } = this.props
+    return Status.teachers.reduce( (teacher_students_flatten, teacher) => [ ...teacher_students_flatten, 
+      ...teacher.accepted.projects.reduce( (project_students_flatten, project) => [ ...project_students_flatten,
+        ...project.students
+          .filter( student => student.add_status === "0" )
+          .map( student => { 
+            return { 
+              student_id: student.id,
+              research_title: project.title,
+              semester: student.semester,
+              first_second: student.first_second
+            }
+          })
+      ], [])
+    ], [])
   }
 
   render () {
@@ -414,7 +439,6 @@ class StatusControl extends React.Component {
               this.props.getNotOnCosList()
               this.setState({ openWithdraw: true })
             }}
-            disabled={true}
           >
             退選未選課專題生
           </Button>
@@ -429,6 +453,7 @@ class StatusControl extends React.Component {
               this.setState({ openMail: false })
             }
           }
+          classes={{ paper: classes.dialog }}
         >
           <DialogTitle>
             <div style={{fontSize: '30px'}}>
@@ -473,6 +498,7 @@ class StatusControl extends React.Component {
               this.setState({ openWithdraw: false })
             }
           }
+          classes={{ paper: classes.dialog }}
         >
           <DialogTitle>
             <div style={{fontSize: '30px', color: 'red'}}>
@@ -483,7 +509,7 @@ class StatusControl extends React.Component {
             退選學生: <br />
             {
               Status.people.map( (person, idx) => 
-              <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
+              <Chip label={person.id + person.name} className={classes.chip} style={{ backgroundColor: red[100] }} key={idx}/>
               )
             }
           </DialogContent>
@@ -499,9 +525,17 @@ class StatusControl extends React.Component {
               取消
             </Button>
             <Button onClick={ 
-              () => this.props.withdrawStudent({
-                people: this.getWithdrawList(Status.teachers, Status.people)
-              })
+              () => {
+                this.props.withdrawStudents({
+                  people: this.getWithdrawList(),
+                  refresh: {
+                    year: Status.year,
+                    semester: Status.semester,
+                    first_second: Status.first_second
+                  }
+                })
+                this.setState({ openWithdraw: false })
+              }
             }
               style={{ color: 'red', fontSize: '20px'}} 
             >
@@ -527,7 +561,8 @@ const mapDispatchToProps = (dispatch) => ({
   getUnScoreList: () => dispatch(getUnScoreList()),
   getNotOnCosList: () => dispatch(getNotOnCosList()),
   getNotInSystemList: () => dispatch(getNotInSystemList()),
-  sendWarningMail: (payload) => dispatch(sendWarningMail(payload))
+  sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
+  withdrawStudents: (payload) => dispatch(withdrawStudents(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))

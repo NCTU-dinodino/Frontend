@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
 
 const initialState = {
-  teachers: [
+  teachers: [ /*
     {
       "professor_name": "吳凱強",
       "professor_id": "T9003",
@@ -162,7 +162,7 @@ const initialState = {
         "projects": []
       }
     }
-  ],
+  */],
   input: '',
   year: '',
   semester: '',
@@ -171,11 +171,11 @@ const initialState = {
   csvDone: true,
   templateDone: false,
   templateFile: '',
-  people: [
+  people: [ /*
     {"id": "0616000", "name": "people1"},
     {"id": "0616001", "name": "people2"},
     {"id": "0616001", "name": "people2"}
-  ],
+  */],
   loading: true
 }
 

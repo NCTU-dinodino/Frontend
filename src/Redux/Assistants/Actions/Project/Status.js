@@ -122,6 +122,13 @@ export const sendWarningMail = (payload) => dispatch => {
   })
 }
 
-export const getWithDrawList = (payload) => dispatch => {
-  
+export const withdrawStudents = (payload) => dispatch => {
+  console.log(payload)
+  Promise.all(payload.people.map( person =>
+    axios.post('/assistants/research/delete', person).then( res => {
+    }).catch( err => {
+      window.alert("退選" + person.student_id + "失敗, 請連繫dino團隊!")
+      console.log(err)
+    })
+  )).then( res => dispatch(fetchStatus(payload.refresh)))
 }
