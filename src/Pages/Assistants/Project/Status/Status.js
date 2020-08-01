@@ -295,7 +295,7 @@ class Status extends React.Component {
             <div style = {{ display: 'flex', paddingLeft: '20px', paddingRight: '20px' }}>
               <TextField
                 label='分數' type='number'
-                value={ this.state.score.score || '' }
+                value={ this.state.score.score === null ? '' : this.state.score.score }
                 onChange={ (event) => this.setState({ 
                   score: { ...this.state.score,
                     score: event.target.value
