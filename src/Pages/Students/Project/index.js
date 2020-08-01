@@ -79,10 +79,8 @@ class Index extends React.Component {
     }
     if (deleteStatus !== prevProps.deleteStatus) {
       if (deleteStatus === FETCHING_STATUS.DONE) {
-        if ( window.confirm('刪除此申請單將會連同同組組員申請單一起刪除, 確定要刪除嗎?') ) {
-          this.props.getProjects()
-          this.props.deleteProjectReset()
-        }
+        this.props.getProjects()
+        this.props.deleteProjectReset()
       }
       else if (deleteStatus === FETCHING_STATUS.ERROR) {
         window.alert('刪除失敗!')
