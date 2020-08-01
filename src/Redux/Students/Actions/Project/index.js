@@ -76,13 +76,23 @@ export const deleteProjectReset = () => dispatch => {
 }
 
 export const getTimes = () => dispatch => {
-  dispatch(actions.project.time.setStatus(FETCHING_STATUS.FETCHING))
+  dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
   axios.get('/assistants/getTimes')
     .then(res => {
-      dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
+      var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
+      var date = today.getFullYear() + '-'
+                + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+                + ('0' + today.getDate()).slice(-2) + 'T'
+                + ('0' + today.getHours()).slice(-2) + ':'
+                + ('0' + today.getMinutes()).slice(-2)
+
+      if (begin > date || end < date )
+        dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+      else 
+        dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
     })
     .catch(error => {
       console.log(error)
-      dispatch(actions.project.times.store(FETCHING_STATUS.ERROR))
+      dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
     })
 }
