@@ -352,8 +352,8 @@ class Status extends React.Component {
                     student_id: this.state.score.student.id,
                     tname: this.state.score.teacher.name,
                     research_title: this.state.score.title,
-                    first_second: this.props.first_second,
-                    semester: this.props.year + '-' + this.props.semester,
+                    first_second: Status.first_second,
+                    semester: Status.year + '-' + Status.semester,
                     new_score: this.state.score.score,
                     new_comment: this.state.score.comment
                   })
