@@ -6,6 +6,7 @@ export const UpdateApplyList = createAction('UPDATE_APPLY_LIST')
 export const UpdateResearchList = createAction('UPDATE_RESEARCH_LIST')
 export const UpdateResearchList1 = createAction('UPDATE_RESEARCH_LIST_1')
 export const UpdateResearchList2 = createAction('UPDATE_RESEARCH_LIST_2')
+export const UpdateChangeTeacherList = createAction('UPDATE_CHANGE_TEACHER_LIST')
 
 export const ChangeTeacher = (payload) => dispatch => {
   axios.post('/professors/research/setReplace', payload)
@@ -18,10 +19,29 @@ export const ChangeTeacher = (payload) => dispatch => {
     })
 }
 
+export const fetchChangeTeacherList = (tid, sem) => dispatch => {
+  // console.log('----- changeTeacherList ----')
+  // console.log('tid: ' + tid)
+  // console.log('sem: ' + sem)
+  axios.post('/professors/research/changeTeacherList', {
+    teacherId: tid,
+    sem: '108-1'
+  }).then(res => {
+    console.log('------ChangeTeacher--------');
+    dispatch(UpdateChangeTeacherList(res.data))
+  }).catch(err => {
+    console.log(err)
+  })
+}
+
 export const fetchResearchApplyList = (tid) => dispatch => {
+  // console.log('----- fetchResearchApplyList ----')
+  // console.log('tid: ' + tid)
+  //console.log('sem: ' + sem)
   axios.get('/professors/researchApply/list', {
     id: tid
   }).then(res => {
+    console.log(res);
     dispatch(UpdateApplyList(res.data))
   }).catch(err => {
     console.log(err)
@@ -29,13 +49,14 @@ export const fetchResearchApplyList = (tid) => dispatch => {
 }
 
 export const fetchResearchList = (tid, sem) => dispatch => {
-  console.log('----- fetchResearchList ----')
-  console.log('tid: ' + tid)
-  console.log('sem: ' + sem)
+  // console.log('----- fetchResearchList ----')
+  // console.log('tid: ' + tid)
+  // console.log('sem: ' + sem)
   axios.post('/professors/research/list', {
     teacherId: tid,
     sem: sem
   }).then(res => {
+    console.log(res);
     dispatch(UpdateResearchList(res.data))
   }).catch(err => {
     console.log(err)
@@ -44,9 +65,9 @@ export const fetchResearchList = (tid, sem) => dispatch => {
 
 export const fetchResearchList1 = (tid, year) => dispatch => {
   let sem = year + '-1'
-  console.log('----- fetchResearchList ----')
-  console.log('tid: ' + tid)
-  console.log('sem: ' + sem)
+  // console.log('----- fetchResearchList ----')
+  // console.log('tid: ' + tid)
+  // console.log('sem: ' + sem)
   axios.post('/professors/research/list', {
     teacherId: tid,
     sem: sem
@@ -59,9 +80,9 @@ export const fetchResearchList1 = (tid, year) => dispatch => {
 
 export const fetchResearchList2 = (tid, year) => dispatch => {
   let sem = year + '-2'
-  console.log('----- fetchResearchList ----')
-  console.log('tid: ' + tid)
-  console.log('sem: ' + sem)
+  // console.log('----- fetchResearchList ----')
+  // console.log('tid: ' + tid)
+  // console.log('sem: ' + sem)
   axios.post('/professors/research/list', {
     teacherId: tid,
     sem: sem
