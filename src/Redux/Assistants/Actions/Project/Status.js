@@ -26,6 +26,7 @@ export const statusHandleChange = (payload) => dispatch => {
 }
 
 export const fetchStatus = (payload) => dispatch => {
+  dispatch(status_handle_change({ loading: true }))
   axios.post('/assistants/research/professorList', payload).then(res => {
     dispatch(status_handle_change({
       teachers: res.data.map( teacher => ({
@@ -35,6 +36,7 @@ export const fetchStatus = (payload) => dispatch => {
           }, 0)
       }))
     }))
+    dispatch(status_handle_change({ loading: false }))
   }).catch(err => {
     window.alert('獲取專題列表失敗')
     console.log(err)

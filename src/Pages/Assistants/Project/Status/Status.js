@@ -21,6 +21,8 @@ import Dialog from '@material-ui/core/Dialog'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import {
   setScore,
 } from '../../../../Redux/Assistants/Actions/Project/Status'
@@ -164,104 +166,111 @@ class Status extends React.Component {
       ) : (
         <div className={classes.container} >
         {
-          this.input_filter(Status.teachers, Status.input).length ? 
-            this.input_filter(Status.teachers, Status.input).map( (teacher, idx) => 
-              <div key={idx} style={{ width: '90%', margin: '0 auto', marginBottom: '20px', background: 'red' }}>
-                <ExpansionPanel expanded>
-                  <ExpansionPanelSummary>
-                    <div style={{ width: '100%', display: 'flex' }} >
-                      <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{this.hightlight(teacher.professor_name, Status.input)}</div>
-                      <LinearProgress variant="determinate"
-                        value={ teacher.gradeCnt / 7 * 100 }
-                        style={{ flex: 0.6, margin: '10px auto' }}
-                      />
-                      <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{teacher.gradeCnt} 人</div>
-                    </div>
-                  </ExpansionPanelSummary>
-                  <ExpansionPanelDetails>
-                    <div style={{ width: '100%' }}>
-                      <div style={{ fontWeight: 'bold', fontSize: '25px' }}>接受列表</div>
-                      <hr style={{marginTop: '1px'}} />
-                      {
-                        teacher.accepted.projects.length !== 0 ? (
-                          teacher.accepted.projects.map( (project, idx) => 
-                            <div key={idx} style={{ paddingLeft: '10px'}}>
-                              <div style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
-                                { this.hightlight(project.title, Status.input) }
+          Status.loading ? 
+            <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
+              <div style={{ flex: 1 }}/>
+              <CircularProgress style={{ color: '#68BB66' }} />
+              <div style={{ flex: 1 }}/>
+            </div> 
+            : 
+            this.input_filter(Status.teachers, Status.input).length ? 
+              this.input_filter(Status.teachers, Status.input).map( (teacher, idx) => 
+                <div key={idx} style={{ width: '90%', margin: '0 auto', marginBottom: '20px', background: 'red' }}>
+                  <ExpansionPanel expanded>
+                    <ExpansionPanelSummary>
+                      <div style={{ width: '100%', display: 'flex' }} >
+                        <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{this.hightlight(teacher.professor_name, Status.input)}</div>
+                        <LinearProgress variant="determinate"
+                          value={ teacher.gradeCnt / 7 * 100 }
+                          style={{ flex: 0.6, margin: '10px auto' }}
+                        />
+                        <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{teacher.gradeCnt} 人</div>
+                      </div>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      <div style={{ width: '100%' }}>
+                        <div style={{ fontWeight: 'bold', fontSize: '25px' }}>接受列表</div>
+                        <hr style={{marginTop: '1px'}} />
+                        {
+                          teacher.accepted.projects.length !== 0 ? (
+                            teacher.accepted.projects.map( (project, idx) => 
+                              <div key={idx} style={{ paddingLeft: '10px'}}>
+                                <div style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+                                  { this.hightlight(project.title, Status.input) }
+                                </div>
+                                {
+                                  project.students.map( (student, idx) => (
+                                    <Tooltip title={
+                                      (student.add_status === "0" ? "尚未選課" : "已選課") + "/" + ((student.score === null ? "尚未評分" : (student.score + "分")))
+                                    } placement="top" key = {idx} classes={{ tooltip: classes.tooltip }}>
+                                      <Chip
+                                        label={this.hightlight(student.id + " " + student.name, Status.input)}
+                                        className={classes.chip}
+                                        style={{ background: ADD_STATUS_COLOR[parseInt(student.add_status, 10)] }}
+                                        deleteIcon={student.score === null ? 
+                                          <EditIcon style={{ fontSize: 30, marginRight: '5px' }}/>
+                                          :
+                                          <DoneIcon style={{ fontSize: 30, marginRight: '5px' }}/>
+                                        }
+                                        onDelete={ () => this.setState({
+                                          score: {
+                                            open: true,
+                                            title: project.title,
+                                            score: student.score,
+                                            comment: student.comment,
+                                            student: {
+                                              id: student.id,
+                                              name: student.name
+                                            },
+                                            teacher: {
+                                              id: teacher.professor_id,
+                                              name: teacher.professor_name
+                                            }
+                                          }
+                                        }) }
+                                        avatar={<Avatar style={{ fontSize: 20, background: STATUS_COLOR_L[parseInt(student.add_status, 10)] }}>{STUDENT_STATUS_CN[parseInt(student.status, 10)]}</Avatar>}
+                                      />
+                                    </Tooltip>
+                                  ))
+                                }
+                                <br />
+                                <br />
+                                <br />
                               </div>
-                              {
-                                project.students.map( (student, idx) => (
-                                  <Tooltip title={
-                                    (student.add_status === "0" ? "尚未選課" : "已選課") + "/" + ((student.score === null ? "尚未評分" : (student.score + "分")))
-                                  } placement="top" key = {idx} classes={{ tooltip: classes.tooltip }}>
+                            )
+                          ) : this.warningText("無資料", classes.warningTextSmall)
+                        }
+                        <div style={{ fontWeight: 'bold', fontSize: '25px' }}>審核列表</div>
+                        <hr style={{marginTop: '1px'}} />
+                        {
+                          teacher.pending.projects.length !== 0 ? (
+                            teacher.pending.projects.map( (project, idx) => 
+                              <div key={idx} style={{ paddingLeft: '10px'}}>
+                                <div style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
+                                  { this.hightlight(project.title, Status.input) }
+                                </div>
+                                {
+                                  project.students.map( (student, idx) => (
                                     <Chip
                                       label={this.hightlight(student.id + " " + student.name, Status.input)}
                                       className={classes.chip}
-                                      style={{ background: ADD_STATUS_COLOR[parseInt(student.add_status, 10)] }}
-                                      deleteIcon={student.score === null ? 
-                                        <EditIcon style={{ fontSize: 30, marginRight: '5px' }}/>
-                                        :
-                                        <DoneIcon style={{ fontSize: 30, marginRight: '5px' }}/>
-                                      }
-                                      onDelete={ () => this.setState({
-                                        score: {
-                                          open: true,
-                                          title: project.title,
-                                          score: student.score,
-                                          comment: student.comment,
-                                          student: {
-                                            id: student.id,
-                                            name: student.name
-                                          },
-                                          teacher: {
-                                            id: teacher.professor_id,
-                                            name: teacher.professor_name
-                                          }
-                                        }
-                                      }) }
-                                      avatar={<Avatar style={{ fontSize: 20, background: STATUS_COLOR_L[parseInt(student.add_status, 10)] }}>{STUDENT_STATUS_CN[parseInt(student.status, 10)]}</Avatar>}
+                                      style={{ background: yellow[300] }}
+                                      avatar={<Avatar style={{ fontSize: 20, background: yellow[200] }}>{STUDENT_STATUS_CN[parseInt(student.status, 10)]}</Avatar>}
                                     />
-                                  </Tooltip>
-                                ))
-                              }
-                              <br />
-                              <br />
-                              <br />
-                            </div>
-                          )
-                        ) : this.warningText("無資料", classes.warningTextSmall)
-                      }
-                      <div style={{ fontWeight: 'bold', fontSize: '25px' }}>審核列表</div>
-                      <hr style={{marginTop: '1px'}} />
-                      {
-                        teacher.pending.projects.length !== 0 ? (
-                          teacher.pending.projects.map( (project, idx) => 
-                            <div key={idx} style={{ paddingLeft: '10px'}}>
-                              <div style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
-                                { this.hightlight(project.title, Status.input) }
+                                  ))
+                                }
+                                <br />
+                                <br />
+                                <br />
                               </div>
-                              {
-                                project.students.map( (student, idx) => (
-                                  <Chip
-                                    label={this.hightlight(student.id + " " + student.name, Status.input)}
-                                    className={classes.chip}
-                                    style={{ background: yellow[300] }}
-                                    avatar={<Avatar style={{ fontSize: 20, background: yellow[200] }}>{STUDENT_STATUS_CN[parseInt(student.status, 10)]}</Avatar>}
-                                  />
-                                ))
-                              }
-                              <br />
-                              <br />
-                              <br />
-                            </div>
-                          )
-                        ) : this.warningText("無資料", classes.warningTextSmall)
-                      }
-                    </div>
-                  </ExpansionPanelDetails>
-                </ExpansionPanel>
-              </div>
-            ) : this.warningText("找不到符合的資料，請移除所有搜尋條件", classes.warningText)
+                            )
+                          ) : this.warningText("無資料", classes.warningTextSmall)
+                        }
+                      </div>
+                    </ExpansionPanelDetails>
+                  </ExpansionPanel>
+                </div>
+              ) : this.warningText("找不到符合的資料，請移除所有搜尋條件", classes.warningText)
         }
         <Dialog 
           onClose = { 

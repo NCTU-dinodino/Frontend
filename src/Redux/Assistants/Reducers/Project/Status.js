@@ -175,7 +175,8 @@ const initialState = {
     {"id": "0616000", "name": "people1"},
     {"id": "0616001", "name": "people2"},
     {"id": "0616001", "name": "people2"}
-  ]
+  ],
+  loading: true
 }
 
 export default handleActions({
