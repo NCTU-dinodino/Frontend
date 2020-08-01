@@ -59,8 +59,8 @@ const parseCsv = (data) => {
     ...data.filter( data_ => data_ !== undefined)
       .sort( (a, b) => a.program === b.program ? a.student_id.localeCompare(b.student_id) : a.program.localeCompare(b.program))
       .map( data_ => [
-        data_.student_id,
-        data_.name,
+        '=""' + data_.student_id + '""',
+        data_.sname,
         data_.program,
         data_.total_credit,
         data_.submit_status === 0 ? '未送審' : data_.submit_status === 1 ? '審核中' : data_.submit_status === 2 ? '已通過' : data_.submit_status === 3 ? '未通過' : '',
@@ -69,7 +69,7 @@ const parseCsv = (data) => {
           if (prev.length === 0)
             return curr;
           else
-            return prev + ", " + curr;
+            return prev + "\r\n" + curr;
         }, ""),
         data_.pro + "學分",
         data_.other + "學分",
@@ -92,7 +92,7 @@ const parseCsv = (data) => {
         "基礎缺" + data_.en_basic + "學分\r\n" +
         "進階缺" + data_.en_advanced + "學分\r\n"
         ,
-        { 0: '未考過英檢',
+        { 0: '未考過英檢\r\n進階英文四學分缺' + data_.en_uncertified + '學分',
           1: '通過外語榮譽學分（可免修外語）',
           2: '已通過英檢免試申請',
           3: '已考過英檢',
@@ -175,11 +175,11 @@ const parseCsv = (data) => {
         conditionIndex++
       }
       if (parseInt(data_.new_basic, 10) !== 0) {
-        condition += (conditionIndex + '. 通識校基本素養向度缺' + parseInt(data_.new_basic, 10) + ' 學分\r\n')
+        condition += (conditionIndex + '. 通識校基本能力向度缺' + parseInt(data_.new_basic, 10) + ' 學分\r\n')
         conditionIndex++
       }
       if (parseInt(data_.new_cross, 10) !== 0) {
-        condition += (conditionIndex + '. 通識跨院向度缺' + parseInt(data_.new_cross, 10) + ' 學分\r\n')
+        condition += (conditionIndex + '. 通識外院基本能力向度缺' + parseInt(data_.new_cross, 10) + ' 學分\r\n')
         conditionIndex++
       }
     }

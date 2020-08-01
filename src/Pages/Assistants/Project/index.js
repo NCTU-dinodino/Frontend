@@ -4,14 +4,14 @@ import { connect } from 'react-redux'
 
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+// import Divider from '@material-ui/core/Divider';
 
-import Check from './Check/Check';
-import CheckControl from './Check/CheckControl';
+// import Check from './Check/Check';
+// import CheckControl from './Check/CheckControl';
 import Status from './Status/Status';
 import StatusControl from './Status/StatusControl';
-import Score from './Score/Score';
-import ScoreControl from './Score/ScoreControl';
+// import Score from './Score/Score';
+// import ScoreControl from './Score/ScoreControl';
 
 import { 
   fetchCheck,
@@ -123,38 +123,38 @@ class index extends React.Component {
               paper: classes.drawerPaper,
             }}
           >
-            {this.toolBarButton(type === 'CHECK', 'CHECK', '專題審核')}
-            {this.toolBarButton(type === 'STATUS', 'STATUS', '專題狀況')}
-            {this.toolBarButton(type === 'SCORE', 'SCORE', '專題評分')}
-            <Divider />
-            {
+            <StatusControl />
+            {/* {this.toolBarButton(type === 'CHECK', 'CHECK', '專題審核')} */}
+            {/* {this.toolBarButton(type === 'STATUS', 'STATUS', '專題狀況')} */}
+            {/* {this.toolBarButton(type === 'SCORE', 'SCORE', '專題評分')} */}
+            {/* <Divider /> */}
+            {/* {
               type === 'CHECK' ? (
                 <CheckControl />
               ) : type === 'STATUS' ? (
-                <StatusControl />
               ) : type === 'SCORE' ? (
                 <ScoreControl />
               ) : ''
-            }
+            } */}
           </Drawer>
         </div>
         <div style = {{ marginLeft: '30vh' }}>
         {
-          type === 'UNCHOOSE' ? (
-            <div style = {{ display: 'flex', width: '100%' }}>
-              <div style = {{ flex: 0.1 }}/>
-              <div className={classes.warningText}>
-                請選取左方的選項
-              </div>
-              <div style = {{ flex: 0.1 }} />
-            </div>
-          ) : type === 'CHECK' ? (
-            <Check />
-          ) : type === 'STATUS' ? (
+          // type === 'UNCHOOSE' ? (
+          //   <div style = {{ display: 'flex', width: '100%' }}>
+          //     <div style = {{ flex: 0.1 }}/>
+          //     <div className={classes.warningText}>
+          //       請選取左方的選項
+          //     </div>
+          //     <div style = {{ flex: 0.1 }} />
+          //   </div>
+          // ) : type === 'CHECK' ? (
+          //   <Check />
+          // ) : type === 'STATUS' ? (
             <Status />
-          ) : type === 'SCORE' ? (
-            <Score />
-          ) : ''
+          // ) : type === 'SCORE' ? (
+          //   <Score />
+          // ) : ''
         }
         </div>
       </div>

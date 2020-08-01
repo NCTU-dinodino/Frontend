@@ -61,12 +61,12 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
     },
     {
       name: '校基本',
-      dimension: '校基本素養',
+      dimension: '校基本能力',
       courses: []
     },
     {
-      name: '跨院',
-      dimension: '跨院基本素養',
+      name: '外院',
+      dimension: '外院基本能力',
       courses: []
     }
   ]
@@ -120,7 +120,7 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
       <Grid item xs={12} container className={mobile ? '' : classes.buttonRow}>
         {
           generalCourseTypes
-            .find(type => type.dimension === '校基本素養').courses
+            .find(type => type.dimension === '校基本能力').courses
             .map((course, index) => (
               <NormalCoursePopover
                 key={index}
@@ -135,7 +135,7 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
       <Hidden smDown>
         <div className={classes.dimension}>
           <Title
-            title='跨院'
+            title='外院'
             acquire={acquire.cross}
             require={require.cross}
             unit='學分'
@@ -146,13 +146,13 @@ const GeneralNewCourseList = ({ courses, title, acquire, require, classes, mobil
       <Grid item xs={12} container className={mobile ? '' : classes.buttonRow}>
         {
           generalCourseTypes
-            .find(type => type.dimension === '跨院基本素養').courses
+            .find(type => type.dimension === '外院基本能力').courses
             .map((course, index) => (
               <NormalCoursePopover
                 key={index}
                 label={course.cn}
                 course={course}
-                title={`${title}-跨院`}
+                title={`${title}-外院`}
               />
             ))
         }

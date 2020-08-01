@@ -58,12 +58,6 @@ const styles = theme => ({
 })
 
 class CheckControl extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      type: 'PENDING'
-    }
-  }
 
   toggleProgramFilter = (idx) => {
     this.props.checkHandleChange({
@@ -106,9 +100,10 @@ class CheckControl extends React.Component {
 
     return (
       <div className={classes.container}>
-        {this.toolBarButton(Check.type === 'PENDING', 'PENDING', '審　核　中')}
-        {this.toolBarButton(Check.type === 'ACCEPTED', 'ACCEPTED', '同　意畢業')}
-        {this.toolBarButton(Check.type === 'REJECTED', 'REJECTED', '不同意畢業')}
+        {this.toolBarButton(Check.type === '審核中', '審核中', '審核中')}
+        {this.toolBarButton(Check.type === '已符合', '已符合', '已符合')}
+        {this.toolBarButton(Check.type === '將符合', '將符合', '將符合')}
+        {this.toolBarButton(Check.type === '未符合', '未符合', '未符合')}
         <FormControl style={{ width: '100%', flex: 1 }}>
           <InputLabel
             FormLabelClasses={{

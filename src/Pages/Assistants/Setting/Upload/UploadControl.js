@@ -211,7 +211,7 @@ class UploadControl extends React.Component {
             <MenuItem value={"學生資料"} style={{ fontSize: '20px' }} >學生資料</MenuItem>
             <MenuItem value={"當期修課資料"} style={{ fontSize: '20px' }} >當期修課資料</MenuItem>
             <MenuItem value={"新老師資料"} style={{ fontSize: '20px' }} >新老師資料</MenuItem>
-            <MenuItem value={"抵免資料"} style={{ fontSize: '20px' }} >抵免資料</MenuItem>
+            <MenuItem value={"抵免免修資料"} style={{ fontSize: '20px' }} >抵免免修資料</MenuItem>
             <MenuItem value={"英文換修資料"} style={{ fontSize: '20px' }} >英文換修資料</MenuItem>
           </Select>
         </FormControl>

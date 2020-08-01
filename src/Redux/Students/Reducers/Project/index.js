@@ -1,37 +1,43 @@
+
 import { handleActions } from 'redux-actions'
+import { FETCHING_STATUS } from '../../../../Utilities/constant'
 
 const initialState = {
-  data: [],
-  status: '4'
+  list: {
+    data: []
+  },
+  new: {
+    data: [],
+    status: FETCHING_STATUS.IDLE
+  },
+  delete: {
+    status: FETCHING_STATUS.IDLE
+  }
 }
 
 export default handleActions({
-  STORE_PROJECTS: (state, action) => ({ ...state, data: [...action.payload] }),
-  STORE_PROJECT_IMAGE: (state, action) => {
-    let newdata = state.data
-    let index = newdata.findIndex(x => { return x.research_title === action.payload.researchTitle && x.semester === action.payload.semester })
-    newdata[index] = { ...newdata[index], photo: action.payload.encode }
-    return {
-      ...state,
-      data: [...newdata]
-    }
-  },
-  STORE_PROJECT_FILE: (state, action) => {
-    let newdata = state.data
-    let index = newdata.findIndex(x => { return x.research_title === action.payload.researchTitle && x.semester === action.payload.semester })
-    newdata[index] = { ...newdata[index], file: action.payload.encode }
-    return {
-      ...state,
-      data: [...newdata]
-    }
-  },
-  STORE_PROJECT_INTRO: (state, action) => {
-    let newdata = state.data
-    let index = newdata.findIndex(x => { return x.research_title === action.payload.researchTitle && x.semester === action.payload.semester })
-    newdata[index] = { ...newdata[index], intro: action.payload.intro }
-    return {
-      ...state,
-      data: [...newdata]
+  PROJECT: {
+    LIST: {
+      STORE: (state, action) => ({ ...state, list: {
+        ...state.list,
+        data: action.payload
+      }})
+    },
+    NEW: {
+      STORE: (state, action) => ({ ...state, new: {
+        ...state.new,
+        data: action.payload
+      }}),
+      SET_STATUS: (state, action) => ({ ...state, new: {
+        ...state.new,
+        status: action.payload
+      }})
+    },
+    DELETE: {
+      SET_STATUS: (state, action) => ({ ...state, delete: {
+        ...state.delete,
+        status: action.payload
+      }})
     }
   }
 }, initialState)

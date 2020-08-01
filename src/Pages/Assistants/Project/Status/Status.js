@@ -13,7 +13,17 @@ import green from '@material-ui/core/colors/green'
 
 import Avatar from '@material-ui/core/Avatar'
 import Chip from '@material-ui/core/Chip'
+import DoneIcon from '@material-ui/icons/Done'
+import EditIcon from '@material-ui/icons/Edit'
+import Tooltip from '@material-ui/core/Tooltip'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import Dialog from '@material-ui/core/Dialog'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button';
 
+import {
+  setScore,
+} from '../../../../Redux/Assistants/Actions/Project/Status'
 
 const ADD_STATUS_COLOR = [red['A100'], green[300]]
 const STATUS_COLOR_L = [red[100], green[200]]
@@ -42,6 +52,27 @@ const styles = theme => ({
     margin: '10px',
     fontSize: '15px',
   },
+  tooltip: {
+    fontSize: 15
+  },textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 100
+  },
+  textField2: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 400
+  },
+  label: {
+    fontSize: '20px'
+  },
+  dialog: {
+    padding: '10px'
+  },
+  button: {
+    fontSize: '16px'
+  },
 })
 
 class Status extends React.Component {
@@ -49,13 +80,25 @@ class Status extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        
+      score: {
+        open: false,
+        student: {
+          id: '',
+          name: ''
+        },
+        teacher: {
+          id: '',
+          name: ''
+        },
+        score: null,
+        comment: ''
+      }
     }
   }
 
   warningText = (text, css) => {
     return (
-      <div style = {{ display: 'flex', width: '100%' }}>
+      <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
         <div style = {{ flex: 0.1 }}/>
         <div className={css}>
           {text}
@@ -123,7 +166,7 @@ class Status extends React.Component {
         {
           this.input_filter(Status.teachers, Status.input).length ? 
             this.input_filter(Status.teachers, Status.input).map( (teacher, idx) => 
-              <div key={idx} style={{ width: '80%', margin: '0 auto', marginBottom: '20px', background: 'red' }}>
+              <div key={idx} style={{ width: '90%', margin: '0 auto', marginBottom: '20px', background: 'red' }}>
                 <ExpansionPanel expanded>
                   <ExpansionPanelSummary>
                     <div style={{ width: '100%', display: 'flex' }} >
@@ -148,12 +191,37 @@ class Status extends React.Component {
                               </div>
                               {
                                 project.students.map( (student, idx) => (
-                                  <Chip
-                                    label={this.hightlight(student.id + " " + student.name, Status.input)}
-                                    className={classes.chip}
-                                    style={{ background: ADD_STATUS_COLOR[parseInt(student.add_status, 10)] }}
-                                    avatar={<Avatar style={{ fontSize: 20, background: STATUS_COLOR_L[parseInt(student.add_status, 10)] }}>{STUDENT_STATUS_CN[parseInt(student.status, 10)]}</Avatar>}
-                                  />
+                                  <Tooltip title={
+                                    (student.add_status === "0" ? "尚未選課" : "已選課") + "/" + ((student.score === null ? "尚未評分" : (student.score + "分")))
+                                  } placement="top" key = {idx} classes={{ tooltip: classes.tooltip }}>
+                                    <Chip
+                                      label={this.hightlight(student.id + " " + student.name, Status.input)}
+                                      className={classes.chip}
+                                      style={{ background: ADD_STATUS_COLOR[parseInt(student.add_status, 10)] }}
+                                      deleteIcon={student.score === null ? 
+                                        <EditIcon style={{ fontSize: 30, marginRight: '5px' }}/>
+                                        :
+                                        <DoneIcon style={{ fontSize: 30, marginRight: '5px' }}/>
+                                      }
+                                      onDelete={ () => this.setState({
+                                        score: {
+                                          open: true,
+                                          title: project.title,
+                                          score: student.score,
+                                          comment: student.comment,
+                                          student: {
+                                            id: student.id,
+                                            name: student.name
+                                          },
+                                          teacher: {
+                                            id: teacher.professor_id,
+                                            name: teacher.professor_name
+                                          }
+                                        }
+                                      }) }
+                                      avatar={<Avatar style={{ fontSize: 20, background: STATUS_COLOR_L[parseInt(student.add_status, 10)] }}>{STUDENT_STATUS_CN[parseInt(student.status, 10)]}</Avatar>}
+                                    />
+                                  </Tooltip>
                                 ))
                               }
                               <br />
@@ -193,8 +261,104 @@ class Status extends React.Component {
                   </ExpansionPanelDetails>
                 </ExpansionPanel>
               </div>
-            ) : this.warningText("找不到符合的資料，點此可以清掉所有搜尋條件", classes.warningText)
+            ) : this.warningText("找不到符合的資料，請移除所有搜尋條件", classes.warningText)
         }
+        <Dialog 
+          onClose = { 
+            () => this.setState({ 
+              score: { ...this.state.score,
+                open: false
+              }
+            })
+          } 
+          open = { this.state.score.open } 
+        >
+          <DialogTitle><div style = {{ fontSize: '25px' }} >助理端評分</div></DialogTitle>
+            <h4 style = {{ paddingLeft: '30px' }}>{this.state.score.student.id + " " + this.state.score.student.name}</h4>
+            <div style = {{ display: 'flex', paddingLeft: '20px', paddingRight: '20px' }}>
+              <TextField
+                label='分數' type='number'
+                value={ this.state.score.score || '' }
+                onChange={ (event) => this.setState({ 
+                  score: { ...this.state.score,
+                    score: event.target.value
+                  }
+                })}
+                margin='normal'
+                className={classes.textField}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.label
+                  },
+                  shrink: true
+                }}
+              />
+              <TextField
+                label='評論'
+                margin='normal'
+                value={ this.state.score.comment || '' }
+                className={classes.textField2}
+                onChange={ (event) => 
+                  this.setState({ score: { ...this.state.score,
+                    comment: event.target.value
+                  }})
+                }
+                InputLabelProps={{
+                  classes: {
+                    root: classes.label
+                  },
+                  shrink: true
+                }}
+              />
+            </div>
+            <br />
+            <div style = {{ display: 'flex' }}>
+              <div style = {{ flex: 1 }} />
+              <Button className={classes.button} onClick={ () => 
+                this.setState({ 
+                  score: { ...this.state.score,
+                    open: false,
+                  }
+                })
+              } >
+                取消
+              </Button>
+              <Button color="primary" className={classes.button} onClick = { () => {
+                if (
+                     parseInt(this.state.score.score, 10) < 0
+                  || parseInt(this.state.score.score, 10) > 100
+                )
+                  alert('分數需介於0~100之間');
+                else if ((
+                       parseInt(this.state.score.score, 10) >= 90 
+                    || parseInt(this.state.score.score, 10) < 60
+                  ) && (
+                       this.state.score.comment === '' 
+                    || this.state.score.comment === null
+                  )
+                )
+                  alert('分數低於60分或是90分以上需附上評論');
+                else {
+                  this.props.setScore({
+                    student_id: this.state.score.student.id,
+                    tname: this.state.score.teacher.name,
+                    research_title: this.state.score.title,
+                    first_second: this.props.first_second,
+                    semester: this.props.year + '-' + this.props.semester,
+                    new_score: this.state.score.score,
+                    new_comment: this.state.score.comment
+                  })
+                  this.setState({ 
+                    score: { ...this.state.score,
+                      open: false,
+                    }
+                  })
+                }
+              }}>
+                送出！
+              </Button>
+            </div>
+          </Dialog>
         </div>
       )
     )
@@ -206,6 +370,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  setScore: (payload) => dispatch(setScore(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Status))
