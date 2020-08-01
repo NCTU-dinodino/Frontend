@@ -8,7 +8,7 @@ export const fetchUser = (page = 1) => dispatch => {
   axios.get('/professors/profile').then(ProfileData => {
     let data = {...ProfileData.data[0]}
     console.log('UPDATE USER INFO: ', data)
-    dispatch(UpdateUserInfo(data))
+    dispatch(UpdateUserInfo(data))	// send an action
   }).catch(err => {
     console.log(err)
   })

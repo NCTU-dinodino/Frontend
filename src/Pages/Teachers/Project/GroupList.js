@@ -50,10 +50,10 @@ class GroupList extends React.Component {
         this.props.FetchResearchList1(tid, year)
         this.props.FetchResearchList2(tid, year)
         this.setState({loading: false})
-        console.log('----- this.props.research1.groups ----')
-        console.log(this.props.research1.groups)
-        console.log('----- this.props.research2.groups ----')
-        console.log(this.props.research2.groups)
+        //console.log('----- this.props.research1.groups ----')
+        //console.log(this.props.research1.groups)
+        //console.log('----- this.props.research2.groups ----')
+        //console.log(this.props.research2.groups)
     }
 
     componentDidMount () {
