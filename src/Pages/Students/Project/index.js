@@ -52,6 +52,7 @@ class Index extends React.Component {
       else if (newStatus === FETCHING_STATUS.DONE) {
         this.props.getProjects()
         this.props.newProjectReset()
+        window.alert('申請成功!')
       }
       else if (newStatus === FETCHING_STATUS.ERROR) {
         let messages = '申請失敗!'
@@ -78,8 +79,10 @@ class Index extends React.Component {
     }
     if (deleteStatus !== prevProps.deleteStatus) {
       if (deleteStatus === FETCHING_STATUS.DONE) {
-        this.props.getProjects()
-        this.props.deleteProjectReset()
+        if ( window.confirm('刪除此申請單將會連同同組組員申請單一起刪除, 確定要刪除嗎?') ) {
+          this.props.getProjects()
+          this.props.deleteProjectReset()
+        }
       }
       else if (deleteStatus === FETCHING_STATUS.ERROR) {
         window.alert('刪除失敗!')
