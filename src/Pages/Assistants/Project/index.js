@@ -112,7 +112,6 @@ class index extends React.Component {
 
   render () {
     const { classes } = this.props;
-    const { type } = this.state;
 
     return (
       <div className={classes.root}>

@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions'
 
 const initialState = {
-  teachers: [/*
+  teachers: [ /*
     {
       "professor_name": "吳凱強",
       "professor_id": "T9003",
@@ -162,8 +162,7 @@ const initialState = {
         "projects": []
       }
     }
-    */
-  ],
+  */],
   input: '',
   year: '',
   semester: '',
@@ -171,7 +170,13 @@ const initialState = {
   csvArr: [],
   csvDone: true,
   templateDone: false,
-  templateFile: ''
+  templateFile: '',
+  people: [ /*
+    {"id": "0616000", "name": "people1"},
+    {"id": "0616001", "name": "people2"},
+    {"id": "0616001", "name": "people2"}
+  */],
+  loading: true
 }
 
 export default handleActions({
@@ -197,6 +202,23 @@ export default handleActions({
         }
       }  
     )
+  }),
+  PROJECT_STATUS_GET_UNSCORE_TEACHER_LIST: (state, action) => ({
+    ...state,
+    people: state.teachers.filter( teacher => 
+      teacher.accepted.projects.reduce( 
+        (project_acc, project) => 
+          project_acc |= project.students.reduce( 
+            (student_acc, student) =>
+              student_acc |= (student.score === null)
+          , false)
+      , false)
+    ).map( teacher => { 
+      return { 
+        id: teacher.professor_id, 
+        name: teacher.professor_name
+      }
+    })
   })
 }, {
   ...initialState,
