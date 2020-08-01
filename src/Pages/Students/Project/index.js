@@ -52,6 +52,7 @@ class Index extends React.Component {
       else if (newStatus === FETCHING_STATUS.DONE) {
         this.props.getProjects()
         this.props.newProjectReset()
+        window.alert('申請成功!')
       }
       else if (newStatus === FETCHING_STATUS.ERROR) {
         let messages = '申請失敗!'
