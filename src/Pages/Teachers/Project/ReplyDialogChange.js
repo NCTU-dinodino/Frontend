@@ -35,7 +35,7 @@ class ReplyDialogChange extends React.Component {
     console.log(students)
     // 防呆確認
     const statusText = status === 0 ? '『拒絕』' : '『接受』'
-    //if( !window.confirm('確定回覆' + statusText + '?') ) return
+    if( !window.confirm('確定回覆' + statusText + '?') ) return
 
     console.log(this.props.research_title)
     this.setState({open: false})
@@ -51,22 +51,11 @@ class ReplyDialogChange extends React.Component {
       console.log(payload)
       this.props.ChangeTeacher(payload)
     })
-    
 
     // trigger update
     //this.props.parentFunction()
   }
 
-  // handleClick (agree) {
-  //   let payload = {
-  //     student_id: this.props.student_id,
-  //     semester: this.props.sem,
-  //     research_title: this.props.research.research_title,
-  //     first_second: this.props.research.first_second,
-  //     agree_replace: agree
-  //   }
-  //   this.props.ChangeTeacher(payload)
-  // }
 
   render () {
     const actions = [
@@ -103,7 +92,7 @@ class ReplyDialogChange extends React.Component {
               <span>{p.replace_pro?p.sname+' ':''}{(i+1)!==arr.length?'、':''}</span>
             ))}更換指導教授？  
             <br/>
-            請選擇『同意』或『拒絕』此申請，此動作不可反悔。
+            請選擇 『同意』 或 『拒絕』 此申請，此動作不可反悔。
           </Dialog>
         </MuiThemeProvider>
       </div>
