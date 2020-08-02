@@ -4,7 +4,7 @@ import axios from 'axios'
 export const time_handle_change = createAction('TIME_HANDLE_CHANGE');
 
 export const fetchTime = () => dispatch => {
-  axios.get('/assistants/getTimes').then( res =>
+  axios.get('/getTimes').then( res =>
     dispatch(time_handle_change(res.data))
   ).catch( err => {
     window.alert("獲取時間失敗")
@@ -13,7 +13,7 @@ export const fetchTime = () => dispatch => {
 }
 
 export const timeHandleChange = (payload) => dispatch => {
-  axios.post('/assistants/setTimes', payload).then( res => {
+  axios.post('/setTimes', payload).then( res => {
     dispatch(time_handle_change(payload))
     window.alert("修改成功!")
   }).catch( err => {
