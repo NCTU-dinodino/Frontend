@@ -88,7 +88,7 @@ const initialState = {
       ]
     }
   ],
-  loadApplyList: 0,
+  loadApplyList: 1,
   research1: {
     cs_number: 0,
     other_number: 0,
@@ -349,7 +349,7 @@ const initialState = {
 export default handleActions({
   UPDATE_APPLY_LIST: (state, action) => {
     console.log('UPDATE_APPLY_LIST ACTION: ', {...state, applyList: [...action.payload]})
-    return ({...state, applyList: [...action.payload]})
+    return ({...state, applyList: [...action.payload], loadApplyList: 0})
   },
   UPDATE_RESEARCH_LIST: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST ACTION: ', { ...state, research: {...action.payload} })
