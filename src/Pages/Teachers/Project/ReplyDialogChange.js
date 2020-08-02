@@ -34,8 +34,8 @@ class ReplyDialogChange extends React.Component {
     console.log('-------- students ---------')
     console.log(students)
     // 防呆確認
-    const statusText = status === 0 ? '『拒絕』' : '『接受』'
-    if( !window.confirm('確定回覆' + statusText + '?') ) return
+    const statusText = status === 0 ? '『拒絕』' : '『同意』'
+    if( !window.confirm('確定回覆 ' + statusText + ' ?') ) return
 
     console.log(this.props.research_title)
     this.setState({open: false})
@@ -47,8 +47,6 @@ class ReplyDialogChange extends React.Component {
         first_second: this.props.firstSecond,
         agree_replace: parseInt(status, 10) // DB input is integer
       }
-      console.log('------- payload -------')
-      console.log(payload)
       this.props.ChangeTeacher(payload)
     })
 
