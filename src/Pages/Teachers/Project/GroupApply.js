@@ -112,7 +112,7 @@ class GroupApply extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: true,
+      //loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: new Map(),
       sem: getSemester()
@@ -120,7 +120,7 @@ class GroupApply extends React.Component {
   }
 
   fetchData () {
-    this.setState({loading: true})
+    //this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
     console.log('------ tid ------')
@@ -138,7 +138,7 @@ class GroupApply extends React.Component {
     }
     this.props.FetchResearchApplyList(tid)
     this.props.FetchResearchList(tid, sem)
-    this.setState({loading: false})
+    //this.setState({loading: false})
   }
   // execute after component be render to DOM
   componentDidMount () {
@@ -200,8 +200,8 @@ class GroupApply extends React.Component {
             size={50}
             left={40}
             top={20}
-            isLoading={this.state.loading} />
-          {!this.state.loading && applyList !== undefined
+            isLoading={this.props.loadApplyList} />
+          {(!this.props.loadApplyList && (Object.keys(applyList).length !== 0))
             ?
             applyList.map((item, i) => (  // item: a project group
               <ApplyButton
@@ -299,11 +299,12 @@ const getSemester = () => {
 const mapStateToProps = (state) => ({
   idCard: state.Teacher.User.idCard,
   applyList: state.Teacher.Research.applyList,
-  research: state.Teacher.Research.research
+  research: state.Teacher.Research.research,
+  loadApplyList: state.Teacher.Research.loadApplyList
 })
 const mapDispatchToProps = (dispatch) => ({
-  FetchResearchApplyList: (tid) => dispatch(fetchResearchApplyList()),
-  FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
+  FetchResearchApplyList: (tid) => dispatch(fetchResearchApplyList(tid)),
+  FetchResearchList: (tid, sem) => dispatch(fetchResearchList(tid, sem))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(GroupApply))
