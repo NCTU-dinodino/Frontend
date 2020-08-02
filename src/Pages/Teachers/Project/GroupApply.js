@@ -296,8 +296,8 @@ const mapStateToProps = (state) => ({
   loadApplyList: state.Teacher.Research.loadApplyList
 })
 const mapDispatchToProps = (dispatch) => ({
-  FetchResearchApplyList: (tid) => dispatch(fetchResearchApplyList()),
-  FetchResearchList: (tid, sem) => dispatch(fetchResearchList())
+  FetchResearchApplyList: (tid) => dispatch(fetchResearchApplyList(tid)),
+  FetchResearchList: (tid, sem) => dispatch(fetchResearchList(tid, sem))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(GroupApply))
