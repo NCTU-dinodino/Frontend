@@ -38,7 +38,7 @@ export const fetchResearchApplyList = (tid) => dispatch => {
   // console.log('----- fetchResearchApplyList ----')
   // console.log('tid: ' + tid)
   //console.log('sem: ' + sem)
-  axios.get('/professors/researchApply/list', {
+  axios.post('/professors/researchApply/list', {
     id: tid
   }).then(res => {
     console.log(res);
