@@ -6,7 +6,7 @@ import ProjectTile from './Tile'
 import Professor from '../Professor'
 import { ResponsiveContainer } from '../../../Components/Responsive'
 import { getProjects, newProjectReset, deleteProjectReset, getTimes } from '../../../Redux/Students/Actions/Project'
-import { FETCHING_STATUS } from '../../../Utilities/constant'
+import { FETCHING_STATUS } from '../../../Utils/constant'
 
 const styles = {
   root: {

@@ -10,7 +10,7 @@ import {
   fetchCheck,
   checkHandleChange
 } from '../../../../Redux/Assistants/Actions/Project/Check'
-import { getSemester } from '../../../../Utilities'
+import { getSemester } from '../../../../Utils'
 
 const styles = theme => ({
   container: {

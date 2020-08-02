@@ -4,7 +4,7 @@ import input from 'react-bootstrap'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import { base64encode } from '../../../../Utilities'
+import { base64encode } from '../../../../Utils'
 
 const styles = theme => ({
   button: {

@@ -10,7 +10,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { deleteProject } from '../../../../Redux/Students/Actions/Project'
-import { semesterToChinese } from '../../../../Utilities'
+import { semesterToChinese } from '../../../../Utils'
 
 const styles = {
   root: {

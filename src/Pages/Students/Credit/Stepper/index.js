@@ -29,7 +29,7 @@ import {
   sendEnglishCourse,
   editCredit
 } from '../../../../Redux/Students/Actions/Credit'
-import { getSemester } from '../../../../Utilities'
+import { getSemester } from '../../../../Utils'
 import './style.css'
 
 

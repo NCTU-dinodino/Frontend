@@ -2,7 +2,7 @@
 import { createActions } from 'redux-actions'
 import axios from 'axios'
 import FakeData from '../../../../Resources/FakeData'
-import { FETCHING_STATUS } from '../../../../Utilities/constant'
+import { FETCHING_STATUS } from '../../../../Utils/constant'
 
 const actions = createActions({
   GRADUATION: {

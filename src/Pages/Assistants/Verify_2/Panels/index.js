@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 
 import ApplyItem from './ApplyItem'
-import { getSemester } from '../../../../Utilities';
+import { getSemester } from '../../../../Utils';
 
 class index extends React.Component {
   render() {

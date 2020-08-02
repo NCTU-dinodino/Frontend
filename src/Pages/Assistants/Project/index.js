@@ -21,7 +21,7 @@ import {
   fetchStatus,
 } from '../../../Redux/Assistants/Actions/Project/Status'
 
-import { getSemester } from '../../../Utilities'
+import { getSemester } from '../../../Utils'
 
 const styles = theme => ({
   root: {

@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button'
 
-import { base64encode } from '../../../../Utilities'
+import { base64encode } from '../../../../Utils'
 
 import {
   uploadHandleChange,

@@ -1,7 +1,7 @@
 
 import { createActions } from 'redux-actions'
 import axios from 'axios'
-import { FETCHING_STATUS } from '../../../../Utilities/constant'
+import { FETCHING_STATUS } from '../../../../Utils/constant'
 import FakeData from '../../../../Resources/FakeData'
 
 const actions = createActions({

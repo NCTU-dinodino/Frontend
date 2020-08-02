@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { semesterToChinese } from '../../../../../Utilities'
+import { semesterToChinese } from '../../../../../Utils'
 
 const styles = theme => ({
   projectBar: {

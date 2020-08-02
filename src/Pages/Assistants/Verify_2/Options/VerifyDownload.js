@@ -11,7 +11,7 @@ import {
 
 import { verifyHandleChange } from '../../../../Redux/Assistants/Actions/Verify'
 import { CSVLink } from 'react-csv'
-import { getSemester } from '../../../../Utilities'
+import { getSemester } from '../../../../Utils'
 
 class VerifyDownload extends React.Component {
 	downCSV = (i) => {

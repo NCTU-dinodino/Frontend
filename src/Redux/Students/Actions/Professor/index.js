@@ -2,7 +2,7 @@
 import { createActions } from 'redux-actions'
 import axios from 'axios'
 // import FakeData from '../../../../Resources/FakeData'
-import { getYear } from '../../../../Utilities/'
+import { getYear } from '../../../../Utils/'
 
 const actions = createActions({
   PROFESSOR: {

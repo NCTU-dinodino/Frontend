@@ -15,7 +15,7 @@ import {
   editBulletinReset,
   deleteBulletinReset
 } from '../../Redux/Bulletins/Actions'
-import { FETCHING_STATUS } from '../../Utilities/constant'
+import { FETCHING_STATUS } from '../../Utils/constant'
 
 const styles = theme => ({
   background: {

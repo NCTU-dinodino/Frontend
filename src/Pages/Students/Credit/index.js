@@ -13,7 +13,7 @@ import ExemptCoursePanel from './Panel/exemptCoursePanel'
 import CompulsoryCoursePanel from './Panel/compulsoryCoursePanel'
 import EnglishCoursePanel from './Panel/englishCoursePanel'
 import { actions, getCreditList } from '../../../Redux/Students/Actions/Credit'
-import { FETCHING_STATUS } from '../../../Utilities/constant'
+import { FETCHING_STATUS } from '../../../Utils/constant'
 import creditImg from '../../../Resources/credit_no_upload.png'
 
 const styles = theme => ({

@@ -26,7 +26,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button';
 import { CSVLink } from "react-csv"
-import { base64encode } from '../../../../Utilities'
+import { base64encode } from '../../../../Utils'
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';

@@ -9,7 +9,7 @@ import {
   getGraduationInfo,
   moveCourseDone
 } from '../../../Redux/Students/Actions/Graduation'
-import { FETCHING_STATUS } from '../../../Utilities/constant'
+import { FETCHING_STATUS } from '../../../Utils/constant'
 
 class Index extends React.Component {
   componentDidMount () {
