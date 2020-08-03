@@ -144,8 +144,8 @@ class SendProject extends React.Component {
     if (newNumber > limitcount - this.props.professor.scount) {
       this.handleSnackbarOpen('專題成員已超過該教授上限！如有外系成員則不算在教授上限內。')
     }
-    if (newNumber > 4) {
-      this.handleSnackbarOpen('專題成員不能超過4位！')
+    if (newNumber > 3) {
+      this.handleSnackbarOpen('專題成員若要超過3位請至系辦申請！')
       return
     }
     this.setState({
