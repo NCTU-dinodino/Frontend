@@ -50,7 +50,10 @@ class Index extends React.Component {
       if (timeStatus === FETCHING_STATUS.ERROR) {
         if (!this.alertPresent) {
           this.alertPresent = true
-          window.alert('申請失敗! 現在並非專題申請期間!', [{text: 'OK', onPress: () => { this.alertPresent = false } }], { cancelable: false });
+          window.alert('申請失敗! 現在並非專題申請期間!')
+        }
+        else {
+          this.alertPresent = false
         }
       }
       else if (newStatus === FETCHING_STATUS.DONE) {
