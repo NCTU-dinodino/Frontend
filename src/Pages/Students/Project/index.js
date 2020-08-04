@@ -39,7 +39,6 @@ class Index extends React.Component {
   componentDidMount () {
     this.alertPresent = false
     this.props.getProjects()
-    this.props.getTimes()
     // window.alert('請注意，本學期專題改由紙本申請')
   }
 
@@ -132,7 +131,6 @@ const mapDispatchToProps = (dispatch) => ({
   getProjects: () => dispatch(getProjects()),
   newProjectReset: () => dispatch(newProjectReset()),
   deleteProjectReset: () => dispatch(deleteProjectReset()),
-  getTimes: () => dispatch(getTimes())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
