@@ -37,8 +37,8 @@ export const newProject = (payload) => dispatch => {
     .then(res => {
       dispatch(actions.project.new.store(res.data))
       const qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
-
-      if (qualified) {
+      if (qualified && actions.project.times.status === FETCHING_STATUS.DONE) {
+        console.log(actions.project.times.status)
         axios.post('/students/research/create', payload)
           .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
           .catch(err => {
