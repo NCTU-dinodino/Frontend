@@ -39,7 +39,6 @@ class Index extends React.Component {
   componentDidMount () {
     this.alertPresent = false
     this.props.getProjects()
-    this.props.getTimes()
     // window.alert('請注意，本學期專題改由紙本申請')
   }
 
@@ -65,6 +64,12 @@ class Index extends React.Component {
         let messages = '申請失敗!'
         newResponse.forEach((response) => {
           switch (response.status) {
+            case 1:
+              messages += `\n專題成員學號重複!`
+              break
+            case 2:
+              messages += `\n專題成員學號重複!`
+              break
             case 3:
               messages += `\n${response.student_id} 基礎程式設計成績待審核`
               break
@@ -132,7 +137,6 @@ const mapDispatchToProps = (dispatch) => ({
   getProjects: () => dispatch(getProjects()),
   newProjectReset: () => dispatch(newProjectReset()),
   deleteProjectReset: () => dispatch(deleteProjectReset()),
-  getTimes: () => dispatch(getTimes())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))
