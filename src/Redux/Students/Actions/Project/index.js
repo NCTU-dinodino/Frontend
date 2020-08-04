@@ -34,6 +34,7 @@ export const getProjects = () => dispatch => {
 
 export const newProject = (payload) => dispatch => {
   dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
+  dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
   axios.get('/getTimes')
     .then(res => {
       var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
@@ -50,7 +51,6 @@ export const newProject = (payload) => dispatch => {
       else {
         dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
 
-        dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
         axios.post('/students/research/showStudentStatus', { members: payload.members })
           .then(res => {
             dispatch(actions.project.new.store(res.data))
@@ -99,25 +99,3 @@ export const deleteProject = (payload) => dispatch => {
 export const deleteProjectReset = () => dispatch => {
   dispatch(actions.project.delete.setStatus(FETCHING_STATUS.IDLE))
 }
-
-// export const getTimes = () => dispatch => {
-//   dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
-//   axios.get('/getTimes')
-//     .then(res => {
-//       var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
-//       var date = today.getFullYear() + '-'
-//                 + ('0' + (today.getMonth()+1)).slice(-2) + '-'
-//                 + ('0' + today.getDate()).slice(-2) + 'T'
-//                 + ('0' + today.getHours()).slice(-2) + ':'
-//                 + ('0' + today.getMinutes()).slice(-2)
-
-//       if (begin > date || end < date )
-//         dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
-//       else 
-//         dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
-//     })
-//     .catch(error => {
-//       console.log(error)
-//       dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
-//     })
-// }
