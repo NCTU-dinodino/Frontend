@@ -34,6 +34,7 @@ export const getProjects = () => dispatch => {
 
 export const newProject = (payload) => dispatch => {
   dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
+  dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
   axios.get('/getTimes')
     .then(res => {
       var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
@@ -50,7 +51,6 @@ export const newProject = (payload) => dispatch => {
       else {
         dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
 
-        dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
         axios.post('/students/research/showStudentStatus', { members: payload.members })
           .then(res => {
             dispatch(actions.project.new.store(res.data))
