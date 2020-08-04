@@ -38,7 +38,33 @@ export const newProject = (payload) => dispatch => {
     .then(res => {
       dispatch(actions.project.new.store(res.data))
       const qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
-      if (qualified && store.getState().Students.Project.times.status === FETCHING_STATUS.DONE) {
+      
+      var intime = false
+      dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
+      axios.get('/getTimes')
+        .then(res => {
+          var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
+          var date = today.getFullYear() + '-'
+                    + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+                    + ('0' + today.getDate()).slice(-2) + 'T'
+                    + ('0' + today.getHours()).slice(-2) + ':'
+                    + ('0' + today.getMinutes()).slice(-2)
+
+          if (begin > date || end < date ) {
+            dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+            window.alert("申請失敗! 現在並非專題申請期間!")
+          }
+          else {
+            intime = true
+            dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
+          }
+        })
+        .catch(error => {
+          console.log(error)
+          dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+        })
+
+      if (qualified && intime) {
         axios.post('/students/research/create', payload)
           .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
           .catch(err => {
@@ -76,24 +102,24 @@ export const deleteProjectReset = () => dispatch => {
   dispatch(actions.project.delete.setStatus(FETCHING_STATUS.IDLE))
 }
 
-export const getTimes = () => dispatch => {
-  dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
-  axios.get('/getTimes')
-    .then(res => {
-      var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
-      var date = today.getFullYear() + '-'
-                + ('0' + (today.getMonth()+1)).slice(-2) + '-'
-                + ('0' + today.getDate()).slice(-2) + 'T'
-                + ('0' + today.getHours()).slice(-2) + ':'
-                + ('0' + today.getMinutes()).slice(-2)
+// export const getTimes = () => dispatch => {
+//   dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
+//   axios.get('/getTimes')
+//     .then(res => {
+//       var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
+//       var date = today.getFullYear() + '-'
+//                 + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+//                 + ('0' + today.getDate()).slice(-2) + 'T'
+//                 + ('0' + today.getHours()).slice(-2) + ':'
+//                 + ('0' + today.getMinutes()).slice(-2)
 
-      if (begin > date || end < date )
-        dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
-      else 
-        dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
-    })
-    .catch(error => {
-      console.log(error)
-      dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
-    })
-}
+//       if (begin > date || end < date )
+//         dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+//       else 
+//         dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
+//     })
+//     .catch(error => {
+//       console.log(error)
+//       dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+//     })
+// }
