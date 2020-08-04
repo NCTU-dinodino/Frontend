@@ -48,6 +48,7 @@ export const newProject = (payload) => dispatch => {
           })
       } else {
         dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
+        window.alert('專題組員學號重複, 請再次確認後送出!')
       }
     })
     .catch(error => {
