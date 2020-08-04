@@ -45,10 +45,10 @@ export const newProject = (payload) => dispatch => {
             console.log(err)
             // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
             dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
+            window.alert('專題組員學號重複, 請再次確認後送出!')
           })
       } else {
         dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
-        window.alert('專題組員學號重複, 請再次確認後送出!')
       }
     })
     .catch(error => {
