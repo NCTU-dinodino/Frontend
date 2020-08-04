@@ -45,6 +45,7 @@ export const newProject = (payload) => dispatch => {
 
       if (begin > date || end < date ) {
         dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+        dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
       }
       else {
         dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
@@ -76,6 +77,7 @@ export const newProject = (payload) => dispatch => {
     .catch(error => {
       console.log(error)
       dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
+      dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
     })
 }
 
