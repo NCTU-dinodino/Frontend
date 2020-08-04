@@ -1,6 +1,7 @@
 
 import { createActions } from 'redux-actions'
 import axios from 'axios'
+import store from '../../../../App'
 import { FETCHING_STATUS } from '../../../../Utils/constant'
 // import FakeData from '../../../../Resources/FakeData'
 
@@ -37,32 +38,7 @@ export const newProject = (payload) => dispatch => {
     .then(res => {
       dispatch(actions.project.new.store(res.data))
       const qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
-      
-      dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
-      axios.get('/getTimes')
-        .then(res => {
-          var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
-          var date = today.getFullYear() + '-'
-                    + ('0' + (today.getMonth()+1)).slice(-2) + '-'
-                    + ('0' + today.getDate()).slice(-2) + 'T'
-                    + ('0' + today.getHours()).slice(-2) + ':'
-                    + ('0' + today.getMinutes()).slice(-2)
-
-          if (begin > date || end < date ) {
-            dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
-          }
-          else {
-            qualified = false
-            dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
-          }
-        })
-        .catch(error => {
-          qualified = false
-          console.log(error)
-          dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
-        })
-
-      if (qualified) {
+      if (qualified && store.getState().Students.Project.times.status === FETCHING_STATUS.DONE) {
         axios.post('/students/research/create', payload)
           .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
           .catch(err => {
