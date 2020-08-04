@@ -37,7 +37,6 @@ const styles = {
 
 class Index extends React.Component {
   componentDidMount () {
-    this.alertPresent = false
     this.props.getProjects()
     // window.alert('請注意，本學期專題改由紙本申請')
   }
@@ -47,13 +46,7 @@ class Index extends React.Component {
     
     if (newStatus !== prevProps.newStatus) {
       if (timeStatus === FETCHING_STATUS.ERROR) {
-        if (!this.alertPresent) {
-          this.alertPresent = true
-          window.alert('申請失敗! 現在並非專題申請期間!')
-        }
-        else {
-          this.alertPresent = false
-        }
+        window.alert('申請失敗! 現在並非專題申請期間!')
       }
       else if (newStatus === FETCHING_STATUS.DONE) {
         this.props.getProjects()
