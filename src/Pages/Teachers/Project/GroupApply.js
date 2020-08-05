@@ -8,7 +8,7 @@ import Loading from '../../../Components/Loading'
 import Avatar from 'material-ui/Avatar'
 //Chips are compact elements that represent an input, attribute, or action.
 import Chip from 'material-ui/Chip' 
-import { Dialog } from 'material-ui'
+import { Dialog } from '@material-ui/core'
 // for multiTheme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { withStyles } from '@material-ui/core/styles/index'
@@ -166,9 +166,11 @@ class GroupApply extends React.Component {
   // FOR CHIP
   handleChip = (i) => {
     console.log("-----handleChip---------")
-    console.log(i)
+    console.log(i) // undefine0616092
     let chipOpen = this.state.chipOpen
     chipOpen.set(i, true)
+    console.log("-----chipOpen-------")
+    console.log(chipOpen)
     this.setState({chipOpen})
   }
 
@@ -256,7 +258,7 @@ const ApplyButton = (props) => {
                 <Chip className='group-chip'
                       backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
                       key={i}
-                      onClick={() => props.handleChip(props.key + p.student_id)}>
+                      onClick={() => props.handleChip(p.student_id)}>
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
                   {/*<span style={{color: 'red'}}>  {p.score}</span>*/}
                 </Chip>
@@ -265,7 +267,7 @@ const ApplyButton = (props) => {
                   <Dialog
                     key={i}
                     modal={false}
-                    open={props.chipOpen.size === 0 ? false : props.chipOpen.get(props.key + p.student_id)}
+                    open={props.chipOpen.size === 0 ? false : props.chipOpen.get(p.student_id)}
                     onRequestClose={() => props.handleRequestClose()}
                     autoScrollBodyContent
                     contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
