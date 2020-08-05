@@ -62,4 +62,16 @@ const Login = ({ classes }) => (
   </FadeIn>
 )
 
-export default withStyles(styles)(Login)
+const withFailLoginInfo = (Component) => {
+  const failLoginInfo = (props) => {
+    const { location } = props
+    let err = new URLSearchParams(location.search).get('fail')
+    if (err != null) {
+      window.alert('登入失敗\n無效的帳戶或系統錯誤。\n注意本系統僅供交大資工學士班學生及教職員使用。\n若有任何問題，請使用右下角問題回報功能。')
+    }
+    return <Component {...props} />
+  }
+  return failLoginInfo
+}
+
+export default withFailLoginInfo(withStyles(styles)(Login))
