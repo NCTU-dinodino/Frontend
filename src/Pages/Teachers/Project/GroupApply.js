@@ -123,10 +123,6 @@ class GroupApply extends React.Component {
     //this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
-    console.log('------ tid ------')
-    console.log(tid)
-    console.log('------ sem ------')
-    console.log(sem)
     if( tid === '001' ){
       // NOT A VALID TID
       setTimeout(
@@ -169,6 +165,8 @@ class GroupApply extends React.Component {
 
   // FOR CHIP
   handleChip = (i) => {
+    console.log("-----handleChip---------")
+    console.log(i)
     let chipOpen = this.state.chipOpen
     chipOpen.set(i, true)
     this.setState({chipOpen})
@@ -260,7 +258,7 @@ const ApplyButton = (props) => {
                       key={i}
                       onClick={() => props.handleChip(props.key + p.student_id)}>
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
-                  <span style={{color: 'red'}}>  {p.score}</span>
+                  {/*<span style={{color: 'red'}}>  {p.score}</span>*/}
                 </Chip>
 
                 <MuiThemeProvider>
