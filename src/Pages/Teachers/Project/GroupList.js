@@ -83,7 +83,7 @@ class GroupList extends React.Component {
 
     handleChip = (i) => {
         let chipOpen = this.state.chipOpen
-        chipOpen.set(i, false)
+        chipOpen.set(i, true)
         this.setState({chipOpen})
     }
 
