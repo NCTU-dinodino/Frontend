@@ -57,12 +57,12 @@ class Index extends React.Component {
         let messages = '申請失敗!'
         newResponse.forEach((response) => {
           switch (response.status) {
-            case 1:
-              messages += `\n專題成員學號重複!`
-              break
-            case 2:
-              messages += `\n專題成員學號重複!`
-              break
+            // case 1:
+            //   messages += `\n專題成員學號重複!`
+            //   break
+            // case 2:
+            //   messages += `\n專題成員學號重複!`
+            //   break
             case 3:
               messages += `\n${response.student_id} 基礎程式設計成績待審核`
               break
