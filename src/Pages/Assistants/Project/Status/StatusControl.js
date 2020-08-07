@@ -26,12 +26,14 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button';
 import { CSVLink } from "react-csv"
-import { base64encode, getSemester } from '../../../../Utils'
+import { base64encode } from '../../../../Utils'
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import red from '@material-ui/core/colors/red'
 
@@ -480,9 +482,16 @@ class StatusControl extends React.Component {
           <DialogContent>
             收件者: <br />
             {
-              Status.people.map( (person, idx) => 
-              <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
-              )
+              Status.loadingModal ? 
+                <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
+                  <div style={{ flex: 1 }}/>
+                  <CircularProgress style={{ color: '#68BB66' }} />
+                  <div style={{ flex: 1 }}/>
+                </div> 
+              :
+                Status.people.map( (person, idx) => 
+                  <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
+                )
             }
           </DialogContent>
           <DialogActions>
@@ -502,7 +511,12 @@ class StatusControl extends React.Component {
                 people: Status.people
               })
             }
-              style={{ color: 'blue', fontSize: '20px'}} 
+              style={ Status.loadingModal ? 
+                { color: 'grey', fontSize: '20px'}
+                :
+                { color: 'blue', fontSize: '20px'}
+              } 
+              disabled = { Status.loadingModal }
             >
               確認
             </Button>
@@ -525,9 +539,16 @@ class StatusControl extends React.Component {
           <DialogContent>
             退選學生: <br />
             {
-              Status.people.map( (person, idx) => 
-              <Chip label={person.id + person.name} className={classes.chip} style={{ backgroundColor: red[100] }} key={idx}/>
-              )
+              Status.loadingModal ? 
+                <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
+                  <div style={{ flex: 1 }}/>
+                  <CircularProgress style={{ color: '#68BB66' }} />
+                  <div style={{ flex: 1 }}/>
+                </div> 
+              :
+                Status.people.map( (person, idx) => 
+                  <Chip label={person.id + person.name} className={classes.chip} style={{ backgroundColor: red[100] }} key={idx}/>
+                )
             }
           </DialogContent>
           <DialogActions>
@@ -541,20 +562,28 @@ class StatusControl extends React.Component {
             >
               取消
             </Button>
-            <Button onClick={ 
-              () => {
-                this.props.withdrawStudents({
-                  people: this.getWithdrawList(),
-                  refresh: {
-                    year: Status.year,
-                    semester: Status.semester,
-                    first_second: Status.first_second
+            <Button 
+              onClick={ 
+                () => {
+                  if (window.confirm("此操作無法返回, 將退選" + this.getWithdrawList().length + "人並發送信件, 確定執行此動作?")) {
+                    this.props.withdrawStudents({
+                      people: this.getWithdrawList(),
+                      refresh: {
+                        year: Status.year,
+                        semester: Status.semester,
+                        first_second: Status.first_second
+                      }
+                    })
+                    this.setState({ openWithdraw: false })
                   }
-                })
-                this.setState({ openWithdraw: false })
+                }
               }
-            }
-              style={{ color: 'red', fontSize: '20px'}} 
+              style={ Status.loadingModal ? 
+                { color: 'grey', fontSize: '20px'}
+                :
+                { color: 'blue', fontSize: '20px'}
+              } 
+              disabled = { Status.loadingModal }
             >
               確認
             </Button>

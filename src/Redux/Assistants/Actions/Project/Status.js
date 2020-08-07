@@ -22,7 +22,7 @@ export const set_score = createAction('PROJECT_STATUS_SET_SCORE')
 export const get_unscore_teacher_list = createAction('PROJECT_STATUS_GET_UNSCORE_TEACHER_LIST')
 
 export const statusHandleChange = (payload) => dispatch => {
-    dispatch(status_handle_change(payload));
+  dispatch(status_handle_change(payload));
 }
 
 export const fetchStatus = (payload) => dispatch => {
@@ -40,7 +40,6 @@ export const fetchStatus = (payload) => dispatch => {
   }).catch(err => {
     window.alert('獲取專題列表失敗')
     console.log(err)
-    dispatch(status_handle_change({ loading: false }))
   })
 }
 
@@ -91,12 +90,15 @@ export const setScore = payload => dispatch => {
 }
 
 export const getUnScoreList = () => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
   dispatch(get_unscore_teacher_list())
+  dispatch(status_handle_change({ loadingModal: false }))
 }
 
 export const getNotOnCosList = (payload) => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
   axios.post('/assistants/research/notOnCosList', payload).then( res => {
-    dispatch(status_handle_change({people: res.data}))
+    dispatch(status_handle_change({people: res.data, loadingModal: false}))
   }).catch( err => {
     dispatch(status_handle_change({people: []}))
     window.alert("獲取未選課列表失敗, 請連繫dino團隊!")
@@ -105,8 +107,9 @@ export const getNotOnCosList = (payload) => dispatch => {
 }
 
 export const getNotInSystemList = (payload) => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
   axios.post('/assistants/research/notInSystemList', payload).then( res => {
-    dispatch(status_handle_change({people: res.data}))
+    dispatch(status_handle_change({people: res.data, loadingModal: false}))
   }).catch( err => {
     dispatch(status_handle_change({people: []}))
     window.alert("獲取未至dino申請列表失敗, 請連繫dino團隊!")

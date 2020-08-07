@@ -11,7 +11,8 @@ const initialState = {
   templateDone: false,
   templateFile: '',
   people: [],
-  loading: true
+  loading: true,
+  loadingModal: true
 }
 
 export default handleActions({
