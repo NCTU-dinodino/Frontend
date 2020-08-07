@@ -26,7 +26,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button';
 import { CSVLink } from "react-csv"
-import { base64encode } from '../../../../Utils'
+import { base64encode, getSemester } from '../../../../Utils'
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -137,7 +137,8 @@ class StatusControl extends React.Component {
           upload: {
             file_data: encoded.split('base64,')[1],
             data_type: "專題選課名單",
-            semester: Status.year + '-' + Status.semester
+            semester: Status.year + '-' + Status.semester,
+            first_second: Status.first_second
           },
           refresh: {
             year: Status.year,
@@ -397,7 +398,10 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
-              this.props.getNotOnCosList()
+              this.props.getNotOnCosList({
+                semester: Status.year + '-' + Status.semester,
+                first_second: Status.first_second
+              })
               this.setState({ openMail: true, mailTitle: '至選課系統選課寄信提醒', mainType: "1" })
             }}
           >
@@ -410,7 +414,10 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
-              this.props.getNotInSystemList()
+              this.props.getNotInSystemList({
+                semester: Status.year + '-' + Status.semester,
+                first_second: Status.first_second
+              })
               this.setState({ openMail: true, mailTitle: '至dinodino申請專題寄信提醒', mailType: "0" })
             }}
           >
@@ -443,7 +450,10 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
-              this.props.getNotOnCosList()
+              this.props.getNotOnCosList({
+                semester: Status.year + '-' + Status.semester,
+                first_second: Status.first_second
+              })
               this.setState({ openWithdraw: true })
             }}
           >
@@ -566,8 +576,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetch_xlsx: (payload) => dispatch(fetchXLSX(payload)),
   upload_xlsx: (payload) => dispatch(uploadXLSX(payload)),
   getUnScoreList: () => dispatch(getUnScoreList()),
-  getNotOnCosList: () => dispatch(getNotOnCosList()),
-  getNotInSystemList: () => dispatch(getNotInSystemList()),
+  getNotOnCosList: (paylad) => dispatch(getNotOnCosList(paylad)),
+  getNotInSystemList: (payload) => dispatch(getNotInSystemList(paylad)),
   sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
   withdrawStudents: (payload) => dispatch(withdrawStudents(payload))
 })

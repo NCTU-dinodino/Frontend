@@ -66,7 +66,7 @@ export const fetchCsv = (payload) => dispatch => {
 export const uploadXLSX = (payload) => dispatch => {
   axios.post('/dataUpload', payload.upload).then( res => {
     window.alert("檔案上傳至伺服器成功, 正在處理資料...")
-    fetchStatus(payload.refresh)
+    dispatch(fetchStatus(payload.refresh))
   }).catch( err => {
     window.alert("檔案上傳至伺服器失敗, 請檢查連線是否有問題, 或是通知dinodino開發團隊!");
     console.log(err)
@@ -94,8 +94,8 @@ export const getUnScoreList = () => dispatch => {
   dispatch(get_unscore_teacher_list())
 }
 
-export const getNotOnCosList = () => dispatch => {
-  axios.get('/assistants/research/notOnCosList').then( res => {
+export const getNotOnCosList = (payload) => dispatch => {
+  axios.post('/assistants/research/notOnCosList', payload).then( res => {
     dispatch(status_handle_change({people: res.data}))
   }).catch( err => {
     dispatch(status_handle_change({people: []}))
@@ -104,8 +104,8 @@ export const getNotOnCosList = () => dispatch => {
   })
 }
 
-export const getNotInSystemList = () => dispatch => {
-  axios.get('/assistants/research/notInSystemList').then( res => {
+export const getNotInSystemList = (payload) => dispatch => {
+  axios.post('/assistants/research/notInSystemList', payload).then( res => {
     dispatch(status_handle_change({people: res.data}))
   }).catch( err => {
     dispatch(status_handle_change({people: []}))
