@@ -54,6 +54,8 @@ class InfoCard extends React.Component {
 
   componentDidMount () {
     const s = this.props.student
+    console.log('---------- s ----------')
+    console.log(s)
     this.handleSelected(s.student_id)
     this.fetchStudentProfile()
     console.log('SCORE DATA: ', this.state.scoreData)
