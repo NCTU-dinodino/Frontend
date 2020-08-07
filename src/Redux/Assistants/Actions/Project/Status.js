@@ -100,7 +100,6 @@ export const getNotOnCosList = (payload) => dispatch => {
   axios.post('/assistants/research/notOnCosList', payload).then( res => {
     dispatch(status_handle_change({people: res.data, loadingModal: false}))
   }).catch( err => {
-    dispatch(status_handle_change({people: []}))
     window.alert("獲取未選課列表失敗, 請連繫dino團隊!")
     console.log(err)
   })
@@ -111,7 +110,6 @@ export const getNotInSystemList = (payload) => dispatch => {
   axios.post('/assistants/research/notInSystemList', payload).then( res => {
     dispatch(status_handle_change({people: res.data, loadingModal: false}))
   }).catch( err => {
-    dispatch(status_handle_change({people: []}))
     window.alert("獲取未至dino申請列表失敗, 請連繫dino團隊!")
     console.log(err)
   })
