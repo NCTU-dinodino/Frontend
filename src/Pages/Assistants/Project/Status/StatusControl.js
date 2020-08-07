@@ -33,6 +33,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import red from '@material-ui/core/colors/red'
 
 const styles = theme => ({
@@ -137,7 +139,8 @@ class StatusControl extends React.Component {
           upload: {
             file_data: encoded.split('base64,')[1],
             data_type: "專題選課名單",
-            semester: Status.year + '-' + Status.semester
+            semester: Status.year + '-' + Status.semester,
+            first_second: Status.first_second
           },
           refresh: {
             year: Status.year,
@@ -397,7 +400,10 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
-              this.props.getNotOnCosList()
+              this.props.getNotOnCosList({
+                semester: Status.year + '-' + Status.semester,
+                first_second: Status.first_second
+              })
               this.setState({ openMail: true, mailTitle: '至選課系統選課寄信提醒', mainType: "1" })
             }}
           >
@@ -410,7 +416,10 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
-              this.props.getNotInSystemList()
+              this.props.getNotInSystemList({
+                semester: Status.year + '-' + Status.semester,
+                first_second: Status.first_second
+              })
               this.setState({ openMail: true, mailTitle: '至dinodino申請專題寄信提醒', mailType: "0" })
             }}
           >
@@ -443,7 +452,10 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
-              this.props.getNotOnCosList()
+              this.props.getNotOnCosList({
+                semester: Status.year + '-' + Status.semester,
+                first_second: Status.first_second
+              })
               this.setState({ openWithdraw: true })
             }}
           >
@@ -470,9 +482,16 @@ class StatusControl extends React.Component {
           <DialogContent>
             收件者: <br />
             {
-              Status.people.map( (person, idx) => 
-              <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
-              )
+              Status.loadingModal ? 
+                <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
+                  <div style={{ flex: 1 }}/>
+                  <CircularProgress style={{ color: '#68BB66' }} />
+                  <div style={{ flex: 1 }}/>
+                </div> 
+              :
+                Status.people.map( (person, idx) => 
+                  <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
+                )
             }
           </DialogContent>
           <DialogActions>
@@ -492,7 +511,12 @@ class StatusControl extends React.Component {
                 people: Status.people
               })
             }
-              style={{ color: 'blue', fontSize: '20px'}} 
+              style={ Status.loadingModal ? 
+                { color: 'grey', fontSize: '20px'}
+                :
+                { color: 'blue', fontSize: '20px'}
+              } 
+              disabled = { Status.loadingModal }
             >
               確認
             </Button>
@@ -515,9 +539,16 @@ class StatusControl extends React.Component {
           <DialogContent>
             退選學生: <br />
             {
-              Status.people.map( (person, idx) => 
-              <Chip label={person.id + person.name} className={classes.chip} style={{ backgroundColor: red[100] }} key={idx}/>
-              )
+              Status.loadingModal ? 
+                <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
+                  <div style={{ flex: 1 }}/>
+                  <CircularProgress style={{ color: '#68BB66' }} />
+                  <div style={{ flex: 1 }}/>
+                </div> 
+              :
+                Status.people.map( (person, idx) => 
+                  <Chip label={person.id + person.name} className={classes.chip} style={{ backgroundColor: red[100] }} key={idx}/>
+                )
             }
           </DialogContent>
           <DialogActions>
@@ -531,20 +562,28 @@ class StatusControl extends React.Component {
             >
               取消
             </Button>
-            <Button onClick={ 
-              () => {
-                this.props.withdrawStudents({
-                  people: this.getWithdrawList(),
-                  refresh: {
-                    year: Status.year,
-                    semester: Status.semester,
-                    first_second: Status.first_second
+            <Button 
+              onClick={ 
+                () => {
+                  if (window.confirm("此操作無法返回, 將退選" + this.getWithdrawList().length + "人並發送信件, 確定執行此動作?")) {
+                    this.props.withdrawStudents({
+                      people: this.getWithdrawList(),
+                      refresh: {
+                        year: Status.year,
+                        semester: Status.semester,
+                        first_second: Status.first_second
+                      }
+                    })
+                    this.setState({ openWithdraw: false })
                   }
-                })
-                this.setState({ openWithdraw: false })
+                }
               }
-            }
-              style={{ color: 'red', fontSize: '20px'}} 
+              style={ Status.loadingModal ? 
+                { color: 'grey', fontSize: '20px'}
+                :
+                { color: 'blue', fontSize: '20px'}
+              } 
+              disabled = { Status.loadingModal }
             >
               確認
             </Button>
@@ -566,8 +605,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetch_xlsx: (payload) => dispatch(fetchXLSX(payload)),
   upload_xlsx: (payload) => dispatch(uploadXLSX(payload)),
   getUnScoreList: () => dispatch(getUnScoreList()),
-  getNotOnCosList: () => dispatch(getNotOnCosList()),
-  getNotInSystemList: () => dispatch(getNotInSystemList()),
+  getNotOnCosList: (payload) => dispatch(getNotOnCosList(payload)),
+  getNotInSystemList: (payload) => dispatch(getNotInSystemList(payload)),
   sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
   withdrawStudents: (payload) => dispatch(withdrawStudents(payload))
 })

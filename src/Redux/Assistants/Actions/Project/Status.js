@@ -22,7 +22,7 @@ export const set_score = createAction('PROJECT_STATUS_SET_SCORE')
 export const get_unscore_teacher_list = createAction('PROJECT_STATUS_GET_UNSCORE_TEACHER_LIST')
 
 export const statusHandleChange = (payload) => dispatch => {
-    dispatch(status_handle_change(payload));
+  dispatch(status_handle_change(payload));
 }
 
 export const fetchStatus = (payload) => dispatch => {
@@ -40,7 +40,6 @@ export const fetchStatus = (payload) => dispatch => {
   }).catch(err => {
     window.alert('獲取專題列表失敗')
     console.log(err)
-    dispatch(status_handle_change({ loading: false }))
   })
 }
 
@@ -66,7 +65,7 @@ export const fetchCsv = (payload) => dispatch => {
 export const uploadXLSX = (payload) => dispatch => {
   axios.post('/dataUpload', payload.upload).then( res => {
     window.alert("檔案上傳至伺服器成功, 正在處理資料...")
-    fetchStatus(payload.refresh)
+    dispatch(fetchStatus(payload.refresh))
   }).catch( err => {
     window.alert("檔案上傳至伺服器失敗, 請檢查連線是否有問題, 或是通知dinodino開發團隊!");
     console.log(err)
@@ -91,12 +90,15 @@ export const setScore = payload => dispatch => {
 }
 
 export const getUnScoreList = () => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
   dispatch(get_unscore_teacher_list())
+  dispatch(status_handle_change({ loadingModal: false }))
 }
 
-export const getNotOnCosList = () => dispatch => {
-  axios.get('/assistants/research/notOnCosList').then( res => {
-    dispatch(status_handle_change({people: res.data}))
+export const getNotOnCosList = (payload) => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
+  axios.post('/assistants/research/notOnCosList', payload).then( res => {
+    dispatch(status_handle_change({people: res.data, loadingModal: false}))
   }).catch( err => {
     dispatch(status_handle_change({people: []}))
     window.alert("獲取未選課列表失敗, 請連繫dino團隊!")
@@ -104,9 +106,10 @@ export const getNotOnCosList = () => dispatch => {
   })
 }
 
-export const getNotInSystemList = () => dispatch => {
-  axios.get('/assistants/research/notInSystemList').then( res => {
-    dispatch(status_handle_change({people: res.data}))
+export const getNotInSystemList = (payload) => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
+  axios.post('/assistants/research/notInSystemList', payload).then( res => {
+    dispatch(status_handle_change({people: res.data, loadingModal: false}))
   }).catch( err => {
     dispatch(status_handle_change({people: []}))
     window.alert("獲取未至dino申請列表失敗, 請連繫dino團隊!")
