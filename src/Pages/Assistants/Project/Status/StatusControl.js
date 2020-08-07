@@ -576,8 +576,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetch_xlsx: (payload) => dispatch(fetchXLSX(payload)),
   upload_xlsx: (payload) => dispatch(uploadXLSX(payload)),
   getUnScoreList: () => dispatch(getUnScoreList()),
-  getNotOnCosList: (paylad) => dispatch(getNotOnCosList(paylad)),
-  getNotInSystemList: (payload) => dispatch(getNotInSystemList(paylad)),
+  getNotOnCosList: (payload) => dispatch(getNotOnCosList(payload)),
+  getNotInSystemList: (payload) => dispatch(getNotInSystemList(payload)),
   sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
   withdrawStudents: (payload) => dispatch(withdrawStudents(payload))
 })
