@@ -22,6 +22,10 @@ import {
   withdrawStudents
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import Button from '@material-ui/core/Button';
@@ -77,8 +81,25 @@ const styles = theme => ({
     fontSize: '15px',
   },
   dialog: {
-    minWidth: '60vw',
-    minHeight: '40vh'
+    minWidth: '70vw',
+    maxWidth: '70vw',
+    minHeight: '60vh',
+    maxHeight: '60vh',
+  },
+  drawerPaper: {
+    position: 'relative',
+    width: '300px',
+    height: '60vh'
+  },
+  drawer: {
+    position: 'fixed',
+    overflow: 'hidden',
+    zIndex: 1,
+    flexGrow: 1,
+    display: 'flex',
+  },
+  listItemText: {
+    fontSize: '30px'
   }
 })
 
@@ -393,7 +414,6 @@ class StatusControl extends React.Component {
           </form>
         </div>
         <Divider style={{marginTop: '20px'}}/>
-        <div style={{margin: '0 auto', width: '90%'}}><h4>寄信提醒</h4></div>
         <div className={classes.containerBlock}>
           <Button
             variant="contained" 
@@ -407,45 +427,14 @@ class StatusControl extends React.Component {
               this.setState({ openMail: true, mailTitle: '至選課系統選課寄信提醒', mainType: "1" })
             }}
           >
-            至選課系統選課
-          </Button>
-        </div>
-        <div className={classes.containerBlock}>
-          <Button
-            variant="contained" 
-            className={classes.button}
-            style={{display: 'inline'}}
-            onClick={ () => {
-              this.props.getNotInSystemList({
-                semester: Status.year + '-' + Status.semester,
-                first_second: Status.first_second
-              })
-              this.setState({ openMail: true, mailTitle: '至dinodino申請專題寄信提醒', mailType: "0" })
-            }}
-          >
-            至dinodino申請
-          </Button>
-        </div>
-        <div className={classes.containerBlock}　>
-          <Button
-            variant="contained" 
-            className={classes.button}
-            style={{display: 'inline'}}
-            onClick={ () => {
-              this.props.getUnScoreList()
-              this.setState({ openMail: true, mailTitle: '至dinodino評分專題寄信提醒', mailType: "2" })
-            }}
-          >
-            至dinodino評分
+            寄信提醒
           </Button>
         </div>
         <Divider style={{marginTop: '20px'}}/>
-        <div style={{margin: '0 auto', width: '90%'}}><h4>資料匯出</h4></div>
         <div className={classes.containerBlock}>
         { this.csvDownload() }
         </div>
         <Divider style={{marginTop: '20px'}}/>
-        <div style={{margin: '0 auto', width: '90%'}}><h4>專題退選</h4></div>
         <div className={classes.containerBlock}　>
           <Button
             variant="contained" 
@@ -467,19 +456,61 @@ class StatusControl extends React.Component {
       </div>}
         <Dialog
           open={this.state.openMail}
-          onClose={
-            () => { 
-              this.setState({ openMail: false })
-            }
-          }
+          onClose={() => this.setState({openMail: false})}
           classes={{ paper: classes.dialog }}
+          id='mailDialog'
         >
-          <DialogTitle>
+          <div className={classes.drawer}>
+            <Drawer
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                container: () => document.getElementById('mailDialog')
+              }}
+              anchor='left'
+            >
+              <List component="nav">
+                <ListItem button
+                  onClick={ () => {
+                    this.props.getNotOnCosList({
+                      semester: Status.year + '-' + Status.semester,
+                      first_second: Status.first_second
+                    })
+                    this.setState({ openMail: true, mailTitle: '至選課系統選課寄信提醒', mainType: "1" })
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>至選課系統選課</span>
+                </ListItem>
+                <ListItem button
+                  onClick={ () => {
+                    this.props.getNotInSystemList({
+                      semester: Status.year + '-' + Status.semester,
+                      first_second: Status.first_second
+                    })
+                    this.setState({ openMail: true, mailTitle: '至dinodino申請專題寄信提醒', mailType: "0" })
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>至dinodino申請專題</span>
+                </ListItem>
+                <ListItem button
+                  onClick={ () => {
+                    this.props.getUnScoreList()
+                    this.setState({ openMail: true, mailTitle: '至dinodino評分專題寄信提醒', mailType: "2" })
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>至dinodino評分專題</span>
+                </ListItem>
+              </List>
+            </Drawer>
+          </div>
+          <DialogTitle style={{ marginLeft: '300px' }}>
             <div style={{fontSize: '30px'}}>
               {this.state.mailTitle}
             </div>
           </DialogTitle>
-          <DialogContent>
+          <DialogContent style={{ marginLeft: '300px', flex: 1 }} >
             收件者: <br />
             {
               Status.loadingModal ? 
