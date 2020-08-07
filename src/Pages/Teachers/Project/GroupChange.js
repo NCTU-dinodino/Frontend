@@ -176,10 +176,6 @@ class GroupChange extends React.Component {
     const acc = this.props.research.current_accept
     const { changeTeacherList } = this.props
     //const test = changeTeacherList[0]
-    console.log('------ testtest ------')
-    console.log(Object.keys(changeTeacherList).length)
-    console.log('------ changeTeacherList -------')
-    console.log(changeTeacherList)
     return (
       <div>
         <div className='subTitle'>

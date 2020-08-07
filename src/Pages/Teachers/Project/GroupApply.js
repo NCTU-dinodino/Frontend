@@ -8,7 +8,7 @@ import Loading from '../../../Components/Loading'
 import Avatar from 'material-ui/Avatar'
 //Chips are compact elements that represent an input, attribute, or action.
 import Chip from 'material-ui/Chip' 
-import { Dialog } from '@material-ui/core'
+import { Dialog } from 'material-ui'
 // for multiTheme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { withStyles } from '@material-ui/core/styles/index'
@@ -114,10 +114,12 @@ class GroupApply extends React.Component {
     this.state = {
       //loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
-      chipOpen: new Map(),
+      chipOpen: {},
       sem: getSemester()
     }
   }
+
+
 
   fetchData () {
     //this.setState({loading: true})
@@ -134,7 +136,7 @@ class GroupApply extends React.Component {
     }
     this.props.FetchResearchApplyList(tid)
     this.props.FetchResearchList(tid, sem)
-    //this.setState({loading: false})
+    this.initChip()
   }
   // execute after component be render to DOM
   componentDidMount () {
@@ -154,6 +156,25 @@ class GroupApply extends React.Component {
     })
   }
 
+  initChip = () => {
+    var sidList = []
+    var sidObject = {}
+    for(var i=0; i<this.props.applyList.length; i++){
+      for(var j=0; j<this.props.applyList[i].participants.length; j++){
+        var temp_sid = this.props.applyList[i].participants[j].student_id
+        sidList.push(temp_sid)
+      }
+    }
+    for(var k=0; k<temp_sid.length; k++){
+      sidObject[sidList[k]] = false
+    }
+    this.setState(prevState => {
+      let temp_state = Object.assign({}, prevState)
+      temp_state.chipOpen = JSON.parse(JSON.stringify(sidObject))
+      return temp_state
+    })
+  }
+
   triggerUpdate = () => {
     this.fetchData()
     this.delay(1000).then((v) => (
@@ -167,16 +188,23 @@ class GroupApply extends React.Component {
   handleChip = (i) => {
     console.log("-----handleChip---------")
     console.log(i) // undefine0616092
-    let chipOpen = this.state.chipOpen
-    chipOpen.set(i, true)
+
+    //let chipOpen = this.state.chipOpen
+    //chipOpen.set(i, true)
     console.log("-----chipOpen-------")
-    console.log(chipOpen)
-    this.setState({chipOpen})
+    console.log(this.state.chipOpen)
+    this.setState(prevState=>{
+      let chipOpen = {...prevState.chipOpen}
+      chipOpen[i] = true
+      return {chipOpen}
+    })
   }
 
-  handleRequestClose = () => {
-    this.setState({
-      chipOpen: new Map(),
+  handleRequestClose = (id) => {
+    this.setState(prevState=>{
+      let chipOpen = {...prevState.chipOpen}
+      chipOpen[id] = false
+      return {chipOpen}
     })
   }
 
@@ -258,7 +286,7 @@ const ApplyButton = (props) => {
                 <Chip className='group-chip'
                       backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
                       key={i}
-                      onClick={() => props.handleChip(props.key + p.student_id)}>
+                      onClick={() => props.handleChip(p.student_id)}>
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
                   {/*<span style={{color: 'red'}}>  {p.score}</span>*/}
                 </Chip>
@@ -267,8 +295,8 @@ const ApplyButton = (props) => {
                   <Dialog
                     key={i}
                     modal={false}
-                    open={props.chipOpen.size === 0 ? false : props.chipOpen.get(props.key + p.student_id)}
-                    onRequestClose={() => props.handleRequestClose()}
+                    open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
+                    onRequestClose={() => props.handleRequestClose(p.student_id)}
                     autoScrollBodyContent
                     contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
                   >
