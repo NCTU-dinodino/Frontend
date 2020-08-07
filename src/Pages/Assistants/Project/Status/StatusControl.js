@@ -596,9 +596,10 @@ class StatusControl extends React.Component {
             <Button 
               onClick={ 
                 () => {
-                  if (window.confirm("此操作無法返回, 將退選" + this.getWithdrawList().length + "人並發送信件, 確定執行此動作?")) {
+                  const arr = this.getWithdrawList()
+                  if (window.confirm("此操作無法返回, 將退選" + arr.length + "人並發送信件, 確定執行此動作?")) {
                     this.props.withdrawStudents({
-                      people: this.getWithdrawList(),
+                      people: arr,
                       refresh: {
                         year: Status.year,
                         semester: Status.semester,
