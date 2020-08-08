@@ -144,14 +144,14 @@ class InfoCard extends React.Component {
                           <TableRowColumn>科目</TableRowColumn>
                           <TableRowColumn>成績</TableRowColumn>
                         </TableRow>
-                      </TableHeader>*/}
+                      </TableHeader> style={c.pass || {color: 'red'}}*/}
                         <TableBody displayRowCheckbox={false} >
-                          {/*v.score.map((c, idx) => (
-                            <TableRow key={idx} style={c.pass || {color: 'red'}}>
+                          {v.score.map((c, idx) => (
+                            <TableRow key={idx} >
                               <TableRowColumn>{c.cn}</TableRowColumn>
                               <TableRowColumn>{c.score === null ? (c.pass ? '通過' : '不通過') : c.score}</TableRowColumn>
                             </TableRow>
-                          ))*/}
+                          ))}
                         </TableBody>
                       </Table>}
                     </Tab>
