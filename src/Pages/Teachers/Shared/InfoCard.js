@@ -138,13 +138,13 @@ class InfoCard extends React.Component {
                         v.failed
                           ? {backgroundColor: '#fd93b5'}
                           : {backgroundColor: '#87cdff'}}>
-                      {/*<Table>
-                        {<TableHeader displaySelectAll={false}>
+                      {<Table>
+                        {/*<TableHeader displaySelectAll={false}>
                         <TableRow>
                           <TableRowColumn>科目</TableRowColumn>
                           <TableRowColumn>成績</TableRowColumn>
                         </TableRow>
-                      </TableHeader>}
+                      </TableHeader>*/}
                         <TableBody displayRowCheckbox={false} >
                           {v.score.map((c, i) => (
                             <TableRow key={i} style={c.pass || {color: 'red'}}>
@@ -153,7 +153,7 @@ class InfoCard extends React.Component {
                             </TableRow>
                           ))}
                         </TableBody>
-                      </Table>*/}
+                      </Table>}
                     </Tab>
                   )
                 )
