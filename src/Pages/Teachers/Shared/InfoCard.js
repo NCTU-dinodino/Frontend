@@ -103,7 +103,7 @@ class InfoCard extends React.Component {
               />
             </span>
           </CardHeader>
-          /<CardText>
+          <CardText>
             <div className='text-center h5 mb-2'>各學年度平均總成績</div>
             <div>
               <ResponsiveContainer
@@ -126,7 +126,7 @@ class InfoCard extends React.Component {
               </ResponsiveContainer>
             </div>
           </CardText>
-          {/*<CardText>
+          <CardText>
             <Tabs>
               {
                 this.state.scoreData.score && this.state.scoreData.score.map(
@@ -138,7 +138,7 @@ class InfoCard extends React.Component {
                         v.failed
                           ? {backgroundColor: '#fd93b5'}
                           : {backgroundColor: '#87cdff'}}>
-                      <Table>
+                      {/*<Table>
                         {comment <TableHeader displaySelectAll={false}>
                         <TableRow>
                           <TableRowColumn>科目</TableRowColumn>
@@ -153,14 +153,14 @@ class InfoCard extends React.Component {
                             </TableRow>
                           ))}
                         </TableBody>
-                      </Table>
+                      </Table>*/}
                     </Tab>
                   )
                 )
               }
             </Tabs>
 
-          </CardText>*/}
+          </CardText>
         </Card>
       </MuiThemeProvider>
     )
