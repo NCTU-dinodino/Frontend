@@ -153,7 +153,7 @@ class InfoCard extends React.Component {
                             </TableRow>
                           ))}
                         </TableBody>
-                      </Table>*
+                      </Table>}
                     </Tab>
                   )
                 )
