@@ -290,12 +290,12 @@ const ApplyButton = (props) => {
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
                   {/*<span style={{color: 'red'}}>  {p.score}</span>*/}
                 </Chip>
-
+                {props.chipOpen[p.student_id]===true?
                 <MuiThemeProvider>
                   <Dialog
                     key={i}
                     modal={false}
-                    open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
+                    //open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
                     onRequestClose={() => props.handleRequestClose(p.student_id)}
                     autoScrollBodyContent
                     contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
@@ -307,7 +307,7 @@ const ApplyButton = (props) => {
                       sender_email={props.idCard.email}
                     />
                   </Dialog>
-                </MuiThemeProvider>
+                </MuiThemeProvider>:""}
               </div>
             ))}
           </div>
