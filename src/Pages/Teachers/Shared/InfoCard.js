@@ -138,22 +138,22 @@ class InfoCard extends React.Component {
                         v.failed
                           ? {backgroundColor: '#fd93b5'}
                           : {backgroundColor: '#87cdff'}}>
-                      {<Table>
-                        {/*<TableHeader displaySelectAll={false}>
+                      {/*<Table>
+                        {<TableHeader displaySelectAll={false}>
                         <TableRow>
                           <TableRowColumn>科目</TableRowColumn>
                           <TableRowColumn>成績</TableRowColumn>
                         </TableRow>
-                      </TableHeader>*/}
+                      </TableHeader>}
                         <TableBody displayRowCheckbox={false} >
-                          {v.score.map((v, i) => (
-                            <TableRow key={i} style={v.pass || {color: 'red'}}>
-                              <TableRowColumn>{v.cn}</TableRowColumn>
-                              <TableRowColumn>{v.score === null ? (v.pass ? '通過' : '不通過') : v.score}</TableRowColumn>
+                          {v.score.map((c, i) => (
+                            <TableRow key={i} style={c.pass || {color: 'red'}}>
+                              <TableRowColumn>{c.cn}</TableRowColumn>
+                              <TableRowColumn>{c.score === null ? (c.pass ? '通過' : '不通過') : c.score}</TableRowColumn>
                             </TableRow>
                           ))}
                         </TableBody>
-                      </Table>}
+                      </Table>*/}
                     </Tab>
                   )
                 )
