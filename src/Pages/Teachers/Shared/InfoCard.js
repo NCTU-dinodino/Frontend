@@ -146,8 +146,7 @@ class InfoCard extends React.Component {
                         </TableRow>
                       </TableHeader>*/}
                         <TableBody displayRowCheckbox={false} >
-                          {console.log('---- v.score ----')
-                           console.log(v.score)}
+                          {v.score}
                           {/*v.score.map((c, idx) => (
                             <TableRow key={idx} style={c.pass || {color: 'red'}}>
                               <TableRowColumn>{c.cn}</TableRowColumn>
