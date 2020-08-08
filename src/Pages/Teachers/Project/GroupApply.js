@@ -286,7 +286,7 @@ const ApplyButton = (props) => {
                 <Chip className='group-chip'
                       backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
                       key={i}
-                      onClick={(event) => console.log(event)}> 
+                      onClick={(event) => console.log(p.student_id)}> 
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
                   {/*<span style={{color: 'red'}}>  {p.score}</span>*/ /*props.handleChip(p.student_id)*/}
                 </Chip>
