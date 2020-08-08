@@ -296,16 +296,16 @@ const ApplyButton = (props) => {
                     key={i}
                     modal={false}
                     open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
-                    //onRequestClose={() => props.handleRequestClose(p.student_id)}
+                    onRequestClose={() => props.handleRequestClose(p.student_id)}
                     autoScrollBodyContent
                     contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
                   >
-                    <InfoCard
+                    {/*<InfoCard
                       key={i}
                       student={p}
                       sender={props.idCard.tname}
                       sender_email={props.idCard.email}
-                    />
+                    />*/}
                   </Dialog>
                 </MuiThemeProvider>:""}
               </div>
