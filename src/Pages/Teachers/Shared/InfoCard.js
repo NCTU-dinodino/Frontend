@@ -103,7 +103,7 @@ class InfoCard extends React.Component {
               />
             </span>
           </CardHeader>
-          {/*<CardText>
+          /<CardText>
             <div className='text-center h5 mb-2'>各學年度平均總成績</div>
             <div>
               <ResponsiveContainer
@@ -125,7 +125,7 @@ class InfoCard extends React.Component {
                 </LineChart>
               </ResponsiveContainer>
             </div>
-          </CardText>*/}
+          </CardText>
           {/*<CardText>
             <Tabs>
               {
