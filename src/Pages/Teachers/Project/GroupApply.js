@@ -286,9 +286,9 @@ const ApplyButton = (props) => {
                 <Chip className='group-chip'
                       backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
                       key={i}
-                      onClick={() => props.handleChip(p.student_id)}>
+                      onClick={(event) => console.log(event)}> 
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
-                  {/*<span style={{color: 'red'}}>  {p.score}</span>*/}
+                  {/*<span style={{color: 'red'}}>  {p.score}</span>*/ /*props.handleChip(p.student_id)*/}
                 </Chip>
                 {props.chipOpen[p.student_id]===true?
                 <MuiThemeProvider>
