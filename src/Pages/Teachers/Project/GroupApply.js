@@ -300,12 +300,12 @@ const ApplyButton = (props) => {
                     autoScrollBodyContent
                     contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
                   >
-                    {/*<InfoCard
+                    {<InfoCard
                       key={i}
                       student={p}
                       sender={props.idCard.tname}
                       sender_email={props.idCard.email}
-                    />*/}
+                    />}
                   </Dialog>
                 </MuiThemeProvider>:""}
               </div>
