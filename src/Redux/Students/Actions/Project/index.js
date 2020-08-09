@@ -37,8 +37,8 @@ export const newProject = (payload) => dispatch => {
   dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
   axios.get('/getTimes')
     .then(res => {
-      var begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
-      var date = today.getFullYear() + '-'
+      let begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
+      let date = today.getFullYear() + '-'
                 + ('0' + (today.getMonth()+1)).slice(-2) + '-'
                 + ('0' + today.getDate()).slice(-2) + 'T'
                 + ('0' + today.getHours()).slice(-2) + ':'
