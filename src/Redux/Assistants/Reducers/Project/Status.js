@@ -10,6 +10,7 @@ const initialState = {
   csvDone: true,
   templateDone: false,
   templateFile: '',
+  cpeStatus: '',
   people: [],
   loading: true,
   loadingModal: true
