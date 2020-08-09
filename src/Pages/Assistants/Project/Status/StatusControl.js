@@ -21,8 +21,9 @@ import {
   sendWarningMail,
   withdrawStudents,
   getCPEStatus,
-  setCPEStatus
 } from '../../../../Redux/Assistants/Actions/Project/Status'
+
+import CPETable from './CPETable'
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -83,15 +84,15 @@ const styles = theme => ({
     fontSize: '15px',
   },
   dialog: {
-    minWidth: '70vw',
-    maxWidth: '70vw',
-    minHeight: '60vh',
-    maxHeight: '60vh',
+    minWidth: '1324px',
+    maxWidth: '1324px',
+    minHeight: '768px',
+    maxHeight: '768px',
   },
   drawerPaper: {
     position: 'relative',
     width: '300px',
-    height: '60vh'
+    height: '768px'
   },
   drawer: {
     position: 'fixed',
@@ -114,8 +115,7 @@ class StatusControl extends React.Component {
       mailTitle: '',
       mailType: "",
       openWithdraw: false,
-      openCPEStauts: false,
-      cpeStatus: '',
+      openCPEStatus: false,
       cpeTitle: ''
     }
     this.fileRef = React.createRef()
@@ -438,9 +438,13 @@ class StatusControl extends React.Component {
             onClick={ () => {
               this.setState({
                 openCPEStatus: true,
-                cpeStatus: '0',
                 cpeTitle: '未審核列表'
               })
+              this.props.getCPEStatus({
+                semester: Status.year + '-' + Status.semester,
+                cpe_status: '0'
+              })
+              this.props.statusHandleChange({ cpeStatus: '0' })
             }}
           >
             審核CPE狀態
@@ -487,7 +491,7 @@ class StatusControl extends React.Component {
         <div className={classes.containerBlock}　style={{height: '100px'}}>
         </div>
       </div>}
-      <Dialog
+        <Dialog
           open={this.state.openCPEStatus}
           onClose={() => this.setState({openCPEStatus: false})}
           classes={{ paper: classes.dialog }}
@@ -511,7 +515,8 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       cpe_status: '0'
                     })
-                    this.setState({ cpeStatus: '0', cpeTitle: '未審核列表' })
+                    this.setState({ cpeTitle: '未審核列表' })
+                    this.props.statusHandleChange({ cpeStatus: '0' })
                   }}
                 >
                   <span style={{ fontSize: '18px' }}>未審核列表</span>
@@ -522,7 +527,8 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       cpe_status: '1'
                     })
-                    this.setState({ cpeStatus: '1', cpeTitle: '已通過列表' })
+                    this.setState({ cpeTitle: '已通過列表' })
+                    this.props.statusHandleChange({ cpeStatus: '1' })
                   }}
                 >
                   <span style={{ fontSize: '18px' }}>已通過列表</span>
@@ -533,7 +539,8 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       cpe_status: '2'
                     })
-                    this.setState({ cpeStatus: '2', cpeTitle: '未通過列表' })
+                    this.setState({ cpeTitle: '未通過列表' })
+                    this.props.statusHandleChange({ cpeStatus: '2' })
                   }}
                 >
                   <span style={{ fontSize: '18px' }}>未通過列表</span>
@@ -555,16 +562,14 @@ class StatusControl extends React.Component {
                 <div style={{ flex: 1 }}/>
               </div> 
             :
-              Status.people.map( (person, idx) => 
-                <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
-              )
+              <CPETable />
           }
           </DialogContent>
           <DialogActions>
             <Button 
               onClick={
                 () => { 
-                  this.setState({ openMail: false })
+                  this.setState({ openCPEStatus: false })
                 }
               }
               style={{ color: 'grey', fontSize: '20px'}}
@@ -761,7 +766,6 @@ const mapDispatchToProps = (dispatch) => ({
   sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
   withdrawStudents: (payload) => dispatch(withdrawStudents(payload)),
   getCPEStatus: (payload) => dispatch(getCPEStatus(payload)),
-  setCPEStatus: (payload) => dispatch(setCPEStatus(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))
