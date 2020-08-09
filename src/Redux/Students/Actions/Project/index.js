@@ -56,9 +56,9 @@ export const newProject = (payload) => dispatch => {
             dispatch(actions.project.new.store(res.data))
             let qualified = false
             if (payload.members[0].first_second === 2)
-              qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 4))
+              qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3 || student.status === 4))
             else
-              qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
+              qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3))
 
             if (qualified) {
               axios.post('/students/research/create', payload)
@@ -69,7 +69,6 @@ export const newProject = (payload) => dispatch => {
                   dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
                 })
             } else {
-              console.log(111)
               dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
             }
           })
