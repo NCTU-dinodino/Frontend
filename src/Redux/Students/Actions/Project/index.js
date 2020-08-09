@@ -54,7 +54,15 @@ export const newProject = (payload) => dispatch => {
         axios.post('/students/research/showStudentStatus', { members: payload.members })
           .then(res => {
             dispatch(actions.project.new.store(res.data))
-            const qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
+            let qualified = false
+            if (payload.members[0].first_second === 2) {
+              console.log("222")
+              qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 4))
+            }
+            else {
+              console.log("111")
+              qualified = res.data.every((student) => (student.status === 1 || student.status === 2))
+            }
 
             if (qualified) {
               axios.post('/students/research/create', payload)
