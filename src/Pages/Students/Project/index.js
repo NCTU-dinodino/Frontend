@@ -55,7 +55,7 @@ class Index extends React.Component {
       }
       else if (newStatus === FETCHING_STATUS.ERROR) {
         let messages = '申請失敗!'
-        var duplicate = true
+        let duplicate = true
         newResponse.forEach((response) => {
           switch (response.status) {
             case 3:
@@ -73,6 +73,10 @@ class Index extends React.Component {
             case 6:
               duplicate = false
               messages += `\n${response.student_id} 未修過專題一`
+              break
+            case 7:
+              duplicate = false
+              messages += `\n${response.student_id} 本學期重複提交申請`
               break
             default:
               break
@@ -131,7 +135,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getProjects: () => dispatch(getProjects()),
   newProjectReset: () => dispatch(newProjectReset()),
-  deleteProjectReset: () => dispatch(deleteProjectReset()),
+  deleteProjectReset: () => dispatch(deleteProjectReset())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))

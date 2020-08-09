@@ -32,6 +32,13 @@ export default handleActions({
         ...state.pastProject,
         data: action.payload
       }})
+    },
+    SCOUNT: {
+      STORE: (state, action) => ({ ...state, 
+        list: state.list.map((professor) => professor.teacher_id === action.payload.teacher_id 
+        ? { ...professor, scount: action.payload.scount } 
+        : professor )
+      })
     }
   }
 }, initialState)

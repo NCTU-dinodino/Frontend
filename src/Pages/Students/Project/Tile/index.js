@@ -76,7 +76,7 @@ class Tile extends React.Component {
 
   render () {
     const { classes, project } = this.props
-    const firstSecond = `專題${project.first_second === 1 ? '一' : '二'}`
+    const firstSecond = `專題${project.first_second === 2 ? '二' : '一'}`
     const status = {
       1: '已接受',
       2: '審核中',
