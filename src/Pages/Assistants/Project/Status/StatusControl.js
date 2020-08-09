@@ -178,6 +178,7 @@ class StatusControl extends React.Component {
         // this.setState({ filename: file.name })
       })
       .catch(err => console.log(err))
+    e.target.value = null
   }
 
   downloadXLSX = () => {
