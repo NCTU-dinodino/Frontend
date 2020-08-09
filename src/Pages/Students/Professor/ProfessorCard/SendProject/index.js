@@ -35,7 +35,7 @@ import MemberIcon from '@material-ui/icons/Accessibility'
 import EmailIcon from '@material-ui/icons/Email'
 import TocIcon from '@material-ui/icons/Toc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { newProject } from '../../../../../Redux/Students/Actions/Project'
+import { newProject, getScounts } from '../../../../../Redux/Students/Actions/Project'
 import { getSemester } from '../../../../../Utils'
 import { departmentList } from '../../../../../Utils/constant'
 
@@ -207,7 +207,7 @@ class SendProject extends React.Component {
         }
       }
     }
-
+    this.props.getScounts()
     if (number_tmp > limitcount - this.props.professor.scount) {
       window.alert('專題成員已超過該教授上限！')
       return
@@ -531,7 +531,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  newProject: (payload) => dispatch(newProject(payload))
+  newProject: (payload) => dispatch(newProject(payload)),
+  getScounts: () => dispatch(getScounts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(SendProject)))

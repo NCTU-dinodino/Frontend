@@ -14,6 +14,9 @@ const actions = createActions({
     },
     PAST_PROJECT: {
       STORE: null
+    },
+    SCOUNT: {
+      STORE: null
     }
   }
 })
@@ -42,5 +45,13 @@ export const getPastProjects = (payload) => dispatch => {
     .catch(err => {
       console.log(err)
       // dispatch(actions.professor.pastProject.store(FakeData.ProfessorProject))
+    })
+}
+
+export const getScounts = () => dispatch => {
+  axios.get('/students/professorInfo/scount', { params: { year: getYear() } })
+    .then(res => dispatch(actions.professor.scount.store(res.data)))
+    .catch(error => {
+      console.log(error)
     })
 }
