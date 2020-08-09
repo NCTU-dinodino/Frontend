@@ -135,7 +135,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getProjects: () => dispatch(getProjects()),
   newProjectReset: () => dispatch(newProjectReset()),
-  deleteProjectReset: () => dispatch(deleteProjectReset()),
+  deleteProjectReset: () => dispatch(deleteProjectReset())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Index))

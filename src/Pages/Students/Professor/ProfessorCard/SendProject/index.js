@@ -185,7 +185,7 @@ class SendProject extends React.Component {
   handleSubmit () {
     let number_tmp = 0
     const { title, members } = this.state
-
+    // this.props.getScounts()
     if (!title) {
       window.alert('請填寫專題題目！')
       return
@@ -207,7 +207,7 @@ class SendProject extends React.Component {
         }
       }
     }
-    this.props.getScounts()
+    
     if (number_tmp > limitcount - this.props.professor.scount) {
       window.alert('專題成員已超過該教授上限！')
       return
