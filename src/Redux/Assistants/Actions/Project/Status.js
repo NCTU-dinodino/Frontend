@@ -125,11 +125,33 @@ export const sendWarningMail = (payload) => dispatch => {
 }
 
 export const withdrawStudents = (payload) => dispatch => {
-  console.log(payload)
   Promise.all(payload.people.map( person =>
     axios.post('/assistants/research/delete', person).then( res => {
     }).catch( err => {
       window.alert("退選" + person.student_id + "失敗, 請連繫dino團隊!")
+      console.log(err)
+    })
+  )).then( res => dispatch(fetchStatus(payload.refresh)))
+}
+
+export const getCPEStatus = (payload) => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
+  axios.post('/assistants/research/getCPEStatus', payload).then( res => {
+    dispatch(status_handle_change({
+      people: res.data
+    }))
+    dispatch(status_handle_change({ loadingModal: false }))
+  }).catch( err => {
+    window.alert('獲取CPE狀態失敗, 請聯繫dino團隊!')
+    console.log(err)
+  })
+}
+
+export const setCPEStatus = (payload) => dispatch => {
+  Promise.all(payload.people.map( person =>
+    axios.post('/assistants/research/setCPEStatus', person).then( res => {
+    }).catch( err => {
+      window.alert("更改" + person.student_id + "CPE狀態失敗, 請連繫dino團隊!")
       console.log(err)
     })
   )).then( res => dispatch(fetchStatus(payload.refresh)))

@@ -19,7 +19,9 @@ import {
   getNotOnCosList,
   getNotInSystemList,
   sendWarningMail,
-  withdrawStudents
+  withdrawStudents,
+  getCPEStatus,
+  setCPEStatus
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 
 import Drawer from '@material-ui/core/Drawer';
@@ -112,6 +114,9 @@ class StatusControl extends React.Component {
       mailTitle: '',
       mailType: "",
       openWithdraw: false,
+      openCPEStauts: false,
+      cpeStatus: '',
+      cpeTitle: ''
     }
     this.fileRef = React.createRef()
     this.props.fetch_xlsx({"data_type": "專題選課名單"})
@@ -202,7 +207,18 @@ class StatusControl extends React.Component {
               first_second: student.first_second
             }
           })
-      ], [])
+      ], []),
+      ...teacher.pending.projects.reduce( (project_students_flatten, project) => [ ...project_students_flatten,
+        ...project.students
+          .map( student => { 
+            return { 
+              student_id: student.id,
+              research_title: project.title,
+              semester: student.semester,
+              first_second: student.first_second
+            }
+          })
+      ], []),
     ], [])
   }
 
@@ -420,6 +436,23 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
+              this.setState({
+                openCPEStatus: true,
+                cpeStatus: '0',
+                cpeTitle: '未審核列表'
+              })
+            }}
+          >
+            審核CPE狀態
+          </Button>
+        </div>
+        <Divider style={{marginTop: '20px'}}/>
+        <div className={classes.containerBlock}>
+          <Button
+            variant="contained" 
+            className={classes.button}
+            style={{display: 'inline'}}
+            onClick={ () => {
               this.props.getNotOnCosList({
                 semester: Status.year + '-' + Status.semester,
                 first_second: Status.first_second
@@ -454,6 +487,92 @@ class StatusControl extends React.Component {
         <div className={classes.containerBlock}　style={{height: '100px'}}>
         </div>
       </div>}
+      <Dialog
+          open={this.state.openCPEStatus}
+          onClose={() => this.setState({openCPEStatus: false})}
+          classes={{ paper: classes.dialog }}
+          id='cpeStatusDialog'
+        >
+          <div className={classes.drawer}>
+            <Drawer
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                container: () => document.getElementById('cpeStatusDialog')
+              }}
+              anchor='left'
+            >
+              <List component="nav">
+                <ListItem button
+                  onClick={ () => {
+                    this.props.getCPEStatus({
+                      semester: Status.year + '-' + Status.semester,
+                      cpe_status: '0'
+                    })
+                    this.setState({ cpeStatus: '0', cpeTitle: '未審核列表' })
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>未審核列表</span>
+                </ListItem>
+                <ListItem button
+                  onClick={ () => {
+                    this.props.getCPEStatus({
+                      semester: Status.year + '-' + Status.semester,
+                      cpe_status: '1'
+                    })
+                    this.setState({ cpeStatus: '1', cpeTitle: '已通過列表' })
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>已通過列表</span>
+                </ListItem>
+                <ListItem button
+                  onClick={ () => {
+                    this.props.getCPEStatus({
+                      semester: Status.year + '-' + Status.semester,
+                      cpe_status: '2'
+                    })
+                    this.setState({ cpeStatus: '2', cpeTitle: '未通過列表' })
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>未通過列表</span>
+                </ListItem>
+              </List>
+            </Drawer>
+          </div>
+          <DialogTitle style={{ marginLeft: '300px' }}>
+            <div style={{fontSize: '30px'}}>
+              {this.state.cpeTitle}
+            </div>
+          </DialogTitle>
+          <DialogContent style={{ marginLeft: '300px', flex: 1 }} >
+          {
+            Status.loadingModal ? 
+              <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
+                <div style={{ flex: 1 }}/>
+                <CircularProgress style={{ color: '#68BB66' }} />
+                <div style={{ flex: 1 }}/>
+              </div> 
+            :
+              Status.people.map( (person, idx) => 
+                <Chip label={person.id + person.name} className={classes.chip} key={idx}/>
+              )
+          }
+          </DialogContent>
+          <DialogActions>
+            <Button 
+              onClick={
+                () => { 
+                  this.setState({ openMail: false })
+                }
+              }
+              style={{ color: 'grey', fontSize: '20px'}}
+            >
+              取消
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Dialog
           open={this.state.openMail}
           onClose={() => this.setState({openMail: false})}
@@ -640,7 +759,9 @@ const mapDispatchToProps = (dispatch) => ({
   getNotOnCosList: (payload) => dispatch(getNotOnCosList(payload)),
   getNotInSystemList: (payload) => dispatch(getNotInSystemList(payload)),
   sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
-  withdrawStudents: (payload) => dispatch(withdrawStudents(payload))
+  withdrawStudents: (payload) => dispatch(withdrawStudents(payload)),
+  getCPEStatus: (payload) => dispatch(getCPEStatus(payload)),
+  setCPEStatus: (payload) => dispatch(setCPEStatus(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))
