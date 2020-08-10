@@ -7,5 +7,5 @@ import InfoCard from './InfoCard/index'
 export default combineReducers({
   User,
   Research,
-  InfoCard
+  InfoCard,
 })

@@ -66,10 +66,12 @@ const initialState = {
 
 export default handleActions({
 	GET_STUDENT_INFO: (state, action) => {
+		console.log('UPDATE GET_STUDENT_INFO')
 		//console.log('UPDATE GET_STUDENT_INFO', {...state, studentInfo: [...action.payload] })
 		return({...state, studentInfo: {...action.payload} })
 	},
 	GET_STUDENT_SCORE: (state, action) => {
+		console.log('UPDATE GET_STUDENT_SCORE')
 		//console.log('UPDATE GET_STUDENT_SCORE', {...state, studentScore: {...action.payload} })
 		return({...state, studentScore: [...action.payload] })
 	}
