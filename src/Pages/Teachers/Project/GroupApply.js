@@ -297,7 +297,7 @@ const ApplyButton = (props) => {
                     open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
                     onRequestClose={() => props.handleRequestClose(p.student_id)}
                     autoScrollBodyContent
-                    contentStyle={{maxWidth: 'none', width: '80%', position: 'absolute', top: 0, left: '5%'}}
+                    contentStyle={{maxWidth: 'none', width: '70%', position: 'absolute', top: 0, left: '15%'}}
                   >
                     {<InfoCard
                       key={i}
