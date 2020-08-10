@@ -202,21 +202,16 @@ class Status extends React.Component {
                                 {
                                   project.students.map( (student, idx) => (
                                     <Tooltip title={
-                                      student.cpe_status === "0" ? "CPE待審核" : 
-                                      student.cpe_status === "2" ? "CPE未通過" :
                                       (student.add_status === "0" ? "尚未選課" : "已選課") + "/" + ((student.score === null ? "尚未評分" : (student.score + "分")))
                                     } placement="top" key = {idx} classes={{ tooltip: classes.tooltip }}>
                                       <Chip
                                         label={this.hightlight(student.id + " " + student.name, Status.input)}
                                         className={classes.chip}
                                         style={
-                                          student.cpe_status !== "1" ? 
-                                          { background: ADD_STATUS_COLOR[0] } 
-                                          :
                                           { background: ADD_STATUS_COLOR[parseInt(student.add_status, 10)] }
                                         }
                                         deleteIcon={
-                                          student.add_status === "0" || student.cpe_status !== "1" ? 
+                                          student.add_status === "0" ? 
                                             <ClearIcon style={{ fontSize: 30, marginRight: '5px'}} /> : 
                                           student.score === null ? 
                                             <EditIcon style={{ fontSize: 30, marginRight: '5px' }}/>
@@ -225,7 +220,7 @@ class Status extends React.Component {
                                         }
                                         onDelete={ 
                                           () => { 
-                                            if (student.add_status === "1" && student.cpe_status === "1")
+                                            if (student.add_status === "1")
                                               this.setState({
                                                 score: {
                                                   open: true,

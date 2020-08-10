@@ -149,47 +149,51 @@ let CPETableToolbar = props => {
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
           { Status.cpeStatus !== "1" &&
             <Tooltip title="通過" placement="top" classes={{ tooltip: classes.tooltip }}>
-              <IconButton onClick={ () => {
-                this.props.setCPEStatus({
-                  people: Status.people
-                    .filter( person => selected.indexOf(person.id) !== -1)
-                    .map( person => {
-                      return {
+              <IconButton>
+                <DoneIcon style = {{ color: 'green' }} 
+                  onClick={ () => {
+                    props.setCPEStatus({
+                      people: Status.people
+                        .filter( person => selected.indexOf(person.id) !== -1)
+                        .map( person => {
+                          return {
+                            "semester": Status.year + '-' + Status.semester,
+                            "student_id": person.id,
+                            "new_cpe_status": "1"
+                          }
+                        }),
+                      refresh: {
                         "semester": Status.year + '-' + Status.semester,
-                        "student_id": person.id,
-                        "new_cpe_status": "1"
+                        "cpe_status": Status.cpeStatus
                       }
-                    }),
-                  refresh: {
-                    "semester": Status.year + '-' + Status.semester,
-                    "cpe_status": Status.cpeStatus
-                  }
-                })
-              }}>
-                <DoneIcon style = {{ color: 'green' }} />
+                    })
+                  }}
+                />
               </IconButton>
             </Tooltip>
           }
           { Status.cpeStatus !== "2" &&
             <Tooltip title="不通過" placement="top" classes={{ tooltip: classes.tooltip }}>
-              <IconButton onClick={ () => {
-                this.props.setCPEStatus({
-                  people: Status.people
-                    .filter( person => selected.indexOf(person.id) !== -1)
-                    .map( person => {
-                      return {
+              <IconButton>
+                <ClearIcon style = {{ color: 'red' }} 
+                  onClick={ () => {
+                    props.setCPEStatus({
+                      people: Status.people
+                        .filter( person => selected.indexOf(person.id) !== -1)
+                        .map( person => {
+                          return {
+                            "semester": Status.year + '-' + Status.semester,
+                            "student_id": person.id,
+                            "new_cpe_status": "2"
+                          }
+                        }),
+                      refresh: {
                         "semester": Status.year + '-' + Status.semester,
-                        "student_id": person.id,
-                        "new_cpe_status": "2"
+                        "cpe_status": Status.cpeStatus
                       }
-                    }),
-                  refresh: {
-                    "semester": Status.year + '-' + Status.semester,
-                    "cpe_status": Status.cpeStatus
-                  }
-                })
-              }}>
-                <ClearIcon style = {{ color: 'red' }} />
+                    })
+                  }}
+                />
               </IconButton>
             </Tooltip>
           }
