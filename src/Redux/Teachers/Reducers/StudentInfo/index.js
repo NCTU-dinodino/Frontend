@@ -68,9 +68,9 @@ const initialState = {
 
 export default handleActions({
 	GET_STUDENT_INFO: (state, action) => {
-		return({...state, studentInfo: {action.payload}})
+		return({...state, studentInfo: [action.payload] })
 	},
 	GET_STUDENT_SCORE: (state, action) => {
-		return({...state, studentScore: {action.payload}})
+		return({...state, studentScore: [action.payload] })
 	}
 }, initialState)
