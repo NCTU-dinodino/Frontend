@@ -58,8 +58,8 @@ class InfoCard extends React.Component {
 
   fetchData () {
     let sid = this.props.student.student_id
-    this.props.updateSudentInfo(sid)
-    this.props.upadteStudentScore(sid)
+    this.props.UpdateSudentInfo(sid)
+    this.props.UpadteStudentScore(sid)
   }
 
   componentDidMount () {
@@ -179,8 +179,8 @@ class InfoCard extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  studentScore: state.Teacher.StudentInfo.studentScore,
-  studentInfo: state.Teacher.StudentInfo.studentInfo,
+  studentScore: state.Teacher.InfoCard.studentScore,
+  studentInfo: state.Teacher.InfoCard.studentInfo,
 })
 const mapDispatchToProps = (dispatch) => ({
   UpdateSudentInfo: (sid) => dispatch(updateSudentInfo(sid)),
