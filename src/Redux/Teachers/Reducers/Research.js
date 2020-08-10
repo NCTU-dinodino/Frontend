@@ -88,7 +88,7 @@ const initialState = {
       ]
     }
   ],
-  loadApplyList: 0,
+  loadApplyList: 1,
   research1: {
     cs_number: 0,
     other_number: 0,

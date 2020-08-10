@@ -112,7 +112,6 @@ class GroupApply extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      //loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: {},
       sem: getSemester()
@@ -298,7 +297,7 @@ const ApplyButton = (props) => {
                     open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
                     onRequestClose={() => props.handleRequestClose(p.student_id)}
                     autoScrollBodyContent
-                    contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
+                    contentStyle={{maxWidth: 'none', width: '80%', position: 'absolute', top: 0, left: '5%'}}
                   >
                     {<InfoCard
                       key={i}
