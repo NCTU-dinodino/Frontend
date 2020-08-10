@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { createActions } from 'redux-actions'
+import { createAction } from 'redux-actions'
 
-export const GetStudentInfo = createActions('GET_STUDENT_INFO')
-export const GetStudentScore = createActions('GET_STUDENT_SCORE')
+export const GetStudentInfo = createAction('GET_STUDENT_INFO')
+export const GetStudentScore = createAction('GET_STUDENT_SCORE')
 
 export const updateSudentInfo = (sid) => dispatch => {
 	axios.post('/professors/advisee/personalInfo', {
