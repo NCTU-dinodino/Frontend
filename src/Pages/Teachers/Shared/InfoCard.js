@@ -186,4 +186,4 @@ const mapDispatchToProps = (dispatch) => ({
   UpdateSudentInfo: (sid) => dispatch(updateSudentInfo(sid)),
   UpadteStudentScore: (sid) => dispatch(upadteStudentScore(sid))
 })
-export default InfoCard
+export default connect(mapStateToProps, mapDispatchToProps)(InfoCard)
