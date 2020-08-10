@@ -83,7 +83,7 @@ class GroupList extends React.Component {
 
     handleChip = (i) => {
         let chipOpen = this.state.chipOpen
-        chipOpen.set(i, false)
+        chipOpen.set(i, true)
         this.setState({chipOpen})
     }
 
@@ -273,7 +273,7 @@ const GroupButton = (props) => (
                             open={props.chipOpen.size === 0 ? false : props.chipOpen.get(props.key + p.student_id)}
                             onRequestClose={() => props.handleRequestClose()}
                             autoScrollBodyContent
-                            contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
+                            contentStyle={{maxWidth: 'none', width: '70%', position: 'absolute', top: 0, left: '15%'}}
                         >
                             {p.replace_pro===1?
                                 <ChangeTeacherConfirm

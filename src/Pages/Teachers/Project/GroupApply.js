@@ -112,21 +112,18 @@ class GroupApply extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      //loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
-      chipOpen: new Map(),
+      chipOpen: {},
       sem: getSemester()
     }
   }
+
+
 
   fetchData () {
     //this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
-    console.log('------ tid ------')
-    console.log(tid)
-    console.log('------ sem ------')
-    console.log(sem)
     if( tid === '001' ){
       // NOT A VALID TID
       setTimeout(
@@ -138,7 +135,7 @@ class GroupApply extends React.Component {
     }
     this.props.FetchResearchApplyList(tid)
     this.props.FetchResearchList(tid, sem)
-    //this.setState({loading: false})
+    this.initChip()
   }
   // execute after component be render to DOM
   componentDidMount () {
@@ -158,6 +155,25 @@ class GroupApply extends React.Component {
     })
   }
 
+  initChip = () => {
+    var sidList = []
+    var sidObject = {}
+    for(var i=0; i<this.props.applyList.length; i++){
+      for(var j=0; j<this.props.applyList[i].participants.length; j++){
+        var temp_sid = this.props.applyList[i].participants[j].student_id
+        sidList.push(temp_sid)
+      }
+    }
+    for(var k=0; k<temp_sid.length; k++){
+      sidObject[sidList[k]] = false
+    }
+    this.setState(prevState => {
+      let temp_state = Object.assign({}, prevState)
+      temp_state.chipOpen = JSON.parse(JSON.stringify(sidObject))
+      return temp_state
+    })
+  }
+
   triggerUpdate = () => {
     this.fetchData()
     this.delay(1000).then((v) => (
@@ -169,14 +185,25 @@ class GroupApply extends React.Component {
 
   // FOR CHIP
   handleChip = (i) => {
-    let chipOpen = this.state.chipOpen
-    chipOpen.set(i, true)
-    this.setState({chipOpen})
+    console.log("-----handleChip---------")
+    console.log(i) // undefine0616092
+
+    //let chipOpen = this.state.chipOpen
+    //chipOpen.set(i, true)
+    console.log("-----chipOpen-------")
+    console.log(this.state.chipOpen)
+    this.setState(prevState=>{
+      let chipOpen = {...prevState.chipOpen}
+      chipOpen[i] = true
+      return {chipOpen}
+    })
   }
 
-  handleRequestClose = () => {
-    this.setState({
-      chipOpen: new Map(),
+  handleRequestClose = (id) => {
+    this.setState(prevState=>{
+      let chipOpen = {...prevState.chipOpen}
+      chipOpen[id] = false
+      return {chipOpen}
     })
   }
 
@@ -258,28 +285,28 @@ const ApplyButton = (props) => {
                 <Chip className='group-chip'
                       backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
                       key={i}
-                      onClick={() => props.handleChip(props.key + p.student_id)}>
+                      onClick={(event) => props.handleChip(p.student_id)}> 
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
-                  <span style={{color: 'red'}}>  {p.score}</span>
+                  {/*<span style={{color: 'red'}}>  {p.score}</span>*/ /*props.handleChip(p.student_id)*/}
                 </Chip>
-
+                {props.chipOpen[p.student_id]===true?
                 <MuiThemeProvider>
                   <Dialog
                     key={i}
                     modal={false}
-                    open={props.chipOpen.size === 0 ? false : props.chipOpen.get(props.key + p.student_id)}
-                    onRequestClose={() => props.handleRequestClose()}
+                    open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
+                    onRequestClose={() => props.handleRequestClose(p.student_id)}
                     autoScrollBodyContent
-                    contentStyle={{maxWidth: 'none', width: '90%', position: 'absolute', top: 0, left: '5%'}}
+                    contentStyle={{maxWidth: 'none', width: '70%', position: 'absolute', top: 0, left: '15%'}}
                   >
-                    <InfoCard
+                    {<InfoCard
                       key={i}
                       student={p}
                       sender={props.idCard.tname}
                       sender_email={props.idCard.email}
-                    />
+                    />}
                   </Dialog>
-                </MuiThemeProvider>
+                </MuiThemeProvider>:""}
               </div>
             ))}
           </div>
