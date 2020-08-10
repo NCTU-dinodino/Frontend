@@ -15,7 +15,7 @@ import FakeData from '../../../Resources/FakeData'
 
 // REDUX
 import { connect } from 'react-redux'
-import { updateSudentInfo, upadteStudentScore } from '../../../Redux/Teachers/Actions/StudentInfo/index'
+import { updateSudentInfo, upadteStudentScore } from '../../../Redux/Teachers/Actions/InfoCard/index'
 
 const semester = ['', '上', '下', '暑']
 
