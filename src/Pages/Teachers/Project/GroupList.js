@@ -260,8 +260,8 @@ const GroupButton = (props) => (
 
                       <Chip className='group-chip'
                             key={i}
-                            onClick={() => props.handleChip(props.key + p.student_id, p.replace_pro)}
-                            backgroundColor={p.replace_pro===1 ? 'red': (p.student_status===1 || p.student_status==='1') ? '#BDD8CC' : '#FFCD80'}>
+                            onClick={() => props.handleChip(props.key + p.student_id)}
+                            backgroundColor={(p.student_status===1 || p.student_status==='1') ? '#BDD8CC' : '#FFCD80'}>
                         <Avatar src={defaultPic}/> {p.student_id} {p.sname}
                         <span style={{color: 'red'}}>  {p.score}</span>
                       </Chip>
@@ -275,17 +275,12 @@ const GroupButton = (props) => (
                             autoScrollBodyContent
                             contentStyle={{maxWidth: 'none', width: '70%', position: 'absolute', top: 0, left: '15%'}}
                         >
-                            {p.replace_pro===1?
-                                <ChangeTeacherConfirm
-                                    research = {props.item}
-                                    sem = {props.item.sem}
-                                    student_id={p.student_id}/>
-                                :<InfoCard
-                                    key={i}
-                                    student={p}
-                                    sender={props.idCard.tname}
-                                    sender_email={props.idCard.email}
-                                />}
+                          <InfoCard
+                            key={i}
+                            student={p}
+                            sender={props.idCard.tname}
+                            sender_email={props.idCard.email}
+                          />
                         </Dialog>
                       </MuiThemeProvider>
 
