@@ -195,8 +195,8 @@ class GroupChange extends React.Component {
             size={50}
             left={40}
             top={20}
-            isLoading={this.state.loading} />
-          {(!this.state.loading && (Object.keys(changeTeacherList).length !== 0))
+            isLoading={this.props.loadChangeTeacherList} />
+          {(!this.props.loadChangeTeacherList && (Object.keys(changeTeacherList).length !== 0))
             ?
             // split each group in changeTeacher List, each item means a project
             changeTeacherList.map((item, i) => (  

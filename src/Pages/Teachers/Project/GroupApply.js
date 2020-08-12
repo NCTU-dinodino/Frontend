@@ -112,7 +112,6 @@ class GroupApply extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: {},
       sem: getSemester()
@@ -122,7 +121,6 @@ class GroupApply extends React.Component {
 
 
   fetchData () {
-    this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
     if( tid === '001' ){
@@ -137,7 +135,6 @@ class GroupApply extends React.Component {
     this.props.FetchResearchApplyList(tid)
     this.props.FetchResearchList(tid, sem)
     this.initChip()
-    this.setState({loading: false})
   }
   // execute after component be render to DOM
   componentDidMount () {
@@ -166,7 +163,7 @@ class GroupApply extends React.Component {
         sidList.push(temp_sid)
       }
     }
-    for(var k=0; k<temp_sid.length; k++){
+    for(var k=0; k<sidList.length; k++){
       sidObject[sidList[k]] = false
     }
     this.setState(prevState => {
@@ -229,8 +226,8 @@ class GroupApply extends React.Component {
             size={50}
             left={40}
             top={20}
-            isLoading={this.state.loading} />
-          {(!this.state.loading && (Object.keys(applyList).length !== 0))
+            isLoading={this.props.loadApplyList} />
+          {(!this.props.loadApplyList && (Object.keys(applyList).length !== 0))
             ?
             applyList.map((item, i) => (  // item: a project group
               <ApplyButton
