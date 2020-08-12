@@ -185,7 +185,12 @@ class SendProject extends React.Component {
   handleSubmit () {
     let number_tmp = 0
     const { title, members } = this.state
-    this.props.getScounts()
+
+    const update_teacher = {
+      teacher_id: this.props.professor.teacher_id
+    }
+    this.props.getScounts(update_teacher)
+
     if (!title) {
       window.alert('請填寫專題題目！')
       return
@@ -197,7 +202,7 @@ class SendProject extends React.Component {
         return
       }
 
-      if (members[i].department === '資訊工程學系') {
+      if (members[i].department === '資訊工程學系' && members[i].first_second === 1) {
         number_tmp = number_tmp + 1
       }
       else { // 非本系生要填姓名
@@ -532,7 +537,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   newProject: (payload) => dispatch(newProject(payload)),
-  getScounts: () => dispatch(getScounts())
+  getScounts: (payload) => dispatch(getScounts(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(SendProject)))

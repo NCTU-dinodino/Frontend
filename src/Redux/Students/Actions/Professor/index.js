@@ -48,9 +48,17 @@ export const getPastProjects = (payload) => dispatch => {
     })
 }
 
-export const getScounts = () => dispatch => {
+export const getScounts = (payload) => dispatch => {
   axios.get('/students/professorInfo/scount', { params: { year: getYear() } })
-    .then(res => dispatch(actions.professor.scount.store(res.data)))
+    .then(res => {
+      let i = 0
+      while ( i < res.data.length ) {
+        if (res.data[i].teacher_id === payload.teacher_id)
+          break
+        i++
+      }
+      dispatch(actions.professor.scount.store(res.data[i]))
+    })
     .catch(error => {
       console.log(error)
     })
