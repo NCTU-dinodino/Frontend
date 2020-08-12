@@ -20,6 +20,7 @@ import axios from 'axios'
 export const status_handle_change = createAction('PROJECT_STATUS_HANDLE_CHANGE');
 export const set_score = createAction('PROJECT_STATUS_SET_SCORE')
 export const get_unscore_teacher_list = createAction('PROJECT_STATUS_GET_UNSCORE_TEACHER_LIST')
+export const get_pending_teacher_list = createAction('PROJECT_STATUS_GET_PENDING_TEACHER_LIST')
 
 export const statusHandleChange = (payload) => dispatch => {
   dispatch(status_handle_change(payload));
@@ -161,4 +162,10 @@ export const setCPEStatus = (payload) => dispatch => {
   }).catch( err => {
     console.log(err);
   })
+}
+
+export const getPendingList = () => dispatch => {
+  dispatch(status_handle_change({ loadingModal: true }))
+  dispatch(get_pending_teacher_list())
+  dispatch(status_handle_change({ loadingModal: false }))
 }

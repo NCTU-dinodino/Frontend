@@ -56,6 +56,17 @@ export default handleActions({
         name: teacher.professor_name
       }
     })
+  }),
+  PROJECT_STATUS_GET_PENDING_TEACHER_LIST: (state, action) => ({
+    ...state,
+    people: state.teachers
+      .filter( teacher => teacher.pending.projects.length !== 0 )
+      .map( teacher => {
+        return {
+          id: teacher.professor_id,
+          name: teacher.professor_name
+        }
+      })
   })
 }, {
   ...initialState,
