@@ -121,7 +121,6 @@ class GroupApply extends React.Component {
 
 
   fetchData () {
-    //this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
     if( tid === '001' ){
@@ -164,7 +163,7 @@ class GroupApply extends React.Component {
         sidList.push(temp_sid)
       }
     }
-    for(var k=0; k<temp_sid.length; k++){
+    for(var k=0; k<sidList.length; k++){
       sidObject[sidList[k]] = false
     }
     this.setState(prevState => {

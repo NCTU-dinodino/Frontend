@@ -112,6 +112,7 @@ class GroupChange extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: new Map(),
       sem: getSemester()
@@ -119,10 +120,12 @@ class GroupChange extends React.Component {
   }
 
   fetchData () {
+    this.setState({loading: true})
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
     this.props.FetchChangeTeacherList(tid, sem)
     this.props.FetchResearchList(tid, sem)
+    this.setState({loading: false})
   }
 
   componentDidMount () {
