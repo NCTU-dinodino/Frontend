@@ -58,10 +58,6 @@ class Index extends React.Component {
         let duplicate = true
         newResponse.forEach((response) => {
           switch (response.status) {
-            case 3:
-              duplicate = false
-              messages += `\n${response.student_id} 基礎程式設計成績待審核`
-              break
             case 4:
               duplicate = false
               messages += `\n${response.student_id} 本學期重複提交申請`
