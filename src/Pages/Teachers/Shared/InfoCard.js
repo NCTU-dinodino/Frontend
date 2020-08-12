@@ -104,7 +104,8 @@ class InfoCard extends React.Component {
             }
             title={this.props.studentInfo.sname}
             subtitle={`${this.props.studentInfo.program} / ${this.props.student.student_id}`}>
-            <span style={{position: 'absolute', right: 20}}>
+            {/*站內信功能 目前棄用*/}
+            {/*<span style={{position: 'absolute', right: 20}}>
               <MailButton
                 sender={this.props.sender}
                 sender_email={this.props.sender_email}
@@ -112,7 +113,7 @@ class InfoCard extends React.Component {
                 receiver_email={this.props.studentInfo.email}
                 failed={this.state.scoreData.failed}
               />
-            </span>
+            </span>*/}
           </CardHeader>
           <CardText>
             <div className='text-center h5 mb-2'>各學年度平均總成績</div>
