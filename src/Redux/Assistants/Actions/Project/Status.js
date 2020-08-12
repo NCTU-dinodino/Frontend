@@ -154,10 +154,13 @@ export const setCPEStatus = (payload) => dispatch => {
     }).catch( err => {
       window.alert("更改" + person.student_id + "CPE狀態失敗, 請連繫dino團隊!")
       console.log(err)
+      throw err
     })
   )).then( res => {
     window.alert("更改 " + payload.people.length + " 人CPE狀態成功!")
-    dispatch(fetchStatus(payload.refresh))
+    dispatch(getCPEStatus(payload.refresh))
+  }).catch( err => {
+    console.log(err);
   })
 }
 
