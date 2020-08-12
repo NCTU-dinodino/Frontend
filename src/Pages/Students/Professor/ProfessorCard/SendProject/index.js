@@ -185,7 +185,7 @@ class SendProject extends React.Component {
   handleSubmit () {
     let number_tmp = 0
     const { title, members } = this.state
-    // this.props.getScounts()
+    this.props.getScounts()
     if (!title) {
       window.alert('請填寫專題題目！')
       return
@@ -532,7 +532,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   newProject: (payload) => dispatch(newProject(payload)),
-  // getScounts: () => dispatch(getScounts())
+  getScounts: () => dispatch(getScounts())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(SendProject)))
