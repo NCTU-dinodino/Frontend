@@ -21,6 +21,7 @@ import {
   sendWarningMail,
   withdrawStudents,
   getCPEStatus,
+  getPendingList
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 
 import CPETable from './CPETable'
@@ -43,6 +44,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import red from '@material-ui/core/colors/red'
+
+import { MAIL_CONTENT } from '../../../../Utils/constant';
 
 const styles = theme => ({
   containerBlock: {
@@ -462,7 +465,7 @@ class StatusControl extends React.Component {
                 semester: Status.year + '-' + Status.semester,
                 first_second: Status.first_second
               })
-              this.setState({ openMail: true, mailTitle: '至選課系統選課寄信提醒', mainType: "1" })
+              this.setState({ openMail: true, mailTitle: '同學至選課系統選課寄信提醒', mailType: "1" })
             }}
           >
             寄信提醒
@@ -603,10 +606,10 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       first_second: Status.first_second
                     })
-                    this.setState({ openMail: true, mailTitle: '至選課系統選課寄信提醒', mainType: "1" })
+                    this.setState({ openMail: true, mailTitle: '同學至選課系統選課寄信提醒', mailType: "1" })
                   }}
                 >
-                  <span style={{ fontSize: '18px' }}>至選課系統選課</span>
+                  <span style={{ fontSize: '18px' }}>同學至選課系統選課</span>
                 </ListItem>
                 <ListItem button
                   onClick={ () => {
@@ -614,18 +617,26 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       first_second: Status.first_second
                     })
-                    this.setState({ openMail: true, mailTitle: '至dinodino申請專題寄信提醒', mailType: "0" })
+                    this.setState({ openMail: true, mailTitle: '同學至dinodino申請專題寄信提醒', mailType: "0" })
                   }}
                 >
-                  <span style={{ fontSize: '18px' }}>至dinodino申請專題</span>
+                  <span style={{ fontSize: '18px' }}>同學至dinodino申請專題</span>
+                </ListItem>
+                <ListItem button
+                  onClick={ () => {
+                    this.props.getPendingList()
+                    this.setState({ openMail: true, mailTitle: '教授至dinodino審核專題寄信提醒', mailType: "3" })
+                  }}
+                >
+                  <span style={{ fontSize: '18px' }}>教授至dinodino審核專題</span>
                 </ListItem>
                 <ListItem button
                   onClick={ () => {
                     this.props.getUnScoreList()
-                    this.setState({ openMail: true, mailTitle: '至dinodino評分專題寄信提醒', mailType: "2" })
+                    this.setState({ openMail: true, mailTitle: '教授至dinodino評分專題寄信提醒', mailType: "2" })
                   }}
                 >
-                  <span style={{ fontSize: '18px' }}>至dinodino評分專題</span>
+                  <span style={{ fontSize: '18px' }}>教授至dinodino評分專題</span>
                 </ListItem>
               </List>
             </Drawer>
@@ -650,6 +661,9 @@ class StatusControl extends React.Component {
                 )
             }
           </DialogContent>
+          <DialogContent style={{ marginLeft: '300px', flex: 1 }} >
+          { MAIL_CONTENT[parseInt(this.state.mailType, 10)] }
+          </DialogContent>
           <DialogActions>
             <Button 
               onClick={
@@ -661,12 +675,19 @@ class StatusControl extends React.Component {
             >
               取消
             </Button>
-            <Button onClick={ 
-              () => this.props.sendWarningMail({
-                type: this.state.mailType,
-                people: Status.people
-              })
-            }
+            <Button onClick={ () => {
+              if (Status.people.length === 0) {
+                window.alert('無收件人!')
+                return ;
+              }
+              if (window.confirm('即將發送' + this.state.mailTitle + '給' 
+                + Status.people.length + '人')) {
+                this.props.sendWarningMail({
+                  type: this.state.mailType,
+                  people: Status.people
+                })
+              }
+            }}
               style={ Status.loadingModal ? 
                 { color: 'grey', fontSize: '20px'}
                 :
@@ -703,7 +724,7 @@ class StatusControl extends React.Component {
                 </div> 
               :
                 Status.people.map( (person, idx) => 
-                  <Chip label={person.id + person.name} className={classes.chip} style={{ backgroundColor: red[100] }} key={idx}/>
+                  <Chip label={person.id + ' ' + person.name} className={classes.chip} style={{ backgroundColor: red[100] }} key={idx}/>
                 )
             }
           </DialogContent>
@@ -767,6 +788,7 @@ const mapDispatchToProps = (dispatch) => ({
   sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
   withdrawStudents: (payload) => dispatch(withdrawStudents(payload)),
   getCPEStatus: (payload) => dispatch(getCPEStatus(payload)),
+  getPendingList: () => dispatch(getPendingList())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))

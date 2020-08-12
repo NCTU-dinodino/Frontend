@@ -31,3 +31,10 @@ export const departmentList = [
   '傳播與科技學系',
   '系統工程與科技學士學位學程'
 ]
+
+export const MAIL_CONTENT = [
+  "同學要在dino申請",
+  "同學要去選課",
+  "教授要評分",
+  "教授要審核專題"
+]
