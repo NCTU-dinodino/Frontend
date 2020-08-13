@@ -36,6 +36,7 @@ import EmailIcon from '@material-ui/icons/Email'
 import TocIcon from '@material-ui/icons/Toc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { newProject } from '../../../../../Redux/Students/Actions/Project'
+import { getScounts } from '../../../../../Redux/Students/Actions/Professor'
 import { getSemester } from '../../../../../Utils'
 import { departmentList } from '../../../../../Utils/constant'
 
