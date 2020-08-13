@@ -214,6 +214,12 @@ class SendProject extends React.Component {
       }
     }
     
+    const { project } = this.props
+    if ( project.tname === this.props.professor.tname ) {
+      window.alert('無法更換為同一教授！')
+      return
+    }
+    
     if (number_tmp > limitcount - this.props.professor.scount) {
       window.alert('專題成員已超過該教授上限！')
       return
