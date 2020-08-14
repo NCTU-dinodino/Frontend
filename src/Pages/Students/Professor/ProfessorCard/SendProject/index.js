@@ -208,6 +208,13 @@ class SendProject extends React.Component {
       }
     }
     
+    const { projects } = this.props
+    if ( members[0].first_second === 2 && projects.length > 0) {
+      if ( projects[0].tname === this.props.professor.tname ) {
+        window.alert('無法更換為與專題一同位教授！')
+        return
+      }
+    }
     if (number_tmp > limitcount - this.props.professor.scount) {
       window.alert('專題成員已超過該教授上限！')
       return
@@ -527,7 +534,8 @@ class SendProject extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  studentIdcard: state.Student.User.studentIdcard
+  studentIdcard: state.Student.User.studentIdcard,
+  projects: state.Student.Project.list.data
 })
 
 const mapDispatchToProps = (dispatch) => ({
