@@ -138,7 +138,8 @@ const mapStateToProps = (state) => ({
   pastProjects: state.Student.Professor.pastProject.data
 })
 const mapDispatchToProps = (dispatch) => ({
-  getPastProjects: (payload) => dispatch(getPastProjects(payload))
+  getPastProjects: (payload) => dispatch(getPastProjects(payload)),
+  getScounts: (payload) => dispatch(getScounts(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(Index)))
