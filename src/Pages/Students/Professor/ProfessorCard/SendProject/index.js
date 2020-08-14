@@ -197,8 +197,8 @@ class SendProject extends React.Component {
         return
       }
 
-      if (members[i].department === '資訊工程學系' && members[i].first_second === 1) {
-        number_tmp = number_tmp + 1
+      if (members[i].department === '資訊工程學系') {
+        number_tmp = (members[i].first_second === 1 ? number_tmp + 1 : number_tmp);
       }
       else { // 非本系生要填姓名
         if (members[i].name === '') {
