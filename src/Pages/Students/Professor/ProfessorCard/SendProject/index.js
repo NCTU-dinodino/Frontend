@@ -36,7 +36,6 @@ import EmailIcon from '@material-ui/icons/Email'
 import TocIcon from '@material-ui/icons/Toc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { newProject } from '../../../../../Redux/Students/Actions/Project'
-import { getScounts } from '../../../../../Redux/Students/Actions/Professor'
 import { getSemester } from '../../../../../Utils'
 import { departmentList } from '../../../../../Utils/constant'
 
@@ -187,11 +186,6 @@ class SendProject extends React.Component {
     let number_tmp = 0
     const { title, members } = this.state
 
-    const update_teacher = {
-      teacher_id: this.props.professor.teacher_id
-    }
-    this.props.getScounts(update_teacher)
-
     if (!title) {
       window.alert('請填寫專題題目！')
       return
@@ -212,12 +206,6 @@ class SendProject extends React.Component {
           return
         }
       }
-    }
-    
-    const { project } = this.props
-    if ( project.tname === this.props.professor.tname ) {
-      window.alert('無法更換為同一教授！')
-      return
     }
     
     if (number_tmp > limitcount - this.props.professor.scount) {
