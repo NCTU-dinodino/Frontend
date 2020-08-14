@@ -35,10 +35,12 @@ export default handleActions({
     },
     SCOUNT: {
       STORE: (state, action) => ({ ...state, 
-        list: state.list.map((professor) => professor.teacher_id === action.payload.teacher_id 
-        ? { ...professor, scount: action.payload.scount } 
-        : professor )
-      })
+        list:  {
+          ...state.list,
+          data: state.list.data.map((professor) => professor.teacher_id === action.payload.teacher_id 
+          ? { ...professor, scount: action.payload.scount } 
+          : professor )
+      }})
     }
   }
 }, initialState)

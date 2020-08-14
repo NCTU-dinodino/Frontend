@@ -20,7 +20,7 @@ import CloseIcon from '@material-ui/icons/Close'
 import List from '@material-ui/icons/List'
 import ProjectBar from './ProjectBar'
 import { ResponsiveContainer } from '../../../../../Components/Responsive'
-import { getPastProjects } from '../../../../../Redux/Students/Actions/Professor'
+import { getPastProjects, getScounts } from '../../../../../Redux/Students/Actions/Professor'
 
 const styles = theme => ({
   appBar: {
@@ -62,6 +62,9 @@ class Index extends React.Component {
 
   componentDidMount () {
     this.props.getPastProjects({
+      teacher_id: this.props.professor.teacher_id
+    })
+    this.props.getScounts({
       teacher_id: this.props.professor.teacher_id
     })
   }
@@ -135,7 +138,8 @@ const mapStateToProps = (state) => ({
   pastProjects: state.Student.Professor.pastProject.data
 })
 const mapDispatchToProps = (dispatch) => ({
-  getPastProjects: (payload) => dispatch(getPastProjects(payload))
+  getPastProjects: (payload) => dispatch(getPastProjects(payload)),
+  getScounts: (payload) => dispatch(getScounts(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(Index)))

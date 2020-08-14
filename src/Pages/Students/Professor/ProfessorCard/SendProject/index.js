@@ -185,7 +185,7 @@ class SendProject extends React.Component {
   handleSubmit () {
     let number_tmp = 0
     const { title, members } = this.state
-    // this.props.getScounts()
+
     if (!title) {
       window.alert('請填寫專題題目！')
       return
@@ -198,7 +198,7 @@ class SendProject extends React.Component {
       }
 
       if (members[i].department === '資訊工程學系') {
-        number_tmp = number_tmp + 1
+        number_tmp = (members[i].first_second === 1 ? number_tmp + 1 : number_tmp);
       }
       else { // 非本系生要填姓名
         if (members[i].name === '') {
@@ -208,6 +208,13 @@ class SendProject extends React.Component {
       }
     }
     
+    const { projects } = this.props
+    if ( members[0].first_second === 2 && projects.length > 0) {
+      if ( projects[0].tname === this.props.professor.tname ) {
+        window.alert('無法更換為與專題一同位教授！')
+        return
+      }
+    }
     if (number_tmp > limitcount - this.props.professor.scount) {
       window.alert('專題成員已超過該教授上限！')
       return
@@ -527,12 +534,13 @@ class SendProject extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  studentIdcard: state.Student.User.studentIdcard
+  studentIdcard: state.Student.User.studentIdcard,
+  projects: state.Student.Project.list.data
 })
 
 const mapDispatchToProps = (dispatch) => ({
   newProject: (payload) => dispatch(newProject(payload)),
-  // getScounts: () => dispatch(getScounts())
+  getScounts: (payload) => dispatch(getScounts(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(SendProject)))
