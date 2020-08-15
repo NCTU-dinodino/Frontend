@@ -100,7 +100,7 @@
 }
 
 .group-chip {
-    margin: 5px !important;
+    margin: 7px 10px !important;
 }
 
 .chipWrapper {
@@ -156,4 +156,7 @@
     font-size: 1.2em;
     padding: 0px 25px 25px;
     color: black;
+}
+.InfoBtn{
+    cursor: pointer;
 }

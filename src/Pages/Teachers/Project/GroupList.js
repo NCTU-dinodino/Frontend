@@ -28,7 +28,6 @@ class GroupList extends React.Component {
     constructor (props) {
       super(props)
       this.state = {
-        loading: false,
         message: '系統正在讀取資料中，請耐心等候。',
         chipOpen: new Map(),
         semVal: getSemester(),
@@ -39,24 +38,9 @@ class GroupList extends React.Component {
     }
 
     fetchData (year) {
-      this.setState({loading: true})
       let tid = this.props.idCard.teacher_id
-      // if( tid === '001' ){
-      //   // NOT A VALID TID
-      //   setTimeout(
-      //     () => {
-      //       console.log('----- fetchData AGAIN!!!! ----')
-      //       this.fetchData(year)
-      //     }, 4000)
-      //   return
-      // }
       this.props.FetchResearchList1(tid, year)
       this.props.FetchResearchList2(tid, year)
-      this.setState({loading: false})
-      //console.log('----- this.props.research1.groups ----')
-      //console.log(this.props.research1.groups)
-      //console.log('----- this.props.research2.groups ----')
-      //console.log(this.props.research2.groups)
     }
 
     componentDidMount () {
@@ -131,7 +115,6 @@ class GroupList extends React.Component {
         <div>
           <div className='subTitle'>
             <div className='subTitle-item'>選擇年度: </div>
-          {/*className='subTitle-item subTitle-item-mui'*/}
             <div >
               <MuiThemeProvider>
                 <DropDownMenu
@@ -149,9 +132,9 @@ class GroupList extends React.Component {
               </MuiThemeProvider>
             </div>
             <div>
-              <span>本學期已收: {accept_num}人 (上限7人)</span>
+              <span>本學年度已收: {accept_num}人 (上限7人)</span>
             </div>
-            <div onClick={this.handleShowInfo}><HelpIcon/></div>
+            <div className='InfoBtn' onClick={this.handleShowInfo}><HelpIcon/></div>
             <Dialog
               open={this.state.InfoDialog}
               onClose={this.handleCloseInfo}
@@ -180,8 +163,8 @@ class GroupList extends React.Component {
               size={50}
               left={40}
               top={20}
-              isLoading={this.state.loading} />
-              {!this.state.loading && groups1.length !== undefined
+              isLoading={this.props.loadReacherList1} />
+              {!this.props.loadReacherList1 && groups1.length !== undefined
                 ? groups1.map((item, i) => {
                   if(item.year[4] === '1')
                     return (
@@ -205,15 +188,21 @@ class GroupList extends React.Component {
               }
           </div>
           <div className='subTitle-sem subTitle-sem-orange'>
-            下學期
+            <div className="currentSem">下學期</div>
+            <div className='studentNum'>
+              <span>專題(一)：已收&nbsp;&nbsp;本系學生: {csNum}人
+              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {otherNum}人</span>
+              <span>專題(二)：已收&nbsp;&nbsp;本系學生: {csNum}人
+              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {otherNum}人</span>
+            </div>
           </div>
           <div className='groups'>
             <Loading
               size={50}
               left={40}
               top={20}
-              isLoading={this.state.loading} />
-              {!this.state.loading && groups2.length !== undefined
+              isLoading={this.props.loadReacherList2} />
+              {!this.props.loadReacherList2 && groups2.length !== undefined
                 ? groups2.map((item, i) => {
                   if(item.year[4] === '2')
                     return (
@@ -336,7 +325,9 @@ const getSemester = () => {
 const mapStateToProps = (state) => ({
     idCard: state.Teacher.User.idCard,
     research1: state.Teacher.Research.research1,
-    research2: state.Teacher.Research.research2
+    research2: state.Teacher.Research.research2,
+    loadReacherList1: state.Teacher.Research.loadReacherList1, // To control not to show
+    loadReacherList2: state.Teacher.Research.loadReacherList2  // initial state in redux.
 })
 const mapDispatchToProps = (dispatch) => ({
     FetchResearchList1: (tid, year) => dispatch(fetchResearchList1(tid, year)),

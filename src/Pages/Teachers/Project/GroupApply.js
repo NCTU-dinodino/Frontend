@@ -8,7 +8,8 @@ import Loading from '../../../Components/Loading'
 import Avatar from 'material-ui/Avatar'
 //Chips are compact elements that represent an input, attribute, or action.
 import Chip from 'material-ui/Chip' 
-import { Dialog } from 'material-ui'
+import Dialog from '@material-ui/core/Dialog'
+import HelpIcon from '@material-ui/icons/Help'
 // for multiTheme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { withStyles } from '@material-ui/core/styles/index'
@@ -114,11 +115,18 @@ class GroupApply extends React.Component {
     this.state = {
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: {},
-      sem: getSemester()
+      sem: getSemester(),
+      InfoDialog: false
     }
   }
 
+  handleShowInfo = () => {
+    this.setState({InfoDialog: true})
+  }
 
+  handleCloseInfo = () => {
+    this.setState({InfoDialog: false})
+  }
 
   fetchData () {
     let tid = this.props.idCard.teacher_id
@@ -213,12 +221,22 @@ class GroupApply extends React.Component {
     return (
       <div>
         <div className='subTitle'>
-          <div style={styles.subHintTitle}>
+          <div>
+            <span>本學年度已收: {acc}人 (上限7人)</span>
+          </div>
+          <div className='InfoBtn' onClick={this.handleShowInfo}><HelpIcon/></div>
+          <Dialog
+            open={this.state.InfoDialog}
+            onClose={this.handleCloseInfo}
+          >
+            <div className='dialog_title'>教授可收專題人數說明</div>
+            <div className='dialog_text'>每學年度以指導7人為上限(專題一)，每組以3人為原則<br/>
+            以下幾種情形不列入名額：(1) 大五以上學生 (2) 電資學士班學生 (3) 雙主修學生 (4) 跨域學生
+            (5) 外系生 (6) 交換生 (7) 專二更換指導教授學生</div>
+          </Dialog>
+          <div className='subTitle_item_hint'>
             <StudentStatusHint status={1}/>
             <StudentStatusHint status={0}/>
-          </div>
-          <div className='subTitle-item'>
-            已收本系生: {acc}人
           </div>
         </div>
         <div className='groups'>
@@ -294,9 +312,9 @@ const ApplyButton = (props) => {
                     key={i}
                     modal={false}
                     open={props.chipOpen[p.student_id]} //props.chipOpen[p.student_id]
-                    onRequestClose={() => props.handleRequestClose(p.student_id)}
+                    onClose={() => props.handleRequestClose(p.student_id)}
                     autoScrollBodyContent
-                    contentStyle={{maxWidth: 'none', width: '70%', position: 'absolute', top: 0, left: '15%'}}
+                    maxWidth={'md'}
                   >
                     {<InfoCard
                       key={i}

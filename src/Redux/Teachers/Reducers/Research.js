@@ -88,7 +88,6 @@ const initialState = {
       ]
     }
   ],
-  loadApplyList: 0,
   research1: {
     cs_number: 0, // 該學期專一加專二人數(資工)
     other_number: 0, // 該學期專一加專二人數(非資工)
@@ -337,7 +336,10 @@ const initialState = {
       ]
     },
   ],
-  loadChangeTeacherList: 1
+  loadChangeTeacherList: 1,
+  loadApplyList: 1,
+  loadReacherList1: 1,
+  loadReacherList2: 1
 }
 
 // construct reducers
@@ -345,7 +347,7 @@ const initialState = {
 export default handleActions({
   UPDATE_APPLY_LIST: (state, action) => {
     console.log('UPDATE_APPLY_LIST ACTION: ', {...state, applyList: [...action.payload]})
-    return ({...state, applyList: [...action.payload], loadApplyList: 0})
+    return ({...state, applyList: [...action.payload], loadApplyList: 1})
   },
   UPDATE_RESEARCH_LIST: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST ACTION: ', { ...state, research: {...action.payload} })
@@ -353,14 +355,14 @@ export default handleActions({
   },
   UPDATE_RESEARCH_LIST_1: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST_1 ACTION: ', { ...state, research: {...action.payload} })
-    return ({ ...state, research1: {...action.payload} })
+    return ({ ...state, research1: {...action.payload}, loadReacherList1: 0})
   },
   UPDATE_RESEARCH_LIST_2: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST_2 ACTION: ', { ...state, research: {...action.payload} })
-    return ({ ...state, research2: {...action.payload} })
+    return ({ ...state, research2: {...action.payload}, loadReacherList2: 0 })
   },
   UPDATE_CHANGE_TEACHER_LIST: (state, action) => {
     console.log('UPDATE_CHANGE_TEACHER_LIST ACTION: ', { ...state, changeTeacherList: {...action.payload} })
-    return ({ ...state, changeTeacherList: [...action.payload], loadChangeTeacherList: 0})
+    return ({ ...state, changeTeacherList: [...action.payload], loadChangeTeacherList: 1})
   }
 }, initialState)
