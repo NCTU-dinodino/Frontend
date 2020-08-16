@@ -64,8 +64,9 @@ class Tile extends React.Component {
   handleDelete (canBeDeleted) {
     if (!canBeDeleted)  return
     if (window.confirm('刪除此申請單將會連同同組組員申請單一起刪除, 確定要刪除嗎?')) {
-      const { project } = this.props
+      const { project, studentIdcard } = this.props
       this.props.deleteProject({
+        unique_id: studentIdcard.student_id,
         tname: project.tname,
         title: project.title,
         semester: project.semester,
@@ -123,6 +124,7 @@ Tile.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
+  studentIdcard: state.Student.User.studentIdcard
 })
 
 const mapDispatchToProps = (dispatch) => ({
