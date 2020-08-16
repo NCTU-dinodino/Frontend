@@ -66,7 +66,7 @@ class Tile extends React.Component {
     if (window.confirm('刪除此申請單將會連同同組組員申請單一起刪除, 確定要刪除嗎?')) {
       const { project, studentIdcard } = this.props
       this.props.deleteProject({
-        unique_id: studentIdcard.student_id,
+        student_id: studentIdcard.student_id,
         tname: project.tname,
         title: project.title,
         semester: project.semester,

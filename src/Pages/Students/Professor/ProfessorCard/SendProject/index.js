@@ -193,8 +193,8 @@ class SendProject extends React.Component {
 
     let id = {}
     for (let i = 0; i < members.length; i++) {
-      if ( id[members[i].student_id] == 1 ) {
-        window.alert('成員資料不齊全！')
+      if ( id[members[i].student_id] === 1 ) {
+        window.alert('成員學號重複！')
         return
       }
       else {
