@@ -55,31 +55,27 @@ class Index extends React.Component {
       }
       else if (newStatus === FETCHING_STATUS.ERROR) {
         let messages = '申請失敗!'
-        let duplicate = true
         newResponse.forEach((response) => {
           switch (response.status) {
+            case 3:
+              messages += `\n${response.student_id} 未修過專題一`
+              break
             case 4:
-              duplicate = false
               messages += `\n${response.student_id} 本學期重複提交申請`
               break
             case 5:
-              duplicate = false
               messages += `\n${response.student_id} 專題一和專題二皆只能修一次`
               break
             case 6:
-              duplicate = false
               messages += `\n${response.student_id} 未修過專題一`
               break
             case 7:
-              duplicate = false
               messages += `\n${response.student_id} 本學期重複提交申請`
               break
             default:
               break
           }
         })
-        if (duplicate)
-          messages += `\n專題成員學號重複!`
 
         window.alert(messages)
       }
