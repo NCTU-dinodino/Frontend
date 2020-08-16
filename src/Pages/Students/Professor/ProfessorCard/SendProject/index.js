@@ -190,7 +190,17 @@ class SendProject extends React.Component {
       window.alert('請填寫專題題目！')
       return
     }
+
+    let id = {}
     for (let i = 0; i < members.length; i++) {
+      if ( id[members[i].student_id] === 1 ) {
+        window.alert('成員學號重複！')
+        return
+      }
+      else {
+        id[members[i].student_id] = 1
+      }
+
       if (members[i].student_id === '' || members[i].phone === '' ||
           members[i].email === '' || members[i].first_second === 0) {
         window.alert('成員資料不齊全！')
