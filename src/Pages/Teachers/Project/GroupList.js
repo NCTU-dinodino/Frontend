@@ -132,8 +132,8 @@ class GroupList extends React.Component {
     }
 
     render () {
-      const sem1 = calStudentNum(1)
-      const sem2 = calStudentNum(2)
+      const sem1 = this.calStudentNum(1)
+      const sem2 = this.calStudentNum(2)
       const groups1 = this.props.research1.groups
       const groups2 = this.props.research2.groups
       const accept_num = this.props.research1.current_accept
