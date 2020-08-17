@@ -105,9 +105,34 @@ class GroupList extends React.Component {
       this.setState({InfoDialog: false})
     }
 
+    calStudentNum = (sem) => {
+      var cs_2 = 0
+      var other_2 = 0
+      if(sem===1)
+        const group = this.props.research1.groups
+      else if(sem===2)
+        const group = this.props.research2.groups
+      for(var i=0; i<group.length; i++){
+        if(group[i].first_second==='2'){
+          const par = group[i].participants
+          for(var j=0; j<par.length; j++){
+            if(par[j].student_status===1){ // 專二資工
+              cs_2 += 1
+            }
+            else if(par[j].student_status===0){ // 專二外系
+              other_2 += 1
+            }
+          }
+        }
+      }
+      const cs_1 = this.props.research1.cs_number - cs_2
+      const other_1 = this.props.research1.other_number - other_2
+      return [cs_1, other_1, cs_2, other_2]
+    }
+
     render () {
-      const csNum = this.props.research1.cs_number + this.props.research2.cs_number
-      const otherNum = this.props.research1.other_number + this.props.research2.other_number
+      const sem1 = calStudentNum(1)
+      const sem2 = calStudentNum(2)
       const groups1 = this.props.research1.groups
       const groups2 = this.props.research2.groups
       const accept_num = this.props.research1.current_accept
@@ -152,10 +177,10 @@ class GroupList extends React.Component {
           <div className='subTitle-sem'>
             <div className="currentSem">上學期</div>
             <div className='studentNum'>
-              <span>專題(一)：已收&nbsp;&nbsp;本系學生: {csNum}人
-              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {otherNum}人</span>
-              <span>專題(二)：已收&nbsp;&nbsp;本系學生: {csNum}人
-              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {otherNum}人</span>
+              <span>專題(一)：已收&nbsp;&nbsp;本系學生: {sem1[0]}人
+              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {sem1[1]}人</span>
+              <span>專題(二)：已收&nbsp;&nbsp;本系學生: {sem1[2]}人
+              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {sem1[3]}人</span>
             </div>
           </div>
           <div className='groups'>
@@ -190,10 +215,10 @@ class GroupList extends React.Component {
           <div className='subTitle-sem subTitle-sem-orange'>
             <div className="currentSem">下學期</div>
             <div className='studentNum'>
-              <span>專題(一)：已收&nbsp;&nbsp;本系學生: {csNum}人
-              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {otherNum}人</span>
-              <span>專題(二)：已收&nbsp;&nbsp;本系學生: {csNum}人
-              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {otherNum}人</span>
+              <span>專題(一)：已收&nbsp;&nbsp;本系學生: {sem2[0]}人
+              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {sem2[1]}人</span>
+              <span>專題(二)：已收&nbsp;&nbsp;本系學生: {sem2[2]}人
+              &nbsp;&nbsp; / &nbsp;&nbsp; 外系學生: {sem2[3]}人</span>
             </div>
           </div>
           <div className='groups'>

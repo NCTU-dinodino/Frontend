@@ -347,7 +347,7 @@ const initialState = {
 export default handleActions({
   UPDATE_APPLY_LIST: (state, action) => {
     console.log('UPDATE_APPLY_LIST ACTION: ', {...state, applyList: [...action.payload]})
-    return ({...state, applyList: [...action.payload], loadApplyList: 1})
+    return ({...state, applyList: [...action.payload], loadApplyList: 0})
   },
   UPDATE_RESEARCH_LIST: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST ACTION: ', { ...state, research: {...action.payload} })
@@ -363,6 +363,6 @@ export default handleActions({
   },
   UPDATE_CHANGE_TEACHER_LIST: (state, action) => {
     console.log('UPDATE_CHANGE_TEACHER_LIST ACTION: ', { ...state, changeTeacherList: {...action.payload} })
-    return ({ ...state, changeTeacherList: [...action.payload], loadChangeTeacherList: 1})
+    return ({ ...state, changeTeacherList: [...action.payload], loadChangeTeacherList: 0})
   }
 }, initialState)
