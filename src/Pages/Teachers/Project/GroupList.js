@@ -108,10 +108,11 @@ class GroupList extends React.Component {
     calStudentNum = (sem) => {
       var cs_2 = 0
       var other_2 = 0
+      var group = []
       if(sem===1)
-        const group = this.props.research1.groups
+        group = this.props.research1.groups
       else if(sem===2)
-        const group = this.props.research2.groups
+        group = this.props.research2.groups
       for(var i=0; i<group.length; i++){
         if(group[i].first_second==='2'){
           const par = group[i].participants
