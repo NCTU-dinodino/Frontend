@@ -144,6 +144,7 @@ export default class ChangeTitleDialog extends React.Component {
       <div>
         <MuiThemeProvider>
           <div onClick={this.handleOpen}>
+            {/*style={{backgroundColor: "#e84545", color: "#fffeee"}}*/}
             <Button bsStyle='warning'>修改標題 <Glyphicon glyph='pencil' /></Button>
           </div>
         </MuiThemeProvider>

@@ -88,67 +88,60 @@ const initialState = {
       ]
     }
   ],
-  loadApplyList: 0,
   research1: {
-    cs_number: 0,
-    other_number: 0,
-    current_accept: 0,
+    cs_number: 0, // 該學期專一加專二人數(資工)
+    other_number: 0, // 該學期專一加專二人數(非資工)
+    current_accept: 0, // 該學年只含專一的人數
     groups: [
-      // {
-      //   research_title: '此為測試資料',
-      //   participants: [
-      //     {
-      //       student_id: '0123334',
-      //       sname: '孔甲己',
-      //       detail: '...',
-      //       score: '100',
-      //       comment: 'yo',
-      //       student_status: '1'
-      //     },
-      //     {
-      //       student_id: '0123335',
-      //       sname: '孔乙己',
-      //       detail: '...',
-      //       score: '20',
-      //         student_status: 1
-      //     },
-      //     {
-      //       student_id: '0123336',
-      //       sname: '孔丙己',
-      //       detail: '...',
-      //       score: '30',
-      //         student_status: 2
-      //     },
-      //     {
-      //       student_id: '0123333',
-      //       sname: '孔丁己',
-      //       detail: '...',
-      //       score: '40',
-      //         student_status: 3
-      //     }
-      //   ],
-      //   year: '188-1'
-      // },
       {
-        research_title: '...',
+        research_title: '浪漫Duke!帶你找到屬於你的浪漫',
         participants: [
           {
-            student_id: '...',
-            sname: '...',
+            student_id: '0616000',
+            sname: '柯文哲',
             detail: '...',
-            score: ''
+            score: '98',
+            comment: '',
+            student_status: 1
           },
           {
-            student_id: '...',
-            sname: '...',
+            student_id: '0511111',
+            sname: '宋楚瑜',
             detail: '...',
-            score: ''
+            score: '70',
+            comment: '',
+            student_status: 1
           },
           {
-            student_id: '...',
-            sname: '...',
+            student_id: '0610111',
+            sname: '蔡英文',
             detail: '...',
-            score: ''
+            score: '88',
+            comment: '',
+            student_status: 2
+          },
+          {
+            student_id: '0516123',
+            sname: '馬英九',
+            detail: '...',
+            score: '80',
+            comment: '',
+            student_status: 2
+          },
+        ],
+        year: '109-1',
+        first_second: '1'
+      },
+      {
+        research_title: '啊我就怕被罵阿',
+        participants: [
+          {
+            student_id: '0418765',
+            sname: '徐永明',
+            detail: '...',
+            score: '90',
+            comment: '',
+            student_status: 2
           },
           {
             student_id: '...',
@@ -163,7 +156,8 @@ const initialState = {
             score: ''
           }
         ],
-        year: '-1'
+        year: '109-1',
+        first_second: '2'
       }
     ]
   },
@@ -206,7 +200,8 @@ const initialState = {
             score: ''
           }
         ],
-        year: '-2'
+        year: '109-2',
+        first_second: '1'
       }
     ]
   },
@@ -341,7 +336,10 @@ const initialState = {
       ]
     },
   ],
-  loadChangeTeacherList: 1
+  loadChangeTeacherList: 1,
+  loadApplyList: 1,
+  loadReacherList1: 1,
+  loadReacherList2: 1
 }
 
 // construct reducers
@@ -357,11 +355,11 @@ export default handleActions({
   },
   UPDATE_RESEARCH_LIST_1: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST_1 ACTION: ', { ...state, research: {...action.payload} })
-    return ({ ...state, research1: {...action.payload} })
+    return ({ ...state, research1: {...action.payload}, loadReacherList1: 0})
   },
   UPDATE_RESEARCH_LIST_2: (state, action) => {
     console.log('UPDATE_RESEARCH_LIST_2 ACTION: ', { ...state, research: {...action.payload} })
-    return ({ ...state, research2: {...action.payload} })
+    return ({ ...state, research2: {...action.payload}, loadReacherList2: 0 })
   },
   UPDATE_CHANGE_TEACHER_LIST: (state, action) => {
     console.log('UPDATE_CHANGE_TEACHER_LIST ACTION: ', { ...state, changeTeacherList: {...action.payload} })

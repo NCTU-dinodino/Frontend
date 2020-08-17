@@ -8,10 +8,11 @@ import Loading from '../../../Components/Loading'
 // mui
 import Avatar from 'material-ui/Avatar'
 import Chip from 'material-ui/Chip'
-import { Dialog } from 'material-ui'
+import Dialog from '@material-ui/core/Dialog';
 // for multiTheme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { withStyles } from '@material-ui/core/styles/index'
+import HelpIcon from '@material-ui/icons/Help'
 // REDUX
 import { connect } from 'react-redux'
 import { fetchChangeTeacherList, fetchResearchList } from '../../../Redux/Teachers/Actions/Research/index'
@@ -115,7 +116,8 @@ class GroupChange extends React.Component {
       loading: true,
       message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: new Map(),
-      sem: getSemester()
+      sem: getSemester(),
+      InfoDialog: false
     }
   }
 
@@ -143,6 +145,14 @@ class GroupChange extends React.Component {
     return new Promise((res, rej) => {
       setTimeout(() => (res(1)), t)
     })
+  }
+
+  handleShowInfo = () => {
+    this.setState({InfoDialog: true})
+  }
+
+  handleCloseInfo = () => {
+    this.setState({InfoDialog: false})
   }
 
   triggerUpdate = () => {
@@ -182,12 +192,22 @@ class GroupChange extends React.Component {
     return (
       <div>
         <div className='subTitle'>
-          <div style={styles.subHintTitle}>
+          <div>
+            <span>本學年度已收: {acc}人 (上限7人)</span>
+          </div>
+          <div className='InfoBtn' onClick={this.handleShowInfo}><HelpIcon/></div>
+          <Dialog
+            open={this.state.InfoDialog}
+            onClose={this.handleCloseInfo}
+          >
+            <div className='dialog_title'>教授可收專題人數說明</div>
+            <div className='dialog_text'>每學年度以指導7人為上限(專題一)，每組以3人為原則<br/>
+            以下幾種情形不列入名額：(1) 大五以上學生 (2) 電資學士班學生 (3) 雙主修學生 (4) 跨域學生
+            (5) 外系生 (6) 交換生 (7) 專二更換指導教授學生</div>
+          </Dialog>
+          <div className='subTitle_item_hint'>
             <StudentStatusHint status={1}/>
             <StudentStatusHint status={0}/>
-          </div>
-          <div className='subTitle-item'>
-            已收本系生: {acc}人
           </div>
         </div>
         <div className='groups'>
@@ -222,7 +242,7 @@ class GroupChange extends React.Component {
 const StudentStatusHint = (props) => (
   <MuiThemeProvider>
     <Chip style={styles.chip }
-          backgroundColor={ props.status === 1 ? '#BDD8CC' : '#FFCD80' }>
+          backgroundColor={ props.status === 1 ? '#b6d7a8' : '#f9cb9c' }>
       <Avatar src={defaultPic}/> { props.status === 1 ? '本系生' : '外系生' }
     </Chip>
   </MuiThemeProvider>
@@ -245,7 +265,7 @@ const ApplyButton = (props) => {
             {props.item.participants.map((p, i) => (
               <div key={i}>
                 <Chip className='group-chip'
-                      backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
+                      backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#b6d7a8' : '#f9cb9c' }
                       key={i}
                       onClick={() => props.handleChip(props.key + p.student_id)}>
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
@@ -257,9 +277,9 @@ const ApplyButton = (props) => {
                     key={i}
                     modal={false}
                     open={props.chipOpen.size === 0 ? false : props.chipOpen.get(props.key + p.student_id)}
-                    onRequestClose={() => props.handleRequestClose()}
+                    onClose={() => props.handleRequestClose()}
                     autoScrollBodyContent
-                    contentStyle={{maxWidth: 'none', width: '70%', position: 'absolute', top: 0, left: '15%'}}
+                    maxWidth={'md'}
                   >
                     <InfoCard
                       key={i}

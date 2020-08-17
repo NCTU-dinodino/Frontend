@@ -278,6 +278,7 @@ const ReplyStatus = (props) => {
     case true:
       return <Button bsStyle='primary'>評分</Button>
     case false:
+    {/*style={{backgroundColor: "#903749", color: "#fffeee"}}*/}
       return <Button bsStyle='success'>重新評分</Button>
     default:
       return <Button bsStyle='primary'>評分</Button>

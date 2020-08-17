@@ -10,38 +10,40 @@
     font-size: 1.2em;
     font-weight: 300;
     color: #858585;
-    padding: 10px 0 0 70px;
-    margin: 25px;
-    float: left;
+    padding: 0px 0 0 60px;
+    margin: 20px;
     width: 100%;
+    display: flex;
+    -ms-align-items: center;
+    align-items: center;
 }
 
 .subTitle-sem {
     font-size: 1.2em;
     font-weight: 300;
     color: #ffffff;
-    padding: 10px 0 10px 70px;
+    padding: 10px 0 10px 50px;
     margin: 0 0px 20px 30px;
     border-radius: 2px;
     float: left;
     width: 100%;
-    background: #1fac63;
+    background: #1fac63 ; /*#1fac63 1a8f52*/
+    display: flex;
+    align-items: center;
 }
 
 .subTitle-sem-orange {
-    background: #ff9f6a;
+    background: #e76f51; /*ff9f6a*/
 }
 
-.subTitle-item {
-    float: left;
-}
-.subTitle-item-hint {
-    margin: -27px 0 0 22px;
-}
-
-.subTitle-item-mui {
-    position: relative;
-    top: -18px;
+.subTitle_item_hint{
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
 }
 
 .apply-btn-year {
@@ -64,7 +66,7 @@
     padding: 30px;
     background: #ffffff;
     border-radius: 6px;
-    border-left: 5px #1fac63 solid;
+    border-left: 5px #1fac63  solid; /*#1a8f52*/
 }
 
 .groupBtn-orange {
@@ -72,7 +74,7 @@
     padding: 30px;
     background: #ffffff;
     border-radius: 6px;
-    border-left: 5px #ff9f6a solid;
+    border-left: 5px #e76f51 solid; /*#ff9f6a*/
 }
 
 .group-pic {
@@ -98,14 +100,15 @@
 }
 
 .group-chip {
-    margin: 5px !important;
+    margin: 7px 10px !important;
 }
 
 .chipWrapper {
     padding: 5px;
     display: flex;
     flex-wrap: wrap;
-    margin-top: 10px;
+
+    /*margin-top: 10px;*/
 }
 
 .block {
@@ -132,4 +135,28 @@
 .replybtn{
     margin-left: 30px;
     display: inline-block;
+}
+.studentNum{
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+}
+.currentSem{
+    flex: 3;
+    font-size: 1.3em;
+    letter-spacing: 1px;
+}
+.dialog_title{
+    font-size: 1.6em;
+    padding: 25px;
+    color: black;
+    font-weight: 500;
+}
+.dialog_text{
+    font-size: 1.2em;
+    padding: 0px 25px 25px;
+    color: black;
+}
+.InfoBtn{
+    cursor: pointer;
 }
