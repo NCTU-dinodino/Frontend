@@ -106,29 +106,48 @@ class GroupList extends React.Component {
     }
 
     calStudentNum = (sem) => {
-      var cs_2 = 0
-      var other_2 = 0
-      var group = []
-      if(sem===1)
-        group = this.props.research1.groups
-      else if(sem===2)
-        group = this.props.research2.groups
-      for(var i=0; i<group.length; i++){
-        if(group[i].first_second==='2'){
-          const par = group[i].participants
-          for(var j=0; j<par.length; j++){
-            if(par[j].student_status===1){ // 專二資工
-              cs_2 += 1
-            }
-            else if(par[j].student_status===0){ // 專二外系
-              other_2 += 1
+      if(sem===1){
+        var cs_2 = 0
+        var other_2 = 0
+        const group = this.props.research1.groups
+        for(var i=0; i<group.length; i++){
+          if(group[i].first_second==='2'){
+            const par = group[i].participants
+            for(var j=0; j<par.length; j++){
+              if(par[j].student_status===1){ // 專二資工
+                cs_2 += 1
+              }
+              else if(par[j].student_status===0){ // 專二外系
+                other_2 += 1
+              }
             }
           }
         }
+        const cs_1 = this.props.research1.cs_number - cs_2
+        const other_1 = this.props.research1.other_number - other_2
+        return [cs_1, other_1, cs_2, other_2]
       }
-      const cs_1 = this.props.research1.cs_number - cs_2
-      const other_1 = this.props.research1.other_number - other_2
-      return [cs_1, other_1, cs_2, other_2]
+      else if(sem===2){
+        var cs_2 = 0
+        var other_2 = 0
+        const group = this.props.research2.groups
+        for(var i=0; i<group.length; i++){
+          if(group[i].first_second==='2'){
+            const par = group[i].participants
+            for(var j=0; j<par.length; j++){
+              if(par[j].student_status===1){ // 專二資工
+                cs_2 += 1
+              }
+              else if(par[j].student_status===0){ // 專二外系
+                other_2 += 1
+              }
+            }
+          }
+        }
+        const cs_1 = this.props.research2.cs_number - cs_2
+        const other_1 = this.props.research2.other_number - other_2
+        return [cs_1, other_1, cs_2, other_2]
+      }
     }
 
     render () {
