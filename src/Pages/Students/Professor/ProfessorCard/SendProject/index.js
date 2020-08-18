@@ -185,12 +185,22 @@ class SendProject extends React.Component {
   handleSubmit () {
     let number_tmp = 0
     const { title, members } = this.state
+    const { projects, times } = this.props
 
     if (!title) {
       window.alert('請填寫專題題目！')
       return
     }
-
+    let begin = times["project"].begin, end = times["project"].end, today = new Date()
+    let date = today.getFullYear() + '-'
+              + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+              + ('0' + today.getDate()).slice(-2) + 'T'
+              + ('0' + today.getHours()).slice(-2) + ':'
+              + ('0' + today.getMinutes()).slice(-2)
+    if ( date < begin || end < date ) {
+      window.alert('目前非專題申請時間！')
+      return
+    }
     let id = {}
     for (let i = 0; i < members.length; i++) {
       if ( id[members[i].student_id] === 1 ) {
@@ -218,7 +228,6 @@ class SendProject extends React.Component {
       }
     }
     
-    const { projects } = this.props
     if ( members[0].first_second === 2 && projects.length > 0) {
       if ( projects[0].tname === this.props.professor.tname ) {
         window.alert('無法更換為與專題一同位教授！')
@@ -545,7 +554,8 @@ class SendProject extends React.Component {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  projects: state.Student.Project.list.data
+  projects: state.Student.Project.list.data,
+  times: state.Student.User.times
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,6 +1,6 @@
 
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
@@ -15,6 +15,9 @@ import EnglishCoursePanel from './Panel/englishCoursePanel'
 import { actions, getCreditList } from '../../../Redux/Students/Actions/Credit'
 import { FETCHING_STATUS } from '../../../Utils/constant'
 import creditImg from '../../../Resources/credit_no_upload.png'
+import { 
+  Button
+} from '@material-ui/core'
 
 const styles = theme => ({
   img: {
@@ -159,7 +162,7 @@ class Index extends React.Component {
                   <MenuItem value={3} style={{ height: '10px' }}>退件</MenuItem>
                 </Select>
               </FormControl>
-              {/*
+              {
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}
@@ -170,7 +173,7 @@ class Index extends React.Component {
                   抵免申請
                 </Button>
               </Link>
-              */}
+              }
               <PrintButton
                 studentIdcard={this.props.studentIdcard}
                 waiveCourse={waiveCourseForPrint}
@@ -182,7 +185,7 @@ class Index extends React.Component {
           {/* For mobile & xs */}
           <div className='hidden-sm hidden-md hidden-lg' style={{ margin: '20px 20px 5px 20px' }}>
             <div style={{ width: '300px' }}>
-              {/*
+              {
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}
@@ -193,7 +196,7 @@ class Index extends React.Component {
                 >
                   抵免申請
                 </Button>
-              </Link>*/}
+              </Link>}
               <PrintButton
                 studentIdcard={this.props.studentIdcard}
                 waiveCourse={waiveCourseForPrint}
