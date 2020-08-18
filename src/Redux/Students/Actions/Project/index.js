@@ -16,9 +16,6 @@ const actions = createActions({
     },
     DELETE: {
       SET_STATUS: null
-    },
-    TIMES: {
-      SET_STATUS: null
     }
   }
 })
@@ -33,54 +30,30 @@ export const getProjects = () => dispatch => {
 }
 
 export const newProject = (payload) => dispatch => {
-  dispatch(actions.project.times.setStatus(FETCHING_STATUS.FETCHING))
   dispatch(actions.project.new.setStatus(FETCHING_STATUS.FETCHING))
-  axios.get('/getTimes')
+  axios.post('/students/research/showStudentStatus', { members: payload.members })
     .then(res => {
-      let begin = res.data["project"].begin, end = res.data["project"].end, today = new Date()
-      let date = today.getFullYear() + '-'
-                + ('0' + (today.getMonth()+1)).slice(-2) + '-'
-                + ('0' + today.getDate()).slice(-2) + 'T'
-                + ('0' + today.getHours()).slice(-2) + ':'
-                + ('0' + today.getMinutes()).slice(-2)
+      dispatch(actions.project.new.store(res.data))
+      let qualified = false
+      if (payload.members[0].first_second === 2)
+        qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3 || student.status === 4))
+      else
+        qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3))
 
-      if (begin > date || end < date ) {
-        dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
-        dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
-      }
-      else {
-        dispatch(actions.project.times.setStatus(FETCHING_STATUS.DONE))
-
-        axios.post('/students/research/showStudentStatus', { members: payload.members })
-          .then(res => {
-            dispatch(actions.project.new.store(res.data))
-            let qualified = false
-            if (payload.members[0].first_second === 2)
-              qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3 || student.status === 4))
-            else
-              qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3))
-
-            if (qualified) {
-              axios.post('/students/research/create', payload)
-                .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
-                .catch(err => {
-                  console.log(err)
-                  // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
-                  dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
-                })
-            } else {
-              dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
-            }
-          })
-          .catch(error => {
-            console.log(error)
+      if (qualified) {
+        axios.post('/students/research/create', payload)
+          .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
+          .catch(err => {
+            console.log(err.status)
+            // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
             dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
           })
+      } else {
+        dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
       }
     })
     .catch(error => {
       console.log(error)
-      dispatch(actions.project.times.setStatus(FETCHING_STATUS.ERROR))
       dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
     })
 }

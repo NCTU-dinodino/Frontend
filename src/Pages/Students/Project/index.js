@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles'
 import ProjectTile from './Tile'
 import Professor from '../Professor'
 import { ResponsiveContainer } from '../../../Components/Responsive'
-import { getProjects, newProjectReset, deleteProjectReset, getTimes } from '../../../Redux/Students/Actions/Project'
+import { getProjects, newProjectReset, deleteProjectReset } from '../../../Redux/Students/Actions/Project'
 import { FETCHING_STATUS } from '../../../Utils/constant'
 
 const styles = {
@@ -42,13 +42,10 @@ class Index extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { newResponse, newStatus, deleteStatus, timeStatus } = this.props
+    const { newResponse, newStatus, deleteStatus } = this.props
     
     if (newStatus !== prevProps.newStatus) {
-      if (timeStatus === FETCHING_STATUS.ERROR) {
-        window.alert('申請失敗! 現在並非專題申請期間!')
-      }
-      else if (newStatus === FETCHING_STATUS.DONE) {
+      if (newStatus === FETCHING_STATUS.DONE) {
         this.props.getProjects()
         this.props.newProjectReset()
         window.alert('申請成功!')
@@ -121,8 +118,7 @@ const mapStateToProps = (state) => ({
   projects: state.Student.Project.list.data,
   newResponse: state.Student.Project.new.data,
   newStatus: state.Student.Project.new.status,
-  deleteStatus: state.Student.Project.delete.status,
-  timeStatus: state.Student.Project.times.status
+  deleteStatus: state.Student.Project.delete.status
 })
 const mapDispatchToProps = (dispatch) => ({
   getProjects: () => dispatch(getProjects()),

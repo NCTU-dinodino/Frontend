@@ -9,6 +9,20 @@ const initialState = {
     grade: '大一',
     email: 'hihi@gmail.com',
     status: 'w'
+  },
+  times: {
+    "verify": {
+      "begin": "2017-05-24T10:30",
+      "end": "2017-05-24T10:30"
+    },
+    "project": {
+      "begin": "2017-05-24T10:30",
+      "end": "2017-05-24T10:30"
+    },
+    "graduation": {
+      "begin": "2017-05-24T10:30",
+      "end": "2017-05-24T10:30"
+    }
   }
 }
 
@@ -22,5 +36,6 @@ export default handleActions({
         student_id: '0416000'
       }
     })
-  }
+  },
+  UPDATE_TIME_INFO: (state, action) => ({ ...state, times: { ...action.payload } })
 }, initialState)
