@@ -85,7 +85,7 @@ class Index extends React.Component {
     this.props.getCreditList()
     this.props.resetCourse()
     this.props.setError(false)
-    window.alert('請注意，本學期抵免改由紙本申請')
+    //window.alert('請注意，本學期抵免改由紙本申請')
   }
 
   componentDidUpdate (prevProps) {
@@ -112,7 +112,7 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, creditList } = this.props
+    const { classes, creditList, times } = this.props
     const waiveCourse = creditList.waive_course.filter((data) => this.checkFilter(0, data.status))
     const exemptCourse = creditList.exempt_course.filter((data) => this.checkFilter(1, data.status))
     const compulsoryCourse = creditList.compulsory_course.filter((data) => this.checkFilter(2, data.status))
@@ -120,7 +120,14 @@ class Index extends React.Component {
     const waiveCourseForPrint = creditList.waive_course.filter((data) => (data.status !== 3))
     const exemptCourseForPrint = creditList.exempt_course.filter((data) => (data.status !== 3))
     const emptyCredit = !waiveCourse.length && !exemptCourse.length && !compulsoryCourse.length && !englishCourse.length
-
+    let begin = times["verify"].begin, end = times["verify"].end, today = new Date()
+    let date = today.getFullYear() + '-'
+            + ('0' + (today.getMonth()+1)).slice(-2) + '-'
+            + ('0' + today.getDate()).slice(-2) + 'T'
+            + ('0' + today.getHours()).slice(-2) + ':'
+            + ('0' + today.getMinutes()).slice(-2)
+    const inTime = ( date >= begin && date <= end ? true : false)
+      
     return (
       <div className='container' style={{ marginBottom: '50px' }}>
         <div className='row'>
@@ -163,6 +170,7 @@ class Index extends React.Component {
                 </Select>
               </FormControl>
               {
+              inTime ? 
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}
@@ -172,7 +180,17 @@ class Index extends React.Component {
                 >
                   抵免申請
                 </Button>
-              </Link>
+              </Link> :
+              <Link to='/students/credit'>
+                <Button
+                  className={classes.btn}
+                  variant='contained'
+                  color='primary'
+                  onClick={() => window.alert('現在非抵免申請時間!')}
+              >
+                  抵免申請
+                </Button>
+              </Link> 
               }
               <PrintButton
                 studentIdcard={this.props.studentIdcard}
@@ -315,7 +333,8 @@ Index.propTypes = {
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
   creditList: state.Student.Credit.list,
-  deleteStatus: state.Student.Credit.delete.status
+  deleteStatus: state.Student.Credit.delete.status,
+  times: state.Student.User.times
 })
 
 const mapDispatchToProps = (dispatch) => ({
