@@ -44,9 +44,9 @@ export const newProject = (payload) => dispatch => {
         axios.post('/students/research/create', payload)
           .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
           .catch(err => {
-            console.log(err.status)
+            console.log(err)
             // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
-            if ( err.status === 403 )
+            if ( err.response.status == 403 )
               dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
             else  
               dispatch(actions.project.new.setStatus(4))
