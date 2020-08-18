@@ -50,6 +50,9 @@ class Index extends React.Component {
         this.props.newProjectReset()
         window.alert('申請成功!')
       }
+      else if (newStatus === 4) {
+        window.alert('成員中有email不存在!')
+      }
       else if (newStatus === FETCHING_STATUS.ERROR) {
         let messages = '申請失敗!'
         newResponse.forEach((response) => {

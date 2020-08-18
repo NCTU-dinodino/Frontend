@@ -46,7 +46,10 @@ export const newProject = (payload) => dispatch => {
           .catch(err => {
             console.log(err.status)
             // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
-            dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
+            if ( err.status === 403 )
+              dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
+            else  
+              dispatch(actions.project.new.setStatus(4))
           })
       } else {
         dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
