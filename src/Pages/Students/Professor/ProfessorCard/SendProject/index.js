@@ -197,7 +197,7 @@ class SendProject extends React.Component {
               + ('0' + today.getDate()).slice(-2) + 'T'
               + ('0' + today.getHours()).slice(-2) + ':'
               + ('0' + today.getMinutes()).slice(-2)
-    if ( date < begin || end > date ) {
+    if ( date < begin || end < date ) {
       window.alert('目前非專題申請時間！')
       return
     }
@@ -554,7 +554,8 @@ class SendProject extends React.Component {
 
 const mapStateToProps = (state) => ({
   studentIdcard: state.Student.User.studentIdcard,
-  projects: state.Student.Project.list.data
+  projects: state.Student.Project.list.data,
+  times: state.Student.User.times
 })
 
 const mapDispatchToProps = (dispatch) => ({
