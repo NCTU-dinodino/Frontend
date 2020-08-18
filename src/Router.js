@@ -29,7 +29,7 @@ import StudentRecommend from './Pages/Students/Recommend'
 import StudentProfessor from './Pages/Students/Professor'
 import StudentProject from './Pages/Students/Project'
 import StudentCredit from './Pages/Students/Credit'
-// import StudentCreditApply from './Pages/Students/Credit/Stepper'
+import StudentCreditApply from './Pages/Students/Credit/Stepper'
 
 import Bulletin from './Pages/Bulletin'
 import Footer from './Components/Footer'
@@ -54,7 +54,7 @@ const Router = () => (
         <Route exact path='/students/professor' render={() => <StudentProfessor />} />
         <Route exact path='/students/project' render={() => <StudentProject />} />
         <Route exact path='/students/credit' render={() => <StudentCredit />} />
-        {/*<Route exact path='/students/credit/apply' render={() => <StudentCreditApply />} />*/}
+        {<Route exact path='/students/credit/apply' render={() => <StudentCreditApply />} />}
 
         <Route exact path='/teachers/head' component={TeacherHome} />
         <Route exact path='/teachers/group' component={TeacherProject} />
