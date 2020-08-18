@@ -112,7 +112,7 @@ class Index extends React.Component {
   }
 
   render () {
-    const { classes, creditList } = this.props
+    const { classes, creditList, times } = this.props
     const waiveCourse = creditList.waive_course.filter((data) => this.checkFilter(0, data.status))
     const exemptCourse = creditList.exempt_course.filter((data) => this.checkFilter(1, data.status))
     const compulsoryCourse = creditList.compulsory_course.filter((data) => this.checkFilter(2, data.status))
