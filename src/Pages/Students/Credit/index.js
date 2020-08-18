@@ -170,7 +170,7 @@ class Index extends React.Component {
                 </Select>
               </FormControl>
               {
-              intime ? 
+              inTime ? 
               <Link to='/students/credit/apply'>
                 <Button
                   className={classes.btn}

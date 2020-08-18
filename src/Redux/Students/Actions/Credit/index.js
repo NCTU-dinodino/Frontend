@@ -47,7 +47,7 @@ export const getCreditList = () => dispatch => {
 export const sendWaiveCourse = (payload) => dispatch => {
   axios
     .post('/students/offsetApply/createWaive', payload)
-    .then(res => window.alert('送出成功'))
+    .then(res => window.alert('送出成功\n\n請注意，抵免線上申請過後仍需列印抵免申請單並送交至系辦處理!'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
       console.log(err)
@@ -57,7 +57,7 @@ export const sendWaiveCourse = (payload) => dispatch => {
 export const sendExemptCourse = (payload) => dispatch => {
   axios
     .post('/students/offsetApply/createExempt', payload)
-    .then(res => window.alert('送出成功'))
+    .then(res => window.alert('送出成功\n\n請注意，抵免線上申請過後仍需列印抵免申請單並送交至系辦處理!'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
       console.log(err)
@@ -67,7 +67,7 @@ export const sendExemptCourse = (payload) => dispatch => {
 export const sendCompulsoryCourse = (payload) => dispatch => {
   axios
     .post('/students/offsetApply/createCompulsory', payload)
-    .then(res => window.alert('送出成功'))
+    .then(res => window.alert('送出成功\n\n請注意，抵免線上申請過後仍需列印抵免申請單並送交至系辦處理!'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
       console.log(err)
@@ -77,7 +77,7 @@ export const sendCompulsoryCourse = (payload) => dispatch => {
 export const sendEnglishCourse = (payload) => dispatch => {
   axios
     .post('/students/offsetApply/createEnglish', payload)
-    .then(res => window.alert('送出成功'))
+    .then(res => window.alert('送出成功\n\n請注意，抵免線上申請過後仍需列印抵免申請單並送交至系辦處理!'))
     .catch(err => {
       window.alert('送出失敗，請檢查連線是否穩定。')
       console.log(err)
@@ -89,7 +89,7 @@ export const editCredit = (payload) => dispatch => {
   axios
     .post('/students/offsetApply/edit', payload)
     .then(res => {
-      window.alert('編輯成功')
+      window.alert('編輯成功\n\n請注意，編輯申請過後仍需列印抵免申請單並送交至系辦處理!')
       dispatch(actions.credit.edit.setStatus(FETCHING_STATUS.DONE))
     })
     .catch(err => {
