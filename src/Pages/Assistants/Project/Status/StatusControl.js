@@ -625,7 +625,7 @@ class StatusControl extends React.Component {
                 <ListItem button
                   onClick={ () => {
                     this.props.getPendingList()
-                    this.setState({ openMail: true, mailTitle: '教授至dinodino審核專題寄信提醒', mailType: "3" })
+                    this.setState({ openMail: true, mailTitle: '教授至dinodino審核專題寄信提醒', mailType: "4" })
                   }}
                 >
                   <span style={{ fontSize: '18px' }}>教授至dinodino審核專題</span>
@@ -633,7 +633,9 @@ class StatusControl extends React.Component {
                 <ListItem button
                   onClick={ () => {
                     this.props.getUnScoreList()
-                    this.setState({ openMail: true, mailTitle: '教授至dinodino評分專題寄信提醒', mailType: "2" })
+                    this.setState({ openMail: true, mailTitle: '教授至dinodino評分專題寄信提醒',
+                      mailType: (Status.first_second === "1" ? "2" : "3")
+                    })
                   }}
                 >
                   <span style={{ fontSize: '18px' }}>教授至dinodino評分專題</span>

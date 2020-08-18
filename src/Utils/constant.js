@@ -1,3 +1,4 @@
+import React from 'react';
 
 export const FETCHING_STATUS = {
   IDLE: 0,
@@ -33,8 +34,57 @@ export const departmentList = [
 ]
 
 export const MAIL_CONTENT = [
-  "同學要在dino申請",
-  "同學要去選課",
-  "教授要評分",
-  "教授要審核專題"
-]
+  <React.Fragment>
+    <p>［主旨］［資工系］提醒您至本系dinodino系統送出專題（一）申請</p>
+    <p>［內文］</p>
+    <p>同學好：</p>
+    <p>本學期您已選修「資訊工程專題（一）」，但尚未至本系dinodino系統（https://dinodino.nctu.edu.tw/）送出專題（一）申請，敬請於開學一週內完成填送，以免影響期末評分作業。</p>
+    <p>如有任何問題請與系辦聯繫。</p>
+    <p>資工系辦 啟</p>
+  </React.Fragment>,
+  <React.Fragment>
+    <p>［主旨］［資工系］提醒您完成選修資訊工程專題（一）課程</p>
+    <p>［內文］</p>
+    <p>同學好：</p>
+    <p>本學期您已於本系dinodino系統送出專題（一）申請，但尚未完成選修「資訊工程專題（一）」課程。敬請於加退選結束前依公告完成選課。加退選結束後未完成專題（一）選修者
+   ，將退回dinodino系統專題（一）申請。</p>
+    <p>如有任何問題請與系辦聯繫。</p>
+    <p>資工系辦 啟</p>
+  </React.Fragment>,
+  <React.Fragment>
+    <p>［主旨］[提醒］專題（一）評分</p>
+    <p>［內文］</p>
+    <p>老師好：</p>
+    <p>提醒您，您尚有專題（一）課程未完成評分，敬請登入本系dinodino系統（https://dinodino.nctu.edu.tw/）完成評分，</p>
+    <p>如有任何問題請與系辦聯繫。謝謝。</p>
+    <p>資工系辦 啟</p>
+  </React.Fragment>,
+  <React.Fragment>
+    <p>［主旨］[提醒］專題（二）評分</p>
+    <p>［內文］</p>
+    <p>老師好：</p>
+    <p>提醒您，您尚有專題（二）課程未完成評分，敬請登入本系dinodino系統（https://dinodino.nctu.edu.tw/）完成評分，</p>
+    <p>如有任何問題請與系辦聯繫。謝謝。</p>
+    <p>資工系辦 啟</p>
+  </React.Fragment>,
+  <React.Fragment>
+    <p>［主旨］[提醒］專題（一）申請簽核］</p>
+    <p>［內文］</p>
+    <p>老師好：</p>
+    <p>提醒您，您尚有專題（一）申請表未完成簽核，敬請登入本系dinodino系統（https://dinodino.nctu.edu.tw/）完成簽核，並於開學後二週內送出。</p>
+    <p>如有任何問題請與系辦聯繫。謝謝。</p>
+    <p>資工系辦 啟</p>
+  </React.Fragment>,
+
+];
+//   "［主旨］[提醒］專題（二）評分\n\
+//   ［內文］\n\
+//   老師好：\n\
+//   提醒您，您尚有專題（二）課程未完成評分，敬請登入本系dinodino系統（https://dinodino.nctu.edu.tw/）完成評分，如有任何問題請與系辦聯繫。\n\
+//   謝謝。\n\
+//   資工系辦 啟\n",
+//   "［主旨］[提醒］專題（一）申請簽核］\n\
+//   ［內文］\n\
+//   老師好：\n\
+//   提醒您，您尚有專題（一）申請表未完成簽核，敬請登入本系dinodino系統（https://dinodino.nctu.edu.tw/）完成簽核，並於開學後二週內送出。有任何問題請與系辦聯繫。\n"
+// ]

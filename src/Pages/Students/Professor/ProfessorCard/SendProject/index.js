@@ -550,7 +550,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   newProject: (payload) => dispatch(newProject(payload)),
-  getScounts: (payload) => dispatch(getScounts(payload))
+  // getScounts: (payload) => dispatch(getScounts(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withMobileDialog()(SendProject)))
