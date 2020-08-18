@@ -39,6 +39,16 @@ class GroupList extends React.Component {
 
     fetchData (year) {
       let tid = this.props.idCard.teacher_id
+      // avoid padding wrong request tid, because the api
+      // get /professors/profile hasn't update redux state yet
+      if( tid === '001' ){
+        // NOT A VALID TID
+        setTimeout(() => {
+          console.log('----- fetchData AGAIN!!!! ----')
+          this.fetchData(year)
+        }, 3000)
+        return
+      }
       this.props.FetchResearchList1(tid, year)
       this.props.FetchResearchList2(tid, year)
     }
