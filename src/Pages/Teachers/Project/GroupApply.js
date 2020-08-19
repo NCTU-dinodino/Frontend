@@ -113,7 +113,6 @@ class GroupApply extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      message: '系統正在讀取資料中，請耐心等候。',
       chipOpen: {},
       sem: getSemester(),
       InfoDialog: false
@@ -131,13 +130,13 @@ class GroupApply extends React.Component {
   fetchData () {
     let tid = this.props.idCard.teacher_id
     let sem = this.state.sem
+    // avoid padding wrong request tid, because the api
+    // get /professors/profile hasn't update redux state yet
     if( tid === '001' ){
       // NOT A VALID TID
-      setTimeout(
-        () => {
-          console.log('----- fetchData AGAIN!!!! ----')
-          this.fetchData()
-        }, 1500)
+      setTimeout(() => {
+        this.fetchData()
+      }, 1500)
       return
     }
     this.props.FetchResearchApplyList(tid)
@@ -192,13 +191,6 @@ class GroupApply extends React.Component {
 
   // FOR CHIP
   handleChip = (i) => {
-    console.log("-----handleChip---------")
-    console.log(i) // undefine0616092
-
-    //let chipOpen = this.state.chipOpen
-    //chipOpen.set(i, true)
-    console.log("-----chipOpen-------")
-    console.log(this.state.chipOpen)
     this.setState(prevState=>{
       let chipOpen = {...prevState.chipOpen}
       chipOpen[i] = true
@@ -257,6 +249,7 @@ class GroupApply extends React.Component {
                 chipOpen={this.state.chipOpen}
                 handleChip={this.handleChip}
                 handleRequestClose={this.handleRequestClose}
+                currentNum={this.props.research.current_accept}
               />
             ))
             : ''
@@ -270,7 +263,7 @@ class GroupApply extends React.Component {
 const StudentStatusHint = (props) => (
   <MuiThemeProvider>
     <Chip style={styles.chip }
-          backgroundColor={ props.status === 1 ? '#BDD8CC' : '#FFCD80' }>
+          backgroundColor={ props.status === 1 ? '#b6d7a8' : '#f9cb9c' }>
       <Avatar src={defaultPic}/> { props.status === 1 ? '本系生' : '外系生' }
     </Chip>
   </MuiThemeProvider>
@@ -288,6 +281,7 @@ const ApplyButton = (props) => {
         firstSecond={props.item.first_second}
         year={props.item.year}
         parentFunction={props.parentFunction}
+        currentNum={props.currentNum}
       />
       <div className='groupTitle'>
         <span className='apply-btn-year'>{props.item.year}</span>
@@ -300,11 +294,10 @@ const ApplyButton = (props) => {
             {props.item.participants.map((p, i) => (
               <div key={i}>
                 <Chip className='group-chip'
-                      backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#BDD8CC' : '#FFCD80' }
+                      backgroundColor={ (p.student_status === 1 || p.student_status === '1') ? '#b6d7a8' : '#f9cb9c' }
                       key={i}
                       onClick={(event) => props.handleChip(p.student_id)}> 
                   <Avatar src={defaultPic}/> {p.student_id} {p.sname}
-                  {/*<span style={{color: 'red'}}>  {p.score}</span>*/ /*props.handleChip(p.student_id)*/}
                 </Chip>
                 {props.chipOpen[p.student_id]===true?
                 <MuiThemeProvider>

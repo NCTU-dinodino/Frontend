@@ -1,84 +1,48 @@
 import React from 'react'
 import axios from 'axios'
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core/styles'
 
-// for bootstrap 3
-import {Button} from 'react-bootstrap'
-
-// for multiTheme
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-
-/* const styles = {
-  labelStyle: {
-    fontFamily: 'Noto Sans CJK TC',
-    color: '#434343',
+const styles = {
+  buttonStyle: {
+    fontSize: '16px',
+    fontFamily: '微軟正黑體, sans-serif'
   },
-  titleSender: {
-    fontFamily: 'Noto Sans CJK TC',
-    padding: '3px 3px 5px 3px',
+  btnTitle: {
+    fontSize: '20px',
+    fontFamily: '微軟正黑體, sans-serif',
+    padding: '18px 24px',
+    fontWeight: '550'
   },
-  title: {
-    fontFamily: 'Noto Sans CJK TC',
-    padding: '3px 3px 0px 3px',
-  },
-  items: {
-    padding: '2px 0 3px 20px',
-  },
-  item: {
-    display: 'inline-block',
-    height: '10px',
-    width: 'auto',
-    padding: '2px',
-    color: '#979797',
-    fontSize: '8px',
-  },
-  itemsReceiver: {
-    padding: '5px 0 7px 20px',
-    maxHeight: 50,
-    overflow: 'auto',
-  },
-  text1: {
-    width: '90%',
-    padding: '5px',
-    fontFamily: 'Noto Sans CJK TC',
-  },
-  text2: {
-    width: '90%',
-    padding: '5px',
-    fontSize: '12px',
-    fontFamily: 'Noto Sans CJK TC',
-  },
-  reply: {
-    default: {
-      fontSize: '1.5em',
-      fontWeight: '400',
-      color: '#575757'
-    },
-    red: {
-      fontSize: '1.5em',
-      fontWeight: '400',
-      color: '#9f2624'
-    },
-    brown: {
-      fontSize: '1.5em',
-      fontWeight: '400',
-      color: '#845b2d'
-    },
-    green: {
-      fontSize: '1.5em',
-      fontWeight: '400',
-      color: '#3c8a63'
+  replyBtn: {
+    backgroundColor: '#337ab7',
+    fontFamily: '微軟正黑體, sans-serif',
+    '&:hover': {
+      backgroundColor: '#2e72aa'
     }
+  },
+  warnTitle: {
+    fontSize: '20px',
+    fontFamily: '微軟正黑體, sans-serif',
+    padding: '18px 24px',
+    fontWeight: '550',
+    color: 'red'
+  },
+  div: {
+    display: 'inline-block'
   }
-} */
+}
 
-export default class ReplyDialog extends React.Component {
+class ReplyDialog extends React.Component {
 
   constructor (props) {
     super(props)
     this.state = {
       open: false,
+      openWarning: false
     }
   }
 
@@ -93,32 +57,23 @@ export default class ReplyDialog extends React.Component {
     })
   }
 
-/*  sendEmailToStudents (ss, acc) {
-    ss.forEach(async s => {
-      console.log('YOMAJA')
-      let sEmail
-      sEmail = await this.fetchStudentEmailById (s)
-      let log = {
-        title: '【專題】資工專題申請回覆',
-        sender_id: this.props.idCard.teacher_id,
-        sender_email: this.props.idCard.mail,
-        receiver_id: s.student_id,
-        receiver_email: sEmail,
-        content: this.props.idCard.tname + ' 教授 對於您申請專題的回覆是: ' + (acc ? '『接受』。' : '『婉拒』。' )
-      }
 
-      console.log(log)
-
-      axios.post('/mail/sendmail', log).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
-    })
-  }*/
 
   handleOpen = () => {
-    this.setState({open: true})
+    const group = this.props.participants
+    var groupCnt = 0
+    for(var i=0; i<group.length; i++){
+      if(group[i].student_status===1 || group[i].student_status==='1'){
+        groupCnt ++
+      }
+    }
+    if((groupCnt+this.props.currentNum)>7){
+      this.setState({openWarning: true})
+    }
+    else{
+      this.setState({open: true})
+    }
+    
   }
 
   handleClose = (status) => {
@@ -161,39 +116,47 @@ export default class ReplyDialog extends React.Component {
     // trigger update
     this.props.parentFunction()
   }
-  render () {
-    const actions = [
-      <FlatButton
-        label='接受'
-        primary
-        onClick={ () => this.handleClose(1) }
-      />,
-      <FlatButton
-        label='拒絕'
-        secondary
-        onClick={ () => this.handleClose(3) }
-      />
-    ]
 
+  handleCloseWarning = () => {
+    this.setState({openWarning: false})
+  }
+
+  render () {
+    const { classes } = this.props
     return (
       <div>
-        <MuiThemeProvider>
-          <div onClick={this.handleOpen}>
-            <ReplyStatus status={this.props.status}/>
-          </div>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          {/*Dialog will be open only if ReplyStatus been clicked*/}
-          <Dialog
-            title='回覆專題申請'
-            actions={actions}
-            modal={false}
-            open={this.state.open}
-            onRequestClose={this.handleClose}
-          >
-            請選擇『接受』或『拒絕』此申請，此動作不可反悔。
-          </Dialog>
-        </MuiThemeProvider>
+        <div className={classes.div} onClick={this.handleOpen}>
+          <Button variant="contained" color='primary' className={classes.replyBtn}>回覆</Button>
+          {/*<ReplyStatus status={this.props.status} classes={classes} />*/}
+        </div>
+      
+        {/*Dialog will be open only if ReplyStatus been clicked*/}
+        <Dialog
+          open={this.state.openWarning}
+          onClose={this.handleCloseWarning}
+        >
+          <div className={classes.warnTitle}>無法回覆該專題</div>
+          <DialogContent className={classes.buttonStyle}>
+            專題生名額已達上限，無法接受該專題申請
+          </DialogContent>
+        </Dialog>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+        >
+          <div className={classes.btnTitle}>回覆專題申請</div>
+          <DialogContent className={classes.buttonStyle}>
+            請選擇 『接受』 或 『拒絕』 此申請，此動作不可反悔。
+          </DialogContent>
+          <DialogActions>
+            <Button className={classes.buttonStyle} onClick={() => this.handleClose(1)} color="primary">
+              接受
+            </Button>
+            <Button className={classes.buttonStyle} onClick={() => this.handleClose(3)} color="primary">
+              拒絕
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
     )
   }
@@ -202,12 +165,13 @@ export default class ReplyDialog extends React.Component {
 const ReplyStatus = (props) => {
   switch (props.status) {
     case 0:
-      return <Button bsStyle='primary'>回覆</Button>
+      return <Button variant="contained" color='primary' className={props.classes.replyBtn}>回覆</Button>
     case 1:
-      return <Button bsStyle='success' disabled>已接受</Button> // 基本上不會有這種狀況
+      return <Button variant="contained" disabled>已接受</Button> // 基本上不會有這種狀況
     case 2:
-      return <Button bsStyle='info'>審核中</Button> // 基本上不會有這種狀況
+      return <Button variant="contained" color='primary' className={props.classes.replyBtn}>審核中</Button> // 基本上不會有這種狀況
     default:
-      return <Button bsStyle='primary'>回覆</Button>
+      return <Button variant="contained" color='primary' className={props.classes.replyBtn}>回覆</Button>
   }
 }
+export default withStyles(styles)(ReplyDialog)

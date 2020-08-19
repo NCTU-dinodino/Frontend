@@ -34,7 +34,7 @@ const initialState = {
           email: 'gogogogo@gmail.com',
           phone: '0988888888',
           first_second: '...',
-          student_status: 2
+          student_status: 0 // 外系生
         }
       ]
     },
@@ -208,7 +208,7 @@ const initialState = {
   research: {
     cs_number: 0,
     other_number: 0,
-    current_accept: 0,
+    current_accept: 6,
     groups: [
       {
         research_title: '---',
@@ -217,13 +217,17 @@ const initialState = {
             student_id: '0412121',
             sname: '陳罐頭',
             detail: '...',
-            score: ''
+            score: '',
+            comment: '',
+            student_status: 1
           },
           {
             student_id: '...',
             sname: '...',
             detail: '...',
-            score: ''
+            score: '',
+            comment: '',
+            student_status: 1
           },
           {
             student_id: '...',
