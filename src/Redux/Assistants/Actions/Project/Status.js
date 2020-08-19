@@ -48,7 +48,7 @@ export const fetchCsv = (payload) => dispatch => {
   dispatch(status_handle_change({csvDone: false}))
   axios.post('/assistants/research/professorListDownload', payload).then(res => {
     let data = res.data, csvArr = []
-    csvArr.push(['學生學號', '學生姓名', '指導教授', '學期', '專題課名', '專題題目'])
+    csvArr.push(['學生學號', '學生姓名', '指導教授', '專題名稱', '專題級數'])
     for (let i = 0; i < data.length; i++) {
       csvArr.push([data[i].student_id, data[i].sname, data[i].tname, data[i].semester, data[i].research_title, data[i].cos_cname])
     }
