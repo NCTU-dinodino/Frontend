@@ -8,7 +8,6 @@ import InfoCard from '../Shared/InfoCard'
 import Loading from '../../../Components/Loading'
 import ChangeTitleDialog from '../Group/ChangeTitleDialog'
 import ScoreDialog from '../Group/ScoreDialog'
-import ChangeTeacherConfirm from '../Group/ChangeTeacherConfirm'
 
 // mui
 import Avatar from 'material-ui/Avatar'
@@ -116,9 +115,9 @@ class GroupList extends React.Component {
     }
 
     calStudentNum = (sem) => {
+      var cs_2 = 0
+      var other_2 = 0
       if(sem===1){
-        var cs_2 = 0
-        var other_2 = 0
         const group = this.props.research1.groups
         for(var i=0; i<group.length; i++){
           if(group[i].first_second==='2'){
@@ -138,8 +137,6 @@ class GroupList extends React.Component {
         return [cs_1, other_1, cs_2, other_2]
       }
       else if(sem===2){
-        var cs_2 = 0
-        var other_2 = 0
         const group = this.props.research2.groups
         for(var i=0; i<group.length; i++){
           if(group[i].first_second==='2'){
@@ -287,7 +284,6 @@ class GroupList extends React.Component {
 
 const StudentStatusHint = (props) => (
   <MuiThemeProvider>
-    {/*'#BDD8CC' : '#FFCD80'*/}
     <Chip style={{margin: 5, color: '#fffeee'}}
       backgroundColor={ props.status === 1 ?  '#b6d7a8' : '#f9cb9c'}>
       <Avatar src={defaultPic}/> { props.status === 1 ? '本系生' : '外系生' }
