@@ -208,7 +208,7 @@ const initialState = {
   research: {
     cs_number: 0,
     other_number: 0,
-    current_accept: 6,
+    current_accept: "3",
     groups: [
       {
         research_title: '---',
@@ -341,7 +341,7 @@ const initialState = {
     },
   ],
   loadChangeTeacherList: 1,
-  loadApplyList: 1,
+  loadApplyList: 0,
   loadReacherList1: 1,
   loadReacherList2: 1
 }
