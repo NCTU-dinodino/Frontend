@@ -21,7 +21,8 @@ import {
   sendWarningMail,
   withdrawStudents,
   getCPEStatus,
-  getPendingList
+  getPendingList,
+  getWithdrawList
 } from '../../../../Redux/Assistants/Actions/Project/Status'
 
 import CPETable from './CPETable'
@@ -195,35 +196,6 @@ class StatusControl extends React.Component {
     downloadLink.href = linkSource;
     downloadLink.download = fileName;
     downloadLink.click();
-  }
-
-  getWithdrawList = () => {
-    const { Status } = this.props
-    return Status.teachers.reduce( (teacher_students_flatten, teacher) => [ ...teacher_students_flatten, 
-      ...teacher.accepted.projects.reduce( (project_students_flatten, project) => [ ...project_students_flatten,
-        ...project.students
-          .filter( student => student.add_status === "0" )
-          .map( student => { 
-            return { 
-              student_id: student.id,
-              research_title: project.title,
-              semester: student.semester,
-              first_second: student.first_second
-            }
-          })
-      ], []),
-      ...teacher.pending.projects.reduce( (project_students_flatten, project) => [ ...project_students_flatten,
-        ...project.students
-          .map( student => { 
-            return { 
-              student_id: student.id,
-              research_title: project.title,
-              semester: student.semester,
-              first_second: student.first_second
-            }
-          })
-      ], []),
-    ], [])
   }
 
   render () {
@@ -482,7 +454,7 @@ class StatusControl extends React.Component {
             className={classes.button}
             style={{display: 'inline'}}
             onClick={ () => {
-              this.props.getNotOnCosList({
+              this.props.getWithdrawList({
                 semester: Status.year + '-' + Status.semester,
                 first_second: Status.first_second
               })
@@ -744,10 +716,17 @@ class StatusControl extends React.Component {
             <Button 
               onClick={ 
                 () => {
-                  const arr = this.getWithdrawList()
-                  if (window.confirm("此操作無法返回, 將退選" + arr.length + "人並發送信件, 確定執行此動作?")) {
+                  if (window.confirm("此操作無法返回, 將退選" + Status.people.length + "人並發送信件, 確定執行此動作?")) {
                     this.props.withdrawStudents({
-                      people: arr,
+                      people: Status.people.map( person => {
+                        return {
+                          student_id: person.id,
+                          research_title: person.research_title,
+                          semester: Status.year + '-' +Status.semester,
+                          first_second: Status.first_second,
+                          type: person.type
+                        }
+                      }),
                       refresh: {
                         year: Status.year,
                         semester: Status.semester,
@@ -761,7 +740,7 @@ class StatusControl extends React.Component {
               style={ Status.loadingModal ? 
                 { color: 'grey', fontSize: '20px'}
                 :
-                { color: 'blue', fontSize: '20px'}
+                { color: 'red', fontSize: '20px'}
               } 
               disabled = { Status.loadingModal }
             >
@@ -790,7 +769,8 @@ const mapDispatchToProps = (dispatch) => ({
   sendWarningMail: (payload) => dispatch(sendWarningMail(payload)),
   withdrawStudents: (payload) => dispatch(withdrawStudents(payload)),
   getCPEStatus: (payload) => dispatch(getCPEStatus(payload)),
-  getPendingList: () => dispatch(getPendingList())
+  getPendingList: () => dispatch(getPendingList()),
+  getWithdrawList: (payload) => dispatch(getWithdrawList(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(StatusControl))

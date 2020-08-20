@@ -109,6 +109,16 @@ export const getNotInSystemList = (payload) => dispatch => {
   })
 }
 
+export const getWithdrawList = (payload) => dispatch => {
+  dispatch(status_handle_change({loadingModal: true}))
+  axios.post('/assistants/research/withdrawList', payload).then( res => {
+    dispatch(status_handle_change({people: res.data, loadingModal: false}))
+  }).catch( err => {
+    window.alert("獲取退選列表失敗, 請聯繫dino團隊")
+    console.log(err)
+  })
+}
+
 export const sendWarningMail = (payload) => dispatch => {
   axios.post('/assistants/research/SendWarningEmail', payload).then( res => {
     window.alert("寄信成功!")
