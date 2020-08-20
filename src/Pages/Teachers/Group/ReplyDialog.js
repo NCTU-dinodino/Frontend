@@ -67,7 +67,11 @@ class ReplyDialog extends React.Component {
         groupCnt ++
       }
     }
-    if((groupCnt+this.props.currentNum)>7){
+    console.log('------groupCnt------')
+    console.log(groupCnt)
+    console.log('------currentNum------')
+    console.log(this.props.currentNum)
+    if((groupCnt+parseInt(this.props.currentNum, 10))>7){
       this.setState({openWarning: true})
     }
     else{
