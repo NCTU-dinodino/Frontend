@@ -341,7 +341,7 @@ const initialState = {
     },
   ],
   loadChangeTeacherList: 1,
-  loadApplyList: 0,
+  loadApplyList: 1,
   loadReacherList1: 1,
   loadReacherList2: 1
 }
