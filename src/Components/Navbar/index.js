@@ -43,12 +43,12 @@ const navItems = {
       label: '專題',
       icon: 'fa fa-users',
       url: '/students/project'
-    },
-    {
-      label: '課程抵免',
-      icon: 'fa fa-list-alt',
-      url: '/students/credit'
     }
+    // {
+    //   label: '課程抵免',
+    //   icon: 'fa fa-list-alt',
+    //   url: '/students/credit'
+    // }
   ],
   'assistant': [
     {
