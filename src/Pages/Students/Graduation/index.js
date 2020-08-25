@@ -13,7 +13,7 @@ import { FETCHING_STATUS } from '../../../Utils/constant'
 
 class Index extends React.Component {
   componentDidMount () {
-    window.alert('請注意，共同課程(外語+通識)至多只能採計40學分')
+    window.alert('請注意，本系統畢業預審功能後續將不再更新資料，也不會維護此功能，畢業預審請參考學籍成績系統送交紙本畢業預審!')
   }
 
   componentDidUpdate (prevProps) {
