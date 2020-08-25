@@ -38,7 +38,7 @@ const styles = {
 class Index extends React.Component {
   componentDidMount () {
     this.props.getProjects()
-    // window.alert('請注意，本學期專題改由紙本申請')
+    window.alert('請注意，本學期專題請透過紙本申請!')
   }
 
   componentDidUpdate (prevProps) {
