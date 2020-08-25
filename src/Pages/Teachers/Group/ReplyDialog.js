@@ -88,8 +88,8 @@ class ReplyDialog extends React.Component {
       return
     }
     // 防呆確認
-    // const statusText = status === 3 ? '『拒絕』' : '『接受』'
-    // if( !window.confirm('確定回覆' + statusText + '?') ) return
+    const statusText = status === 3 ? '『拒絕』' : '『接受』'
+    if( !window.confirm('確定回覆' + statusText + '?') ) return
 
     let students = this.props.participants.map( p => (
       {
