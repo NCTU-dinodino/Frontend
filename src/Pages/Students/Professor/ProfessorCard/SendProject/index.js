@@ -145,7 +145,7 @@ class SendProject extends React.Component {
       this.handleSnackbarOpen('專題成員已超過該教授上限！如有外系成員則不算在教授上限內。')
     }
     if (newNumber > 3) {
-      this.handleSnackbarOpen('專題成員若要超過3位請至系辦申請！')
+      this.handleSnackbarOpen('專題每組以三人為限！')
       return
     }
     this.setState({
@@ -186,6 +186,13 @@ class SendProject extends React.Component {
     let number_tmp = 0
     const { title, members } = this.state
     const { projects, times } = this.props
+
+    if ( members[0].first_second === 1 ) 
+      window.alert('本學期請透過紙本申請專題！')
+    else 
+      window.alert('本學期請透過紙本申請更換專題教授！')
+    
+    return 
 
     if (!title) {
       window.alert('請填寫專題題目！')
