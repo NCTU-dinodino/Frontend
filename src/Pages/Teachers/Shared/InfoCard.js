@@ -9,7 +9,7 @@ import {Tabs, Tab} from 'material-ui/Tabs'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // others
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts'
-import MailButton from '../../../Components/mail/MailButton'
+// import MailButton from '../../../Components/mail/MailButton'
 
 import FakeData from '../../../Resources/FakeData'
 

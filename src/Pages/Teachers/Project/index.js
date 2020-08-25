@@ -8,7 +8,6 @@ import DescriptionIcon from '@material-ui/icons/Description'
 //import ListAltIcon from '@material-ui/icons/ListAlt';
 import ApplyIcon from '@material-ui/icons/AssignmentTurnedIn'
 // for ListItemText style
-import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 // components
 import GroupList from './GroupList'

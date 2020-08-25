@@ -88,8 +88,8 @@ class ReplyDialog extends React.Component {
       return
     }
     // 防呆確認
-    const statusText = status === 3 ? '『拒絕』' : '『接受』'
-    if( !window.confirm('確定回覆' + statusText + '?') ) return
+    // const statusText = status === 3 ? '『拒絕』' : '『接受』'
+    // if( !window.confirm('確定回覆' + statusText + '?') ) return
 
     let students = this.props.participants.map( p => (
       {
@@ -98,6 +98,7 @@ class ReplyDialog extends React.Component {
       }
     ))
     console.log(students)
+    console.log(this.props.firstSecond)
     this.setState({open: false})
     axios.post('/professors/researchApply/setAgree', {
       research_title: this.props.title,
@@ -130,7 +131,7 @@ class ReplyDialog extends React.Component {
     return (
       <div>
         <div className={classes.div} onClick={this.handleOpen}>
-          <Button variant="contained" color='primary' className={classes.replyBtn}>回覆</Button>
+          <Button variant="contained" color='primary' className={classes.replyBtn}>進入審核</Button>
           {/*<ReplyStatus status={this.props.status} classes={classes} />*/}
         </div>
       
@@ -166,16 +167,16 @@ class ReplyDialog extends React.Component {
   }
 }
 
-const ReplyStatus = (props) => {
-  switch (props.status) {
-    case 0:
-      return <Button variant="contained" color='primary' className={props.classes.replyBtn}>回覆</Button>
-    case 1:
-      return <Button variant="contained" disabled>已接受</Button> // 基本上不會有這種狀況
-    case 2:
-      return <Button variant="contained" color='primary' className={props.classes.replyBtn}>審核中</Button> // 基本上不會有這種狀況
-    default:
-      return <Button variant="contained" color='primary' className={props.classes.replyBtn}>回覆</Button>
-  }
-}
+// const ReplyStatus = (props) => {
+//   switch (props.status) {
+//     case 0:
+//       return <Button variant="contained" color='primary' className={props.classes.replyBtn}>回覆</Button>
+//     case 1:
+//       return <Button variant="contained" disabled>已接受</Button> // 基本上不會有這種狀況
+//     case 2:
+//       return <Button variant="contained" color='primary' className={props.classes.replyBtn}>審核中</Button> // 基本上不會有這種狀況
+//     default:
+//       return <Button variant="contained" color='primary' className={props.classes.replyBtn}>回覆</Button>
+//   }
+// }
 export default withStyles(styles)(ReplyDialog)

@@ -98,11 +98,11 @@ const navItems = {
       icon: 'fa fa-coffee',
       url: '/teachers/family'
     },
-    {
-      label: '抵免審核',
-      icon: 'fa fa-list-alt',
-      url: '/teachers/verify'
-    }
+    // {
+    //   label: '抵免審核',
+    //   icon: 'fa fa-list-alt',
+    //   url: '/teachers/verify'
+    // }
   ]
 }
 
