@@ -49,8 +49,8 @@ class Index extends React.Component {
             }
           }}
         >
-          <SendReview />
-          <PrintReview />
+          {/* <SendReview />
+          <PrintReview /> */}
           <ResetCourse />
         </Menu>
       </React.Fragment>

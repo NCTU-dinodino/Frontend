@@ -119,8 +119,9 @@ const Index = ({ courseDetail, reviewStatus, rejectReason, englishStatus, forAss
       <Grid item xs={12} container className={classes.reviewRowMobile}>
         <Grid item xs={10}>
           <div>
-            畢業預審狀態：
-            <span style={{ color: 'red' }}>{ reviewStatusText }</span>
+            <span style={{ color: 'red' }}>本系統畢業預審功能後續將不再更新資料，也不會維護此功能，畢業預審請參考學籍成績系統送交紙本畢業預審!</span>
+            {/* 畢業預審狀態：
+            <span style={{ color: 'red' }}>{ reviewStatusText }</span> */}
           </div>
           {
             reviewStatus === 3 &&
@@ -158,8 +159,9 @@ const Index = ({ courseDetail, reviewStatus, rejectReason, englishStatus, forAss
             </div>
           }
           <div>
-            畢業預審狀態：
-            <span style={{ color: 'red' }}>{ reviewStatusText }</span>
+            <span style={{ color: 'red' }}>本系統畢業預審功能後續將不再更新資料，也不會維護此功能，畢業預審請參考學籍成績系統送交紙本畢業預審!</span>
+            {/* 畢業預審狀態：
+            <span style={{ color: 'red' }}>{ reviewStatusText }</span> */}
           </div>
           {
             reviewStatus === 3 &&
