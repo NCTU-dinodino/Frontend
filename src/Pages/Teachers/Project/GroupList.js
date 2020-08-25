@@ -184,7 +184,7 @@ class GroupList extends React.Component {
               </MuiThemeProvider>
             </div>
             <div>
-              <span>本學年度已收: {accept_num}人 (上限7人)</span>
+              <span>本學年度專題一已收: {accept_num}人 (上限7人)</span>
             </div>
             <div className='InfoBtn' onClick={this.handleShowInfo}><HelpIcon/></div>
             <Dialog
@@ -317,7 +317,7 @@ const GroupButton = (props) => (
           </div>
         </div>
         <div>
-          <div className='groupTitle'>{props.item.research_title}</div>
+          <div className='groupTitle'>{"專題題目: "+props.item.research_title}</div>
         </div>
         <div>
           <MuiThemeProvider>

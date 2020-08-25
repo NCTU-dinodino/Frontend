@@ -100,7 +100,7 @@ class ReplyDialogChange extends React.Component {
                 <span>{p.replace_pro?p.sname+' ':''}{(i+1)!==arr.length?'、':''}</span>
               ))}更換指導教授？  
               <br/>
-              請選擇 『同意』 或 『拒絕』 此申請，此動作不可反悔。
+              請選擇 『同意』 或 『拒絕』 此申請，點選後無法變更。
             </DialogContent>
             <DialogActions>
             <Button className={classes.buttonStyle} onClick={() => this.handleClose(1)} color="primary">

@@ -199,7 +199,7 @@ class GroupChange extends React.Component {
       <div>
         <div className='subTitle'>
           <div>
-            <span>本學年度已收: {acc}人 (上限7人)</span>
+            <span>本學年度專題一已收: {acc}人 (上限7人)</span>
           </div>
           <div className='InfoBtn' onClick={this.handleShowInfo}><HelpIcon/></div>
           <Dialog
@@ -262,7 +262,7 @@ const ApplyButton = (props) => {
       {/*show year and project title*/}
       <div className='groupTitle'>
         <span className='apply-btn-year'>{props.item.year}</span>
-        {props.item.research_title}
+        {"專題題目: "+props.item.research_title}
       </div>
       {/*show all members*/}
       <div>
