@@ -84,8 +84,6 @@ class index extends React.Component {
   }
   render() {
     const { classes, Project } = this.props;
-
-    console.log(Project.rawData);
     return (
       <div className={ classes.options }>
         <Tooltip 
