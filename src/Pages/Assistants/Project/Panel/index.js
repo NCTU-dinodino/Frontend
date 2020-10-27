@@ -157,7 +157,7 @@ class index extends React.Component {
           <ExpansionPanelSummary>
             <div style={{ width: '100%', display: 'flex' }} >
               <div style={{ fontSize: 20, flex: 0.2, textAlign: 'center', color: 'black' }} >{project.professor_name}</div>
-              <div style={{ fontSize: 20, flex: 0.8, textAlign: 'center', color: 'black' }} >{project.title} </div>
+              <div style={{ fontSize: 20, flex: 0.8, textAlign: 'center', color: 'black' }} >專題題目：{project.title} </div>
             </div>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
@@ -174,18 +174,22 @@ class index extends React.Component {
 
   showIndex() {
     const { Project } = this.props;
-    return Project.rawData.map( teacher => this.filterByIndex(teacher))
-    .filter( (teacher) =>
-      teacher.accepted.projects.length !== 0 ||
-      teacher.pending.projects.length !== 0
-    ).map( (teacher) => {
-      return [ ...teacher.accepted.projects, ...teacher.pending.projects ].map( (project, idx) => {
-        return this.showProjectPanel({
-          ...project,
-          professor_name: teacher.professor_name
-        }, idx)
+    let target = Project.rawData.map( teacher => this.filterByIndex(teacher))
+      .filter( (teacher) =>
+        teacher.accepted.projects.length !== 0 ||
+        teacher.pending.projects.length !== 0
+      )
+    if (target.length === 0)
+      return <div>無資料</div>
+    else
+      return target.map( (teacher) => {
+        return [ ...teacher.accepted.projects, ...teacher.pending.projects ].map( (project, idx) => {
+          return this.showProjectPanel({
+            ...project,
+            professor_name: teacher.professor_name
+          }, idx)
+        })
       })
-    })
     /*
     Project.rawdata.map( (teacher, idx) => 
     <div key={idx} style={{ width: '100%', margin: '0 auto', marginBottom: '20px', background: 'red' }}>

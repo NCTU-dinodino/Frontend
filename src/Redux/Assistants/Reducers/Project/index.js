@@ -5,7 +5,9 @@ const initalState = {
 	semester: '1',
   first_second: '1',
   input: "",
-  rawData: [],
+	rawData: [
+    
+	],
 	index: 1,
 	curdata: [],
 	select: [],

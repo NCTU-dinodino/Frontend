@@ -2,20 +2,22 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 
-import { Tooltip, IconButton } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
+import MailIcon from '@material-ui/icons/Mail';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'; 
+
 import { 
   projectHandleChange,
   fetchData
 } from '../../../../Redux/Assistants/Actions/Project'
 
-import Check from '@material-ui/icons/CheckBox'
-import CheckNone from '@material-ui/icons/CheckBoxOutlineBlank'
 
 import FormControl from '@material-ui/core/FormControl'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const styles = theme => ({
   cssLabel: {
@@ -48,6 +50,9 @@ const styles = theme => ({
     position: 'fixed'
     // borderBottom: '1px solid rgba(0, 0, 0, 0.34)'
   },
+  tooltip: {
+    fontSize: 15
+  },
 });
 
 const rightMenuItem = (classes, value, label, onChange, menuItems) => {
@@ -74,32 +79,61 @@ const rightMenuItem = (classes, value, label, onChange, menuItems) => {
 }
 
 class index extends React.Component {
-  selectAll = () => {
-    const { Project } = this.props;
-    if (Project.selectAll) {
-      this.props.projectHandleChange({select: [], selectAll: false})
-    } else {
-      this.props.projectHandleChange({select: Project.curdata, selectAll: true})
+
+  showOptions() {
+    const { Project, classes } = this.props;
+    switch (Project.index) {
+      case 1:
+        return ;
+      case 2:
+        return (
+        <div>
+          <Tooltip 
+            title={"寄信提醒"} 
+            placement="top" 
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <IconButton>
+              <MailIcon />
+            </IconButton>
+          </Tooltip>
+        </div>
+        );
+      case 3:
+
+        return (
+          <div>
+            <Tooltip 
+              title={"寄信提醒"} 
+              placement="top" 
+              classes={{ tooltip: classes.tooltip }}
+            >
+              <IconButton>
+                <MailIcon />
+              </IconButton>
+            </Tooltip>
+
+            <Tooltip 
+              title={"上傳選課資料"} 
+              placement="top" 
+              classes={{ tooltip: classes.tooltip }}
+            >
+              <IconButton>
+                <CloudUploadIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        )
+        break;
     }
   }
+
+
   render() {
     const { classes, Project } = this.props;
     return (
       <div className={ classes.options }>
-        <Tooltip 
-          title={Project.selectAll ? '取消全選' : '全選'} 
-          placement='top'
-          classes={{
-            tooltip: classes.tooltip
-          }}
-        >
-          <IconButton 
-            className={classes.sideIcon}
-            onClick={this.selectAll}
-          >
-            {Project.selectAll ? <Check /> : <CheckNone /> }
-          </IconButton>
-        </Tooltip>
+        {this.showOptions()}
         <div className={classes.sideIcon2}>
           {rightMenuItem(classes, Project.year, '學年', 
             (event) => {
@@ -144,6 +178,7 @@ class index extends React.Component {
             [{value: "1", label: "專題一"},
              {value: "2", label: "專題二"}],
           )}
+          
         </div>
       </div>
     )
