@@ -148,7 +148,7 @@ let CPETableToolbar = props => {
         {selected.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
           { Status.cpeStatus !== "1" &&
-            <Tooltip title="通過" placement="top" classes={{ tooltip: classes.tooltip }}>
+            <Tooltip title="基礎程式設計已通過" placement="top" classes={{ tooltip: classes.tooltip }}>
               <IconButton>
                 <DoneIcon style = {{ color: 'green' }} 
                   onClick={ () => {
@@ -173,7 +173,7 @@ let CPETableToolbar = props => {
             </Tooltip>
           }
           { Status.cpeStatus !== "2" &&
-            <Tooltip title="不通過" placement="top" classes={{ tooltip: classes.tooltip }}>
+            <Tooltip title="基礎程式設計未通過" placement="top" classes={{ tooltip: classes.tooltip }}>
               <IconButton>
                 <ClearIcon style = {{ color: 'red' }} 
                   onClick={ () => {

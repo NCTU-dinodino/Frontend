@@ -197,7 +197,7 @@ class Status extends React.Component {
                             teacher.accepted.projects.map( (project, idx) => 
                               <div key={idx} style={{ paddingLeft: '10px'}}>
                                 <div style={{ fontSize: '20px', color: 'black', fontWeight: 'bold' }}>
-                                  { this.hightlight(project.title, Status.input) }
+                                  專題題目：{ this.hightlight(project.title, Status.input) }
                                 </div>
                                 {
                                   project.students.map( (student, idx) => (

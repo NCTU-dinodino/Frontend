@@ -46,7 +46,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import red from '@material-ui/core/colors/red'
 
-import { MAIL_CONTENT } from '../../../../Utils/constant';
+import { PROJECT_MAIL } from '../../../../Utils/constant'
 
 const styles = theme => ({
   containerBlock: {
@@ -110,6 +110,8 @@ const styles = theme => ({
   }
 })
 
+
+
 class StatusControl extends React.Component {
 
   constructor(props) {
@@ -117,7 +119,7 @@ class StatusControl extends React.Component {
     this.state = {
       openMail: false,
       mailTitle: '',
-      mailType: "",
+      mailType: "0",
       openWithdraw: false,
       openCPEStatus: false,
       cpeTitle: ''
@@ -150,12 +152,12 @@ class StatusControl extends React.Component {
     const { classes, Status } = this.props
     if (!Status.csvDone) {
       return <Button variant="contained" className={classes.button} >
-        專題資料CSV匯出
+        匯出已通過審核的專題列表
       </Button>
     }
     return <CSVLink data={Status.csvArr} onClick={() => console.log(Status.csvArr)}>
       <Button variant="contained" className={classes.button} >
-        專題資料CSV匯出
+        匯出已通過審核的專題列表
       </Button>
     </CSVLink>
   }
@@ -378,7 +380,7 @@ class StatusControl extends React.Component {
                 style = {{display: 'inline', width:'100%'}}
                 disabled = { Status.first_second === "" }
               >
-                下載範例
+                下載上傳範例
               </Button>
             </label>
           </form>
@@ -392,7 +394,7 @@ class StatusControl extends React.Component {
                 disabled={Status.first_second === ""}
                 style={{display: 'inline', width: '100%'}}
               >
-                上傳資料
+                上傳選課資料
               </Button>
               <input
                 style={{ display: 'none' }}
@@ -414,7 +416,7 @@ class StatusControl extends React.Component {
             onClick={ () => {
               this.setState({
                 openCPEStatus: true,
-                cpeTitle: '未審核列表'
+                cpeTitle: 'CPE待審核列表'
               })
               this.props.getCPEStatus({
                 semester: Status.year + '-' + Status.semester,
@@ -437,7 +439,7 @@ class StatusControl extends React.Component {
                 semester: Status.year + '-' + Status.semester,
                 first_second: Status.first_second
               })
-              this.setState({ openMail: true, mailTitle: '同學至選課系統選課寄信提醒', mailType: "1" })
+              this.setState({ openMail: true, mailTitle: '同學至選課系統選課寄信提醒', mailType: Status.first_second === "1" ? "0" : "4" })
             }}
           >
             寄信提醒
@@ -461,7 +463,7 @@ class StatusControl extends React.Component {
               this.setState({ openWithdraw: true })
             }}
           >
-            退選未選課專題生
+            退專題申請單
           </Button>
         </div>
         <div className={classes.containerBlock}　style={{height: '100px'}}>
@@ -491,11 +493,11 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       cpe_status: '0'
                     })
-                    this.setState({ cpeTitle: '未審核列表' })
+                    this.setState({ cpeTitle: 'CPE待審核列表' })
                     this.props.statusHandleChange({ cpeStatus: '0' })
                   }}
                 >
-                  <span style={{ fontSize: '18px' }}>未審核列表</span>
+                  <span style={{ fontSize: '18px' }}>CPE待審核列表</span>
                 </ListItem>
                 <ListItem button
                   onClick={ () => {
@@ -503,11 +505,11 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       cpe_status: '1'
                     })
-                    this.setState({ cpeTitle: '已通過列表' })
+                    this.setState({ cpeTitle: 'CPE已通過列表' })
                     this.props.statusHandleChange({ cpeStatus: '1' })
                   }}
                 >
-                  <span style={{ fontSize: '18px' }}>已通過列表</span>
+                  <span style={{ fontSize: '18px' }}>CPE已通過列表</span>
                 </ListItem>
                 <ListItem button
                   onClick={ () => {
@@ -515,11 +517,11 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       cpe_status: '2'
                     })
-                    this.setState({ cpeTitle: '未通過列表' })
+                    this.setState({ cpeTitle: 'CPE未通過列表' })
                     this.props.statusHandleChange({ cpeStatus: '2' })
                   }}
                 >
-                  <span style={{ fontSize: '18px' }}>未通過列表</span>
+                  <span style={{ fontSize: '18px' }}>CPE未通過列表</span>
                 </ListItem>
               </List>
             </Drawer>
@@ -578,35 +580,41 @@ class StatusControl extends React.Component {
                       semester: Status.year + '-' + Status.semester,
                       first_second: Status.first_second
                     })
-                    this.setState({ openMail: true, mailTitle: '同學至選課系統選課寄信提醒', mailType: "1" })
+                    this.setState({ openMail: true, mailTitle: '同學至選課系統選課寄信提醒', mailType: Status.first_second === "1" ? "0" : "4" })
                   }}
                 >
                   <span style={{ fontSize: '18px' }}>同學至選課系統選課</span>
                 </ListItem>
-                <ListItem button
-                  onClick={ () => {
-                    this.props.getNotInSystemList({
-                      semester: Status.year + '-' + Status.semester,
-                      first_second: Status.first_second
-                    })
-                    this.setState({ openMail: true, mailTitle: '同學至dinodino申請專題寄信提醒', mailType: "0" })
-                  }}
-                >
-                  <span style={{ fontSize: '18px' }}>同學至dinodino申請專題</span>
-                </ListItem>
+                {
+                Status.first_second === "1" &&
+                  <ListItem button
+                    onClick={ () => {
+                      this.props.getNotInSystemList({
+                        semester: Status.year + '-' + Status.semester,
+                        first_second: Status.first_second
+                      })
+                      this.setState({ openMail: true, mailTitle: '同學至dinodino申請專題寄信提醒', mailType: "1" })
+                    }}
+                  >
+                    <span style={{ fontSize: '18px' }}>同學至dinodino申請專題</span>
+                  </ListItem>
+                }
+                {
+                Status.first_second === "1" &&
                 <ListItem button
                   onClick={ () => {
                     this.props.getPendingList()
-                    this.setState({ openMail: true, mailTitle: '教授至dinodino審核專題寄信提醒', mailType: "4" })
+                    this.setState({ openMail: true, mailTitle: '教授至dinodino審核專題寄信提醒', mailType: "2" })
                   }}
                 >
                   <span style={{ fontSize: '18px' }}>教授至dinodino審核專題</span>
                 </ListItem>
+                }
                 <ListItem button
                   onClick={ () => {
                     this.props.getUnScoreList()
                     this.setState({ openMail: true, mailTitle: '教授至dinodino評分專題寄信提醒',
-                      mailType: (Status.first_second === "1" ? "2" : "3")
+                      mailType: Status.first_second === "1" ? "3" : "5"
                     })
                   }}
                 >
@@ -636,7 +644,11 @@ class StatusControl extends React.Component {
             }
           </DialogContent>
           <DialogContent style={{ marginLeft: '300px', flex: 1 }} >
-          { MAIL_CONTENT[parseInt(this.state.mailType, 10)] }
+          {<div>
+            <p>[主旨]{PROJECT_MAIL[parseInt(this.state.mailType, 10)].subject}</p>
+            <p>[內文]</p>
+            {PROJECT_MAIL[parseInt(this.state.mailType, 10)].content}
+          </div>}
           </DialogContent>
           <DialogActions>
             <Button 
@@ -657,7 +669,7 @@ class StatusControl extends React.Component {
               if (window.confirm('即將發送' + this.state.mailTitle + '給' 
                 + Status.people.length + '人')) {
                 this.props.sendWarningMail({
-                  type: this.state.mailType,
+                  mail: PROJECT_MAIL[parseInt(this.state.mailType, 10)],
                   people: Status.people
                 })
               }
@@ -684,11 +696,11 @@ class StatusControl extends React.Component {
         >
           <DialogTitle>
             <div style={{fontSize: '30px', color: 'red'}}>
-              退選專題
+              退專題申請單
             </div>
           </DialogTitle>
           <DialogContent>
-            退選學生: <br />
+            退申請單學生: <br />
             {
               Status.loadingModal ? 
                 <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>

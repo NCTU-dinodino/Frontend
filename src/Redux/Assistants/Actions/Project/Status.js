@@ -120,7 +120,13 @@ export const getWithdrawList = (payload) => dispatch => {
 }
 
 export const sendWarningMail = (payload) => dispatch => {
-  axios.post('/assistants/research/SendWarningEmail', payload).then( res => {
+  axios.post('/sendMail', {
+    "subject": payload.mail.subject,
+    "content": payload.mail.content,
+    "bcc": payload.people.map( person => person.id ),
+    "to": [],
+    "cc": []
+  }).then( res => {
     window.alert("寄信成功!")
   }).catch( err => {
     window.alert("寄信失敗, 請連繫dino團隊!")
