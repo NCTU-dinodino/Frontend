@@ -292,7 +292,7 @@ class index extends React.Component {
   showMailModel() {
     const { classes, Project } = this.props;
     if (Project.select.length === 0) return null
-    let people = [], mailType;
+    let people = [], mailType, mailTitle;
     if (Project.select[0].level === "2") {
       people = Project.select.map( person => {
         return {
@@ -300,9 +300,11 @@ class index extends React.Component {
           name: person.professor_name
         }}).filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
       mailType = 2
+      mailTitle = "提醒教授審核專題通知"
     } else if (Project.select[0].level === "3") {
       mailType = Project.first_second === "1" ? 0 : 4
       people = Project.select
+      mailTitle = "提醒同學選課通知"
     } else if (Project.select[0].level === "4") {
       mailType = Project.first_second === "1" ? 3 : 5
       people = Project.select.map( person => {
@@ -310,6 +312,7 @@ class index extends React.Component {
           id: person.professor_id,
           name: person.professor_name
         }}).filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
+        mailTitle = "提醒教授評分通知"
     } else return null
     return (
       <Dialog
@@ -319,7 +322,7 @@ class index extends React.Component {
       >
         <DialogTitle style={{ marginLeft: '300px' }}>
           <div style={{fontSize: '30px'}}>
-            {"Hello"}
+            {mailTitle}
           </div>
         </DialogTitle>
         <DialogContent style={{ flex: 1 }} >
