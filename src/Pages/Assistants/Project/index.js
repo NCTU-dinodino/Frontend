@@ -24,8 +24,7 @@ class index extends React.Component {
     })
 
     this.props.fetchCsv({
-      year: Project.year,
-      semester: Project.semester,
+      semester: Project.year + '-' + Project.semester,
       first_second: Project.first_second
     })
     

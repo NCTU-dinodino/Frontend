@@ -519,8 +519,7 @@ class index extends React.Component {
               first_second: Project.first_second
             })
             this.props.fetchCsv({
-              year: event.target.value,
-              semester: Project.semester,
+              semester: event.target.value + '-' + Project.semester,
               first_second: Project.first_second
             })
           },
@@ -541,8 +540,7 @@ class index extends React.Component {
               first_second: Project.first_second
             })
             this.props.fetchCsv({
-              year: Project.year,
-              semester: event.target.value,
+              semester: Project.year + '-' + event.target.value,
               first_second: Project.first_second
             })
           },
@@ -562,8 +560,7 @@ class index extends React.Component {
               first_second: event.target.value
             })
             this.props.fetchCsv({
-              year: Project.year,
-              semester: Project.semester,
+              semester: Project.year + '-' + Project.semester,
               first_second: event.target.value
             })
           },
