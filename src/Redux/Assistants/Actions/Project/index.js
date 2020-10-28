@@ -37,6 +37,9 @@ export const fetchData = (payload) => dispatch => {
   axios.post('/assistants/research/professorList', payload).then( res => {
     dispatch(projectHandleChange({
       rawData: res.data.map( teacher => ({ ...teacher,
+        gradeCnt: teacher.accepted.projects.reduce( (sum, project) => {
+          return sum + project.students.filter( student => student.status === "1" ).length
+        }, 0),
         accepted: { ...teacher.accepted,
           projects: teacher.accepted.projects.map( project => ({
             ...project,
@@ -61,6 +64,9 @@ export const fetchData = (payload) => dispatch => {
     console.log(err);
     dispatch(projectHandleChange({
       rawData: res.map( teacher => ({ ...teacher,
+        gradeCnt: teacher.accepted.projects.reduce( (sum, project) => {
+          return sum + project.students.filter( student => student.status === "1" ).length
+        }, 0),
         accepted: { ...teacher.accepted,
           projects: teacher.accepted.projects.map( project => ({
             ...project,
