@@ -11,7 +11,11 @@ const initalState = {
 	index: 1,
 	curdata: [],
   select: [],
-	fetching: false
+	fetching: false,
+	csvArr: [],
+	csvDone: true,
+	templateDone: false,
+	templateFile: '',
 }
 
 export default handleActions({

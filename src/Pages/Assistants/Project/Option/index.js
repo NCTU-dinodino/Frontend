@@ -122,16 +122,36 @@ class index extends React.Component {
   }
 
   csvDownload = () => {
-    const { classes, Status } = this.props
-    if (!Status.csvDone) {
-      return <Button variant="contained" className={classes.button} >
-        專題資料CSV匯出
-      </Button>
+    const { classes, Project } = this.props
+
+ 
+    if (!Project.csvDone) {
+      return <Tooltip 
+        title={
+          "專題CSV資料匯出"
+        } 
+        placement="top" 
+        classes={{ tooltip: classes.tooltip }}
+      >
+        <IconButton 
+        >
+          <CloudDownloadIcon />
+        </IconButton>
+      </Tooltip>
     }
-    return <CSVLink data={Status.csvArr} onClick={() => console.log(Status.csvArr)}>
-      <Button variant="contained" className={classes.button} >
-        專題資料CSV匯出
-      </Button>
+    return <CSVLink data={Project.csvArr} onClick={() => console.log(Project.csvArr)}>
+      <Tooltip 
+        title={
+          "專題CSV資料匯出"
+        } 
+        placement="top" 
+        classes={{ tooltip: classes.tooltip }}
+      >
+        <IconButton 
+        >
+          <CloudDownloadIcon />
+        </IconButton>
+      </Tooltip>
     </CSVLink>
   }
 
@@ -412,7 +432,6 @@ class index extends React.Component {
  
   }
 
-
   handleFileChange = (e) => {
     const { Project } = this.props
     const file = e.target.files[0]
@@ -552,18 +571,7 @@ class index extends React.Component {
           {value: "2", label: "專題二"}],
         )
       }
-      <Tooltip 
-        title={
-          "專題CSV資料匯出"
-        } 
-        placement="top" 
-        classes={{ tooltip: classes.tooltip }}
-      >
-        <IconButton 
-        >
-          <CloudDownloadIcon />
-        </IconButton>
-      </Tooltip>
+      { this.csvDownload() }
     </div>
     )
   }

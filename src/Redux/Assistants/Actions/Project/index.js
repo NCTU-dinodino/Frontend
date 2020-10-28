@@ -142,3 +142,16 @@ export const fetchXLSX = (payload) => dispatch => {
     dispatch(projectHandleChange({templateFile: res.data, templateDone: true}))
   })
 }
+
+export const withdrawStudents = (payload) => dispatch => {
+  Promise.all(payload.people.map( person =>
+    axios.post('/assistants/research/delete', person).then( res => {
+    }).catch( err => {
+      window.alert("退申請單" + person.student_id + "失敗, 請連繫dino團隊!")
+      console.log(err)
+    })
+  )).then( res => {
+    window.alert("退申請單操作成功!")
+    dispatch(fetchData(payload.refresh))
+  })
+}
