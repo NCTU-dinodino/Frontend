@@ -36,6 +36,7 @@ export const fetchData = (payload) => dispatch => {
   dispatch(projectHandleChange({fetching: true}))
   axios.post('/assistants/research/professorList', payload).then( res => {
     dispatch(projectHandleChange({
+      select: [],
       rawData: res.data.map( teacher => ({ ...teacher,
         gradeCnt: teacher.accepted.projects.reduce( (sum, project) => {
           return sum + project.students.filter( student => student.status === "1" ).length
@@ -63,6 +64,7 @@ export const fetchData = (payload) => dispatch => {
     window.alert("獲取專題資料失敗!");
     console.log(err);
     dispatch(projectHandleChange({
+      select: [],
       rawData: res.map( teacher => ({ ...teacher,
         gradeCnt: teacher.accepted.projects.reduce( (sum, project) => {
           return sum + project.students.filter( student => student.status === "1" ).length
