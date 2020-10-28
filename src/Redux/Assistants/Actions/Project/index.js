@@ -21,14 +21,11 @@ const calProjectLevel = (project) => {
       student => ({ ...student,
         is_pending: project.is_pending
       })
-    ).map( student => calStudentLevel(student) ),
-    level: project.students.map(
-      student => ({ ...student,
-        is_pending: project.is_pending
-      })
-    ).reduce( (level, student) => Math.min(level, calStudentLevel(student).level), 5)
+    ).map( student => calStudentLevel(student) )
   }
 }
+
+
 
 export const fetchData = (payload) => dispatch => {
   dispatch(projectHandleChange({fetching: true}))
@@ -38,13 +35,13 @@ export const fetchData = (payload) => dispatch => {
         accepted: { ...teacher.accepted,
           projects: teacher.accepted.projects.map( project => ({
             ...project,
-            is_pending: false,
+            is_pending: "0",
           })).map( project => calProjectLevel(project))
         },
         pending: { ...teacher.pending,
           projects: teacher.pending.projects.map( project => ({
             ...project,
-            is_pending: true,
+            is_pending: "1",
           })).map( project => calProjectLevel(project))
         },
       }))
@@ -52,6 +49,22 @@ export const fetchData = (payload) => dispatch => {
   }).catch( err => {
     window.alert("獲取專題資料失敗!");
     console.log(err);
+    // dispatch(projectHandleChange({
+    //   rawData: res.map( teacher => ({ ...teacher,
+    //     accepted: { ...teacher.accepted,
+    //       projects: teacher.accepted.projects.map( project => ({
+    //         ...project,
+    //         is_pending: "0",
+    //       })).map( project => calProjectLevel(project))
+    //     },
+    //     pending: { ...teacher.pending,
+    //       projects: teacher.pending.projects.map( project => ({
+    //         ...project,
+    //         is_pending: "1",
+    //       })).map( project => calProjectLevel(project))
+    //     },
+    //   }))
+    // }))
   });
   dispatch(projectHandleChange({fetching: false}))
 }

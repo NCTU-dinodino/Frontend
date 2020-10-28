@@ -6,12 +6,11 @@ const initalState = {
   first_second: '1',
   input: "",
 	rawData: [
-    
+
 	],
 	index: 1,
 	curdata: [],
-	select: [],
-	selectAll: false,
+  select: [],
 	fetching: false
 }
 

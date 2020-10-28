@@ -35,17 +35,16 @@ const styles = theme => ({
   },
   sideIcon2: {
     position: 'absolute',
-    top: 60,
+    top: 20,
     left: 'calc(100vw - 450px)'
   },
   options: {
     background: '#f5f5f5',
     width: '100%',
     zIndex: 20,
-    top: 0,
+    top: 55,
     marginLeft: 58,
-    paddingTop: 60,
-    paddingBottom: 5,
+    paddingTop: 85,
     left: 0,
     position: 'fixed'
     // borderBottom: '1px solid rgba(0, 0, 0, 0.34)'
@@ -80,7 +79,7 @@ const rightMenuItem = (classes, value, label, onChange, menuItems) => {
 
 class index extends React.Component {
 
-  showOptions() {
+  showLeftOptions() {
     const { Project, classes } = this.props;
     switch (Project.index) {
       case 1:
@@ -128,58 +127,70 @@ class index extends React.Component {
     }
   }
 
-
-  render() {
+  showRightOptions() {
     const { classes, Project } = this.props;
     return (
+      <div className={classes.sideIcon2}>
+      {
+        rightMenuItem(classes, Project.year, '學年', 
+          (event) => {
+            this.props.projectHandleChange({ 
+              year: event.target.value 
+            })
+            this.props.fetchData({
+              year: event.target.value,
+              semester: Project.semester,
+              first_second: Project.first_second
+            })
+          },
+          [{value: "107", label: "107"},
+          {value: "108", label: "108"},
+          {value: "109", label: "109"}]
+        )
+      }
+      {
+        rightMenuItem(classes, Project.semester, '學期', 
+          (event) => {
+            this.props.projectHandleChange({ 
+              semester: event.target.value 
+            })
+            this.props.fetchData({
+              year: Project.year,
+              semester: event.target.value,
+              first_second: Project.first_second
+            })
+          },
+          [{value: "1", label: "上學期"},
+          {value: "2", label: "下學期"}],
+        )
+      }
+      {
+        rightMenuItem(classes, Project.first_second, '課程名稱', 
+          (event) => {
+            this.props.projectHandleChange({ 
+              first_second: event.target.value 
+            })
+            this.props.fetchData({
+              year: Project.year,
+              semester: Project.semester,
+              first_second: event.target.value
+            })
+          },
+          [{value: "1", label: "專題一"},
+          {value: "2", label: "專題二"}],
+        )
+      }
+    </div>
+    )
+  }
+
+
+  render() {
+    const { classes } = this.props;
+    return (
       <div className={ classes.options }>
-        {this.showOptions()}
-        <div className={classes.sideIcon2}>
-          {rightMenuItem(classes, Project.year, '學年', 
-            (event) => {
-              this.props.projectHandleChange({ 
-                year: event.target.value 
-              })
-              this.props.fetchData({
-                year: event.target.value,
-                semester: Project.semester,
-                first_second: Project.first_second
-              })
-            },
-            [{value: "107", label: "107"},
-             {value: "108", label: "108"},
-             {value: "109", label: "109"}]
-          )}
-          {rightMenuItem(classes, Project.semester, '學期', 
-            (event) => {
-              this.props.projectHandleChange({ 
-                semester: event.target.value 
-              })
-              this.props.fetchData({
-                year: Project.year,
-                semester: event.target.value,
-                first_second: Project.first_second
-              })
-            },
-            [{value: "1", label: "上學期"},
-             {value: "2", label: "下學期"}],
-          )}
-          {rightMenuItem(classes, Project.first_second, '課程名稱', 
-            (event) => {
-              this.props.projectHandleChange({ 
-                first_second: event.target.value 
-              })
-              this.props.fetchData({
-                year: Project.year,
-                semester: Project.semester,
-                first_second: event.target.value
-              })
-            },
-            [{value: "1", label: "專題一"},
-             {value: "2", label: "專題二"}],
-          )}
-          
-        </div>
+        {this.showLeftOptions()}
+        {this.showRightOptions()}
       </div>
     )
   }

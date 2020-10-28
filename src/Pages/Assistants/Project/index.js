@@ -1,7 +1,6 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import Side from './Side'
 import Option from './Option'
 import Panel from './Panel'
 
@@ -27,7 +26,6 @@ class index extends React.Component {
   render() {
     return (
       <div>
-        <Side />
         <Option />
         <Panel />
       </div>
