@@ -35,7 +35,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 
 
-import BlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import BlankBoxIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox'
 import WarningIcon from '@material-ui/icons/Warning'
 import HourglassFullIcon from '@material-ui/icons/HourglassFull'
@@ -224,24 +224,15 @@ class index extends React.Component {
       >
       {
         Project.select.length === 0 || Project.select.filter( obj => obj.id === student.id ).length === 0 ?
-        <BlankIcon /> : <CheckBoxIcon/>
+        <BlankBoxIcon /> : <CheckBoxIcon/>
       }
       </IconButton>
       <Chip
         label={student.id + " " + student.name}
         className={classes.chip}
-        style={
-          (Project.index !== parseInt(student.level, 10) || Project.index === 5) 
-          ? { background: green[300] } 
-          : { background: red['A100'] }
-        }
+        style={ { background: green[300] } }
         avatar={
-          <Avatar style={
-            (Project.index !== parseInt(student.level, 10) || Project.index === 5) 
-            ? { fontSize: 20, background: green[200] } 
-            : { fontSize: 20, background: red[100] }
-          }
-          >
+          <Avatar style={ { fontSize: 20, background: green[200] } }>
             {STUDENT_STATUS_CN[parseInt(student.status, 10)]}
           </Avatar>
         }

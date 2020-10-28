@@ -5,7 +5,8 @@ import Option from './Option'
 import Panel from './Panel'
 
 import { 
-  fetchData
+  fetchData,
+  fetchCsv
 } from '../../../Redux/Assistants/Actions/Project'
 
 const styles = theme => ({
@@ -21,6 +22,13 @@ class index extends React.Component {
       semester: Project.semester,
       first_second: Project.first_second
     })
+
+    this.props.fetchCsv({
+      year: Project.year,
+      semester: Project.semester,
+      first_second: Project.first_second
+    })
+    
   }
 
   render() {
@@ -38,7 +46,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchData: (payload) => dispatch(fetchData(payload))
+  fetchData: (payload) => dispatch(fetchData(payload)),
+  fetchCsv: (payload) => dispatch(fetchCsv(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(index))
