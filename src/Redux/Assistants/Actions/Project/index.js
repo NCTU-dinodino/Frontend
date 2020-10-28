@@ -54,6 +54,7 @@ export const fetchData = (payload) => dispatch => {
         },
       }))
     }))
+    dispatch(projectHandleChange({fetching: false}))
   }).catch( err => {
     window.alert("獲取專題資料失敗!");
     console.log(err);
@@ -77,8 +78,8 @@ export const fetchData = (payload) => dispatch => {
         },
       }))
     }))
+    dispatch(projectHandleChange({fetching: false}))
   });
-  dispatch(projectHandleChange({fetching: false}))
 }
 
 export const sendWarningMail = (payload) => dispatch => {
