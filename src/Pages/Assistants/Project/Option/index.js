@@ -20,7 +20,8 @@ import {
   setCPEStatus,
   fetchXLSX,
   fetchCsv,
-  uploadXLSX
+  uploadXLSX,
+  withdrawStudents
 } from '../../../../Redux/Assistants/Actions/Project'
 
 
@@ -38,6 +39,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { PROJECT_MAIL } from '../../../../Utils/constant';
 import DoneIcon from '@material-ui/icons/Done'
 import ClearIcon from '@material-ui/icons/Clear'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import { CSVLink } from "react-csv"
 import { base64encode } from '../../../../Utils'
@@ -361,6 +363,41 @@ class index extends React.Component {
     )
   }
 
+  getWithDrawAction(level) {
+    const { classes, Project } = this.props;
+    if (level !== "3") return null;
+    return <Tooltip 
+      title={"退回申請單"} 
+      placement="top" 
+      classes={{ tooltip: classes.tooltip }}
+    >
+      <IconButton 
+        onClick={
+          () => {
+            if (window.confirm("此操作無法返回, 將退選" + Project.select.length + "人並發送信件, 確定執行此動作?")) {
+              this.props.withdrawStudents({
+                people: Project.select.map( person => {
+                return {
+                  student_id: person.id,
+                  research_title: person.research_title,
+                  semester: Project.year + '-' +Project.semester,
+                  first_second: Project.first_second,
+                  type: person.type
+                }
+              }), refresh: {
+                "year": Project.year,
+                "semester": Project.semester,
+                "first_second": Project.first_second
+              } })
+            }
+          }
+        }
+      >
+        <DeleteIcon />
+      </IconButton>
+    </Tooltip>
+  }
+
   showLeftOptions() {
     const { Project, classes } = this.props;
     return (
@@ -427,6 +464,7 @@ class index extends React.Component {
         { Project.select.length !== 0 ? this.getMailAction( Project.select[0].level) : ''}
         { Project.select.length !== 0 ? this.getCPEAction( Project.select[0].level) : ''}
         { this.showMailModel() }
+        { Project.select.length !== 0 ? this.getWithDrawAction( Project.select[0].level) : ''}
       </div>
     )
  
@@ -596,7 +634,8 @@ const mapDispatchToProps = (dispatch) => ({
   setCPEStatus: (payload) => dispatch(setCPEStatus(payload)),
   fetchXLSX: (payload) => dispatch(fetchXLSX(payload)),
   fetchCsv: (payload) => dispatch(fetchCsv(payload)),
-  uploadXLSX: (payload) => dispatch(uploadXLSX(payload))
+  uploadXLSX: (payload) => dispatch(uploadXLSX(payload)),
+  withdrawStudents: (payload) => dispatch(withdrawStudents(payload))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(index))

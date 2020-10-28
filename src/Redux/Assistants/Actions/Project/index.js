@@ -21,7 +21,8 @@ const calProjectLevel = (project) => {
       student => ({ ...student,
         is_pending: project.is_pending,
         professor_name: project.professor_name,
-        professor_id: project.professor_id
+        professor_id: project.professor_id,
+        research_title: project.research_title
       })
     ).map( student => calStudentLevel(student) )
   }
@@ -145,14 +146,17 @@ export const fetchXLSX = (payload) => dispatch => {
 }
 
 export const withdrawStudents = (payload) => dispatch => {
+  let ok = true;
   Promise.all(payload.people.map( person =>
     axios.post('/assistants/research/delete', person).then( res => {
     }).catch( err => {
+      ok = false;
       window.alert("退申請單" + person.student_id + "失敗, 請連繫dino團隊!")
       console.log(err)
     })
   )).then( res => {
-    window.alert("退申請單操作成功!")
+    if (ok)
+      window.alert("退申請單操作成功!")
     dispatch(fetchData(payload.refresh))
   })
 }
