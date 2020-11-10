@@ -2,10 +2,11 @@ import {handleActions } from 'redux-actions'
 // import FakeData from '../../../../Resources/FakeData'
 
 const initalState = {
-	/******start for test*****
+	/******start for test***** 
 	formList: FakeData.FormList.map((e, i) => ({...e, id: i})),
   teacherList: FakeData.TeacherList.sort((a, b) => b.status - a.status),
   *********end for test***************/
+
 	formList:[],
 	teacherList: [],
 	isOld: false,
@@ -18,7 +19,7 @@ const initalState = {
 	transferTo: '',
 	return: '',
 	anchorEl: null,
-	fetching: true
+	fetching: false
 }
 
 export default handleActions({
