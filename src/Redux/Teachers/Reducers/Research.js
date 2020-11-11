@@ -340,8 +340,9 @@ const initialState = {
       ]
     },
   ],
-  loadChangeTeacherList: 1,
-  loadApplyList: 1,
+  // if loadxxx = 1, it wont show the info on website
+  loadChangeTeacherList: 0,
+  loadApplyList: 0,
   loadReacherList1: 1,
   loadReacherList2: 1
 }
