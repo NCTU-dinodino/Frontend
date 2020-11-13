@@ -187,10 +187,10 @@ class SendProject extends React.Component {
     const { title, members } = this.state
     const { projects, times } = this.props
 
-    if ( members[0].first_second === 1 ) 
-      window.alert('本學期請透過紙本申請專題！')
-    else 
-      window.alert('本學期請透過紙本申請更換專題教授！')
+    // if ( members[0].first_second === 1 ) 
+    //   window.alert('本學期請透過紙本申請專題！')
+    // else 
+    //   window.alert('本學期請透過紙本申請更換專題教授！')
     
 //    return 
 
