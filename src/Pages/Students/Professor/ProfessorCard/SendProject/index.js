@@ -192,7 +192,7 @@ class SendProject extends React.Component {
     else 
       window.alert('本學期請透過紙本申請更換專題教授！')
     
-    return 
+//    return 
 
     if (!title) {
       window.alert('請填寫專題題目！')
