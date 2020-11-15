@@ -208,7 +208,7 @@ const initialState = {
   research: {
     cs_number: 0,
     other_number: 0,
-    current_accept: "3",
+    current_accept: "6",
     groups: [
       {
         research_title: '---',
@@ -340,6 +340,7 @@ const initialState = {
       ]
     },
   ],
+  // if loadxxx = 1, it wont show the initial fake info on website
   loadChangeTeacherList: 1,
   loadApplyList: 1,
   loadReacherList1: 1,

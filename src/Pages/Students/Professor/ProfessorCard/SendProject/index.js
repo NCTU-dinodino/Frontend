@@ -187,12 +187,12 @@ class SendProject extends React.Component {
     const { title, members } = this.state
     const { projects, times } = this.props
 
-    if ( members[0].first_second === 1 ) 
-      window.alert('本學期請透過紙本申請專題！')
-    else 
-      window.alert('本學期請透過紙本申請更換專題教授！')
+    // if ( members[0].first_second === 1 ) 
+    //   window.alert('本學期請透過紙本申請專題！')
+    // else 
+    //   window.alert('本學期請透過紙本申請更換專題教授！')
     
-    return 
+//    return 
 
     if (!title) {
       window.alert('請填寫專題題目！')
@@ -204,10 +204,10 @@ class SendProject extends React.Component {
               + ('0' + today.getDate()).slice(-2) + 'T'
               + ('0' + today.getHours()).slice(-2) + ':'
               + ('0' + today.getMinutes()).slice(-2)
-    if ( date < begin || end < date ) {
-      window.alert('目前非專題申請時間！')
-      return
-    }
+    // if ( date < begin || end < date ) {
+    //   window.alert('目前非專題申請時間！')
+    //   return
+    // }
     let id = {}
     for (let i = 0; i < members.length; i++) {
       if ( id[members[i].student_id] === 1 ) {

@@ -48,7 +48,7 @@ class LongMenu extends React.Component {
             }
           }}
         >
-          {/* <SendProject
+          <SendProject
             professor={this.props.professor}
             firstSecond={1}
             closeMenu={this.handleClose}
@@ -57,7 +57,7 @@ class LongMenu extends React.Component {
             professor={this.props.professor}
             firstSecond={2}
             closeMenu={this.handleClose}
-          /> */}
+          />
           <ReviewProject
             professor={this.props.professor}
             closeMenu={this.handleClose}
