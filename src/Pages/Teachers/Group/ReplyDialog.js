@@ -140,10 +140,13 @@ class ReplyDialog extends React.Component {
           open={this.state.openWarning}
           onClose={this.handleCloseWarning}
         >
-          <div className={classes.warnTitle}>無法回覆該專題</div>
+          <div className={classes.warnTitle}>無法接受該專題</div>
           <DialogContent className={classes.buttonStyle}>
             專題生名額已達上限，無法接受該專題申請
           </DialogContent>
+          <Button className={classes.buttonStyle} onClick={() => this.handleClose(3)} color="primary">
+            拒絕此專題申請
+          </Button>
         </Dialog>
         <Dialog
           open={this.state.open}
