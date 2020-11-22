@@ -204,10 +204,10 @@ class SendProject extends React.Component {
               + ('0' + today.getDate()).slice(-2) + 'T'
               + ('0' + today.getHours()).slice(-2) + ':'
               + ('0' + today.getMinutes()).slice(-2)
-    // if ( date < begin || end < date ) {
-    //   window.alert('目前非專題申請時間！')
-    //   return
-    // }
+    if ( date < begin || end < date ) {
+      window.alert('目前非專題申請時間！')
+      return
+    }
     let id = {}
     for (let i = 0; i < members.length; i++) {
       if ( id[members[i].student_id] === 1 ) {
