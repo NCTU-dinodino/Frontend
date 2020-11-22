@@ -258,35 +258,7 @@ class index extends React.Component {
           </Tooltip>
         </div>
       )
-    } else {
-      return (
-        <div style={{ display: 'inline' }}>
-          <Tooltip 
-            title={ "CPE 不通過" } 
-            placement="top" 
-            classes={{ tooltip: classes.tooltip }}
-          >
-            <IconButton 
-              onClick={
-                () => this.props.setCPEStatus( { people: Project.select.map( person => {
-                  return {
-                    semester: Project.year + "-" + Project.semester,
-                    student_id: person.id,
-                    new_cpe_status: "2"
-                  }
-                }), refresh: {
-                  "year": Project.year,
-                  "semester": Project.semester,
-                  "first_second": Project.first_second
-                } })
-              }
-            >
-              <ClearIcon style={{ color: 'red' }}/>
-            </IconButton>
-          </Tooltip>
-        </div>
-      )
-    }
+    } else ;
   }
 
   showMailModel() {
