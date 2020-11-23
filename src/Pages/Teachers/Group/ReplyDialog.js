@@ -110,7 +110,8 @@ class ReplyDialog extends React.Component {
       year: this.props.year
     }).then(res => {
       console.log(res)
-      if(res.data.signal === '1') window.alert('送出成功!')
+      if(res.data.signal === '1') console.log('送出成功_1!')//window.alert('送出成功!')
+      else if(res.data.signal === 1) console.log('送出成功_2!')
       window.location.reload()
     }).catch(err => {
       console.log(err)
