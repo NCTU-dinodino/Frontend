@@ -23,7 +23,7 @@ const calProjectLevel = (project) => {
         professor_name: project.professor_name,
         professor_id: project.professor_id,
         research_title: project.title,
-        type: project.is_pending ? "0" : "1"
+        type: project.is_pending === "1" ? "0" : "1"
       })
     ).map( student => calStudentLevel(student) )
   }
