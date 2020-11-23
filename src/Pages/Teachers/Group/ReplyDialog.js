@@ -112,7 +112,7 @@ class ReplyDialog extends React.Component {
       console.log(res)
       if(res.data.signal === '1') console.log('送出成功_1!')//window.alert('送出成功!')
       else if(res.data.signal === 1) console.log('送出成功_2!')
-      window.location.reload()
+      //window.location.reload()
     }).catch(err => {
       console.log(err)
       window.alert('出現不明錯誤!!!')
