@@ -157,14 +157,36 @@ class index extends React.Component {
     </CSVLink>
   }
 
+  getRank(progress) {
+    switch(progress) {
+      case "WAITING_APPLY":
+        return 0;
+      case "FAIL_CPE":
+        return 1;
+      case "PENDING_CPE":
+        return 2;
+      case "PENDING_TEACHER":
+        return 3;
+      case "WAITING_ADD_COURSE":
+        return 4;
+      case "PENDING_SCORE":
+        return 5;
+      case "ACCEPTED":
+        return 6;
+      default:
+        window.alert("No such progress " + progress)
+    }
+  }
+
   getMailAction(progress) {
     const { classes } = this.props;
-    if (progress === "0" || progress === "1" || progress === "5") return null;
+    if (progress === "FAIL_CPE" || progress === "PENDING_CPE" || progress === "ACCEPTED") return null;
     return <Tooltip 
       title={
-        progress === "2" ? "寄信提醒教授審核" :
-        progress === "3" ? "寄信提醒學生選課" : 
-        progress === "4" ? "寄信提醒教授評分" : ''
+        progress === "WAITING_APPLY" ? "寄信提醒學生至dino申請" :
+        progress === "PENDING_TEACHER" ? "寄信提醒教授審核" :
+        progress === "WAITING_ADD_COURSE" ? "寄信提醒學生選課" : 
+        progress === "PENDING_SCORE" ? "寄信提醒教授評分" : ''
       } 
       placement="top" 
       classes={{ tooltip: classes.tooltip }}
@@ -179,7 +201,7 @@ class index extends React.Component {
 
   getCPEAction(progress) {
     const { classes, Project } = this.props;
-    if (progress === "0") {
+    if (progress === "FAIL_CPE") {
       return (
         <div style={{ display: 'inline' }}>
           <Tooltip 
@@ -207,7 +229,7 @@ class index extends React.Component {
           </Tooltip>
         </div>
       )
-    } else if (progress === "1") {
+    } else if (progress === "PENDING_CPE") {
       return (
         <div style={{ display: 'inline' }}>
           <Tooltip 
@@ -265,7 +287,7 @@ class index extends React.Component {
     const { classes, Project } = this.props;
     if (Project.select.length === 0) return null
     let people = [], mailType, mailTitle;
-    if (Project.select[0].progress === "2") {
+    if (Project.select[0].progress === "PENDING_TEACHER") {
       people = Project.select.map( person => {
         return {
           id: person.professor_id,
@@ -273,11 +295,11 @@ class index extends React.Component {
         }}).filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
       mailType = 2
       mailTitle = "提醒教授審核專題通知"
-    } else if (Project.select[0].progress === "3") {
+    } else if (Project.select[0].progress === "WAITING_ADD_COURSE") {
       mailType = Project.first_second === "1" ? 0 : 4
       people = Project.select
       mailTitle = "提醒同學選課通知"
-    } else if (Project.select[0].progress === "4") {
+    } else if (Project.select[0].progress === "PENDING_SCORE") {
       mailType = Project.first_second === "1" ? 3 : 5
       people = Project.select.map( person => {
         return {
@@ -340,7 +362,7 @@ class index extends React.Component {
 
   getWithDrawAction(progress) {
     const { classes, Project } = this.props;
-    if (progress !== "3") return null;
+    if (progress !== "WAITING_ADD_COURSE") return null;
     return <Tooltip 
       title={"退回申請單"} 
       placement="top" 
