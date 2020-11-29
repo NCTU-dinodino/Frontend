@@ -405,7 +405,7 @@ class index extends React.Component {
       }}>
         
         {
-          Project.select.length === 0 ? 
+          Project.select.length === 0 && Project.progress === "ALL" ? 
           <Tooltip 
             title={
               "請先選擇一個目標"
@@ -414,6 +414,28 @@ class index extends React.Component {
             classes={{ tooltip: classes.tooltip }}
           >
             <IconButton><BlankBoxIcon/></IconButton>
+          </Tooltip> : 
+          Project.select.length === 0 ? 
+          <Tooltip 
+            title={
+              "全選"
+            } 
+            placement="top" 
+            classes={{ tooltip: classes.tooltip }}
+          >
+            <IconButton
+              onClick={ () => 
+                this.props.projectHandleChange({
+                  select: Project.rawData.reduce(
+                    (res_arr, teacher) => 
+                      [ ...res_arr, ...[ ...teacher.accepted.projects, ...teacher.pending.projects ].reduce(
+                        (pro_arr, project) => 
+                          [ ...pro_arr, ...project.students.filter( student => student.progress === Project.progress ) ]
+                      , []) ]
+                  , [])
+                })
+              }
+            ><BlankBoxIcon/></IconButton>
           </Tooltip> : 
           Project.select.length === Project.rawData.reduce( (sum, teacher) =>
             sum + [ ...teacher.accepted.projects, ...teacher.pending.projects ].reduce( (pro_sum, project) => 
@@ -511,7 +533,7 @@ class index extends React.Component {
       {
         rightMenuItem(classes, Project.progress, '狀態', 
           (event) => {
-            this.prope.projectHandleChange({ progress: event.target.value })
+            this.prope.projectHandleChange({ progress: event.target.value, select: [] })
           },
           [
             {value: "ALL", label: "全部狀態"},
