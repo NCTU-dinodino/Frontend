@@ -116,81 +116,280 @@ class index extends React.Component {
     ) : label
   }
 
-  getActiveStep(level) {
-    if (level === "0")
-      return 0;
-    if (level === "1")
-      return 0;
-    if (level === "2")
-      return 1;
-    if (level === "3")
-      return 2;
-    if (level === "4")
-      return 3;
-    if (level === "5")
-      return 4;
-  }
-
-  getLabelPropsError(level, index) {
-    if (level === "0" && index === 0)
-      return true;
-  }
-
-  getLabel(level, index) {
-    if (index === 0) {
-      if (level === "0")
-        return <div style={{ color: 'red' }}>CPE 未通過</div>
-      else if (level === "1")
-        return <div style={{ color: 'blue' }}>CPE 待審核</div>
-      else
-        return <div style={{ color: 'green' }}>CPE 通過</div>
-    } else if (index === 1) {
-      if (level === "0" || level === "1")
-        return <div>教授審核</div>;
-      else if (level === "2")
-        return <div style={{ color: 'blue' }}>等待教授審核</div>
-      else
-        return <div style={{ color: 'green' }}>教授審核通過</div>
-    } else if (index === 2) {
-      if (level === "0" || level === "1" || level === "2")
-        return <div>選課</div>
-      else if (level === "3")
-        return <div style={{ color: 'blue' }}>等待學生選課</div>
-      else
-        return <div style={{ color: 'green' }}>學生已選課</div>
-    } else if (index === 3) {
-      if (level === "0" || level === "1" || level === "2" || level === "3")
-        return <div>評分</div>
-      else if (level === "4")
-        return <div style={{ color: 'blue' }}>等待評分</div>
-      else 
-        return <div style={{ color: 'green' }}>已評分</div>
+  getActionStep(progress) {
+    switch (progress) {
+      case "PENDING_APPLY":
+        return 0;
+      case "FAIL_CPE":
+        return 1;
+      case "PENDING_CPE":
+        return 1;
+      case "PENDING_TEACHER":
+        return 2;
+      case "WAITING_ADD_COURSE":
+        return 3;
+      case "PENDING_SCORE":
+        return 4;
+      case "ACCEPTED":
+        return 5;
+      default:
+        window.alert("Not such progress " + progress)
     }
   }
 
-  getIcon(level, index) {
+  getLabelPropsError(progress, index) {
+    if (progress === "FAIL_CPE")
+      if (index === 1)
+        return true;
+    return false;
+  }
+
+  getRank(progress) {
+    switch(progress) {
+      case "WAITING_APPLY":
+        return 0;
+      case "FAIL_CPE":
+        return 1;
+      case "PENDING_CPE":
+        return 2;
+      case "PENDING_TEACHER":
+        return 3;
+      case "WAITING_ADD_COURSE":
+        return 4;
+      case "PENDING_SCORE":
+        return 5;
+      case "ACCEPTED":
+        return 6;
+      default:
+        window.alert("No such progress " + progress)
+    }
+  }
+
+  /* label */
+  getLabelDOM(label, color) {
+    return <div style={{ color }}>{label}</div>
+  }
+
+  labelRangeStructure(progress, config) {
+    if (this.getRank(progress) < this.getRank(config.lb))
+      return this.getLabelDOM(config.lbLabel, config.lbColor);
+    else if (this.getRank(progress) > this.getRank(config.ub))
+      return this.getLabelDOM(config.ubLabel, config.ubColor);
+    else {
+      const targetList = config.items.filter( item => item.condition === progress )
+      if (targetList.length !== 0) {
+        const target = targetList[0]
+        return this.getLabelDOM(target.label, target.color)
+      } else
+        window.alert("No such progress " + progress)
+    }
+    return <div></div>
+  }
+
+  getLabel(progress, index) {
     if (index === 0) {
-      if (level === "0")
-        return <WarningIcon style={{ color: 'red' }} />
-      else if (level === "1") {
-        return <HourglassFullIcon style={{ color: 'blue' }} />
-      } else 
-        return <CheckCircleIcon style={{ color: 'green' }} />
+      return this.labelRangeStructure(
+        progress, {
+          lb: "WAITING_APPLY",
+          lbLabel: '',
+          lbColor: '',
+          ub: "WAITING_APPLY",
+          ublabel: '學生已在dino申請',
+          ubColor: 'green',
+          items: [{
+            condition: "WAITING_APPLY",
+            label: "等待學生在dino申請",
+            color: 'blue'
+          }]
+        }
+      )
     } else if (index === 1) {
-      if (level === "2")
-        return <HourglassFullIcon style={{ color: 'blue' }} />
-      else if (level === "3" || level === "4" || level === "5")
-        return <CheckCircleIcon style={{ color: 'green' }} />
+      return this.labelRangeStructure(
+        progress, {
+          lb: "FAIL_CPE",
+          lbLabel: 'CPE',
+          lbColor: '',
+          ub: "PENDING_CPE",
+          ublabel: 'CPE 通過',
+          ubColor: 'green',
+          items: [{
+            condition: "FAIL_CPE",
+            label: "CPE 未通過",
+            color: 'red'
+          }, {
+            condition: "PENDING_CPE",
+            label: "CPE 待審核",
+            color: 'blue'
+          }]
+        }
+      )
     } else if (index === 2) {
-      if (level === "3")
-        return <HourglassFullIcon style={{ color: 'blue' }} />
-      else if (level === "4" || level === "5")
-        return <CheckCircleIcon style={{ color: 'green' }} />
+      return this.labelRangeStructure(
+        progress, {
+          lb: "PENDING_TEACHER",
+          lbLabel: '教授審核',
+          lbColor: '',
+          ub: "PENDING_TEACHER",
+          ublabel: '教授審核通過',
+          ubColor: 'green',
+          items: [{
+            condition: "PENDING_TEACHER",
+            label: "等待教授審核",
+            color: 'blue'
+          }]
+        }
+      )
     } else if (index === 3) {
-      if (level === "4")
-        return <HourglassFullIcon style={{ color: 'blue' }} />
-      else if (level === "5")
-        return <CheckCircleIcon style={{ color: 'green' }} />
+      return this.labelRangeStructure(
+        progress, {
+          lb: "WAITING_ADD_COURSE",
+          lbLabel: '選課',
+          lbColor: '',
+          ub: "WAITING_ADD_COURSE",
+          ublabel: '學生已選課',
+          ubColor: 'green',
+          items: [{
+            condition: "WAITING_ADD_COURSE",
+            label: "等待學生選課",
+            color: 'blue'
+          }]
+        }
+      )
+    } else if (index === 4) {
+      return this.labelRangeStructure(
+        progress, {
+          lb: "PENDING_SCORE",
+          lbLabel: '評分',
+          lbColor: '',
+          ub: "PENDING_SCORE",
+          ublabel: '已評分',
+          ubColor: 'green',
+          items: [{
+            condition: "PENDING_SCORE",
+            label: "等待評分",
+            color: 'blue'
+          }]
+        }
+      )
+    }
+  }
+  /* label */
+  getIconDOM(iconType, color) {
+    switch (iconType) {
+      case "Warning":
+        return <WarningIcon style={{ color }} />
+      case "HourglassFull":
+        return <HourglassFullIcon style={{ color }} />
+      case "CheckCircle":
+        return <CheckCircleIcon style={{ color }} />
+      case "none":
+        return ''
+      default:
+        window.alert("No such icon type")
+    }
+    return ''
+  }
+  iconRangeStructure(progress, config) {
+    if (this.getRank(progress) < this.getRank(config.lb))
+      return this.getIconDOM(config.lbIconType, config.lbColor);
+    else if (this.getRank(progress) > this.getRank(config.ub))
+      return this.getIconDOM(config.ubIconType, config.ubColor);
+    else {
+      const targetList = config.items.filter( item => item.condition === progress )
+      if (targetList.length !== 0) {
+        const target = targetList[0]
+        return this.getIconDOM(target.iconType, target.color)
+      } else
+        window.alert("No such progress " + progress)
+    }
+    return <div></div>
+  }
+  /* icon */
+  getIcon(progress, index) {
+    if (index === 0) {
+      return this.iconRangeStructure(
+        progress, {
+          lb: "WAITING_APPLY",
+          lbIconType: 'HourglassFull',
+          lbColor: '',
+          ub: "WAITING_APPLY",
+          ubIconType: 'CheckCircle',
+          ubColor: 'green',
+          items: [{
+            condition: "WAITING_APPLY",
+            iconType: "HourglassFull",
+            color: 'blue'
+          }]
+        }
+      )
+    } else if (index === 1) {
+      return this.iconRangeStructure(
+        progress, {
+          lb: "FAIL_CPE",
+          lbIconType: 'none',
+          lbColor: '',
+          ub: "PENDING_CPE",
+          ubIconType: 'CheckCircle',
+          ubColor: 'green',
+          items: [{
+            condition: "FAIL_CPE",
+            iconType: "Warning",
+            color: 'red'
+          }, {
+            condition: "PENDING_CPE",
+            iconType: "HourglassFull",
+            color: 'blue'
+          }]
+        }
+      )
+    } else if (index === 2) {
+      return this.iconRangeStructure(
+        progress, {
+          lb: "PENDING_TEACHER",
+          lbIconType: 'none',
+          lbColor: '',
+          ub: "PENDING_TEACHER",
+          ubIconType: 'CheckCircle',
+          ubColor: 'green',
+          items: [{
+            condition: "PENDING_TEACHER",
+            iconType: "HourglassFull",
+            color: 'blue'
+          }]
+        }
+      )
+    } else if (index === 3) {
+      return this.iconRangeStructure(
+        progress, {
+          lb: "WAITING_ADD_COURSE",
+          lbIconType: 'none',
+          lbColor: '',
+          ub: "WAITING_ADD_COURSE",
+          ubIconType: 'CheckCircle',
+          ubColor: 'green',
+          items: [{
+            condition: "WAITING_ADD_COURSE",
+            iconType: "HourglassFull",
+            color: 'blue'
+          }]
+        }
+      )
+    } else if (index === 4) {
+      return this.iconRangeStructure(
+        progress, {
+          lb: "PENDING_SCORE",
+          lbIconType: 'none',
+          lbColor: '',
+          ub: "PENDING_SCORE",
+          ubIconType: 'CheckCircle',
+          ubColor: 'green',
+          items: [{
+            condition: "PENDING_SCORE",
+            iconType: "HourglassFull",
+            color: 'blue'
+          }]
+        }
+      )
     }
     return null
   }
@@ -198,7 +397,7 @@ class index extends React.Component {
   studentChip(student, idx) {
     const { classes, Project } = this.props;
     const steps = [
-      'CPE', '教授審核', '選課', '評分'
+      '在dino申請', 'CPE', '教授審核', '選課', '評分'
     ]
     return (
       <div 
@@ -247,19 +446,7 @@ class index extends React.Component {
         const labelProps = {};
 
         labelProps.error = this.getLabelPropsError(student.level, index);
-        // if (this.isStepOptional(index)) {
-        //   labelProps.optional = (
-        //     <Typography variant="caption" color="error">
-        //       Alert message
-        //     </Typography>
-        //   );
-        // }
-        // if (this.isStepFailed(index)) {
-        //   labelProps.error = true;
-        // }
-        // if (this.isStepSkipped(index)) {
-        //   props.completed = false;
-        // }
+
         return (
           <Step key={label} {...props}>
             <StepLabel {...labelProps}
@@ -323,9 +510,11 @@ class index extends React.Component {
     if (Project.rawData.length === 0)
       return <div>無資料</div>
     else
-      return Project.rawData.map( (teacher, idx) => {
-        return this.showTeacherPanel(teacher, idx);
-      })
+      return <React.Fragment>{
+        Project.rawData.map( (teacher, idx) => {
+          return this.showTeacherPanel(teacher, idx);
+        })
+      }</React.Fragment>
     /*
     Project.rawdata.map( (teacher, idx) => 
     <div key={idx} style={{ width: '100%', margin: '0 auto', marginBottom: '20px', background: 'red' }}>

@@ -7,7 +7,8 @@ const initalState = {
   input: "",
 	rawData: [
 
-	],
+  ],
+  notInSystem:[],
 	index: 1,
 	curdata: [],
   select: [],

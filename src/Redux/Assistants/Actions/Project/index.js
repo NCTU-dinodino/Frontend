@@ -3,6 +3,18 @@ import axios from 'axios'
 
 export const projectHandleChange = createAction('PROJECT_HANDLE_CHANGE');
 
+const calStudentProgress = (student) => {
+  return {
+    ...student,
+    progress:
+      student.cpe_status === "2" ? "FAIL_CPE" :
+      student.cpe_status === "0" ? "PENDING_CPE" :
+      student.is_pending === "1" ? "PENDING_TEACHER" :
+      student.add_status === "0" ? "WAITING_ADD_COURSE" :
+      student.score === null ? "PENDING_SCORE" : "ACCEPTED"
+  }
+}
+
 const calStudentLevel = (student) => {
   return {
     ...student,
@@ -29,9 +41,19 @@ const calProjectLevel = (project) => {
   }
 }
 
-const res = [
+export const fetchNotInSystemData = (payload) => dispatch => {
+  axios.post('/assistants/research/professorList', payload).then( res => {
+    dispatch(projectHandleChange({
+      select: [],
+      noInSystem: res.data
+    }))
+  }).catch( err => {
+    window.alert("獲取未申請dino名單資料失敗!");
+  })
+}
 
-]
+
+const res = []
 
 export const fetchData = (payload) => dispatch => {
   dispatch(projectHandleChange({fetching: true}))
@@ -59,6 +81,10 @@ export const fetchData = (payload) => dispatch => {
           })).map( project => calProjectLevel(project))
         },
       }))
+    }))
+    dispatch(fetchNotInSystemData({
+      semester: payload.year + '-' + payload.semester,
+      first_second: payload.first_second
     }))
     dispatch(projectHandleChange({fetching: false}))
   }).catch( err => {
