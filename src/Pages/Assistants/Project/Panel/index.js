@@ -409,7 +409,7 @@ class index extends React.Component {
       >
       <IconButton aria-label="delete" style={{ position: 'relative', top: -4, left: 5}}
         disabled={
-          Project.select.length === 0 ? false : Project.select[0].level !== student.level
+          Project.select.length === 0 ? false : Project.select[0].progress !== student.progress
         }
         onClick={ () =>
           Project.select.filter( obj => obj.id === student.id ).length !== 0 ? 
@@ -436,7 +436,7 @@ class index extends React.Component {
           </Avatar>
         }
       />
-      <Stepper activeStep={this.getActiveStep(student.level)} alternativeLabel
+      <Stepper activeStep={this.getActiveStep(student.progress)} alternativeLabel
         style={
           Project.select.filter( obj => obj.id === student.id ).length === 0 ? {} : { background: green[100]}
         }
@@ -445,14 +445,14 @@ class index extends React.Component {
         const props = {};
         const labelProps = {};
 
-        labelProps.error = this.getLabelPropsError(student.level, index);
+        labelProps.error = this.getLabelPropsError(student.progress, index);
 
         return (
           <Step key={label} {...props}>
             <StepLabel {...labelProps}
-              StepIconProps={ this.getIcon(student.level, index) !== null ? { icon: this.getIcon(student.level, index) } : ''}
+              StepIconProps={ this.getIcon(student.progress, index) !== null ? { icon: this.getIcon(student.progress, index) } : ''}
             >
-              {this.getLabel(student.level, index)}
+              {this.getLabel(student.progress, index)}
             </StepLabel>
           </Step>
         );
