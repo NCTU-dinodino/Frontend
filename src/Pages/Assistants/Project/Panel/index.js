@@ -116,7 +116,7 @@ class index extends React.Component {
     ) : label
   }
 
-  getActionStep(progress) {
+  getActiveStep(progress) {
     switch (progress) {
       case "PENDING_APPLY":
         return 0;
