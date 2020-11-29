@@ -157,14 +157,14 @@ class index extends React.Component {
     </CSVLink>
   }
 
-  getMailAction(level) {
+  getMailAction(progress) {
     const { classes } = this.props;
-    if (level === "0" || level === "1" || level === "5") return null;
+    if (progress === "0" || progress === "1" || progress === "5") return null;
     return <Tooltip 
       title={
-        level === "2" ? "寄信提醒教授審核" :
-        level === "3" ? "寄信提醒學生選課" : 
-        level === "4" ? "寄信提醒教授評分" : ''
+        progress === "2" ? "寄信提醒教授審核" :
+        progress === "3" ? "寄信提醒學生選課" : 
+        progress === "4" ? "寄信提醒教授評分" : ''
       } 
       placement="top" 
       classes={{ tooltip: classes.tooltip }}
@@ -177,9 +177,9 @@ class index extends React.Component {
     </Tooltip>
   }
 
-  getCPEAction(level) {
+  getCPEAction(progress) {
     const { classes, Project } = this.props;
-    if (level === "0") {
+    if (progress === "0") {
       return (
         <div style={{ display: 'inline' }}>
           <Tooltip 
@@ -207,7 +207,7 @@ class index extends React.Component {
           </Tooltip>
         </div>
       )
-    } else if (level === "1") {
+    } else if (progress === "1") {
       return (
         <div style={{ display: 'inline' }}>
           <Tooltip 
@@ -265,7 +265,7 @@ class index extends React.Component {
     const { classes, Project } = this.props;
     if (Project.select.length === 0) return null
     let people = [], mailType, mailTitle;
-    if (Project.select[0].level === "2") {
+    if (Project.select[0].progress === "2") {
       people = Project.select.map( person => {
         return {
           id: person.professor_id,
@@ -273,11 +273,11 @@ class index extends React.Component {
         }}).filter((v,i,a)=>a.findIndex(t=>(t.id === v.id))===i)
       mailType = 2
       mailTitle = "提醒教授審核專題通知"
-    } else if (Project.select[0].level === "3") {
+    } else if (Project.select[0].progress === "3") {
       mailType = Project.first_second === "1" ? 0 : 4
       people = Project.select
       mailTitle = "提醒同學選課通知"
-    } else if (Project.select[0].level === "4") {
+    } else if (Project.select[0].progress === "4") {
       mailType = Project.first_second === "1" ? 3 : 5
       people = Project.select.map( person => {
         return {
@@ -338,9 +338,9 @@ class index extends React.Component {
     )
   }
 
-  getWithDrawAction(level) {
+  getWithDrawAction(progress) {
     const { classes, Project } = this.props;
-    if (level !== "3") return null;
+    if (progress !== "3") return null;
     return <Tooltip 
       title={"退回申請單"} 
       placement="top" 
@@ -395,7 +395,7 @@ class index extends React.Component {
           </Tooltip> : 
           Project.select.length === Project.rawData.reduce( (sum, teacher) =>
             sum + [ ...teacher.accepted.projects, ...teacher.pending.projects ].reduce( (pro_sum, project) => 
-              pro_sum + project.students.reduce( (stu_sum, student) => stu_sum + (student.level === Project.select[0].level), 0)
+              pro_sum + project.students.reduce( (stu_sum, student) => stu_sum + (student.progress === Project.select[0].progress), 0)
             , 0)
           , 0) ? 
             <Tooltip 
@@ -426,7 +426,7 @@ class index extends React.Component {
                     (res_arr, teacher) => 
                       [ ...res_arr, ...[ ...teacher.accepted.projects, ...teacher.pending.projects ].reduce(
                         (pro_arr, project) => 
-                          [ ...pro_arr, ...project.students.filter( student => student.level === Project.select[0].level ) ]
+                          [ ...pro_arr, ...project.students.filter( student => student.progress === Project.select[0].progress ) ]
                       , []) ]
                   , [])
                 })
@@ -436,10 +436,10 @@ class index extends React.Component {
             </IconButton>
             </Tooltip >
         }
-        { Project.select.length !== 0 ? this.getMailAction( Project.select[0].level) : ''}
-        { Project.select.length !== 0 ? this.getCPEAction( Project.select[0].level) : ''}
+        { Project.select.length !== 0 ? this.getMailAction( Project.select[0].progress) : ''}
+        { Project.select.length !== 0 ? this.getCPEAction( Project.select[0].progress) : ''}
         { this.showMailModel() }
-        { Project.select.length !== 0 ? this.getWithDrawAction( Project.select[0].level) : ''}
+        { Project.select.length !== 0 ? this.getWithDrawAction( Project.select[0].progress) : ''}
       </div>
     )
  
