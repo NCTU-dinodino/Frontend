@@ -37,7 +37,7 @@ const calProjectLevel = (project) => {
         research_title: project.title,
         type: project.is_pending === "1" ? "0" : "1"
       })
-    ).map( student => calStudentLevel(student) )
+    ).map( student => calStudentProgress(student) )
   }
 }
 
