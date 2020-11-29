@@ -508,6 +508,23 @@ class index extends React.Component {
     const { classes, Project } = this.props;
     return (
       <div className={classes.sideIcon2}>
+      {
+        rightMenuItem(classes, Project.progress, '狀態', 
+          (event) => {
+            this.prope.projectHandleChange({ progress: event.target.value })
+          },
+          [
+            {value: "ALL", label: "全部狀態"},
+            {value: "WAITING_APPLY", label: "尚未至dino申請"},
+            {value: "FAIL_CPE", label: "CPE 未通過"},
+            {value: "PENDING_CPE", label: "CPE 待審核"},
+            {value: "PENDING_TEACHER", label: "等待教授審核"},
+            {value: "WAITING_ADD_COURSE", label: "等待學生選課"},
+            {value: "PENDING_SCORE", label: "等待教授評分"},
+            {value: "ACCEPTED", label: "已評分"}
+          ]
+        )
+      }
       <Tooltip 
         title={
           "下載上傳選課名單範例"

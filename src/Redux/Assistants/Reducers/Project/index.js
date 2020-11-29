@@ -8,6 +8,7 @@ const initalState = {
 	rawData: [
 
   ],
+  progress: "ALL",
   notInSystem:[],
 	index: 1,
 	curdata: [],
