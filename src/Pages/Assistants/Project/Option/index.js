@@ -533,7 +533,7 @@ class index extends React.Component {
       {
         rightMenuItem(classes, Project.progress, '狀態', 
           (event) => {
-            this.prope.projectHandleChange({ progress: event.target.value, select: [] })
+            this.props.projectHandleChange({ progress: event.target.value, select: [] })
           },
           [
             {value: "ALL", label: "全部狀態"},
