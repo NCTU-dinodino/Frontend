@@ -61,7 +61,7 @@ const styles = theme => ({
   sideIcon2: {
     position: 'absolute',
     top: 20,
-    left: 'calc(100vw - 750px)'
+    left: '90vw'
   },
   options: {
     background: '#f5f5f5',
