@@ -194,7 +194,7 @@ class index extends React.Component {
           lbLabel: '',
           lbColor: '',
           ub: "WAITING_APPLY",
-          ublabel: '學生已在dino申請',
+          ubLabel: '學生已在dino申請',
           ubColor: 'green',
           items: [{
             condition: "WAITING_APPLY",
@@ -210,7 +210,7 @@ class index extends React.Component {
           lbLabel: 'CPE',
           lbColor: '',
           ub: "PENDING_CPE",
-          ublabel: 'CPE 通過',
+          ubLabel: 'CPE 通過',
           ubColor: 'green',
           items: [{
             condition: "FAIL_CPE",
@@ -230,7 +230,7 @@ class index extends React.Component {
           lbLabel: '教授審核',
           lbColor: '',
           ub: "PENDING_TEACHER",
-          ublabel: '教授審核通過',
+          ubLabel: '教授審核通過',
           ubColor: 'green',
           items: [{
             condition: "PENDING_TEACHER",
@@ -246,7 +246,7 @@ class index extends React.Component {
           lbLabel: '選課',
           lbColor: '',
           ub: "WAITING_ADD_COURSE",
-          ublabel: '學生已選課',
+          ubLabel: '學生已選課',
           ubColor: 'green',
           items: [{
             condition: "WAITING_ADD_COURSE",
@@ -262,7 +262,7 @@ class index extends React.Component {
           lbLabel: '評分',
           lbColor: '',
           ub: "PENDING_SCORE",
-          ublabel: '已評分',
+          ubLabel: '已評分',
           ubColor: 'green',
           items: [{
             condition: "PENDING_SCORE",
@@ -274,6 +274,7 @@ class index extends React.Component {
     }
   }
   /* label */
+  /* icon */
   getIconDOM(iconType, color) {
     switch (iconType) {
       case "Warning":
@@ -304,7 +305,6 @@ class index extends React.Component {
     }
     return <div></div>
   }
-  /* icon */
   getIcon(progress, index) {
     if (index === 0) {
       return this.iconRangeStructure(
@@ -393,7 +393,7 @@ class index extends React.Component {
     }
     return null
   }
-
+  /* icon */
   studentChip(student, idx) {
     const { classes, Project } = this.props;
     const steps = [
