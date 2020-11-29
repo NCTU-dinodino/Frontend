@@ -468,7 +468,7 @@ class index extends React.Component {
       <div style={{ fontSize: 20, color: 'black' }} >專題題目：{project.title} </div>
       <div style={{ display: 'block' }}>
         {project.students
-        .filter( student => this.Project.progress === "ALL" || this.Project.progress === student.progress )
+        .filter( student => this.props.Project.progress === "ALL" || this.props.Project.progress === student.progress )
         .map( student => { 
           return this.studentChip(student)
         })}
