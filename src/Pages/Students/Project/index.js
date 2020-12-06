@@ -72,8 +72,8 @@ class Index extends React.Component {
             default:
               break
           }
+          messages += response.status
         })
-        messages += response.status
 
         window.alert(messages)
       }
