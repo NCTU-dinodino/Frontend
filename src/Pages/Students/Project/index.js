@@ -55,7 +55,7 @@ class Index extends React.Component {
         newResponse.forEach((response) => {
           switch (response.status) {
             case 3:
-              messages += `\n${response.student_id} 未修過專題一`
+              messages += `\n${response.student_id} 成員資料錯誤`
               break
             case 4:
               messages += `\n${response.student_id} 本學期重複提交申請`
@@ -73,6 +73,7 @@ class Index extends React.Component {
               break
           }
         })
+        messages += response.status
 
         window.alert(messages)
       }
