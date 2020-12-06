@@ -72,14 +72,6 @@ const styles = theme => ({
 });
 
 class index extends React.Component {
-  selectAll = () => {
-    const { Project } = this.props;
-    if (Project.selectAll) {
-      this.props.projectHandleChange({select: [], selectAll: false})
-    } else {
-      this.props.projectHandleChange({select: Project.curdata, selectAll: true})
-    }
-  }
   warningText = (text, css) => {
     return (
       <div style = {{ display: 'flex', width: '100%', padding: '20px' }}>
