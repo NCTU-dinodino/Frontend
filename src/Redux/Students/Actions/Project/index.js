@@ -35,21 +35,13 @@ export const newProject = (payload) => dispatch => {
     .then(res => {
       dispatch(actions.project.new.store(res.data))
       let qualified = false
-      if (payload.members[0].first_second === 2)
-        qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3 || student.status === 4))
-      else
-        qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3))
-
+      qualified = res.data.every((student) => (student.status === 1 || student.status === 2 || student.status === 3))
       if (qualified) {
         axios.post('/students/research/create', payload)
           .then(res => dispatch(actions.project.new.setStatus(FETCHING_STATUS.DONE)))
           .catch(err => {
             console.log(err)
-            // dispatch(actions.project.new.store([{ student_id: '0516000', status: 3 }, { student_id: '0616000', status: 4 }]))
-            if ( err.response.status == 403 )
-              dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
-            else  
-              dispatch(actions.project.new.setStatus(4))
+            dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
           })
       } else {
         dispatch(actions.project.new.setStatus(FETCHING_STATUS.ERROR))
